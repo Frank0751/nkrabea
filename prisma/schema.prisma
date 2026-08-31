@@ -1,0 +1,38 @@
+// Prisma schema for Nkrabea Culture & Arts Ensemble website
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String   @default("General Enquiry")
+  message   String
+  intent    String   @default("general") // general | booking | workshop | partnership | support
+  createdAt DateTime @default(now())
+}
+
+model NewsletterSubscriber {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now())
+}
+
+model BookingRequest {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  eventType String   // performance | workshop | residency | festival | corporate
+  date      String?
+  message   String
+  createdAt DateTime @default(now())
+}
