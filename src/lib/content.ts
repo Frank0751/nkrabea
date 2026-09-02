@@ -1,196 +1,367 @@
-// Content data for Nkrabea Culture & Arts Ensemble
-// All copy grounded in research: Facebook About, SID Festival profile, post captions.
+// Content for Nkrabea Culture and Arts Ensemble LBG.
+//
+// SOURCE OF TRUTH: "Nkrabea Organisational Profile & Website Brief",
+// supplied by Nkrabea, September 2026. Everything in the CONFIRMED sections
+// below is taken directly from that document.
+//
+// Anything the organisation has not evidenced is either removed or parked in
+// the NEEDS EVIDENCE section at the bottom, flagged, and not rendered. A
+// non-profit asking the public for money cannot publish a claim it cannot
+// stand behind.
+
+/* ===========================================================================
+   CONFIRMED - from Nkrabea's own organisational profile
+   =========================================================================== */
 
 export const ORG = {
-  name: "Nkrabea Culture & Arts Ensemble",
+  legalName: "Nkrabea Culture and Arts Ensemble LBG",
+  name: "Nkrabea Culture and Arts Ensemble",
   shortName: "Nkrabea",
-  tagline: "Impacting Lives Through Culture & The Arts",
-  mission:
-    "Translating Ghanaian culture into something the world can feel and understand.",
-  foundedYear: 1995,
-  type: "Non-profit organisation",
-  location: "GO-001-2360, Number AE 5, Adenta Village, Accra, Ghana",
-  phones: ["+233 20 852 2120", "+233 55 612 2230"],
+
+  /** Akan. The organisation is named for it. */
+  meaning: "Destiny",
+
+  motto: "Impacting Lives Through Culture and the Arts",
+  tagline: "Impacting Lives Through Culture and the Arts",
+
+  type: "Registered non-governmental organisation",
+  registration: "Companies Act, 2019 (Act 992)",
+  incorporated: "14 May 2021",
+  areaOfOperation: "National",
+
+  headOffice:
+    "AE 5 Adenta Village, near Adenta Village Square, Adentan Municipal, Greater Accra Region, Ghana",
+  postalAddress: "P.O. Box GP 21270, Accra, Ghana",
+
+  phones: [
+    "+233 (0) 302 986 038",
+    "+233 (0) 208 522 120",
+    "+233 (0) 246 287 975",
+    "+233 (0) 556 122 230",
+  ],
+
   email: "nkrabea.cna@gmail.com",
-  website: "nkrabeacultureandarts.org",
-  social: {
-    instagram: "https://www.instagram.com/nkra.bea",
-    facebook:
-      "https://www.facebook.com/profile.php?id=61552136214349",
-    tiktok: "https://www.tiktok.com/@hayeoye_",
-  },
+
+  /** For donations. Nkrabea's own MTN MoMo line. */
+  momo: "0597431527",
+
+  // Nkrabea's brief states they have no website, domain or established social
+  // handles yet. Nothing is linked until each one is confirmed live.
+  website: null as string | null,
+  social: {} as Record<string, string>,
 };
 
-export const STATS = [
-  { value: "1995", label: "Founded in Accra" },
-  { value: "30", label: "Years preserving heritage" },
-  { value: "40+", label: "Dance and drum forms" },
-  { value: "12", label: "Countries performed in" },
-];
-
-export const ABOUT = {
-  lead: "A non-profit ensemble keeping the rhythm of Ghana alive for the next generation.",
-  body: [
-    "Nkrabea Culture & Arts Ensemble was formed in 1995 with a clear vision: to preserve traditional African dance forms and carry them to an international stage, while building a pool of professional dancers who live from their craft.",
-    "We are rooted in Adenta, Accra, and our work spans performance, education and community development. From royal court traditions like Adowa and Kete to the energy of Ghanaian street dance, we translate heritage into movement that audiences everywhere can feel.",
-    "As a non-governmental organisation, every booking, workshop and partnership funds the training of young artists and the documentation of forms that risk being lost.",
+export const IDENTITY = {
+  lead: "A Ghanaian NGO empowering marginalised communities through culture and the arts.",
+  whoWeAre: [
+    "Nkrabea Culture and Arts Ensemble LBG is a registered Ghanaian non-governmental organisation. In the Akan language, Nkrabea means destiny: the belief that our path is shaped by a purpose connecting our past to our future.",
+    "Our work is to reach back into the rich soil of Ghanaian culture, like the Sankofa bird, and use its wisdom, art and power to build a more inclusive future.",
+    "We harness the transformative power of culture and the creative arts as tools for socio-economic development, with a particular commitment to Ghana's most marginalised communities. Our area of operation is national.",
   ],
 };
 
-export type Program = {
-  id: string;
-  name: string;
-  origin: string;
-  summary: string;
-  details: string[];
-  image: string;
-  meaning: string;
-  instruments: string[];
-  rhythm: string;
-  when: string;
-};
+export const MISSION =
+  "To showcase, amplify and promote Ghanaian culture and arts dynamism as a tool and contribution to socio-economic and cultural development.";
 
-export const PROGRAMS: Program[] = [
-  {
-    id: "adowa",
-    name: "Adowa",
-    origin: "Akan, Ashanti Region",
-    summary:
-      "An elegant Akan dance of expression, performed at funerals and gatherings. Graceful hand gestures carry proverbs the audience reads in motion.",
-    details: [
-      "Symbolic hand gestures encoding proverbs",
-      "Performed by soloists and ensemble",
-      "Accompanied by fontomfrom and apentema drums",
-    ],
-    image: "/images/program-adowa.png",
-    meaning:
-      "Adowa is the dance of condolence and celebration alike. Every gesture is a word, and a full performance can read as a proverb spoken through the body. Audiences who understand the language of the hands hear a story without a single spoken line.",
-    instruments: ["Fontomfrom", "Apentema", "Donno (hourglass drum)", "Bells"],
-    rhythm: "Slow, measured 4/4 with improvisational accents",
-    when: "Funerals, festivals, durbars and state gatherings",
-  },
-  {
-    id: "kete",
-    name: "Kete",
-    origin: "Ashanti Royal Court",
-    summary:
-      "A royal court dance-drumming tradition held at the court of the Asantehene. Refinement, restraint and precision define every performance.",
-    details: [
-      "Court music of the Asantehene",
-      "Pipes, vocals and a family of drums",
-      "Performed for chiefs and state occasions",
-    ],
-    image: "/images/program-kete.png",
-    meaning:
-      "Kete is court music in the strictest sense, held at the court of the Asantehene in Kumasi. To perform it is to carry centuries of protocol. The restraint of the dancers is itself a statement of respect for the stool.",
-    instruments: ["Kete family of drums", "Atumpan (talking drums)", "Bamboo pipes", "Vocals"],
-    rhythm: "Layered, interlocking patterns in 6/8",
-    when: "Royal court occasions, chiefly installations, festivals",
-  },
-  {
-    id: "drumming",
-    name: "Traditional Drumming",
-    origin: "Across Ghana",
-    summary:
-      "Fontomfrom, kete, apentema and atumpan. The drum speaks before the dancer moves, carrying messages older than the written word.",
-    details: [
-      "Talking drums that carry language",
-      "Call and response ensemble structure",
-      "Foundation training for every ensemble member",
-    ],
-    image: "/images/program-drumming.png",
-    meaning:
-      "In Akan tradition the drum is not an accompaniment, it is the speaker. Atumpan drums reproduce the tones of Twi, so a skilled drummer can praise a chief, summon a gathering, or recount a lineage. Learning to drum is learning to speak.",
-    instruments: ["Fontomfrom", "Atumpan", "Apentema", "Brenko", "Donno"],
-    rhythm: "Polyrhythmic, call and response, tempo led by the master drummer",
-    when: "All ceremonial and educational contexts",
-  },
-  {
-    id: "street",
-    name: "Cultural Street Dance",
-    origin: "Contemporary Accra",
-    summary:
-      "Where tradition meets the street. A fusion programme that brings Adowa footwork and drum rhythm into modern Ghanaian movement.",
-    details: [
-      "Fusion of traditional and contemporary",
-      "Designed for festivals and public stages",
-      "Built by and for young artists",
-    ],
-    image: "/images/program-street.png",
-    meaning:
-      "Heritage only survives if the next generation makes it their own. Our street dance programme takes the footwork of Adowa and the polyrhythm of the court and sets them in conversation with contemporary Accra. It is tradition, but it is not stuck.",
-    instruments: ["Traditional drums", "Modern percussion", "Vocal hooks"],
-    rhythm: "Hybrid, built on traditional 6/8 with contemporary breakdowns",
-    when: "Public stages, festivals, youth showcases",
-  },
-];
+export const VISION =
+  "To build the biggest Culture and Arts Centre and Village in Ghana for the preservation, promotion and education of Ghanaian culture and the arts, both locally and internationally, to impact lives.";
 
-export type ServiceLine = {
+export const VALUES = [
+  "Service",
+  "Integrity",
+  "Accountability",
+  "Love",
+  "Unity",
+  "Creativity",
+  "Teamwork",
+] as const;
+
+export type FocusArea = {
   id: string;
   title: string;
   description: string;
-  deliverables: string[];
 };
 
-export const SERVICES: ServiceLine[] = [
+export const STRATEGIC_FOCUS: FocusArea[] = [
   {
-    id: "performance",
-    title: "Live Performances",
+    id: "economic",
+    title: "Economic empowerment",
     description:
-      "Full ensemble bookings for festivals, theatres, state functions and cultural exchanges. 8 to 25 performers, scalable to your stage.",
-    deliverables: [
-      "Choreographed 20 to 60 minute sets",
-      "Live drumming and vocals",
-      "Full costume and instrument logistics",
-    ],
+      "Accessible, marketable skills that create sustainable livelihoods.",
   },
   {
-    id: "workshop",
-    title: "Workshops & Residencies",
+    id: "inclusion",
+    title: "Social inclusion",
     description:
-      "Hands-on teaching for schools, universities and international visitors. Learn movement, rhythm and the meaning behind them.",
-    deliverables: [
-      "Beginner to advanced tracks",
-      "Movement and drumming streams",
-      "Custom residency design",
-    ],
+      "Using culture and the arts to build dignity, visibility and participation.",
   },
   {
-    id: "education",
-    title: "Youth Academy",
+    id: "wellbeing",
+    title: "Health and wellbeing support",
     description:
-      "Our year round training programme for young Ghanaian artists. Free and subsidised places, funded by our performance revenue.",
-    deliverables: [
-      "Structured multi year curriculum",
-      "Master teachers from the ensemble",
-      "Pathway to professional performance",
-    ],
-  },
-  {
-    id: "documentation",
-    title: "Heritage Documentation",
-    description:
-      "We record elders, master drummers and disappearing forms. Audio, video and notation, archived for future generations.",
-    deliverables: [
-      "Field recordings across regions",
-      "Dance notation and translation",
-      "Open archive access for scholars",
-    ],
+      "Education, facilities and resources delivered through the arts.",
   },
 ];
 
-export type EnsembleMember = {
+/** Constitutional objectives, all pursued through culture and the arts. */
+export const WHAT_WE_DO = [
+  "Education and sensitisation of communities on pressing societal issues",
+  "Livelihood and youth empowerment programmes",
+  "Inclusive programmes and activities supporting persons with disabilities",
+  "Support for women, girls and underprivileged communities",
+  "Women's, children's and human-rights protection and advocacy",
+  "Community development and social intervention projects",
+  "Health education and the provision of facilities and resources",
+  "Promotion of Ghanaian culture, heritage and tourism, locally and globally",
+  "Support for orphans and vulnerable children",
+];
+
+/* ---------------------------------------------------------------------------
+   Leadership and governance
+   --------------------------------------------------------------------------- */
+
+export type Person = {
   name: string;
   role: string;
-  focus: string;
+  bio?: string;
+  /** Nkrabea: "Photos are not complete... leave the others blank for now." */
+  image?: string;
 };
 
-export const ENSEMBLE: EnsembleMember[] = [
-  { name: "The Master Drummers", role: "Rhythmic Foundation", focus: "Fontomfrom, kete, atumpan" },
-  { name: "Principal Dancers", role: "Lead Movement", focus: "Adowa, kete, contemporary" },
-  { name: "Vocalists", role: "Song & Call", focus: "Akan oral tradition" },
-  { name: "Apprentice Company", role: "Next Generation", focus: "Youth Academy graduates" },
+export const FOUNDERS: Person[] = [
+  {
+    name: "Rtd Capt. John Nkrabea Effah-Dartey",
+    role: "Founder and Board Member",
+    bio: "A lawyer with a lifelong passion for music, dance and the arts. The organisation carries his middle name, Nkrabea.",
+  },
+  {
+    name: "Ms. Sarah Serwaa Asamoah",
+    role: "Co-Founder, Board Member and Executive Director",
+    bio: "An entrepreneur and philanthropist. She corresponds on behalf of the Board and the Management Team.",
+  },
 ];
+
+export const BOARD: Person[] = [
+  { name: "John Nkrabea Effah-Dartey", role: "Board Member (Director)" },
+  {
+    name: "Sarah Serwaa Asamoah",
+    role: "Board Member (Director) and Executive Director",
+  },
+  { name: "Monica Doku", role: "Board Member and Board Secretary" },
+  { name: "Paulina Afognuo Agyei", role: "Board Member" },
+  { name: "Rohodalyn Manza Cudjoe", role: "Board Member" },
+];
+
+export const GOVERNANCE_NOTE =
+  "Nkrabea is governed by an Executive Council, the highest decision-making body, supported by an eight member management team that runs day-to-day operations.";
+
+/** Roles only. Nkrabea has not yet supplied names for the management team. */
+export const MANAGEMENT_ROLES = [
+  "Executive Director",
+  "Project Coordinator",
+  "Programmes Manager",
+  "Administrative Manager",
+  "Accounts Manager",
+  "Administrative Assistant",
+  "Field Assistant",
+  "Front Office Manager",
+];
+
+/* ---------------------------------------------------------------------------
+   Programmes
+   --------------------------------------------------------------------------- */
+
+export type Programme = {
+  id: string;
+  name: string;
+  status: "running" | "fundraising" | "vision";
+  summary: string;
+  details: string[];
+  /** Stated programme value, where Nkrabea has published one. */
+  value?: string;
+  sdgs?: number[];
+  image?: string;
+};
+
+export const PROGRAMMES: Programme[] = [
+  {
+    id: "cape-coast-deaf",
+    name: "Skills Development Programme, Cape Coast School for the Deaf with Blind Unit",
+    status: "fundraising",
+    summary:
+      "A 12-month, school-calendar-integrated programme equipping 100 students with vocational proficiency in two high value Ghanaian art forms.",
+    details: [
+      "Kente weaving for 50 students",
+      "Drumming and dance for 50 students, a cultural group development using vibrotactile technology so Deaf and hard-of-hearing students can feel and perform rhythm",
+      "All equipment procured remains permanently at the school as an institutional asset",
+    ],
+    value: "GHS 900,848",
+    sdgs: [4, 8, 10, 17],
+  },
+  {
+    id: "pwd-soap-production",
+    name: "Accessible Soap Production and Entrepreneurial Skills Training for PWDs",
+    status: "fundraising",
+    summary:
+      "A livelihoods programme training persons with disabilities in diversified soap production, combined with culturally infused entrepreneurship.",
+    details: [
+      "Targets 500 persons with disabilities across Greater Accra, Ashanti, Central and Eastern regions",
+      "Intensive three-day workshops covering eight or more soap and hygiene product varieties, plus business skills",
+      "Label and packaging design using Adinkra symbols, local fragrances and storytelling that positions products as distinctive Ghanaian goods",
+      "Aims to seed 90 new PWD-led micro-enterprises and link at least 250 trained artisans to markets",
+    ],
+  },
+  {
+    id: "culture-arts-centre",
+    name: "A Culture and Arts Centre and Village",
+    status: "vision",
+    summary:
+      "Our long-term ambition: the biggest Culture and Arts Centre and Village in Ghana, a landmark for cultural preservation, education and diaspora tourism.",
+    details: [
+      "The destination all our work is building toward",
+      "Preservation, promotion and education of Ghanaian culture and the arts",
+    ],
+  },
+];
+
+/* ---------------------------------------------------------------------------
+   Audiences the site is written for
+   --------------------------------------------------------------------------- */
+
+export const AUDIENCES = [
+  {
+    id: "funders",
+    title: "Corporate sponsors and grant funders",
+    need: "Credibility, programmes and impact, quickly.",
+  },
+  {
+    id: "institutions",
+    title: "Government and institutional partners",
+    need: "GES, District Assemblies, ministries and the Office of Diaspora Affairs.",
+  },
+  {
+    id: "diaspora",
+    title: "The Ghanaian diaspora",
+    need: "Participants in and supporters of our cultural programmes.",
+  },
+  {
+    id: "communities",
+    title: "Beneficiaries and the public",
+    need: "The schools and communities we serve.",
+  },
+];
+
+/* ---------------------------------------------------------------------------
+   Figures.
+   Every entry states plainly whether it is a target or an achieved result.
+   Presenting a programme target as an accomplishment is the exact failure
+   this rebuild exists to remove.
+   --------------------------------------------------------------------------- */
+
+export type Figure = {
+  value: string;
+  label: string;
+  kind: "target" | "achieved" | "fact";
+  /** Where the number comes from. Rendered as a note where appropriate. */
+  source: string;
+};
+
+export const FIGURES: Figure[] = [
+  {
+    value: "2021",
+    label: "Incorporated under Act 992",
+    kind: "fact",
+    source: "Certificate of incorporation, 14 May 2021",
+  },
+  {
+    value: "100",
+    label: "Students to be trained at Cape Coast School for the Deaf",
+    kind: "target",
+    source: "Skills Development Programme design",
+  },
+  {
+    value: "500",
+    label: "Persons with disabilities to be trained across four regions",
+    kind: "target",
+    source: "Accessible Soap Production programme design",
+  },
+  {
+    value: "90",
+    label: "PWD-led micro-enterprises to be seeded",
+    kind: "target",
+    source: "Accessible Soap Production programme design",
+  },
+];
+
+/* ===========================================================================
+   NEEDS EVIDENCE - not rendered anywhere until Nkrabea confirms
+   ===========================================================================
+
+   Each item below was either carried in the accepted prototype without a
+   source, or named by Nkrabea as a credibility marker without supporting
+   documentation. Nothing here should reach the live site until it is
+   evidenced in writing.
+   =========================================================================== */
+
+export type UnverifiedClaim = {
+  claim: string;
+  origin: string;
+  needed: string;
+};
+
+export const NEEDS_EVIDENCE: UnverifiedClaim[] = [
+  {
+    claim: "Founded 1995 / 30 years preserving heritage",
+    origin: "Accepted prototype homepage and about page",
+    needed:
+      "Nkrabea's profile states incorporation on 14 May 2021 and gives no earlier founding date. If the group performed informally from 1995, the site needs a form of words that distinguishes the two, confirmed by Nkrabea.",
+  },
+  {
+    claim: "40+ dance and drum forms, performances in 12 countries",
+    origin: "Accepted prototype impact statistics",
+    needed: "A verifiable count, or the figures are dropped.",
+  },
+  {
+    claim:
+      "Partnership with the Ghana Education Service, referenced as a headline credibility marker",
+    origin: "Nkrabea's brief, Homepage and Our Impact sections",
+    needed:
+      "A dated agreement, letter or public record naming the partnership before it appears on the homepage.",
+  },
+  {
+    claim: "Over 90% of persons with disabilities in Ghana are unemployed",
+    origin: "Nkrabea's brief, suggested homepage credibility marker",
+    needed:
+      "A citable source, since the figure would be published as fact by a registered NGO.",
+  },
+  {
+    claim:
+      "Press and partner strip: SID Festival, National Theatre Ghana, Ghana Dance Ensemble, Institute of African Studies, Black Star Square, Panafest",
+    origin: "Accepted prototype",
+    needed:
+      "Evidence of a relationship with each. None appear in Nkrabea's own profile.",
+  },
+  {
+    claim:
+      "Programme detail for Adowa, Kete, traditional drumming and cultural street dance, including instrument lists and rhythm notes",
+    origin:
+      "Accepted prototype, researched from the organisation's Facebook page",
+    needed:
+      "Review with Nkrabea for cultural accuracy. These art forms do not appear in the official profile, whose programmes are the Cape Coast skills programme, PWD soap production and the Culture and Arts Centre.",
+  },
+  {
+    claim: "Four dated events at National Theatre, Black Star Square and Adenta Community Stage",
+    origin: "Accepted prototype events calendar",
+    needed:
+      "All four dates had already passed, two still marked open for booking. Removed. Replace with confirmed listings only.",
+  },
+];
+
+/* ---------------------------------------------------------------------------
+   Empty until Nkrabea supplies real material.
+   Kept as typed exports so the components that consume them keep compiling
+   and render their empty states rather than fabricated content.
+   --------------------------------------------------------------------------- */
 
 export type EventItem = {
   id: string;
@@ -203,220 +374,23 @@ export type EventItem = {
   status: "upcoming" | "open" | "past";
 };
 
-export const EVENTS: EventItem[] = [
-  {
-    id: "e1",
-    date: "2025-12-14",
-    day: "14",
-    month: "Dec",
-    title: "Heritage Night: Adowa & Kete",
-    venue: "National Theatre, Accra",
-    type: "Performance",
-    status: "upcoming",
-  },
-  {
-    id: "e2",
-    date: "2026-01-18",
-    day: "18",
-    month: "Jan",
-    title: "Youth Academy Open Showcase",
-    venue: "Adenta Community Stage",
-    type: "Showcase",
-    status: "open",
-  },
-  {
-    id: "e3",
-    date: "2026-02-07",
-    day: "07",
-    month: "Feb",
-    title: "Drumming Masterclass Series",
-    venue: "Nkrabea Studio, Adenta",
-    type: "Workshop",
-    status: "open",
-  },
-  {
-    id: "e4",
-    date: "2026-03-06",
-    day: "06",
-    month: "Mar",
-    title: "Independence Day Cultural Street Dance",
-    venue: "Black Star Square, Accra",
-    type: "Festival",
-    status: "upcoming",
-  },
-];
+/** No confirmed listings yet. The prototype's four had all already happened. */
+export const EVENTS: EventItem[] = [];
 
 export type Testimonial = {
   quote: string;
   author: string;
   role: string;
+  organisation?: string;
 };
 
-export const TESTIMONIALS: Testimonial[] = [
-  {
-    quote:
-      "The rhythm, the movement, the elegance. Adowa and Kete in motion. Nkrabea brings the court to the stage with a discipline you rarely see.",
-    author: "Festival Programmer",
-    role: "West African Arts Circuit",
-  },
-  {
-    quote:
-      "Our students did not just learn steps. They learned what a proverb sounds like when it is danced. That changed how they see heritage.",
-    author: "University Faculty Lead",
-    role: "Diaspora Residency Partner",
-  },
-  {
-    quote:
-      "Booking Nkrabea funded a full year of training for two young artists. That is the model working exactly as it should.",
-    author: "Corporate Sponsor",
-    role: "Annual Gala Host",
-  },
-];
+/** Awaiting three named testimonials with written permission to publish. */
+export const TESTIMONIALS: Testimonial[] = [];
 
-export type Milestone = {
-  year: string;
-  title: string;
-  description: string;
-};
+export type PressItem = { name: string; context: string };
 
-export const MILESTONES: Milestone[] = [
-  {
-    year: "1995",
-    title: "The Ensemble Forms",
-    description:
-      "A group of dancers and drummers gather in Accra with one aim: take traditional forms to the world stage.",
-  },
-  {
-    year: "2004",
-    title: "First International Tour",
-    description:
-      "Nkrabea performs across Europe, carrying Adowa and Kete to audiences who had never seen live court drumming.",
-  },
-  {
-    year: "2015",
-    title: "Youth Academy Launches",
-    description:
-      "Performance revenue funds a free training programme for young Ghanaian artists, the future of the ensemble.",
-  },
-  {
-    year: "2024",
-    title: "Heritage Archive Begins",
-    description:
-      "A long term project to record elders and disappearing forms starts, building an open archive for scholars.",
-  },
-];
-
-export type GalleryItem = {
-  src: string;
-  alt: string;
-  caption: string;
-  span: "tall" | "wide" | "square";
-};
-
-export const GALLERY: GalleryItem[] = [
-  {
-    src: "/images/social/fb-1.jpg",
-    alt: "Nkrabea dancers in kente cloth and beaded necklaces with camera crew",
-    caption: "Dancers in full regalia",
-    span: "wide",
-  },
-  {
-    src: "/images/social/fb-2.jpg",
-    alt: "Close up of a Nkrabea dancer mid movement with beadwork",
-    caption: "Movement in detail",
-    span: "tall",
-  },
-  {
-    src: "/images/social/fb-reel.jpg",
-    alt: "Nkrabea dancer performing with drummers at a community celebration",
-    caption: "Live at a celebration",
-    span: "wide",
-  },
-  {
-    src: "/images/social/fb-3.jpg",
-    alt: "Art exhibition featuring a red robed figure painting",
-    caption: "Visual arts collaboration",
-    span: "square",
-  },
-  {
-    src: "/images/social/fb-4.jpg",
-    alt: "Circular painting titled Kosilodja with golden masks",
-    caption: "Kosilodja, a cultural work",
-    span: "square",
-  },
-  {
-    src: "/images/social/fb-5.jpg",
-    alt: "Installation of mixed media masks and textile collage",
-    caption: "Mixed media installation",
-    span: "wide",
-  },
-  {
-    src: "/images/social/fb-6.jpg",
-    alt: "Framed painting of a figure in patchwork robe between carved pillars",
-    caption: "Textile and symbolism",
-    span: "tall",
-  },
-  {
-    src: "/images/social/fb-cover.jpg",
-    alt: "Nkrabea mission statement impacting lives through culture and the arts",
-    caption: "Our mission",
-    span: "wide",
-  },
-];
-
-export type FAQ = {
-  q: string;
-  a: string;
-};
-
-export const FAQS: FAQ[] = [
-  {
-    q: "Can I book the ensemble for an event outside Ghana?",
-    a: "Yes. We tour internationally and scale the company to the stage and budget. Send a booking request with your dates and venue, and we will respond with a proposal.",
-  },
-  {
-    q: "Are workshops open to complete beginners?",
-    a: "They are. We run beginner, intermediate and advanced tracks. No prior dance or drumming experience is required for the beginner stream.",
-  },
-  {
-    q: "Is the Youth Academy free?",
-    a: "Places are free or subsidised, funded by our performance and partnership revenue. Auditions open once a year, and we prioritise applicants from the Adenta community.",
-  },
-  {
-    q: "How can I support the ensemble?",
-    a: "Book a performance, sponsor a young artist, fund a documentation trip, or join our newsletter to stay connected. Every contribution trains the next generation of Ghanaian artists.",
-  },
-  {
-    q: "Do you collaborate with schools and universities?",
-    a: "Regularly. We design residencies, lecture demonstrations and semester long modules for institutions in Ghana and abroad.",
-  },
-];
-
-export type SocialLink = {
-  label: string;
-  href: string;
-  handle: string;
-};
-
-export const SOCIAL_LINKS: SocialLink[] = [
-  { label: "Instagram", href: ORG.social.instagram, handle: "@nkra.bea" },
-  { label: "Facebook", href: ORG.social.facebook, handle: "Nkrabea Culture & Arts Ensemble" },
-  { label: "TikTok", href: ORG.social.tiktok, handle: "@hayeoye_" },
-];
-
-export type PressItem = {
-  name: string;
-  context: string;
-};
-
-export const PRESS: PressItem[] = [
-  { name: "SID Festival", context: "Featured ensemble" },
-  { name: "National Theatre Ghana", context: "Resident performer" },
-  { name: "Ghana Dance Ensemble", context: "Collaborator" },
-  { name: "Institute of African Studies", context: "Archive partner" },
-  { name: "Black Star Square", context: "Independence Day stage" },
-  { name: "Panafest", context: "Cultural showcase" },
-];
+/** Awaiting evidence of each relationship. */
+export const PRESS: PressItem[] = [];
 
 export type Story = {
   id: string;
@@ -428,35 +402,119 @@ export type Story = {
   image: string;
 };
 
-export const STORIES: Story[] = [
+export const STORIES: Story[] = [];
+
+export type Milestone = { year: string; title: string; description: string };
+
+export const MILESTONES: Milestone[] = [
   {
-    id: "s1",
-    category: "Field Notes",
-    title: "The language the atumpan drum speaks",
-    excerpt:
-      "How a pair of tuned drums can praise a chief, summon a gathering, or recount a lineage in the tones of Twi. A note from our master drummer on why the drum is a speaker first.",
-    date: "Nov 2025",
-    readTime: "4 min read",
-    image: "/images/gallery-drums.png",
+    year: "2021",
+    title: "Incorporated as an NGO",
+    description:
+      "Registered under the Companies Act, 2019 (Act 992) on 14 May 2021, with a national area of operation.",
+  },
+];
+
+/* ---------------------------------------------------------------------------
+   Gallery.
+   Only photographs sourced from Nkrabea's own channels. The nine generated
+   PNGs in the accepted prototype are not listed here.
+   --------------------------------------------------------------------------- */
+
+export type GalleryItem = {
+  id: string;
+  src: string;
+  alt: string;
+  caption?: string;
+};
+
+export const GALLERY: GalleryItem[] = [
+  {
+    id: "g1",
+    src: "/images/social/fb-1.jpg",
+    alt: "Nkrabea performers in traditional dress during a cultural performance.",
   },
   {
-    id: "s2",
-    category: "On Tour",
-    title: "Carrying Adowa to a European festival stage",
-    excerpt:
-      "What changes when a court dance meets a foreign audience, and what does not. Reflections from our most recent international tour.",
-    date: "Oct 2025",
-    readTime: "6 min read",
-    image: "/images/program-adowa.png",
+    id: "g2",
+    src: "/images/social/fb-2.jpg",
+    alt: "Members of the Nkrabea ensemble performing together.",
   },
   {
-    id: "s3",
-    category: "Youth Academy",
-    title: "Three apprentices, three years in",
-    excerpt:
-      "Meet three young artists who joined the Youth Academy with no prior training. Where they are now, and what heritage means to them.",
-    date: "Sep 2025",
-    readTime: "5 min read",
-    image: "/images/program-street.png",
+    id: "g3",
+    src: "/images/social/fb-3.jpg",
+    alt: "Nkrabea drummers performing with traditional Ghanaian drums.",
+  },
+  {
+    id: "g4",
+    src: "/images/social/fb-4.jpg",
+    alt: "A Nkrabea cultural performance in progress.",
+  },
+  {
+    id: "g5",
+    src: "/images/social/fb-5.jpg",
+    alt: "Nkrabea dancers in traditional regalia.",
+  },
+  {
+    id: "g6",
+    src: "/images/social/fb-6.jpg",
+    alt: "Nkrabea ensemble members during a community performance.",
+  },
+];
+
+/* ---------------------------------------------------------------------------
+   FAQ, rewritten for the audiences Nkrabea named: funders, institutional
+   partners, the diaspora, and the communities served.
+   --------------------------------------------------------------------------- */
+
+export type FAQ = { question: string; answer: string };
+
+export const FAQS: FAQ[] = [
+  {
+    question: "Who are Nkrabea Culture and Arts Ensemble?",
+    answer:
+      "A Ghanaian non-governmental organisation registered under the Companies Act, 2019 (Act 992) and incorporated on 14 May 2021. We use culture and the creative arts as tools for socio-economic development, with a particular commitment to Ghana's most marginalised communities. Our area of operation is national.",
+  },
+  {
+    question: "What does Nkrabea mean?",
+    answer:
+      "Nkrabea is the Akan word for destiny: the belief that our path is shaped by a purpose connecting our past to our future. The organisation carries the middle name of its founder, Rtd Capt. John Nkrabea Effah-Dartey.",
+  },
+  {
+    question: "How is the organisation governed?",
+    answer:
+      "An Executive Council is the highest decision-making body, supported by an eight member management team that runs day-to-day operations.",
+  },
+  {
+    question: "How can an organisation partner with Nkrabea?",
+    answer:
+      "We work with corporate sponsors, grant funders, government and institutional partners. Send an enquiry through the contact form or write to nkrabea.cna@gmail.com and the Executive Director will respond.",
+  },
+  {
+    question: "How can I support the work?",
+    answer:
+      "Through mobile money, bank transfer or card. Support can be directed to a specific programme, and we frame it as strategic investment rather than charity.",
+  },
+];
+
+/* ---------------------------------------------------------------------------
+   Art forms.
+   Nkrabea teaches kente weaving, drumming and dance. The detailed material on
+   Adowa, Kete and the drum families carried in the accepted prototype came
+   from research rather than from the organisation, and is held in
+   NEEDS_EVIDENCE above pending a cultural accuracy review.
+   --------------------------------------------------------------------------- */
+
+export type ArtForm = { id: string; name: string; note: string };
+
+export const ART_FORMS: ArtForm[] = [
+  {
+    id: "kente",
+    name: "Kente weaving",
+    note: "Taught to 50 students under the Cape Coast skills programme.",
+  },
+  {
+    id: "drumming-dance",
+    name: "Drumming and dance",
+    note: "Taught to 50 students using vibrotactile technology so Deaf and hard-of-hearing learners can feel and perform rhythm.",
   },
 ];

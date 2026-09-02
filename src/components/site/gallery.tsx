@@ -2,99 +2,105 @@
 
 import * as React from "react";
 import Image from "next/image";
+import { X } from "lucide-react";
 import { GALLERY } from "@/lib/content";
-import { SectionEyebrow } from "./about";
 
+/**
+ * Photo grid with a lightbox.
+ *
+ * Only photographs from Nkrabea's own channels appear here. Every image
+ * carries descriptive alt text, which their brief asks for explicitly.
+ */
 export function Gallery() {
-  const [lightbox, setLightbox] = React.useState<number | null>(null);
+  const [active, setActive] = React.useState<number | null>(null);
+  const closeRef = React.useRef<HTMLButtonElement>(null);
+
+  // Escape to close, and keep focus inside the dialog while it is open.
+  React.useEffect(() => {
+    if (active === null) return;
+
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setActive(null);
+    };
+    document.addEventListener("keydown", onKey);
+
+    const previous = document.activeElement as HTMLElement | null;
+    closeRef.current?.focus();
+    const overflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = overflow;
+      previous?.focus();
+    };
+  }, [active]);
+
+  if (GALLERY.length === 0) return null;
+
+  const current = active === null ? null : GALLERY[active];
 
   return (
-    <section
-      id="gallery"
-      className="scroll-mt-20 border-t border-border bg-secondary/40 py-20 lg:py-28"
-    >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-          <div className="max-w-2xl">
-            <SectionEyebrow>In the frame</SectionEyebrow>
-            <h2 className="mt-4 font-display text-3xl font-semibold leading-tight tracking-tight text-foreground sm:text-4xl">
-              Moments from the stage and the studio
-            </h2>
-          </div>
-          <p className="max-w-xs text-sm leading-relaxed text-muted-foreground">
-            A selection of stills from recent performances, rehearsals and
-            workshops.
-          </p>
-        </div>
-
-        <div className="mt-12 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
-          {GALLERY.map((item, i) => (
+    <>
+      <ul className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
+        {GALLERY.map((item, i) => (
+          <li key={item.id}>
             <button
-              key={item.src + i}
               type="button"
-              onClick={() => setLightbox(i)}
-              className={`group relative overflow-hidden rounded-xl bg-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
-                item.span === "tall"
-                  ? "row-span-2 aspect-[3/4]"
-                  : item.span === "wide"
-                    ? "col-span-2 aspect-[16/10]"
-                    : "aspect-square"
-              }`}
-              aria-label={`View image: ${item.caption}`}
+              onClick={() => setActive(i)}
+              className="group relative block aspect-[4/3] w-full overflow-hidden rounded-xl bg-muted"
             >
               <Image
                 src={item.src}
                 alt={item.alt}
                 fill
-                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 25vw"
+                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 33vw"
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-foreground/70 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-              <span className="absolute bottom-3 left-3 right-3 translate-y-1 text-left text-sm font-medium text-primary-foreground opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-                {item.caption}
-              </span>
+              <span className="absolute inset-0 bg-band/0 transition-colors duration-300 group-hover:bg-band/20" />
+              <span className="sr-only">Enlarge: {item.alt}</span>
             </button>
-          ))}
-        </div>
-      </div>
+          </li>
+        ))}
+      </ul>
 
-      {lightbox !== null && (
+      {current && (
         <div
-          className="fixed inset-0 z-[60] flex items-center justify-center bg-foreground/90 p-4 backdrop-blur-sm"
+          className="fixed inset-0 z-[60] flex items-center justify-center bg-band/90 p-4 backdrop-blur-sm"
           role="dialog"
           aria-modal="true"
           aria-label="Image viewer"
-          onClick={() => setLightbox(null)}
+          onClick={() => setActive(null)}
         >
           <button
+            ref={closeRef}
             type="button"
-            onClick={() => setLightbox(null)}
-            className="absolute right-5 top-5 rounded-full bg-primary-foreground/10 p-2 text-primary-foreground transition-colors hover:bg-primary-foreground/20"
+            onClick={() => setActive(null)}
+            className="absolute right-5 top-5 rounded-full bg-band-foreground/10 p-2 text-band-foreground transition-colors hover:bg-band-foreground/20"
             aria-label="Close viewer"
           >
-            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M18 6 6 18M6 6l12 12" strokeLinecap="round" />
-            </svg>
+            <X className="h-5 w-5" aria-hidden="true" />
           </button>
-          <div
-            className="relative aspect-[4/3] w-full max-w-4xl overflow-hidden rounded-xl"
+
+          <figure
+            className="relative w-full max-w-4xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <Image
-              src={GALLERY[lightbox].src}
-              alt={GALLERY[lightbox].alt}
-              fill
-              sizes="100vw"
-              className="object-cover"
-            />
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-foreground/80 to-transparent p-5">
-              <p className="text-sm font-medium text-primary-foreground">
-                {GALLERY[lightbox].caption}
-              </p>
+            <div className="relative aspect-[4/3] overflow-hidden rounded-xl">
+              <Image
+                src={current.src}
+                alt={current.alt}
+                fill
+                sizes="100vw"
+                className="object-contain"
+              />
             </div>
-          </div>
+            <figcaption className="mt-4 text-center text-sm text-band-foreground/80">
+              {current.caption ?? current.alt}
+            </figcaption>
+          </figure>
         </div>
       )}
-    </section>
+    </>
   );
 }

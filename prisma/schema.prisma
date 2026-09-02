@@ -1,4 +1,9 @@
-// Prisma schema for Nkrabea Culture & Arts Ensemble website
+// Prisma schema for Nkrabea Culture and Arts Ensemble LBG.
+//
+// NOTE: SQLite is a development placeholder only. Phase 3 of KB-2026-009
+// replaces it with hosted Postgres, because a serverless filesystem is wiped
+// on every deployment and a submission written here would not survive.
+// Do not deploy this datasource.
 
 generator client {
   provider = "prisma-client-js"
@@ -15,8 +20,10 @@ model ContactMessage {
   email     String
   subject   String   @default("General Enquiry")
   message   String
-  intent    String   @default("general") // general | booking | workshop | partnership | support
+  intent    String   @default("general") // general | partnership | volunteer | media | programme
   createdAt DateTime @default(now())
+
+  @@index([createdAt])
 }
 
 model NewsletterSubscriber {
@@ -26,13 +33,19 @@ model NewsletterSubscriber {
   createdAt DateTime @default(now())
 }
 
-model BookingRequest {
-  id        String   @id @default(cuid())
-  name      String
-  email     String
-  phone     String?
-  eventType String   // performance | workshop | residency | festival | corporate
-  date      String?
-  message   String
-  createdAt DateTime @default(now())
+/// Funders, sponsors and institutional partners enquiring about working with
+/// Nkrabea. Replaces the prototype's BookingRequest, which assumed the
+/// organisation sells performances.
+model PartnershipEnquiry {
+  id           String   @id @default(cuid())
+  name         String
+  email         String
+  phone        String?
+  organisation String?
+  partnerType  String // corporate | grant | government | individual | in-kind
+  programme    String? // which programme they are interested in
+  message      String
+  createdAt    DateTime @default(now())
+
+  @@index([createdAt])
 }

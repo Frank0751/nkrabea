@@ -3,11 +3,40 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* ===========================================================================
+   Nkrabea Culture & Arts Ensemble - design system
+   KB-2026-009, Phase 1
+
+   Five slots, all sampled from public/logo.svg:
+     badge black  #14181a
+     warm cream   #f4f1ea
+     Akan gold    #c9a227
+     badge green  #1f6f5c
+     clay         #b4402f   (used sparingly, kente strip only)
+
+   Gold is the single accent and carries a three-step ramp, because brand
+   gold on cream is 2.20:1 and cannot legally carry text:
+     --accent     brand gold. Fills, and text on black (9.12:1).
+     --gold-edge  non-text UI on light: borders, rules, focus (3.01:1).
+     --gold-ink   gold as text on light (4.52:1).
+   Run `npm run check:contrast` to re-verify every pairing.
+   =========================================================================== */
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-inter);
+
+  --font-sans: var(--font-jakarta);
   --font-display: var(--font-display);
+  --font-mono: var(--font-mono);
+
+  --color-gold-ink: var(--gold-ink);
+  --color-gold-edge: var(--gold-edge);
+  --color-emphasis: var(--emphasis);
+  --color-emphasis-foreground: var(--emphasis-foreground);
+  --color-band: var(--band);
+  --color-band-foreground: var(--band-foreground);
+
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -46,186 +75,480 @@
 :root {
   --radius: 0.5rem;
 
-  /* Warm cream paper background */
-  --background: oklch(0.985 0.006 95);
-  --foreground: oklch(0.21 0.01 160);
+  /* Brand constants, identical in both themes */
+  --brand-black: oklch(0.2057 0.0073 229.27);
+  --brand-cream: oklch(0.9591 0.0098 87.5);
+  --brand-gold: oklch(0.728 0.138 89.73);
+  --brand-green: oklch(0.489 0.082 173.5);
+  --brand-clay: oklch(0.532 0.154 31);
 
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.21 0.01 160);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.21 0.01 160);
+  /* The brand band. Deliberately NOT theme-inverting: the hero, CTA bands and
+     footer are the badge black in both themes, because that black is the
+     brand. Using --foreground here would flip them to cream in dark mode and
+     invert the whole identity. Defined once, never overridden in .dark. */
+  --band: oklch(0.2057 0.0073 229.27);
+  --band-foreground: oklch(0.9591 0.0098 87.5);
 
-  /* Deep teal-green primary (Akan/Ghana green) */
-  --primary: oklch(0.42 0.06 172);
-  --primary-foreground: oklch(0.98 0.01 95);
+  /* Warm cream paper */
+  --background: oklch(0.9675 0.0098 87.47);
+  --foreground: oklch(0.2057 0.0073 229.27);
 
-  /* Gold accent (Akan gold) */
-  --accent: oklch(0.82 0.13 84);
-  --accent-foreground: oklch(0.24 0.02 80);
+  --card: oklch(0.9942 0.0069 88.64);
+  --card-foreground: oklch(0.2057 0.0073 229.27);
+  --popover: oklch(0.9942 0.0069 88.64);
+  --popover-foreground: oklch(0.2057 0.0073 229.27);
 
-  --secondary: oklch(0.95 0.012 160);
-  --secondary-foreground: oklch(0.26 0.02 170);
+  /* Badge green, deepened to clear AA on cream (6.84:1) */
+  --primary: oklch(0.4385 0.0727 174.03);
+  --primary-foreground: oklch(0.9675 0.0098 87.47);
 
-  --muted: oklch(0.95 0.008 120);
-  --muted-foreground: oklch(0.46 0.015 160);
+  /* Akan gold, the accent */
+  --accent: oklch(0.728 0.138 89.73);
+  --accent-foreground: oklch(0.2057 0.0073 229.27);
+  --gold-ink: oklch(0.5457 0.1097 89.02);
+  --gold-edge: oklch(0.6457 0.132 90.01);
 
-  --destructive: oklch(0.55 0.2 27);
-  --border: oklch(0.9 0.01 160);
-  --input: oklch(0.9 0.01 160);
-  --ring: oklch(0.5 0.09 172);
+  /* Brand red. Used sparingly, for emphasis only. Clears AA on cream as-is. */
+  --emphasis: oklch(0.532 0.154 31);
+  --emphasis-foreground: oklch(1 0 0);
 
-  --chart-1: oklch(0.42 0.06 172);
-  --chart-2: oklch(0.82 0.13 84);
-  --chart-3: oklch(0.55 0.16 30);
-  --chart-4: oklch(0.5 0.1 145);
-  --chart-5: oklch(0.4 0.05 200);
+  --secondary: oklch(0.9256 0.0169 88);
+  --secondary-foreground: oklch(0.2657 0.012 200);
 
-  --sidebar: oklch(0.985 0.006 95);
-  --sidebar-foreground: oklch(0.21 0.01 160);
-  --sidebar-primary: oklch(0.42 0.06 172);
-  --sidebar-primary-foreground: oklch(0.98 0.01 95);
-  --sidebar-accent: oklch(0.95 0.012 160);
-  --sidebar-accent-foreground: oklch(0.26 0.02 170);
-  --sidebar-border: oklch(0.9 0.01 160);
-  --sidebar-ring: oklch(0.5 0.09 172);
+  --muted: oklch(0.9256 0.0169 88);
+  --muted-foreground: oklch(0.4799 0.0129 167.35);
+
+  --destructive: oklch(0.532 0.154 31);
+  --border: oklch(0.8773 0.0229 87.16);
+  --input: oklch(0.8773 0.0229 87.16);
+  --ring: oklch(0.4385 0.0727 174.03);
+
+  --chart-1: oklch(0.4385 0.0727 174.03);
+  --chart-2: oklch(0.728 0.138 89.73);
+  --chart-3: oklch(0.532 0.154 31);
+  --chart-4: oklch(0.55 0.08 150);
+  --chart-5: oklch(0.4 0.05 210);
+
+  --sidebar: oklch(0.9675 0.0098 87.47);
+  --sidebar-foreground: oklch(0.2057 0.0073 229.27);
+  --sidebar-primary: oklch(0.4385 0.0727 174.03);
+  --sidebar-primary-foreground: oklch(0.9675 0.0098 87.47);
+  --sidebar-accent: oklch(0.9256 0.0169 88);
+  --sidebar-accent-foreground: oklch(0.2657 0.012 200);
+  --sidebar-border: oklch(0.8773 0.0229 87.16);
+  --sidebar-ring: oklch(0.4385 0.0727 174.03);
 }
 
 .dark {
-  /* Near-black charcoal with subtle green warmth */
-  --background: oklch(0.16 0.012 165);
-  --foreground: oklch(0.96 0.008 95);
+  /* The badge black itself carries the dark theme */
+  --background: oklch(0.2057 0.0073 229.27);
+  --foreground: oklch(0.9435 0.014 88.69);
 
-  --card: oklch(0.2 0.014 165);
-  --card-foreground: oklch(0.96 0.008 95);
-  --popover: oklch(0.2 0.014 165);
-  --popover-foreground: oklch(0.96 0.008 95);
+  --card: oklch(0.2435 0.0083 223.8);
+  --card-foreground: oklch(0.9435 0.014 88.69);
+  --popover: oklch(0.2435 0.0083 223.8);
+  --popover-foreground: oklch(0.9435 0.014 88.69);
 
-  --primary: oklch(0.7 0.1 170);
-  --primary-foreground: oklch(0.16 0.012 165);
+  --primary: oklch(0.7457 0.0883 170.89);
+  --primary-foreground: oklch(0.2057 0.0073 229.27);
 
-  --accent: oklch(0.82 0.13 84);
-  --accent-foreground: oklch(0.2 0.02 80);
+  --accent: oklch(0.7863 0.1381 92.08);
+  --accent-foreground: oklch(0.2057 0.0073 229.27);
+  /* On black, brand gold already clears AA, so ink and edge collapse to it */
+  --gold-ink: oklch(0.7863 0.1381 92.08);
+  --gold-edge: oklch(0.7863 0.1381 92.08);
 
-  --secondary: oklch(0.26 0.02 168);
-  --secondary-foreground: oklch(0.96 0.008 95);
+  /* Brand red is 3.16:1 on badge black and 4.11:1 on the dark card, so the
+     dark theme lifts it until it clears AA on the lighter card surface too. */
+  --emphasis: oklch(0.6402 0.154 31);
+  --emphasis-foreground: oklch(0.2057 0.0073 229.27);
 
-  --muted: oklch(0.24 0.015 165);
-  --muted-foreground: oklch(0.72 0.012 150);
+  --secondary: oklch(0.279 0.0105 216.85);
+  --secondary-foreground: oklch(0.9435 0.014 88.69);
 
-  --destructive: oklch(0.65 0.19 22);
-  --border: oklch(1 0 0 / 12%);
-  --input: oklch(1 0 0 / 14%);
-  --ring: oklch(0.65 0.1 172);
+  --muted: oklch(0.279 0.0105 216.85);
+  --muted-foreground: oklch(0.7499 0.0099 171.69);
 
-  --chart-1: oklch(0.7 0.1 170);
-  --chart-2: oklch(0.82 0.13 84);
-  --chart-3: oklch(0.6 0.18 30);
-  --chart-4: oklch(0.6 0.1 145);
-  --chart-5: oklch(0.55 0.06 200);
+  --destructive: oklch(0.62 0.17 28);
+  --border: oklch(0.3274 0.0109 225.41);
+  --input: oklch(0.3274 0.0109 225.41);
+  --ring: oklch(0.7457 0.0883 170.89);
 
-  --sidebar: oklch(0.2 0.014 165);
-  --sidebar-foreground: oklch(0.96 0.008 95);
-  --sidebar-primary: oklch(0.7 0.1 170);
-  --sidebar-primary-foreground: oklch(0.16 0.012 165);
-  --sidebar-accent: oklch(0.26 0.02 168);
-  --sidebar-accent-foreground: oklch(0.96 0.008 95);
-  --sidebar-border: oklch(1 0 0 / 12%);
-  --sidebar-ring: oklch(0.65 0.1 172);
+  --chart-1: oklch(0.7457 0.0883 170.89);
+  --chart-2: oklch(0.7863 0.1381 92.08);
+  --chart-3: oklch(0.62 0.17 28);
+  --chart-4: oklch(0.65 0.09 150);
+  --chart-5: oklch(0.55 0.06 210);
+
+  --sidebar: oklch(0.2435 0.0083 223.8);
+  --sidebar-foreground: oklch(0.9435 0.014 88.69);
+  --sidebar-primary: oklch(0.7457 0.0883 170.89);
+  --sidebar-primary-foreground: oklch(0.2057 0.0073 229.27);
+  --sidebar-accent: oklch(0.279 0.0105 216.85);
+  --sidebar-accent-foreground: oklch(0.9435 0.014 88.69);
+  --sidebar-border: oklch(0.3274 0.0109 225.41);
+  --sidebar-ring: oklch(0.7457 0.0883 170.89);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
-  html {
-    scroll-behavior: smooth;
-  }
+  /* Deliberately NOT scroll-behavior: smooth. GSAP ScrollTrigger cannot track
+     a natively smooth-scrolling root: triggers evaluate once and then freeze,
+     which leaves reveals stuck invisible and the rhythm line dead. Anchor
+     jumps are instant instead, which is also the friendlier default for
+     anyone who has asked to reduce motion. */
   body {
     @apply bg-background text-foreground;
-    font-feature-settings: "ss01", "cv01", "cv11";
+    font-feature-settings: "ss01", "ss03";
   }
   ::selection {
     background-color: var(--accent);
     color: var(--accent-foreground);
   }
+  /* Visible focus on every interactive element, WCAG 2.2 */
+  :where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+    outline: 2px solid var(--gold-edge);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
 }
 
-/* Refined scrollbar for long content areas */
-.scroll-elegant {
-  scrollbar-width: thin;
-  scrollbar-color: oklch(0.7 0.08 170) transparent;
+/* Section eyebrows and technical labels */
+.label-mono {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 500;
 }
-.scroll-elegant::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+
+/* Skip link, visible only on focus */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
 }
-.scroll-elegant::-webkit-scrollbar-thumb {
-  background-color: oklch(0.7 0.08 170);
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+  padding: 0.75rem 1.25rem;
+  background: var(--foreground);
+  color: var(--background);
+  border-radius: var(--radius);
+}
+
+/* ---------------------------------------------------------------------------
+   The rhythm line. A drum line down the left edge that fills as you scroll,
+   with nodes that strike at each section boundary.
+   --rhythm-progress is driven by GSAP ScrollTrigger (0 -> 1).
+   Hidden under 1024px, and switched off entirely for reduced motion.
+   --------------------------------------------------------------------------- */
+.rhythm-line {
+  position: fixed;
+  left: 1.75rem;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  z-index: 30;
+  pointer-events: none;
+  display: none;
+}
+@media (min-width: 1024px) {
+  .rhythm-line {
+    display: block;
+  }
+}
+.rhythm-line__track {
+  position: absolute;
+  inset: 0;
+  background: color-mix(in oklch, var(--foreground) 14%, transparent);
+}
+.rhythm-line__fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  transform-origin: top;
+  height: calc(var(--rhythm-progress, 0) * 100%);
+  background: linear-gradient(
+    to bottom,
+    color-mix(in oklch, var(--accent) 35%, transparent),
+    var(--accent)
+  );
+}
+.rhythm-node {
+  position: absolute;
+  left: 50%;
+  width: 7px;
+  height: 7px;
+  margin-left: -3.5px;
+  margin-top: -3.5px;
   border-radius: 9999px;
+  background: var(--background);
+  border: 1px solid color-mix(in oklch, var(--foreground) 22%, transparent);
+  transition:
+    background-color 220ms ease,
+    border-color 220ms ease;
 }
-.scroll-elegant::-webkit-scrollbar-track {
-  background: transparent;
+.rhythm-node[data-struck="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+/* The strike: a single outward pulse, the way a drum head moves */
+.rhythm-node::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 9999px;
+  border: 1px solid var(--accent);
+  opacity: 0;
+  transform: scale(0.6);
+}
+.rhythm-node[data-struck="true"]::after {
+  animation: rhythm-strike 620ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes rhythm-strike {
+  0% {
+    opacity: 0.9;
+    transform: scale(0.6);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2.6);
+  }
 }
 
-/* Subtle kente-inspired divider */
+/* ---------------------------------------------------------------------------
+   Kente strip. A woven vertical band on the right edge, drifting at 0.16x
+   scroll speed. Decorative only, so it is aria-hidden in the markup.
+   --------------------------------------------------------------------------- */
+.kente-strip {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 10px;
+  height: 100vh;
+  z-index: 20;
+  pointer-events: none;
+  opacity: 0.5;
+  overflow: hidden;
+  display: none;
+}
+@media (min-width: 1024px) {
+  .kente-strip {
+    display: block;
+  }
+}
+/* The weave repeats on a 74px period, so translating by
+   (scroll * 0.16) modulo 74 loops seamlessly and never runs out of cloth. */
+.kente-strip__weave {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: calc(100vh + 74px);
+  will-change: transform;
+  background-image: repeating-linear-gradient(
+    180deg,
+    var(--brand-green) 0,
+    var(--brand-green) 26px,
+    var(--brand-gold) 26px,
+    var(--brand-gold) 44px,
+    var(--brand-black) 44px,
+    var(--brand-black) 52px,
+    var(--brand-clay) 52px,
+    var(--brand-clay) 66px,
+    var(--brand-gold) 66px,
+    var(--brand-gold) 74px
+  );
+}
+
+/* Kente rule, used as a horizontal divider */
 .kente-divider {
-  height: 4px;
+  height: 3px;
   background-image: repeating-linear-gradient(
     90deg,
     var(--primary) 0,
     var(--primary) 14px,
     var(--accent) 14px,
     var(--accent) 28px,
-    oklch(0.55 0.16 30) 28px,
-    oklch(0.55 0.16 30) 42px
+    var(--brand-clay) 28px,
+    var(--brand-clay) 42px
   );
 }
 
-/* Grain texture for dark hero (very subtle, no glow) */
+/* Grain for dark bands. No glow anywhere in this system. */
 .grain-overlay {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.025) 1px,
+    transparent 1px
+  );
   background-size: 3px 3px;
 }
 
-/* Press marquee */
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+/* ---------------------------------------------------------------------------
+   Motion.
+   The hero paints with CSS keyframes so it is never blank while JS loads.
+   Everything below the fold is GSAP ScrollTrigger.
+   --------------------------------------------------------------------------- */
+
+/* Hero entrance, CSS only, runs immediately */
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
-.animate-marquee {
-  animation: marquee 32s linear infinite;
+.hero-rise {
+  opacity: 0;
+  animation: hero-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.hero-rise-1 {
+  animation-delay: 0.05s;
+}
+.hero-rise-2 {
+  animation-delay: 0.18s;
+}
+.hero-rise-3 {
+  animation-delay: 0.31s;
+}
+.hero-rise-4 {
+  animation-delay: 0.44s;
 }
 
-/* Hero scroll cue */
+/* Note: elements GSAP animates in are NOT hidden by CSS. Their hidden state is
+   set in a layout effect, before paint, so that if JavaScript fails to run the
+   content stays visible rather than invisible. */
+
+/* Cursor spotlight on cards */
+.spotlight-card {
+  position: relative;
+  isolation: isolate;
+}
+.spotlight-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 260ms ease;
+  background: radial-gradient(
+    260px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+    color-mix(in oklch, var(--accent) 13%, transparent),
+    transparent 68%
+  );
+}
+.spotlight-card:hover::before {
+  opacity: 1;
+}
+.spotlight-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.animate-marquee {
+  animation: marquee 38s linear infinite;
+}
+
 @keyframes scroll-cue {
-  0% { transform: translateY(0); opacity: 0; }
-  30% { opacity: 1; }
-  100% { transform: translateY(14px); opacity: 0; }
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(14px);
+    opacity: 0;
+  }
 }
 .animate-scroll-cue {
   animation: scroll-cue 1.8s ease-in-out infinite;
 }
 
-/* Reveal on scroll */
-@keyframes reveal-up {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+.scroll-elegant {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
 }
-.reveal {
-  opacity: 0;
-  will-change: opacity, transform;
+.scroll-elegant::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
 }
-.reveal.is-visible {
-  animation: reveal-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.scroll-elegant::-webkit-scrollbar-thumb {
+  background-color: var(--border);
+  border-radius: 9999px;
+}
+.scroll-elegant::-webkit-scrollbar-track {
+  background: transparent;
 }
 
+/* ---------------------------------------------------------------------------
+   Reduced motion. The whole system switches off cleanly: nothing animates,
+   nothing is left invisible, and the two decorative edge elements go away.
+   --------------------------------------------------------------------------- */
+/* The operating system asks for reduced motion, and the visitor has not
+   explicitly turned motion on. `:not([data-motion="on"])` is what lets the
+   header toggle override the OS setting in the other direction. */
 @media (prefers-reduced-motion: reduce) {
-  .animate-marquee,
-  .animate-scroll-cue,
-  .reveal {
-    animation: none !important;
+  :root:not([data-motion="on"]) {
+    scroll-behavior: auto;
+  }
+  :root:not([data-motion="on"]) *,
+  :root:not([data-motion="on"]) *::before,
+  :root:not([data-motion="on"]) *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  :root:not([data-motion="on"]) .hero-rise {
     opacity: 1 !important;
     transform: none !important;
   }
+  :root:not([data-motion="on"]) .rhythm-line,
+  :root:not([data-motion="on"]) .kente-strip {
+    display: none !important;
+  }
+  :root:not([data-motion="on"]) .spotlight-card::before {
+    display: none !important;
+  }
 }
 
+/* The visitor switched motion off using the header toggle. */
+:root[data-motion="off"] {
+  scroll-behavior: auto;
+}
+:root[data-motion="off"] *,
+:root[data-motion="off"] *::before,
+:root[data-motion="off"] *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+:root[data-motion="off"] .hero-rise {
+  opacity: 1 !important;
+  transform: none !important;
+}
+:root[data-motion="off"] .rhythm-line,
+:root[data-motion="off"] .kente-strip {
+  display: none !important;
+}
+:root[data-motion="off"] .spotlight-card::before {
+  display: none !important;
+}

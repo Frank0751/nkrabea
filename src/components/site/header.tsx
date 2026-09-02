@@ -13,15 +13,20 @@ import {
   SheetClose,
 } from "@/components/ui/sheet";
 import { ThemeToggle } from "./theme-toggle";
+import { MotionToggle } from "./motion-toggle";
 import { ORG } from "@/lib/content";
 
+/**
+ * Navigation follows the structure Nkrabea set out in their brief, labelled
+ * by what a visitor wants to do rather than by internal department.
+ */
 export const NAV_LINKS = [
   { href: "/about", label: "About" },
-  { href: "/programs", label: "Programs" },
-  { href: "/bookings", label: "Bookings" },
-  { href: "/ensemble", label: "Ensemble" },
-  { href: "/events", label: "Events" },
-  { href: "/gallery", label: "Gallery" },
+  { href: "/leadership", label: "Leadership" },
+  { href: "/programmes", label: "Our Work" },
+  { href: "/impact", label: "Impact" },
+  { href: "/partner", label: "Partner" },
+  { href: "/news", label: "News" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -41,31 +46,38 @@ export function SiteHeader() {
   const transparent = isHome && !scrolled;
 
   return (
+    // Fixed rather than sticky. A sticky header occupies layout space, so the
+    // hero would start below it and the transparent state would sit over the
+    // cream page rather than the dark hero - rendering the light-on-dark
+    // controls invisible. Both hero components carry top padding that clears
+    // this bar.
     <header
-      className={`sticky top-0 z-50 w-full border-b transition-colors duration-300 ${
+      className={`fixed inset-x-0 top-0 z-50 w-full border-b transition-colors duration-300 ${
         transparent
-          ? "bg-transparent border-transparent"
-          : "bg-background/85 backdrop-blur-md border-border"
+          ? "border-transparent bg-transparent"
+          : "border-border bg-background/85 backdrop-blur-md"
       }`}
     >
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
         <Link
           href="/"
-          className="flex items-center gap-3"
+          className="flex shrink-0 items-center gap-3"
           aria-label={`${ORG.name} home`}
         >
           <BrandMark />
           <span className="flex flex-col leading-none">
             <span
               className={`font-display text-base font-semibold tracking-tight ${
-                transparent ? "text-primary-foreground" : "text-foreground"
+                transparent ? "text-band-foreground" : "text-foreground"
               }`}
             >
               Nkrabea
             </span>
             <span
-              className={`text-[10px] uppercase tracking-[0.18em] ${
-                transparent ? "text-primary-foreground/70" : "text-muted-foreground"
+              className={`font-mono text-[9px] uppercase tracking-[0.16em] ${
+                transparent
+                  ? "text-band-foreground/70"
+                  : "text-muted-foreground"
               }`}
             >
               Culture &amp; Arts
@@ -73,30 +85,29 @@ export function SiteHeader() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-0.5 lg:flex" aria-label="Primary">
           {NAV_LINKS.map((link) => {
             const isActive =
-              pathname === link.href ||
-              (link.href !== "/" && pathname.startsWith(link.href));
+              pathname === link.href || pathname.startsWith(`${link.href}/`);
             return (
               <Link
                 key={link.href}
                 href={link.href}
                 aria-current={isActive ? "page" : undefined}
-                className={`relative rounded-md px-3 py-2 text-sm font-medium transition-colors hover:text-foreground ${
+                className={`relative rounded-md px-2.5 py-2 text-sm font-medium transition-colors ${
                   transparent
                     ? isActive
-                      ? "text-primary-foreground"
-                      : "text-primary-foreground/70 hover:text-primary-foreground"
+                      ? "text-band-foreground"
+                      : "text-band-foreground/70 hover:text-band-foreground"
                     : isActive
                       ? "text-foreground"
-                      : "text-muted-foreground"
+                      : "text-muted-foreground hover:text-foreground"
                 }`}
               >
                 {link.label}
                 <span
-                  className={`absolute inset-x-3 -bottom-px h-px origin-left transition-transform duration-300 ${
-                    transparent ? "bg-primary-foreground" : "bg-primary"
+                  className={`absolute inset-x-2.5 -bottom-px h-px origin-left transition-transform duration-300 ${
+                    transparent ? "bg-band-foreground" : "bg-primary"
                   } ${isActive ? "scale-x-100" : "scale-x-0"}`}
                   aria-hidden="true"
                 />
@@ -105,14 +116,15 @@ export function SiteHeader() {
           })}
         </nav>
 
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-1">
+          <MotionToggle onDark={transparent} />
           <ThemeToggle />
           <Button
             asChild
             size="sm"
-            className={`hidden sm:inline-flex ${transparent ? "bg-primary-foreground text-foreground hover:bg-primary-foreground/90" : ""}`}
+            className="hidden bg-accent text-accent-foreground hover:bg-accent/90 sm:inline-flex"
           >
-            <Link href="/bookings">Book the Ensemble</Link>
+            <Link href="/get-involved">Support Our Work</Link>
           </Button>
 
           <div className="lg:hidden">
@@ -122,23 +134,37 @@ export function SiteHeader() {
                   variant="ghost"
                   size="icon"
                   aria-label="Open menu"
-                  className={`h-9 w-9 ${transparent ? "text-primary-foreground hover:bg-primary-foreground/10" : ""}`}
+                  className={`h-9 w-9 ${
+                    transparent
+                      ? "text-band-foreground hover:bg-band-foreground/10"
+                      : ""
+                  }`}
                 >
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-[300px] sm:w-[340px] p-0">
+              <SheetContent side="right" className="w-[300px] p-0 sm:w-[340px]">
                 <SheetTitle className="sr-only">Navigation</SheetTitle>
                 <div className="flex h-full flex-col">
                   <div className="flex items-center justify-between border-b px-5 py-4">
-                    <span className="font-display text-lg font-semibold">Menu</span>
+                    <span className="font-display text-lg font-semibold">
+                      Menu
+                    </span>
                     <SheetClose asChild>
-                      <Button variant="ghost" size="icon" className="h-8 w-8" aria-label="Close menu">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8"
+                        aria-label="Close menu"
+                      >
                         <X className="h-4 w-4" />
                       </Button>
                     </SheetClose>
                   </div>
-                  <nav className="flex flex-col gap-1 p-4" aria-label="Mobile">
+                  <nav
+                    className="flex flex-col gap-1 overflow-y-auto p-4"
+                    aria-label="Mobile"
+                  >
                     <SheetClose asChild>
                       <Link
                         href="/"
@@ -152,13 +178,15 @@ export function SiteHeader() {
                     {NAV_LINKS.map((link) => {
                       const isActive =
                         pathname === link.href ||
-                        (link.href !== "/" && pathname.startsWith(link.href));
+                        pathname.startsWith(`${link.href}/`);
                       return (
                         <SheetClose asChild key={link.href}>
                           <Link
                             href={link.href}
                             className={`rounded-md px-3 py-3 text-base font-medium transition-colors hover:bg-muted ${
-                              isActive ? "bg-muted text-foreground" : "text-foreground/80"
+                              isActive
+                                ? "bg-muted text-foreground"
+                                : "text-foreground/80"
                             }`}
                           >
                             {link.label}
@@ -167,12 +195,18 @@ export function SiteHeader() {
                       );
                     })}
                   </nav>
-                  <div className="mt-auto border-t p-4">
+                  <div className="mt-auto space-y-3 border-t p-4">
                     <SheetClose asChild>
-                      <Button asChild className="w-full">
-                        <Link href="/bookings">Book the Ensemble</Link>
+                      <Button
+                        asChild
+                        className="w-full bg-accent text-accent-foreground hover:bg-accent/90"
+                      >
+                        <Link href="/get-involved">Support Our Work</Link>
                       </Button>
                     </SheetClose>
+                    <div className="flex justify-center">
+                      <MotionToggle />
+                    </div>
                   </div>
                 </div>
               </SheetContent>
@@ -187,15 +221,15 @@ export function SiteHeader() {
 function BrandMark() {
   return (
     <span
-      className="relative flex h-9 w-9 items-center justify-center rounded-full bg-foreground"
+      className="relative flex h-9 w-9 items-center justify-center rounded-full bg-band"
       aria-hidden="true"
     >
       <svg viewBox="0 0 32 32" className="h-7 w-7">
         <path
           d="M16 3 L19.6 12.4 L29 12.4 L21.4 17.8 L24.2 27 L16 21.4 L7.8 27 L10.6 17.8 L3 12.4 L12.4 12.4 Z"
-          fill="oklch(0.82 0.13 84)"
+          fill="var(--brand-gold)"
         />
-        <circle cx="16" cy="16" r="2.4" fill="oklch(0.55 0.16 30)" />
+        <circle cx="16" cy="16" r="2.4" fill="var(--brand-clay)" />
       </svg>
     </span>
   );
