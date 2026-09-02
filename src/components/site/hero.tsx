@@ -37,9 +37,21 @@ export function Hero() {
 
       <div className="mx-auto w-full max-w-7xl px-4 py-28 sm:px-6 lg:px-8 lg:py-32">
         <div className="max-w-3xl">
-          <p className="label-mono hero-rise hero-rise-1 text-accent">
-            {ORG.motto}
-          </p>
+          {/* Nkrabea's homepage spec asks the hero to carry the logo and the
+              tagline together. The mark is decorative here, since the header
+              already provides the linked, labelled logo. */}
+          <div className="hero-rise hero-rise-1 flex items-center gap-4">
+            <Image
+              src="/logo.svg"
+              alt=""
+              width={56}
+              height={56}
+              priority
+              aria-hidden="true"
+              className="h-12 w-12 shrink-0 sm:h-14 sm:w-14"
+            />
+            <p className="label-mono text-accent">{ORG.motto}</p>
+          </div>
 
           <h1 className="hero-rise hero-rise-2 mt-6 font-display text-4xl font-semibold leading-[1.06] tracking-tight sm:text-5xl lg:text-[3.75rem]">
             Ghanaian culture as a tool for{" "}
