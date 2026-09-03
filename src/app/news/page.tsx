@@ -32,7 +32,7 @@ export default function NewsPage() {
             <>
               <Reveal className="max-w-2xl">
                 <SectionEyebrow>Upcoming</SectionEyebrow>
-                <h2 className="mt-5 font-display text-3xl font-semibold leading-tight tracking-tight text-foreground sm:text-4xl">
+                <h2 className="mt-5 font-display text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
                   Where to see us next
                 </h2>
               </Reveal>
@@ -46,12 +46,12 @@ export default function NewsPage() {
                       <span className="label-mono text-band-foreground/60">
                         {event.month}
                       </span>
-                      <span className="font-display text-2xl font-semibold leading-none">
+                      <span className="font-display text-2xl leading-none">
                         {event.day}
                       </span>
                     </div>
                     <div className="min-w-0 flex-1">
-                      <h3 className="font-display text-base font-semibold text-foreground sm:text-lg">
+                      <h3 className="font-display text-base text-foreground sm:text-lg">
                         {event.title}
                       </h3>
                       <p className="mt-1 text-sm text-muted-foreground">
@@ -71,7 +71,7 @@ export default function NewsPage() {
                   className="mx-auto h-8 w-8 text-muted-foreground"
                   aria-hidden="true"
                 />
-                <h2 className="mt-6 font-display text-2xl font-semibold leading-tight tracking-tight text-foreground">
+                <h2 className="mt-6 font-display text-2xl leading-tight tracking-tight text-foreground">
                   No dates announced yet
                 </h2>
                 <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">

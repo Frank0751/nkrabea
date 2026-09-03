@@ -53,7 +53,7 @@ export function Hero() {
             <p className="label-mono text-accent">{ORG.motto}</p>
           </div>
 
-          <h1 className="hero-rise hero-rise-2 mt-6 font-display text-4xl font-semibold leading-[1.06] tracking-tight sm:text-5xl lg:text-[3.75rem]">
+          <h1 className="hero-rise hero-rise-2 mt-6 font-display text-4xl leading-[1.06] tracking-tight sm:text-5xl lg:text-[3.75rem]">
             Ghanaian culture as a tool for{" "}
             <span className="text-accent">real change</span>
           </h1>

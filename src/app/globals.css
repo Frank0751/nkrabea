@@ -26,7 +26,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
-  --font-sans: var(--font-jakarta);
+  --font-sans: var(--font-body);
   --font-display: var(--font-display);
   --font-mono: var(--font-mono);
 
@@ -201,7 +201,14 @@
      anyone who has asked to reduce motion. */
   body {
     @apply bg-background text-foreground;
-    font-feature-settings: "ss01", "ss03";
+  }
+  /* DM Serif Display exists at weight 400 only. Without this, any inherited
+     bold makes the browser synthesise one, which thickens the strokes
+     unevenly and ruins the serifs. Belt and braces alongside not applying a
+     weight utility to .font-display anywhere in the markup. */
+  .font-display {
+    font-weight: 400;
+    font-synthesis-weight: none;
   }
   ::selection {
     background-color: var(--accent);

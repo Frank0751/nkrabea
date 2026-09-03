@@ -38,7 +38,7 @@ export default function AboutPage() {
             <div className="lg:col-span-4">
               <Reveal>
                 <SectionEyebrow>Who we are</SectionEyebrow>
-                <h2 className="mt-5 font-display text-3xl font-semibold leading-tight tracking-tight text-foreground sm:text-4xl">
+                <h2 className="mt-5 font-display text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
                   Reaching back to build forward
                 </h2>
               </Reveal>
@@ -79,7 +79,7 @@ export default function AboutPage() {
 
           <Reveal delay={160}>
             <blockquote className="mx-auto mt-12 max-w-3xl text-center">
-              <p className="font-display text-2xl font-semibold leading-snug text-foreground sm:text-3xl">
+              <p className="font-display text-2xl leading-snug text-foreground sm:text-3xl">
                 &ldquo;{ORG.motto}&rdquo;
               </p>
               <footer className="label-mono mt-4 text-muted-foreground">
@@ -95,7 +95,7 @@ export default function AboutPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="max-w-2xl">
             <SectionEyebrow>Core values</SectionEyebrow>
-            <h2 className="mt-5 font-display text-3xl font-semibold leading-tight tracking-tight text-foreground sm:text-4xl">
+            <h2 className="mt-5 font-display text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
               Seven values guide the work
             </h2>
           </Reveal>
@@ -109,7 +109,7 @@ export default function AboutPage() {
                 key={value}
                 className="rounded-xl border border-border bg-card px-4 py-6 text-center"
               >
-                <span className="font-display text-base font-semibold text-foreground">
+                <span className="font-display text-base text-foreground">
                   {value}
                 </span>
               </div>
@@ -128,7 +128,7 @@ export default function AboutPage() {
             <div className="lg:col-span-4">
               <Reveal>
                 <SectionEyebrow>What we do</SectionEyebrow>
-                <h2 className="mt-5 font-display text-3xl font-semibold leading-tight tracking-tight text-foreground sm:text-4xl">
+                <h2 className="mt-5 font-display text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
                   Our constitutional objectives
                 </h2>
                 <p className="mt-5 text-sm leading-relaxed text-muted-foreground">

@@ -74,7 +74,7 @@ export function PageHero({
             {eyebrow}
           </span>
 
-          <h1 className="mt-6 font-display text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
+          <h1 className="mt-6 font-display text-4xl leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
             {title}
           </h1>
 

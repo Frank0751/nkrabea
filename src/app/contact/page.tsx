@@ -35,7 +35,7 @@ export default function ContactPage() {
             <div className="lg:col-span-5">
               <Reveal>
                 <SectionEyebrow>Details</SectionEyebrow>
-                <h2 className="mt-5 font-display text-3xl font-semibold leading-tight tracking-tight text-foreground sm:text-4xl">
+                <h2 className="mt-5 font-display text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
                   Where to find us
                 </h2>
 
@@ -120,7 +120,7 @@ export default function ContactPage() {
             {/* Form */}
             <div className="lg:col-span-7">
               <Reveal delay={120}>
-                <h2 className="font-display text-2xl font-semibold leading-tight tracking-tight text-foreground">
+                <h2 className="font-display text-2xl leading-tight tracking-tight text-foreground">
                   Send a message
                 </h2>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
@@ -143,14 +143,14 @@ export default function ContactPage() {
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <Reveal>
             <SectionEyebrow>Questions</SectionEyebrow>
-            <h2 className="mt-5 font-display text-3xl font-semibold leading-tight tracking-tight text-foreground sm:text-4xl">
+            <h2 className="mt-5 font-display text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
               Frequently asked
             </h2>
 
             <Accordion type="single" collapsible className="mt-10">
               {FAQS.map((faq, i) => (
                 <AccordionItem key={faq.question} value={`item-${i}`}>
-                  <AccordionTrigger className="text-left font-display text-base font-semibold">
+                  <AccordionTrigger className="text-left font-display text-base">
                     {faq.question}
                   </AccordionTrigger>
                   <AccordionContent className="text-sm leading-relaxed text-muted-foreground">

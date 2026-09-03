@@ -31,7 +31,7 @@ export default function HomePage() {
             <div className="lg:col-span-5">
               <Reveal>
                 <SectionEyebrow>Our mission</SectionEyebrow>
-                <h2 className="mt-5 font-display text-3xl font-semibold leading-tight tracking-tight text-foreground sm:text-4xl">
+                <h2 className="mt-5 font-display text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
                   Culture is the tool. Development is the work.
                 </h2>
               </Reveal>
@@ -53,7 +53,7 @@ export default function HomePage() {
                         className="h-5 w-5 text-primary"
                         aria-hidden="true"
                       />
-                      <h3 className="mt-3 font-display text-base font-semibold text-foreground">
+                      <h3 className="mt-3 font-display text-base text-foreground">
                         {focus.title}
                       </h3>
                       <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
@@ -77,7 +77,7 @@ export default function HomePage() {
           <Reveal className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
             <div className="max-w-2xl">
               <SectionEyebrow>Our work</SectionEyebrow>
-              <h2 className="mt-5 font-display text-3xl font-semibold leading-tight tracking-tight text-foreground sm:text-4xl">
+              <h2 className="mt-5 font-display text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
                 The programmes we are running and raising for
               </h2>
             </div>
@@ -110,7 +110,7 @@ export default function HomePage() {
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <Reveal className="mx-auto max-w-3xl text-center">
               <p className="label-mono text-accent">The scale of the need</p>
-              <p className="mt-6 font-display text-6xl font-semibold leading-none tracking-tight sm:text-7xl">
+              <p className="mt-6 font-display text-6xl leading-none tracking-tight sm:text-7xl">
                 <CountUp value={500} />
               </p>
               <p className="mt-5 text-lg leading-relaxed text-band-foreground/80">

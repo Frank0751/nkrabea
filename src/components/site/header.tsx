@@ -67,7 +67,7 @@ export function SiteHeader() {
           <BrandMark />
           <span className="flex flex-col leading-none">
             <span
-              className={`font-display text-base font-semibold tracking-tight ${
+              className={`font-display text-base tracking-tight ${
                 transparent ? "text-band-foreground" : "text-foreground"
               }`}
             >
@@ -147,7 +147,7 @@ export function SiteHeader() {
                 <SheetTitle className="sr-only">Navigation</SheetTitle>
                 <div className="flex h-full flex-col">
                   <div className="flex items-center justify-between border-b px-5 py-4">
-                    <span className="font-display text-lg font-semibold">
+                    <span className="font-display text-lg">
                       Menu
                     </span>
                     <SheetClose asChild>

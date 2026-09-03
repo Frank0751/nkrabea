@@ -30,7 +30,7 @@ export default function GetInvolvedPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="max-w-2xl">
             <SectionEyebrow>Give</SectionEyebrow>
-            <h2 className="mt-5 font-display text-3xl font-semibold leading-tight tracking-tight text-foreground sm:text-4xl">
+            <h2 className="mt-5 font-display text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
               Make a donation
             </h2>
           </Reveal>
@@ -42,7 +42,7 @@ export default function GetInvolvedPage() {
                   className="h-6 w-6 text-accent"
                   aria-hidden="true"
                 />
-                <h3 className="mt-4 font-display text-lg font-semibold text-foreground">
+                <h3 className="mt-4 font-display text-lg text-foreground">
                   Mobile money
                 </h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
@@ -53,7 +53,7 @@ export default function GetInvolvedPage() {
                     <dt className="label-mono text-muted-foreground">
                       MTN MoMo
                     </dt>
-                    <dd className="mt-1 font-display text-xl font-semibold tracking-tight text-foreground">
+                    <dd className="mt-1 font-display text-xl tracking-tight text-foreground">
                       {ORG.momo}
                     </dd>
                   </div>
@@ -79,7 +79,7 @@ export default function GetInvolvedPage() {
                   className="h-6 w-6 text-muted-foreground"
                   aria-hidden="true"
                 />
-                <h3 className="mt-4 font-display text-lg font-semibold text-foreground">
+                <h3 className="mt-4 font-display text-lg text-foreground">
                   Bank transfer
                 </h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
@@ -106,7 +106,7 @@ export default function GetInvolvedPage() {
                   className="h-6 w-6 text-muted-foreground"
                   aria-hidden="true"
                 />
-                <h3 className="mt-4 font-display text-lg font-semibold text-foreground">
+                <h3 className="mt-4 font-display text-lg text-foreground">
                   Card payment
                 </h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
@@ -131,7 +131,7 @@ export default function GetInvolvedPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="max-w-2xl">
             <SectionEyebrow>Beyond money</SectionEyebrow>
-            <h2 className="mt-5 font-display text-3xl font-semibold leading-tight tracking-tight text-foreground sm:text-4xl">
+            <h2 className="mt-5 font-display text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
               Other ways to help
             </h2>
           </Reveal>
@@ -139,7 +139,7 @@ export default function GetInvolvedPage() {
           <RevealGroup className="mt-12 grid gap-6 sm:grid-cols-2">
             <div className="spotlight-card rounded-2xl border border-border bg-card p-7">
               <HandHeart className="h-6 w-6 text-primary" aria-hidden="true" />
-              <h3 className="mt-4 font-display text-lg font-semibold text-foreground">
+              <h3 className="mt-4 font-display text-lg text-foreground">
                 Volunteer
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
@@ -156,7 +156,7 @@ export default function GetInvolvedPage() {
 
             <div className="spotlight-card rounded-2xl border border-border bg-card p-7">
               <Package className="h-6 w-6 text-primary" aria-hidden="true" />
-              <h3 className="mt-4 font-display text-lg font-semibold text-foreground">
+              <h3 className="mt-4 font-display text-lg text-foreground">
                 In-kind support
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
@@ -179,7 +179,7 @@ export default function GetInvolvedPage() {
         <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
           <Reveal>
             <SectionEyebrow>Stay in touch</SectionEyebrow>
-            <h2 className="mt-5 font-display text-2xl font-semibold leading-tight tracking-tight text-foreground sm:text-3xl">
+            <h2 className="mt-5 font-display text-2xl leading-tight tracking-tight text-foreground sm:text-3xl">
               Hear when a programme opens or completes
             </h2>
             <div className="mt-8">

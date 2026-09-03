@@ -22,7 +22,7 @@ export function CtaBand({
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-start gap-6 rounded-2xl border border-band-foreground/10 bg-band-foreground/5 p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10 lg:p-12">
           <div className="max-w-xl">
-            <h2 className="font-display text-2xl font-semibold leading-tight tracking-tight sm:text-3xl">
+            <h2 className="font-display text-2xl leading-tight tracking-tight sm:text-3xl">
               {title}
             </h2>
             <p className="mt-3 text-sm leading-relaxed text-band-foreground/70 sm:text-base">

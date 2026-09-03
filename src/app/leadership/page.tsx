@@ -32,7 +32,7 @@ export default function LeadershipPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="max-w-2xl">
             <SectionEyebrow>Founders</SectionEyebrow>
-            <h2 className="mt-5 font-display text-3xl font-semibold leading-tight tracking-tight text-foreground sm:text-4xl">
+            <h2 className="mt-5 font-display text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
               The people who began it
             </h2>
           </Reveal>
@@ -53,7 +53,7 @@ export default function LeadershipPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="max-w-2xl">
             <SectionEyebrow>Executive Council</SectionEyebrow>
-            <h2 className="mt-5 font-display text-3xl font-semibold leading-tight tracking-tight text-foreground sm:text-4xl">
+            <h2 className="mt-5 font-display text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
               Board of Directors
             </h2>
             <p className="mt-5 text-base leading-relaxed text-muted-foreground">
@@ -77,7 +77,7 @@ export default function LeadershipPage() {
             <div className="lg:col-span-4">
               <Reveal>
                 <SectionEyebrow>Management team</SectionEyebrow>
-                <h2 className="mt-5 font-display text-3xl font-semibold leading-tight tracking-tight text-foreground sm:text-4xl">
+                <h2 className="mt-5 font-display text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
                   Eight roles run the work
                 </h2>
                 <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
@@ -148,14 +148,14 @@ function PersonCard({
       }`}
     >
       <span
-        className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-band font-display text-lg font-semibold text-band-foreground"
+        className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-band font-display text-lg text-band-foreground"
         aria-hidden="true"
       >
         {initials}
       </span>
       <div className="min-w-0">
         <h3
-          className={`font-display font-semibold leading-snug text-foreground ${
+          className={`font-display leading-snug text-foreground ${
             featured ? "text-lg" : "text-base"
           }`}
         >

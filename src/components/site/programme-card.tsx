@@ -42,7 +42,7 @@ export function ProgrammeCard({
         )}
       </div>
 
-      <h3 className="mt-4 font-display text-lg font-semibold leading-snug text-foreground">
+      <h3 className="mt-4 font-display text-lg leading-snug text-foreground">
         {programme.name}
       </h3>
 

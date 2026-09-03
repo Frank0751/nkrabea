@@ -40,7 +40,7 @@ export function Footer() {
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-8">
           {/* Identity */}
           <div className="lg:col-span-4">
-            <p className="font-display text-xl font-semibold tracking-tight">
+            <p className="font-display text-xl tracking-tight">
               {ORG.shortName}
             </p>
             <p className="label-mono mt-2 text-accent">{ORG.motto}</p>

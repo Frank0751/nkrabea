@@ -45,7 +45,7 @@ export default function PartnerPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="max-w-2xl">
             <SectionEyebrow>The case for support</SectionEyebrow>
-            <h2 className="mt-5 font-display text-3xl font-semibold leading-tight tracking-tight text-foreground sm:text-4xl">
+            <h2 className="mt-5 font-display text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
               What your funding actually does
             </h2>
           </Reveal>
@@ -56,7 +56,7 @@ export default function PartnerPage() {
                 key={point.title}
                 className="spotlight-card rounded-2xl border border-border bg-card p-7"
               >
-                <h3 className="font-display text-lg font-semibold leading-snug text-foreground">
+                <h3 className="font-display text-lg leading-snug text-foreground">
                   {point.title}
                 </h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
@@ -76,7 +76,7 @@ export default function PartnerPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="max-w-2xl">
             <SectionEyebrow>Who we work with</SectionEyebrow>
-            <h2 className="mt-5 font-display text-3xl font-semibold leading-tight tracking-tight text-foreground sm:text-4xl">
+            <h2 className="mt-5 font-display text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
               Four kinds of partner
             </h2>
           </Reveal>
@@ -84,7 +84,7 @@ export default function PartnerPage() {
           <RevealGroup className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {AUDIENCES.map((audience) => (
               <div key={audience.id}>
-                <h3 className="font-display text-base font-semibold leading-snug text-foreground">
+                <h3 className="font-display text-base leading-snug text-foreground">
                   {audience.title}
                 </h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
@@ -103,14 +103,14 @@ export default function PartnerPage() {
             <div className="lg:col-span-5">
               <Reveal>
                 <SectionEyebrow>Open for funding</SectionEyebrow>
-                <h2 className="mt-5 font-display text-3xl font-semibold leading-tight tracking-tight text-foreground sm:text-4xl">
+                <h2 className="mt-5 font-display text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
                   Programmes ready to run
                 </h2>
                 <ul className="mt-8 space-y-5">
                   {PROGRAMMES.filter((p) => p.status === "fundraising").map(
                     (p) => (
                       <li key={p.id} className="border-l-2 border-accent pl-5">
-                        <h3 className="font-display text-base font-semibold leading-snug text-foreground">
+                        <h3 className="font-display text-base leading-snug text-foreground">
                           {p.name}
                         </h3>
                         {p.value && (
@@ -127,7 +127,7 @@ export default function PartnerPage() {
 
             <div className="lg:col-span-7">
               <Reveal delay={120}>
-                <h2 className="font-display text-2xl font-semibold leading-tight tracking-tight text-foreground">
+                <h2 className="font-display text-2xl leading-tight tracking-tight text-foreground">
                   Start a conversation
                 </h2>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Fraunces, JetBrains_Mono } from "next/font/google";
+import { Manrope, DM_Serif_Display, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster as SonnerToaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -13,17 +13,30 @@ import { ORG } from "@/lib/content";
 import { SITE_URL, IS_PUBLIC_SITE } from "@/lib/site";
 import { OrganisationSchema } from "@/components/site/structured-data";
 
-const jakarta = Plus_Jakarta_Sans({
-  variable: "--font-jakarta",
+/**
+ * Body. Manrope is the closest openly licensed match to Satoshi's
+ * humanist-geometric construction, and being variable it covers every weight
+ * the site uses from one file.
+ */
+const body = Manrope({
+  variable: "--font-body",
   subsets: ["latin"],
   display: "swap",
 });
 
-const display = Fraunces({
+/**
+ * Display. DM Serif Display is koombei-studio-skill Part 3's first named face
+ * for NGO and social-impact work.
+ *
+ * It ships at weight 400 only. Nothing in the site may apply a heavier weight
+ * to it: the browser would synthesise a fake bold and smear the letterforms.
+ * globals.css disables font-synthesis on the display family as a hard guard.
+ */
+const display = DM_Serif_Display({
   variable: "--font-display",
   subsets: ["latin"],
+  weight: "400",
   display: "swap",
-  axes: ["opsz", "SOFT", "WONK"],
 });
 
 const mono = JetBrains_Mono({
@@ -88,7 +101,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${jakarta.variable} ${display.variable} ${mono.variable} font-sans antialiased bg-background text-foreground`}
+        className={`${body.variable} ${display.variable} ${mono.variable} font-sans antialiased bg-background text-foreground`}
       >
         <ThemeProvider
           attribute="class"

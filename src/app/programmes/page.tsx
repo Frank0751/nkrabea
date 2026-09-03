@@ -50,7 +50,7 @@ export default function ProgrammesPage() {
                     >
                       {STATUS_LABEL[programme.status]}
                     </span>
-                    <h2 className="mt-5 font-display text-2xl font-semibold leading-snug tracking-tight text-foreground sm:text-3xl">
+                    <h2 className="mt-5 font-display text-2xl leading-snug tracking-tight text-foreground sm:text-3xl">
                       {programme.name}
                     </h2>
                     {programme.value && (
@@ -107,7 +107,7 @@ export default function ProgrammesPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="max-w-2xl">
             <SectionEyebrow>How we teach</SectionEyebrow>
-            <h2 className="mt-5 font-display text-3xl font-semibold leading-tight tracking-tight text-foreground sm:text-4xl">
+            <h2 className="mt-5 font-display text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
               The art forms we work through
             </h2>
           </Reveal>
@@ -118,7 +118,7 @@ export default function ProgrammesPage() {
                 key={form.id}
                 className="spotlight-card rounded-2xl border border-border bg-card p-7"
               >
-                <h3 className="font-display text-lg font-semibold text-foreground">
+                <h3 className="font-display text-lg text-foreground">
                   {form.name}
                 </h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">

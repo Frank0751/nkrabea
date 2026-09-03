@@ -31,7 +31,7 @@ export default function ImpactPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="max-w-2xl">
             <SectionEyebrow>By the numbers</SectionEyebrow>
-            <h2 className="mt-5 font-display text-3xl font-semibold leading-tight tracking-tight text-foreground sm:text-4xl">
+            <h2 className="mt-5 font-display text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
               Targets and facts, labelled as such
             </h2>
           </Reveal>
@@ -45,7 +45,7 @@ export default function ImpactPage() {
                   key={figure.label}
                   className="spotlight-card rounded-2xl border border-border bg-card p-6"
                 >
-                  <p className="font-display text-4xl font-semibold leading-none tracking-tight text-foreground">
+                  <p className="font-display text-4xl leading-none tracking-tight text-foreground">
                     {isNumber ? <CountUp value={numeric} /> : figure.value}
                   </p>
                   <p className="mt-4 text-sm leading-relaxed text-foreground/90">
@@ -94,7 +94,7 @@ export default function ImpactPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="max-w-2xl">
             <SectionEyebrow>Milestones</SectionEyebrow>
-            <h2 className="mt-5 font-display text-3xl font-semibold leading-tight tracking-tight text-foreground sm:text-4xl">
+            <h2 className="mt-5 font-display text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
               The record so far
             </h2>
           </Reveal>
@@ -105,11 +105,11 @@ export default function ImpactPage() {
                 key={milestone.year}
                 className="flex flex-col gap-4 rounded-2xl border border-border bg-card p-6 sm:flex-row sm:gap-8 sm:p-7"
               >
-                <span className="font-display text-2xl font-semibold text-accent sm:w-24 sm:shrink-0">
+                <span className="font-display text-2xl text-accent sm:w-24 sm:shrink-0">
                   {milestone.year}
                 </span>
                 <div>
-                  <h3 className="font-display text-lg font-semibold text-foreground">
+                  <h3 className="font-display text-lg text-foreground">
                     {milestone.title}
                   </h3>
                   <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
@@ -134,7 +134,7 @@ export default function ImpactPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="max-w-2xl">
             <SectionEyebrow>In the frame</SectionEyebrow>
-            <h2 className="mt-5 font-display text-3xl font-semibold leading-tight tracking-tight text-foreground sm:text-4xl">
+            <h2 className="mt-5 font-display text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
               Our work in pictures
             </h2>
           </Reveal>
