@@ -6,6 +6,8 @@ import { Reveal, RevealGroup } from "@/components/site/reveal";
 import { CountUp } from "@/components/site/count-up";
 import { CtaBand } from "@/components/site/cta-band";
 import { ProgrammeCard } from "@/components/site/programme-card";
+import { ProofBar } from "@/components/site/proof-bar";
+import { WhoWeServe } from "@/components/site/who-we-serve";
 import { PROGRAMMES, STRATEGIC_FOCUS, FIGURES, MISSION } from "@/lib/content";
 
 const FOCUS_ICONS = {
@@ -20,6 +22,8 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+
+      <ProofBar />
 
       {/* Mission */}
       <section
@@ -67,6 +71,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <WhoWeServe />
 
       {/* Featured programmes */}
       <section

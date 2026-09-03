@@ -3,6 +3,11 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* SIGNATURE: the rhythm line. A gold drum line down the left edge that fills
+   as the visitor scrolls, striking a node at each section boundary the way a
+   drum head moves. By the footer they have watched a rhythm play out under
+   their thumb without being told that is what it was. */
+
 /* ===========================================================================
    Nkrabea Culture & Arts Ensemble - design system
    KB-2026-009, Phase 1
@@ -74,6 +79,22 @@
 
 :root {
   --radius: 0.5rem;
+
+  /* ---------------------------------------------------------------------
+     koombei-studio-skill Part 2 five-slot system.
+
+     The build runs on shadcn's semantic tokens, because fifty vendored
+     components read them. These are the studio's slot names mapped onto
+     those, so the palette can be read in the studio's own vocabulary
+     without maintaining two sources of truth. Aliases only: change the
+     values below, not here.
+     --------------------------------------------------------------------- */
+  --bg-primary: var(--band);
+  --bg-secondary: var(--secondary);
+  --bg-light: var(--card);
+  --text-primary: var(--band-foreground);
+  --text-muted: var(--muted-foreground);
+  /* --accent and --border are already the studio's names, defined below. */
 
   /* Brand constants, identical in both themes */
   --brand-black: oklch(0.2057 0.0073 229.27);

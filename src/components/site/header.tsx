@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/sheet";
 import { ThemeToggle } from "./theme-toggle";
 import { MotionToggle } from "./motion-toggle";
+import { TextSizeToggle } from "./text-size-toggle";
 import { ORG } from "@/lib/content";
 
 /**
@@ -117,6 +118,7 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-1">
+          <TextSizeToggle onDark={transparent} />
           <MotionToggle onDark={transparent} />
           <ThemeToggle />
           <Button
@@ -204,7 +206,8 @@ export function SiteHeader() {
                         <Link href="/get-involved">Support Our Work</Link>
                       </Button>
                     </SheetClose>
-                    <div className="flex justify-center">
+                    <div className="flex items-center justify-center gap-1">
+                      <TextSizeToggle />
                       <MotionToggle />
                     </div>
                   </div>

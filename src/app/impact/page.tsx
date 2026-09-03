@@ -21,8 +21,8 @@ export default function ImpactPage() {
         eyebrow="Our impact"
         title="What we are set up to change"
         description="The figures below state plainly whether each is a programme target or a result already achieved."
-        image="/images/social/fb-2.jpg"
-        imageAlt="Members of the Nkrabea ensemble performing together."
+        image="/images/social/fb-3.jpg"
+        imageAlt="Paintings mounted on display boards at an outdoor art exhibition, as visitors walk between them."
         crumbs={[{ label: "Impact" }]}
       />
 

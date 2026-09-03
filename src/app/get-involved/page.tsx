@@ -20,8 +20,6 @@ export default function GetInvolvedPage() {
         eyebrow="Get involved"
         title="Ways to support the work"
         description="Every contribution goes into programmes that build skills, livelihoods and dignity in Ghanaian communities."
-        image="/images/social/fb-5.jpg"
-        imageAlt="Nkrabea dancers in traditional regalia."
         crumbs={[{ label: "Get Involved" }]}
       />
 

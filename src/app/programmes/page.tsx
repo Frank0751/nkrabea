@@ -24,8 +24,8 @@ export default function ProgrammesPage() {
         eyebrow="Our work"
         title="Programmes with a measurable end"
         description="Nkrabea is currently running and raising funds for the following initiatives."
-        image="/images/social/fb-6.jpg"
-        imageAlt="Nkrabea ensemble members during a community performance."
+        image="/images/social/fb-reel.jpg"
+        imageAlt="A woman dancing under a canopy at an outdoor gathering, with drummers playing behind her."
         crumbs={[{ label: "Our Work" }]}
       />
 

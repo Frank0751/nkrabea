@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { gsap, ScrollTrigger, useReducedMotion } from "@/lib/motion";
+import { useMediaQuery, DESKTOP_QUERY } from "@/lib/use-media-query";
 
 /**
  * A woven kente band on the right edge, drifting at 0.16x scroll speed.
@@ -18,10 +19,11 @@ const WEAVE_PERIOD = 74;
 export function KenteStrip() {
   const weaveRef = React.useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
+  const isDesktop = useMediaQuery(DESKTOP_QUERY);
 
   React.useEffect(() => {
     if (reduced === null || reduced) return;
-    if (!window.matchMedia("(min-width: 1024px)").matches) return;
+    if (!isDesktop) return;
 
     const weave = weaveRef.current;
     if (!weave) return;
@@ -29,8 +31,11 @@ export function KenteStrip() {
     const setY = gsap.quickSetter(weave, "y", "px") as (v: number) => void;
 
     const trigger = ScrollTrigger.create({
-      start: 0,
-      end: "max",
+      // Anchored to the document, matching the rhythm line. A trigger-less
+      // ScrollTrigger does not reliably report progress across the page.
+      trigger: document.body,
+      start: "top top",
+      end: "bottom bottom",
       onUpdate: () => {
         const drift = window.scrollY * PARALLAX;
         setY(-(drift % WEAVE_PERIOD));
@@ -40,9 +45,9 @@ export function KenteStrip() {
     return () => {
       trigger.kill();
     };
-  }, [reduced]);
+  }, [reduced, isDesktop]);
 
-  if (reduced) return null;
+  if (reduced || !isDesktop) return null;
 
   return (
     <div className="kente-strip" aria-hidden="true">

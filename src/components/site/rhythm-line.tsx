@@ -3,6 +3,7 @@
 import * as React from "react";
 import { usePathname } from "next/navigation";
 import { ScrollTrigger, useReducedMotion } from "@/lib/motion";
+import { useMediaQuery, DESKTOP_QUERY } from "@/lib/use-media-query";
 
 /**
  * The rhythm line.
@@ -19,9 +20,10 @@ import { ScrollTrigger, useReducedMotion } from "@/lib/motion";
  * viewport, which is where a section header actually feels current rather
  * than when its first pixel appears.
  *
- * Hidden under 1024px and removed entirely under prefers-reduced-motion,
- * both handled in globals.css. This component also bails out of all
- * measurement work in that case, so it costs nothing.
+ * Hidden under 1024px and removed entirely under prefers-reduced-motion.
+ * The breakpoint is read reactively rather than sampled once, so widening a
+ * window past 1024px activates the line instead of leaving it dead for the
+ * rest of the session.
  */
 
 const READING_LINE = 0.45;
@@ -30,6 +32,7 @@ export function RhythmLine() {
   const rootRef = React.useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   const reduced = useReducedMotion();
+  const isDesktop = useMediaQuery(DESKTOP_QUERY);
 
   const [nodes, setNodes] = React.useState<number[]>([]);
   const nodesRef = React.useRef<number[]>([]);
@@ -37,8 +40,8 @@ export function RhythmLine() {
 
   React.useEffect(() => {
     if (reduced === null || reduced) return;
-    // The line is not rendered under 1024px, so skip the work entirely.
-    if (!window.matchMedia("(min-width: 1024px)").matches) return;
+    // Below the breakpoint the line is not rendered, so skip the work.
+    if (!isDesktop) return;
 
     const root = rootRef.current;
     if (!root) return;
@@ -71,6 +74,9 @@ export function RhythmLine() {
       });
 
       nodesRef.current = fractions;
+      // Drop refs from a previous page or width, so paint() cannot address a
+      // node element that no longer belongs to this measurement.
+      nodeElsRef.current.length = fractions.length;
       setNodes(fractions);
     };
 
@@ -117,10 +123,12 @@ export function RhythmLine() {
       window.removeEventListener("load", onLoad);
       trigger.kill();
     };
-  }, [reduced, pathname]);
+  }, [reduced, pathname, isDesktop]);
 
-  // Nothing to render for a visitor who has asked for reduced motion.
-  if (reduced) return null;
+  // Nothing to render for a visitor who has asked for reduced motion, or on a
+  // viewport too narrow to carry the line. Returning null unmounts the nodes,
+  // and widening the window re-runs the effect above, which measures afresh.
+  if (reduced || !isDesktop) return null;
 
   return (
     <div

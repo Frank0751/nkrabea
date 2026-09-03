@@ -228,26 +228,44 @@ export const PROGRAMMES: Programme[] = [
    Audiences the site is written for
    --------------------------------------------------------------------------- */
 
-export const AUDIENCES = [
+export type Audience = {
+  id: string;
+  title: string;
+  /** What this group comes to the site for. */
+  need: string;
+  /** The single most useful next step for them. */
+  action: string;
+  href: string;
+};
+
+export const AUDIENCES: Audience[] = [
   {
     id: "funders",
     title: "Corporate sponsors and grant funders",
-    need: "Credibility, programmes and impact, quickly.",
+    need: "Costed programmes, stated targets and a governance record you can check before committing.",
+    action: "See the case for support",
+    href: "/partner",
   },
   {
     id: "institutions",
     title: "Government and institutional partners",
-    need: "GES, District Assemblies, ministries and the Office of Diaspora Affairs.",
+    need: "The Ghana Education Service, District Assemblies, ministries and the Office of Diaspora Affairs, working with us inside existing structures.",
+    action: "Discuss an institutional partnership",
+    href: "/partner",
   },
   {
     id: "diaspora",
     title: "The Ghanaian diaspora",
-    need: "Participants in and supporters of our cultural programmes.",
+    need: "A way to take part in and support cultural programmes at home, from wherever you are.",
+    action: "Find a way in",
+    href: "/get-involved",
   },
   {
     id: "communities",
     title: "Beneficiaries and the public",
-    need: "The schools and communities we serve.",
+    need: "The schools, learners and communities our programmes are built for and delivered with.",
+    action: "See the programmes",
+    href: "/programmes",
   },
 ];
 
@@ -428,36 +446,57 @@ export type GalleryItem = {
   caption?: string;
 };
 
+/**
+ * Alt text here describes what is actually in each frame.
+ *
+ * The first version of this file captioned every image as a Nkrabea
+ * performance. Six of the eight are an outdoor art exhibition and individual
+ * artworks, so a screen reader user was being told about drummers and dancers
+ * that are not in the picture. Do not write alt text for these without
+ * opening the file.
+ */
 export const GALLERY: GalleryItem[] = [
   {
     id: "g1",
     src: "/images/social/fb-1.jpg",
-    alt: "Nkrabea performers in traditional dress during a cultural performance.",
+    alt: "Three young women in kente cloth and layered strands of yellow and multicoloured trade beads, with white markings painted on their arms and shoulders, dancing outdoors while a camera operator films them.",
+    caption: "Cultural ceremony, filmed for broadcast",
   },
   {
     id: "g2",
     src: "/images/social/fb-2.jpg",
-    alt: "Members of the Nkrabea ensemble performing together.",
+    alt: "A young woman in a patterned headwrap and many strands of yellow and multicoloured trade beads, with white markings painted on her arms, dancing at an outdoor gathering.",
+    caption: "Beadwork and body markings worn for the occasion",
+  },
+  {
+    id: "g7",
+    src: "/images/social/fb-reel.jpg",
+    alt: "A woman in white lace cloth and a yellow headwrap dancing under a canopy at an outdoor gathering, with drummers playing behind her.",
+    caption: "Drumming and dance at a community gathering",
   },
   {
     id: "g3",
     src: "/images/social/fb-3.jpg",
-    alt: "Nkrabea drummers performing with traditional Ghanaian drums.",
-  },
-  {
-    id: "g4",
-    src: "/images/social/fb-4.jpg",
-    alt: "A Nkrabea cultural performance in progress.",
-  },
-  {
-    id: "g5",
-    src: "/images/social/fb-5.jpg",
-    alt: "Nkrabea dancers in traditional regalia.",
+    alt: "Paintings mounted on freestanding display boards at an outdoor art exhibition, each with a printed label, as visitors walk between them.",
+    caption: "Outdoor exhibition of Ghanaian painting",
   },
   {
     id: "g6",
     src: "/images/social/fb-6.jpg",
-    alt: "Nkrabea ensemble members during a community performance.",
+    alt: "A framed painting of a masquerade figure in a brightly patterned appliqué gown, flanked by two carved columns of stacked faces.",
+    caption: "Masquerade figure, painting",
+  },
+  {
+    id: "g4",
+    src: "/images/social/fb-4.jpg",
+    alt: "A painting on a circular canvas showing a masquerade figure in layered appliqué cloth, holding a carved mask on a pole in each hand.",
+    caption: "Masquerade with twin masks, painting on board",
+  },
+  {
+    id: "g5",
+    src: "/images/social/fb-5.jpg",
+    alt: "Mixed-media sculptures made from reclaimed materials mounted on a white exhibition wall, each beside a printed label. One label reads: moving against waste, save the trees, use the leaves.",
+    caption: "Assemblage works made from reclaimed materials",
   },
 ];
 
