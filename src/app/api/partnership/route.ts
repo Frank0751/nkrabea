@@ -1,5 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/lib/db";
+import { getDb } from "@/lib/db";
+import {
+  PERSISTENCE_IS_DURABLE,
+  PERSISTENCE_DIAGNOSIS,
+  unavailableResponse,
+} from "@/lib/persistence";
+import { ORG } from "@/lib/content";
 
 export const runtime = "nodejs";
 
@@ -14,6 +20,12 @@ const VALID_TYPES = [
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export async function POST(req: NextRequest) {
+  // Refuse before reading the body if we cannot keep what we are sent.
+  if (!PERSISTENCE_IS_DURABLE) {
+    console.error("partnership route: persistence unavailable.", PERSISTENCE_DIAGNOSIS);
+    return NextResponse.json(unavailableResponse(ORG.email), { status: 503 });
+  }
+
   try {
     const body = await req.json();
 
@@ -40,7 +52,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const record = await db.partnershipEnquiry.create({
+    const record = await getDb().partnershipEnquiry.create({
       data: {
         name,
         email,
@@ -63,7 +75,10 @@ export async function POST(req: NextRequest) {
   } catch (err) {
     console.error("partnership route error", err);
     return NextResponse.json(
-      { ok: false, error: "Something went wrong. Please try again later." },
+      {
+        ok: false,
+        error: `We could not record your enquiry. Please email ${ORG.email} directly.`,
+      },
       { status: 500 }
     );
   }

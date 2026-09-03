@@ -10,6 +10,8 @@ import { RhythmLine } from "@/components/site/rhythm-line";
 import { KenteStrip } from "@/components/site/kente-strip";
 import { MotionProvider } from "@/components/site/motion-provider";
 import { ORG } from "@/lib/content";
+import { SITE_URL } from "@/lib/site";
+import { OrganisationSchema } from "@/components/site/structured-data";
 
 const jakarta = Plus_Jakarta_Sans({
   variable: "--font-jakarta",
@@ -29,15 +31,6 @@ const mono = JetBrains_Mono({
   subsets: ["latin"],
   display: "swap",
 });
-
-/**
- * Nkrabea's brief states they do not yet hold a domain, so this is configured
- * rather than derived from content. Set NEXT_PUBLIC_SITE_URL in the deployment
- * environment once the domain is secured; the fallback keeps canonical and
- * Open Graph URLs well-formed until then.
- */
-const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://nkrabeacultureandarts.org";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -99,6 +92,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <MotionProvider>
+            <OrganisationSchema />
             <a href="#main" className="skip-link">
               Skip to main content
             </a>

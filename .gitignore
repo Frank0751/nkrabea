@@ -46,9 +46,13 @@ next-env.d.ts
 dev.log
 server.log
 
-# database (regenerated via bun run db:push)
-/db/*.db
-/db/*.db-journal
+# database. Prisma resolves a relative file: URL against prisma/schema.prisma,
+# not the project root, so the SQLite file lands in prisma/db/. Match any
+# location so a database of real enquiries can never be committed.
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
 
 # editor
 .vscode/*

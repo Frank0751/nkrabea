@@ -1,167 +1,101 @@
-# Nkrabea Culture & Arts Ensemble
+# Nkrabea Culture and Arts Ensemble LBG
 
-Official website for Nkrabea Culture & Arts Ensemble, a Ghanaian non-profit cultural dance and drumming ensemble founded in 1995 in Adenta, Accra.
+Official website for a registered Ghanaian NGO (Companies Act 2019, Act 992;
+incorporated 14 May 2021) based in Adentan Municipal, Greater Accra, using
+culture and the creative arts as tools for socio-economic development.
 
-> Translating Ghanaian culture into something the world can feel and understand.
+Built by [KoomBei Digital](https://koombei.com) under project KB-2026-009.
 
-## Tech stack
+Next.js 16 (App Router) · TypeScript · Tailwind CSS 4 · shadcn/ui · GSAP 3 ·
+Prisma
 
-- **Framework**: Next.js 16 (App Router) + TypeScript 5
-- **Styling**: Tailwind CSS 4 + shadcn/ui (New York style) + Lucide icons
-- **Database**: Prisma ORM with SQLite
-- **Fonts**: Inter (body) + Fraunces (display) via next/font
-- **Theme**: next-themes (light default, dark mode toggle)
-- **Toasts**: sonner
-- **Runtime**: Bun (recommended) or npm/pnpm
-
-## Quick start
+## Running locally
 
 ```bash
-# 1. Install dependencies
-bun install
-
-# 2. Copy environment file
+npm install
 cp .env.example .env
-
-# 3. Create the SQLite database and tables
-bun run db:push
-
-# 4. Start the dev server
-bun run dev
+npm run db:push     # create the local SQLite tables
+npm run dev         # http://localhost:3000
 ```
 
-The site runs at http://localhost:3000
+## Checks
 
-If you use npm instead of bun, replace `bun` with `npm` and `bun run` with `npm run`.
-
-## Project structure
-
-```
-src/
-  app/
-    about/         page.tsx        # About: story, stats, values, timeline, mission
-    bookings/      page.tsx        # Bookings: services, process, pricing, booking form
-    contact/       page.tsx        # Contact: info, socials, tabbed forms, FAQ
-    ensemble/      page.tsx        # Ensemble: four limbs, training, gallery, testimonials
-    events/        page.tsx        # Events: calendar, past highlights, newsletter
-    gallery/       page.tsx        # Gallery: masonry + lightbox with keyboard nav
-    programs/      page.tsx        # Programs: feature cards + cultural context modal
-    layout.tsx     # Root layout: shared header, footer, scroll progress, back-to-top
-    page.tsx       # Homepage: hero, previews, mission, reel, testimonials, CTA
-    globals.css    # Theme tokens, fonts, animations
-  components/
-    site/          # Page-specific and shared site components
-    ui/            # shadcn/ui primitives (46 components)
-  lib/
-    content.ts     # All site content (org info, programs, events, gallery, FAQs)
-    db.ts          # Prisma client singleton
-    utils.ts       # cn() class merge helper
-  hooks/
-    use-mobile.ts  # Mobile viewport hook
-    use-toast.ts   # Toast hook (legacy)
-public/
-  images/
-    social/        # 8 real photos from the org's Facebook page
-    *.png          # AI-generated cultural imagery (hero, programs, gallery)
-  logo.svg         # Custom Nkrabea star mark
-prisma/
-  schema.prisma    # ContactMessage, NewsletterSubscriber, BookingRequest models
-```
-
-## Pages and routes
-
-| Route | Description |
-|-------|-------------|
-| `/` | Landing page with hero, section previews, mission, featured reel, testimonials |
-| `/about` | Story, animated stats, values, dark timeline, mission quote |
-| `/programs` | Adowa, Kete, Drumming, Street Dance with detail modals |
-| `/bookings` | Services, 4-step process, pricing tiers, booking form |
-| `/ensemble` | Company structure, training philosophy, behind-the-scenes gallery |
-| `/events` | Upcoming events with status legend, past highlights |
-| `/gallery` | Masonry of 8 real images with full lightbox (keyboard nav) |
-| `/contact` | Contact info, social links, tabbed forms, FAQ accordion |
-
-## Backend API
-
-All three endpoints validate input and persist to SQLite via Prisma.
-
-| Endpoint | Method | Purpose |
-|----------|--------|---------|
-| `/api/booking` | POST | Booking request (name, email, phone, date, eventType, message) |
-| `/api/contact` | POST | General message (name, email, subject, message) |
-| `/api/newsletter` | POST | Newsletter subscription (email, name?) |
-
-To inspect submitted data:
 ```bash
-bun run db:studio
+npm run check           # lint + typecheck + WCAG contrast
+npm run check:contrast  # palette only, fails below WCAG 2.2 AA
+npm run build           # production build
+npm run db:studio       # browse submitted enquiries
 ```
+
+## Deployment
+
+The Vercel project is connected to this repository. **Pushing to `main`
+deploys to production.**
+
+### Environment variables
+
+| Variable | Required | Notes |
+| --- | --- | --- |
+| `DATABASE_URL` | yes | See the warning below. |
+| `NEXT_PUBLIC_SITE_URL` | strongly recommended | Origin used for canonical URLs, Open Graph tags and the sitemap. Without it these advertise `nkrabeacultureandarts.org`, which does not yet resolve. Set it to the deployment's actual URL until the domain is attached. |
+
+### The database is not yet deployable
+
+`prisma/schema.prisma` still uses SQLite. **A serverless filesystem is wiped on
+every deployment**, so a submission written there would not survive, and the
+sender would see a success message either way. This is the defect KB-2026-009
+Section 03 leads with, and Phase 3 replaces SQLite with hosted Postgres.
+
+Until then the three API routes refuse to accept submissions on a serverless
+host. `src/lib/persistence.ts` detects a file-backed database on a serverless
+platform and returns HTTP 503 with a message telling the sender their enquiry
+was **not** sent and to email `nkrabea.cna@gmail.com` instead.
+
+This means a deployment made today is safe to show people, but its forms do not
+work, by design. That is the honest failure, and it is deliberately preferred
+to a silent one. Local development is unaffected: SQLite on a real disk is
+treated as durable and every form works normally.
+
+To make the forms live:
+
+1. Provision hosted Postgres and set `DATABASE_URL` to its connection string.
+2. Change the `datasource` provider in `prisma/schema.prisma` to `postgresql`.
+3. Run `prisma migrate deploy` against it.
+
+The guard then passes automatically. No application code needs changing.
 
 ## Content
 
-All copy lives in `src/lib/content.ts`. Edit that single file to update org info,
-programs, events, gallery, testimonials, FAQs, and stories across every page.
+`src/lib/content.ts` is the single source of truth, taken from Nkrabea's own
+organisational profile. It carries a hard rule: nothing reaches the site that
+the organisation cannot evidence.
 
-Key data:
-- Organization: Nkrabea Culture & Arts Ensemble, founded 1995, Adenta Accra
-- Contact: nkrabea.cna@gmail.com, +233 20 852 2120, +233 55 612 2230
-- Social: Instagram @nkra.bea, Facebook, TikTok @hayeoye_
+- Every figure declares a `kind` of `target`, `achieved` or `fact` with a
+  `source`, so a programme target is never rendered as an accomplishment.
+- `NEEDS_EVIDENCE` holds claims that are **not rendered anywhere**, including
+  the 1995 founding date carried by the earlier prototype. Nkrabea's profile
+  documents only the 2021 incorporation. Moving an item out of that array
+  requires written evidence from Nkrabea.
+- `EVENTS`, `TESTIMONIALS`, `PRESS` and `STORIES` are intentionally empty and
+  render honest empty states.
 
-## Images
+See [CLAUDE.md](CLAUDE.md) for the full architecture, motion and styling
+conventions.
 
-- `public/images/social/` contains 8 real photographs extracted from the
-  organization's Facebook page (dancers, performances, art exhibitions,
-  and the mission cover photo). These are used in the hero, gallery,
-  page heroes, and mission sections.
-- `public/images/*.png` contains AI-generated cultural imagery (Adowa,
-  Kete, drumming, street dance, kente cloth) used in program cards and
-  preview sections.
+## Accessibility
 
-## Design system
+Nkrabea work with persons with disabilities and asked for the site to model
+good practice visibly, not just implement it.
 
-- **Palette**: warm cream background, deep teal-green primary, gold accent,
-  near-black charcoal for dark sections. No indigo or blue.
-- **Fonts**: Inter for body text, Fraunces for display headings.
-- **Animations**: scroll-reveal, count-up stats, marquee, scroll progress bar.
-  All respect prefers-reduced-motion.
-- **Responsive**: mobile-first, tested at 390px, 768px, and desktop widths.
-- **Accessibility**: semantic HTML, ARIA roles, keyboard navigation, alt text,
-  focus-visible rings.
+- An **animations on/off toggle** sits in the header. An explicit choice
+  overrides the operating system's reduced-motion setting in both directions
+  and persists across visits.
+- Contrast is enforced by `scripts/contrast.mjs`, which checks all 32 text
+  pairings in both themes and fails below WCAG 2.2 AA.
+- Skip link, visible focus states, one `<h1>` per page, labelled form fields
+  and descriptive alt text on every image.
 
-## Database schema
+## Licence and ownership
 
-```prisma
-model ContactMessage { id, name, email, subject, message, intent, createdAt }
-model NewsletterSubscriber { id, email, name?, createdAt }
-model BookingRequest { id, name, email, phone?, eventType, date?, message, createdAt }
-```
-
-## Scripts
-
-| Command | What it does |
-|---------|-------------|
-| `bun run dev` | Start dev server on port 3000 |
-| `bun run build` | Production build |
-| `bun run start` | Start production server |
-| `bun run lint` | Run ESLint |
-| `bun run db:push` | Push schema to SQLite (creates/updates tables) |
-| `bun run db:generate` | Regenerate Prisma client |
-| `bun run db:migrate` | Create and apply a migration |
-| `bun run db:reset` | Reset database (destructive) |
-| `bun run db:studio` | Open Prisma Studio GUI to browse data |
-
-## Notes for Claude Code
-
-- The worklog at `worklog.md` documents the full build history across
-  multiple review rounds, including QA results and recommendations.
-- `src/lib/content.ts` is the single source of truth for all copy.
-- The theme is defined with OKLCH color tokens in `src/app/globals.css`.
-- Program modals support deep links (`/programs#program-kete` opens Kete).
-- The gallery lightbox supports arrow-key navigation and Escape to close.
-- `next.config.ts` has `ignoreBuildErrors: false` so type errors will surface.
-- No authentication is implemented. The API routes are open but validate input.
-- The TikTok embed in the featured reel uses the official iframe and may be
-  geo-restricted in some regions.
-
-## License
-
-This project is proprietary to Nkrabea Culture & Arts Ensemble.
+The repository, its content and the organisation's brand belong to Nkrabea
+Culture and Arts Ensemble LBG.

@@ -111,10 +111,19 @@ All return `{ ok: boolean, ... }`. Use sonner toasts for feedback.
 
 ## Database
 
-Prisma with SQLite at `db/custom.db`. **SQLite is a development placeholder
-only.** A serverless filesystem is wiped on every deployment, so a submission
-written there would not survive. Phase 3 replaces it with hosted Postgres.
-Do not deploy this datasource.
+Prisma with SQLite at `prisma/db/custom.db`. Prisma resolves a relative
+`file:` URL against `prisma/schema.prisma`, not the project root, which is why
+the file lands there and why `.gitignore` matches `*.db` in any location.
+
+**SQLite is a development placeholder only.** A serverless filesystem is wiped
+on every deployment, so a submission written there would not survive. Phase 3
+replaces it with hosted Postgres.
+
+`src/lib/persistence.ts` guards this: a file-backed database on a serverless
+host makes all three API routes return 503 with a message telling the sender
+their enquiry was **not** sent. Never weaken that guard to make a deployment
+look like it works. `src/lib/db.ts` constructs the Prisma client lazily, so an
+unset `DATABASE_URL` returns that honest error rather than crashing on import.
 
 ## Do not
 
