@@ -10,7 +10,7 @@ import { RhythmLine } from "@/components/site/rhythm-line";
 import { KenteStrip } from "@/components/site/kente-strip";
 import { MotionProvider } from "@/components/site/motion-provider";
 import { ORG } from "@/lib/content";
-import { SITE_URL } from "@/lib/site";
+import { SITE_URL, IS_PUBLIC_SITE } from "@/lib/site";
 import { OrganisationSchema } from "@/components/site/structured-data";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -34,6 +34,11 @@ const mono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+  // A deployment URL is not the organisation's public site. Keep it out of the
+  // index so it cannot compete with the real domain later. See lib/site.ts.
+  robots: IS_PUBLIC_SITE
+    ? undefined
+    : { index: false, follow: false, nocache: true },
   title: {
     default:
       "Nkrabea Culture and Arts Ensemble | Impacting Lives Through Culture and the Arts",

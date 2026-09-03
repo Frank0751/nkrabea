@@ -36,8 +36,8 @@ deploys to production.**
 
 | Variable | Required | Notes |
 | --- | --- | --- |
-| `DATABASE_URL` | yes | See the warning below. |
-| `NEXT_PUBLIC_SITE_URL` | strongly recommended | Origin used for canonical URLs, Open Graph tags and the sitemap. Without it these advertise `nkrabeacultureandarts.org`, which does not yet resolve. Set it to the deployment's actual URL until the domain is attached. |
+| `DATABASE_URL` | optional for now | See the warning below. Left unset, the forms refuse politely, which is the same behaviour they have with SQLite on a serverless host. Required once Postgres is provisioned. |
+| `NEXT_PUBLIC_SITE_URL` | **leave unset until the real domain is live** | Setting this declares "this is the organisation's public site", which switches search-engine indexing **on**. Left unset, the origin is derived from `VERCEL_URL` automatically and the deployment serves `noindex`, so a staging copy can never compete with the real domain later. |
 
 ### The database is not yet deployable
 
