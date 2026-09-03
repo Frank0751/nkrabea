@@ -3,6 +3,7 @@ import Image from "next/image";
 import { ArrowRight, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Magnetic } from "./magnetic";
+import { ScrollCue } from "./scroll-cue";
 import { ORG, IDENTITY } from "@/lib/content";
 
 /**
@@ -20,7 +21,7 @@ import { ORG, IDENTITY } from "@/lib/content";
  */
 export function Hero() {
   return (
-    <section className="relative isolate flex min-h-[92svh] items-center overflow-hidden bg-band text-band-foreground">
+    <section className="relative isolate flex min-h-svh items-center overflow-hidden bg-band text-band-foreground">
       <div className="absolute inset-0 -z-10">
         {/* Video slot: drop a <video> here when Nkrabea supplies a reel. */}
         <Image
@@ -112,6 +113,8 @@ export function Hero() {
           </p>
         </div>
       </div>
+
+      <ScrollCue />
 
       <div className="kente-divider absolute inset-x-0 bottom-0" aria-hidden="true" />
     </section>

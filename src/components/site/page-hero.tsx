@@ -1,9 +1,15 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ChevronRight } from "lucide-react";
+import { ScrollCue } from "./scroll-cue";
 
 /**
  * Subpage hero. One H1 per page lives here.
+ *
+ * Full viewport height, per koombei-studio-skill Part 6. Measured in svh
+ * rather than vh so that mobile browser chrome cannot crop the content: vh
+ * refers to the viewport with the address bar hidden, which is taller than
+ * what the visitor actually sees on load.
  *
  * The image is optional: Nkrabea's photography is incomplete, and a page with
  * no confirmed photograph should render a composed black band rather than a
@@ -25,7 +31,7 @@ export function PageHero({
   crumbs?: { label: string; href?: string }[];
 }) {
   return (
-    <section className="relative isolate overflow-hidden bg-band text-band-foreground">
+    <section className="relative isolate flex min-h-svh flex-col overflow-hidden bg-band text-band-foreground">
       <div className="absolute inset-0 -z-10">
         {image && (
           <>
@@ -43,7 +49,7 @@ export function PageHero({
         <div className="absolute inset-0 grain-overlay opacity-50" />
       </div>
 
-      <div className="mx-auto max-w-7xl px-4 pb-14 pt-28 sm:px-6 lg:px-8 lg:pb-20 lg:pt-36">
+      <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center px-4 pb-28 pt-28 sm:px-6 lg:px-8 lg:pt-36">
         <div className="max-w-3xl">
           <nav
             aria-label="Breadcrumb"
@@ -85,6 +91,8 @@ export function PageHero({
           )}
         </div>
       </div>
+
+      <ScrollCue />
 
       <div className="kente-divider" aria-hidden="true" />
     </section>
