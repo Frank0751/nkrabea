@@ -89,7 +89,7 @@ export default function HomePage() {
             </div>
             <Link
               href="/programmes"
-              className="group inline-flex shrink-0 items-center text-sm font-semibold text-primary underline-offset-4 hover:underline"
+              className="group inline-flex shrink-0 items-center py-1 text-sm font-semibold text-primary underline-offset-4 hover:underline"
             >
               All programmes
               <ArrowRight

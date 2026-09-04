@@ -60,7 +60,7 @@ export function ProgrammeCard({
       {href && (
         <Link
           href={href}
-          className="group mt-auto inline-flex items-center pt-6 text-sm font-semibold text-primary underline-offset-4 hover:underline"
+          className="group mt-auto inline-flex items-center pb-1 pt-6 text-sm font-semibold text-primary underline-offset-4 hover:underline"
         >
           Read more
           <ArrowRight

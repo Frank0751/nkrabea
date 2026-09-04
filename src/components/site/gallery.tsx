@@ -6,22 +6,59 @@ import { X } from "lucide-react";
 import { GALLERY } from "@/lib/content";
 
 /**
- * Photo grid with a lightbox.
+ * Image grid with a lightbox.
  *
- * Only photographs from Nkrabea's own channels appear here. Every image
- * carries descriptive alt text, which their brief asks for explicitly.
+ * Everything here comes from Nkrabea's own channels. Note that most of it is
+ * an art exhibition and individual artworks rather than programme delivery,
+ * which is why the alt text and captions in content.ts describe paintings and
+ * assemblage works. See the note on GALLERY before editing either.
  */
 export function Gallery() {
   const [active, setActive] = React.useState<number | null>(null);
   const closeRef = React.useRef<HTMLButtonElement>(null);
+  const dialogRef = React.useRef<HTMLDivElement>(null);
 
-  // Escape to close, and keep focus inside the dialog while it is open.
+  // Escape to close, focus moved in and restored on close, and Tab kept
+  // inside the dialog. Without the trap, tabbing walked out of the viewer
+  // into the thirty-odd links sitting behind the overlay, which are visually
+  // covered but were still reachable by keyboard.
   React.useEffect(() => {
     if (active === null) return;
 
+    const dialog = dialogRef.current;
+
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setActive(null);
+      if (event.key === "Escape") {
+        setActive(null);
+        return;
+      }
+      if (event.key !== "Tab" || !dialog) return;
+
+      const focusable = dialog.querySelectorAll<HTMLElement>(
+        'a[href], button, [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusable.length === 0) {
+        event.preventDefault();
+        return;
+      }
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const activeEl = document.activeElement;
+
+      // Wrap at both ends, and pull focus back if it has already escaped.
+      if (!dialog.contains(activeEl)) {
+        event.preventDefault();
+        first.focus();
+      } else if (event.shiftKey && activeEl === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && activeEl === last) {
+        event.preventDefault();
+        first.focus();
+      }
     };
+
     document.addEventListener("keydown", onKey);
 
     const previous = document.activeElement as HTMLElement | null;
@@ -66,6 +103,7 @@ export function Gallery() {
 
       {current && (
         <div
+          ref={dialogRef}
           className="fixed inset-0 z-[60] flex items-center justify-center bg-band/90 p-4 backdrop-blur-sm"
           role="dialog"
           aria-modal="true"

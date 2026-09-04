@@ -55,14 +55,14 @@ export function PageHero({
             aria-label="Breadcrumb"
             className="flex flex-wrap items-center gap-1.5 text-xs text-band-foreground/60"
           >
-            <Link href="/" className="hover:text-band-foreground">
+            <Link href="/" className="inline-block py-1 hover:text-band-foreground">
               Home
             </Link>
             {crumbs?.map((c) => (
               <span key={c.label} className="flex items-center gap-1.5">
                 <ChevronRight className="h-3 w-3" aria-hidden="true" />
                 {c.href ? (
-                  <Link href={c.href} className="hover:text-band-foreground">
+                  <Link href={c.href} className="inline-block py-1 hover:text-band-foreground">
                     {c.label}
                   </Link>
                 ) : (

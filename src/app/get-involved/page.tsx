@@ -146,7 +146,7 @@ export default function GetInvolvedPage() {
               </p>
               <Link
                 href="/contact"
-                className="mt-5 inline-block text-sm font-semibold text-primary underline-offset-4 hover:underline"
+                className="mt-4 inline-block py-1 text-sm font-semibold text-primary underline-offset-4 hover:underline"
               >
                 Offer your time
               </Link>
@@ -163,7 +163,7 @@ export default function GetInvolvedPage() {
               </p>
               <Link
                 href="/partner"
-                className="mt-5 inline-block text-sm font-semibold text-primary underline-offset-4 hover:underline"
+                className="mt-4 inline-block py-1 text-sm font-semibold text-primary underline-offset-4 hover:underline"
               >
                 Discuss in-kind support
               </Link>

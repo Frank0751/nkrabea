@@ -82,7 +82,7 @@ export default function ContactPage() {
                       <dd className="mt-2 text-sm">
                         <a
                           href={`mailto:${ORG.email}`}
-                          className="text-foreground underline-offset-4 hover:text-primary hover:underline"
+                          className="inline-block py-1 text-foreground underline-offset-4 hover:text-primary hover:underline"
                         >
                           {ORG.email}
                         </a>
@@ -99,12 +99,12 @@ export default function ContactPage() {
                       <dt className="label-mono text-muted-foreground">
                         Telephone
                       </dt>
-                      <dd className="mt-2 space-y-1.5">
+                      <dd className="mt-1 space-y-0.5">
                         {ORG.phones.map((phone) => (
                           <div key={phone}>
                             <a
                               href={`tel:${phone.replace(/[^\d+]/g, "")}`}
-                              className="text-sm text-foreground underline-offset-4 hover:text-primary hover:underline"
+                              className="inline-block py-1 text-sm text-foreground underline-offset-4 hover:text-primary hover:underline"
                             >
                               {phone}
                             </a>

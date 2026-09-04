@@ -67,7 +67,7 @@ export function Footer() {
                 <dd>
                   <a
                     href={`mailto:${ORG.email}`}
-                    className="text-band-foreground/70 underline-offset-4 hover:text-band-foreground hover:underline"
+                    className="inline-block py-1 text-band-foreground/70 underline-offset-4 hover:text-band-foreground hover:underline"
                   >
                     {ORG.email}
                   </a>
@@ -83,7 +83,7 @@ export function Footer() {
                     <div key={phone}>
                       <a
                         href={`tel:${phone.replace(/[^\d+]/g, "")}`}
-                        className="text-band-foreground/70 underline-offset-4 hover:text-band-foreground hover:underline"
+                        className="inline-block py-1 text-band-foreground/70 underline-offset-4 hover:text-band-foreground hover:underline"
                       >
                         {phone}
                       </a>
@@ -101,12 +101,12 @@ export function Footer() {
                 <h2 className="label-mono text-band-foreground/50">
                   {column.heading}
                 </h2>
-                <ul className="mt-4 space-y-2.5">
+                <ul className="mt-3 space-y-1">
                   {column.links.map((link) => (
                     <li key={link.href}>
                       <Link
                         href={link.href}
-                        className="text-sm text-band-foreground/75 underline-offset-4 transition-colors hover:text-band-foreground hover:underline"
+                        className="inline-block py-1 text-sm text-band-foreground/75 underline-offset-4 transition-colors hover:text-band-foreground hover:underline"
                       >
                         {link.label}
                       </Link>
