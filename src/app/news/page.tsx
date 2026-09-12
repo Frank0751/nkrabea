@@ -5,7 +5,8 @@ import { PageHero } from "@/components/site/page-hero";
 import { SectionEyebrow } from "@/components/site/section-eyebrow";
 import { Reveal } from "@/components/site/reveal";
 import { NewsletterForm } from "@/components/site/newsletter-form";
-import { EVENTS, STORIES, PRESS, HERO_PHOTOS } from "@/lib/content";
+import { PhotoStrip } from "@/components/site/photo";
+import { EVENTS, STORIES, PRESS, HERO_PHOTOS, PHOTOS } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "News & Events",
@@ -95,6 +96,18 @@ export default function NewsPage() {
               </div>
             </Reveal>
           )}
+
+          <Reveal delay={100} className="mt-20">
+            <PhotoStrip
+              label="From Nkrabea's performances"
+              photos={[
+                PHOTOS.smockDancerBack,
+                PHOTOS.smockDancerLeap,
+                PHOTOS.singerCrouching,
+              ]}
+              note="Captions will carry the event, venue and date once Nkrabea supplies them."
+            />
+          </Reveal>
 
           {!hasContent && (
             <Reveal delay={140}>

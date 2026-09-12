@@ -5,7 +5,8 @@ import { PageHero } from "@/components/site/page-hero";
 import { SectionEyebrow } from "@/components/site/section-eyebrow";
 import { Reveal, RevealGroup } from "@/components/site/reveal";
 import { NewsletterForm } from "@/components/site/newsletter-form";
-import { ORG, HERO_PHOTOS } from "@/lib/content";
+import { PhotoStrip } from "@/components/site/photo";
+import { ORG, HERO_PHOTOS, PHOTOS } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Get Involved",
@@ -120,6 +121,14 @@ export default function GetInvolvedPage() {
               </div>
             </Reveal>
           </div>
+
+          <Reveal delay={160} className="mt-20">
+            <PhotoStrip
+              label="The work your support funds"
+              photos={[PHOTOS.legsUnison, PHOTOS.sixKick, PHOTOS.armsForward]}
+              note="The Nkrabea Drumming and Dance Troupe at an outdoor community performance. Donations by mobile money, transfer or card go into programmes like the ones on the Our Work page."
+            />
+          </Reveal>
         </div>
       </section>
 

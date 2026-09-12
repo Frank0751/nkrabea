@@ -85,7 +85,7 @@ export function PhotoReel({
               fill
               priority={priority && i === 0}
               sizes="(max-width: 1024px) 100vw, 52vw"
-              className={`object-cover ${active && rotating ? "ken-burns" : ""}`}
+              className={`photo-tone object-cover ${active && rotating ? "ken-burns" : ""}`}
               onLoad={() => {
                 loadedRef.current[i] = true;
               }}

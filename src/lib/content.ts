@@ -501,9 +501,13 @@ export const MILESTONES: Milestone[] = [
    Nkrabea, and falls into one of three occasions: an indoor ceremony where
    the ensemble performed for chiefs and dignitaries, an outdoor community
    performance by the Nkrabea Drumming and Dance Troupe, and visits by the
-   team to traditional leaders. The last two gallery entries are artworks
-   from an outdoor exhibition, kept from Nkrabea's Facebook page so that the
-   visual arts strand of the work is represented.
+   team to traditional leaders. Two artworks from an outdoor exhibition are
+   kept from Nkrabea's Facebook page so that the visual arts strand of the
+   work is represented.
+
+   PHOTOS is the only place a photograph is described. Heroes, the reel, the
+   gallery and every figure in a page body point into it, so one picture has
+   one alt text and one caption, held once.
 
    Alt text describes what is actually in the frame. The first version of this
    file described pictures nobody had opened, and told screen reader users
@@ -512,146 +516,221 @@ export const MILESTONES: Milestone[] = [
 
    Two absences are deliberate. No caption carries an event name, place or
    date, because Nkrabea has not supplied them. No person is named except
-   where Nkrabea has identified them.
+   where Nkrabea has identified them: the Executive Director, and nobody else.
    --------------------------------------------------------------------------- */
 
 export type Photo = { src: string; alt: string; caption?: string };
 
-/** One hero photograph per page. Contact keeps the composed band. */
-export const HERO_PHOTOS = {
-  home: {
+export const PHOTOS = {
+  /* ------------------------------------------ outdoor community performance */
+  dancersSmiling: {
     src: cld("v1789083058/photo_29_2026-09-10_23-28-52_ygilix.jpg"),
     alt: "Children in white tunics and shorts dancing barefoot on wet ground under a canopy, smiling as they move, with carved drums, a seated audience and a Nkrabea banner behind them.",
   },
-  about: {
-    src: cld("v1789083068/photo_38_2026-09-10_23-28-52_ujgubr.jpg"),
-    alt: "The drumming and dance troupe seated together under a canopy, children in white behind a row of tall carved drums, with adult tutors in patterned smocks at one end.",
-  },
-  programmes: {
+  drumSection: {
     src: cld("v1789083057/photo_27_2026-09-10_23-28-52_wsvev7.jpg"),
     alt: "Four boys in white playing tall carved drums under a canopy while other children stand around them holding gourd rattles, watched by a crowd, with the Nkrabea Drumming and Dance Troupe banner behind them.",
   },
-  impact: {
+  drumRowWide: {
+    src: cld("v1789083058/photo_28_2026-09-10_23-28-52_jy0u2v.jpg"),
+    alt: "Boys seated at a row of tall carved drums under a canopy, other children standing behind them with gourd rattles, a crowd looking on and a videographer filming from the side.",
+    caption: "The drum section",
+  },
+  troupeSeated: {
+    src: cld("v1789083068/photo_38_2026-09-10_23-28-52_ujgubr.jpg"),
+    alt: "The drumming and dance troupe seated together under a canopy, children in white behind a row of tall carved drums, with adult tutors in patterned smocks at one end.",
+  },
+  busBoarding: {
     src: cld("v1789083067/photo_40_2026-09-10_23-28-52_athee2.jpg"),
     alt: "Children in red, green and yellow T-shirts printed with the words impacting lives through culture and the arts, crowding around the side door of a minibus as an adult helps them aboard.",
   },
-  leadership: {
-    src: cld("v1789083070/photo_34_2026-09-10_23-28-52_q8k4so.jpg"),
-    alt: "Five of the Nkrabea team standing together outdoors, three of them in branded Nkrabea T-shirts, with the Executive Director in the centre in a white tunic bearing the organisation's badge.",
-  },
-  partner: {
-    src: cld("v1789083059/photo_16_2026-09-10_23-28-52_i0vic7.jpg"),
-    alt: "Four young performers in beaded headbands crouching on the floor in front of a kente-draped high table where chiefs and dignitaries sit with microphones.",
-  },
-  getInvolved: {
+  groupByBus: {
     src: cld("v1789083057/photo_26_2026-09-10_23-28-52_yod8xx.jpg"),
     alt: "Around eighteen children and young people in red, green and yellow Nkrabea T-shirts grouped in front of a minibus, with a group leader standing at one side.",
   },
-  news: {
+  dancersLine: {
+    src: cld("v1789083061/photo_20_2026-09-10_23-28-52_vjcqpt.jpg"),
+    alt: "Seven children in white dancing in a line on wet ground between two canopies, with drums, a seated audience and a photographer at the side.",
+    caption: "The Drumming and Dance Troupe at an outdoor community performance",
+  },
+  legRaised: {
+    src: cld("v1789083060/photo_24_2026-09-10_23-28-52_azw36f.jpg"),
+    alt: "Children in white dancing in a line with one leg raised high, barefoot on muddy ground, with drums and the Nkrabea banner behind them.",
+    caption: "Dancers of the troupe in step",
+  },
+  armsSwinging: {
+    src: cld("v1789083057/photo_31_2026-09-10_23-28-52_nigpo7.jpg"),
+    alt: "Children in white dancing on muddy ground with their arms swinging, carved drums and a seated audience behind them.",
+    caption: "Dancing in the round, the drummers behind",
+  },
+  armsForward: {
+    src: cld("v1789083060/photo_19_2026-09-10_23-28-52_wobhij.jpg"),
+    alt: "Children in white tunics dancing barefoot on wet ground with their arms stretched forward, a row of drums and a seated audience behind them under a canopy.",
+    caption: "Arms forward",
+  },
+  bendingStep: {
+    src: cld("v1789083059/photo_22_2026-09-10_23-28-52_vhnb3y.jpg"),
+    alt: "Children in white bending low into a dance step on muddy ground under a canopy, with carved drums behind them.",
+  },
+  legsUnison: {
+    src: cld("v1789083060/photo_23_2026-09-10_23-28-52_ujvhv0.jpg"),
+    alt: "Children in white raising one leg high in unison on wet ground, with the Nkrabea banner, a woman in a red Nkrabea T-shirt and a seated audience behind them.",
+    caption: "In unison",
+  },
+  sixKick: {
+    src: cld("v1789083061/photo_25_2026-09-10_23-28-52_gmhhd4.jpg"),
+    alt: "Six children in white caught mid-kick with one leg raised, dancing on muddy ground under a canopy.",
+    caption: "Mid-kick",
+  },
+  fiveDancers: {
+    src: cld("v1789083057/photo_33_2026-09-10_23-28-52_zcgw5s.jpg"),
+    alt: "Five children in white dancing under a canopy, one bent low into the step, with drums, the Nkrabea banner and an audience behind them.",
+  },
+
+  /* ---------------------------------------------------------- indoor ceremony */
+  singersInSmocks: {
     src: cld("v1789083065/photo_14_2026-09-10_23-28-52_oaijyx.jpg"),
     alt: "Three singers in blue and yellow striped northern smocks and matching caps leaning forward mid-performance, each holding a small hand instrument, with the Nkrabea banner and a seated audience in kente behind them.",
   },
+  performersBeforeChiefs: {
+    src: cld("v1789083059/photo_16_2026-09-10_23-28-52_i0vic7.jpg"),
+    alt: "Four young performers in beaded headbands crouching on the floor in front of a kente-draped high table where chiefs and dignitaries sit with microphones.",
+  },
+  smockDancer: {
+    src: cld("v1789083062/photo_13_2026-09-10_23-28-52_svrfhi.jpg"),
+    alt: "A dancer in a blue and yellow striped northern smock and kente trousers mid-step in front of a cloth-draped high table, with another dancer beside him.",
+    caption: "Dance before the high table",
+  },
+  smockDancerBack: {
+    src: cld("v1789083062/photo_12_2026-09-10_23-28-52_hshvjc.jpg"),
+    alt: "A dancer in a blue and yellow striped northern smock and kente-print trousers seen from behind, arms raised, in front of a kente-draped high table.",
+    caption: "From behind the dancer",
+  },
+  smockDancerLeap: {
+    src: cld("v1789083062/photo_15_2026-09-10_23-28-52_bql1ag.jpg"),
+    alt: "A dancer in a striped northern smock caught mid-step with one foot off the floor, in front of a cloth-draped high table where guests sit.",
+    caption: "Mid-step",
+  },
+  singerCrouching: {
+    src: cld("v1789083061/photo_9_2026-09-10_23-28-52_k9ges8.jpg"),
+    alt: "A woman in purple and gold kente with a gold headband crouching low as she sings into a microphone, with seated elders and a loudspeaker behind her.",
+    caption: "Leading the singing",
+  },
+  regalia: {
+    src: cld("v1789083065/photo_2_2026-09-10_23-28-52_qlhfqt.jpg"),
+    alt: "A woman in Akan gold regalia wearing a gold headband with a feather ornament, stacked gold bead bracelets and gold rings, raising one hand.",
+    caption: "Akan gold regalia",
+  },
+  motherAndBaby: {
+    src: cld("v1789083067/photo_1_2026-09-10_23-28-52_v7xqmk.jpg"),
+    alt: "A woman in a gold headband and strands of gold and blue beads holding a baby girl dressed in kente, the two of them cheek to cheek as the baby reaches forward.",
+    caption: "Cloth and beads worn for the occasion",
+  },
+  familyInKente: {
+    src: cld("v1789083066/photo_4_2026-09-10_23-28-52_jkbgrb.jpg"),
+    alt: "A family group of five in kente cloth and gold jewellery posing indoors, one of the women holding a baby, and a girl at the side holding a camera.",
+    caption: "Guests in kente",
+  },
+  facingHighTable: {
+    src: cld("v1789083063/photo_11_2026-09-10_23-28-52_rxj0xy.jpg"),
+    alt: "Two men in blue and yellow striped northern smocks seen from behind as they face a kente-draped high table where elders sit, in a hall hung with kente.",
+    caption: "Facing the high table",
+  },
+  hallPerformer: {
+    src: cld("v1789083059/photo_21_2026-09-10_23-28-52_qjvaob.jpg"),
+    alt: "A young performer in cloth and beads standing before a kente-draped high table while an adult dancer moves beside her, with chiefs and guests seated around the hall.",
+    caption: "A performance in the hall",
+  },
+  loom: {
+    src: cld("v1789083063/photo_6_2026-09-10_23-28-52_bojimn.jpg"),
+    alt: "A man wrapped in yellow and blue kente standing beside a narrow strip loom, with a weaver working behind him and warp threads stretched the length of the frame.",
+    caption: "Kente weaving on a narrow strip loom",
+  },
+  chiefOutside: {
+    src: cld("v1789083060/photo_17_2026-09-10_23-28-52_xzoegc.jpg"),
+    alt: "Two men in kente, one wrapped in a richly patterned blue cloth, standing outside a building with Nkrabea's Executive Director in a white tunic and kente stole.",
+    caption: "With traditional leaders",
+  },
+
+  /* ------------------------------------------------------- team and visits */
+  teamOfFive: {
+    src: cld("v1789083070/photo_34_2026-09-10_23-28-52_q8k4so.jpg"),
+    alt: "Five of the Nkrabea team standing together outdoors, three of them in branded Nkrabea T-shirts, with the Executive Director in the centre in a white tunic bearing the organisation's badge.",
+  },
+  teamWithHosts: {
+    src: cld("v1789083071/photo_35_2026-09-10_23-28-52_dos7l5.jpg"),
+    alt: "Members of the Nkrabea team standing with a woman in a gold kente gown and a man in kente cloth on a tiled verandah.",
+    caption: "The team with their hosts",
+  },
+  chiefUnderUmbrella: {
+    src: cld("v1789083068/photo_39_2026-09-10_23-28-52_duq7lq.jpg"),
+    alt: "A chief in kente standing under a large red and gold state umbrella, with Nkrabea's Executive Director in white and two team members beside him.",
+    caption: "A visit to a traditional leader",
+  },
+  chiefTrio: {
+    src: cld("v1789083067/photo_42_2026-09-10_23-28-52_osmeuf.jpg"),
+    alt: "A chief in green and yellow kente standing with a man in an orange smock and Nkrabea's Executive Director in a white tunic and kente stole, at the edge of a state umbrella.",
+  },
+  teamWatching: {
+    src: cld("v1789083067/photo_41_2026-09-10_23-28-52_btr93k.jpg"),
+    alt: "Three members of the Nkrabea team standing side by side watching something out of frame, two in branded T-shirts and one wearing a kente stole and cap.",
+    caption: "Watching a performance",
+  },
+
+  /* ------------------------------------------------------------- artworks */
+  exhibition: {
+    src: "/images/social/fb-3.jpg",
+    alt: "Paintings mounted on freestanding display boards at an outdoor art exhibition, each with a printed label, as visitors walk between them.",
+    caption: "Outdoor exhibition of Ghanaian painting",
+  },
+  assemblage: {
+    src: "/images/social/fb-5.jpg",
+    alt: "Mixed-media sculptures made from reclaimed materials mounted on a white exhibition wall, each beside a printed label. One label reads: moving against waste, save the trees, use the leaves.",
+    caption: "Assemblage works made from reclaimed materials",
+  },
+} satisfies Record<string, Photo>;
+
+/** One hero photograph per page. */
+export const HERO_PHOTOS = {
+  home: PHOTOS.dancersSmiling,
+  about: PHOTOS.troupeSeated,
+  programmes: PHOTOS.drumSection,
+  impact: PHOTOS.busBoarding,
+  leadership: PHOTOS.teamOfFive,
+  partner: PHOTOS.performersBeforeChiefs,
+  getInvolved: PHOTOS.groupByBus,
+  news: PHOTOS.singersInSmocks,
+  contact: PHOTOS.teamWithHosts,
 } satisfies Record<string, Photo>;
 
 /**
  * The homepage reel. Three frames, in the order a visitor should meet the
  * work: the dancers, then the drummers who carry them, then the whole troupe
- * with their instruments. They are the same photographs the three pages use,
- * deliberately: one alt text per picture, held in one place.
+ * with their instruments.
  */
 export const REEL: Photo[] = [
-  HERO_PHOTOS.home,
-  HERO_PHOTOS.programmes,
-  HERO_PHOTOS.about,
+  PHOTOS.dancersSmiling,
+  PHOTOS.drumSection,
+  PHOTOS.troupeSeated,
 ];
 
 export type GalleryItem = Photo & { id: string };
 
 export const GALLERY: GalleryItem[] = [
-  {
-    id: "p20",
-    src: cld("v1789083061/photo_20_2026-09-10_23-28-52_vjcqpt.jpg"),
-    alt: "Seven children in white dancing in a line on wet ground between two canopies, with drums, a seated audience and a photographer at the side.",
-    caption: "The Drumming and Dance Troupe at an outdoor community performance",
-  },
-  {
-    id: "p24",
-    src: cld("v1789083060/photo_24_2026-09-10_23-28-52_azw36f.jpg"),
-    alt: "Children in white dancing in a line with one leg raised high, barefoot on muddy ground, with drums and the Nkrabea banner behind them.",
-    caption: "Dancers of the troupe in step",
-  },
-  {
-    id: "p31",
-    src: cld("v1789083057/photo_31_2026-09-10_23-28-52_nigpo7.jpg"),
-    alt: "Children in white dancing on muddy ground with their arms swinging, carved drums and a seated audience behind them.",
-    caption: "Dancing in the round, the drummers behind",
-  },
-  {
-    id: "p13",
-    src: cld("v1789083062/photo_13_2026-09-10_23-28-52_svrfhi.jpg"),
-    alt: "A dancer in a blue and yellow striped northern smock and kente trousers mid-step in front of a cloth-draped high table, with another dancer beside him.",
-    caption: "Dance before the high table",
-  },
-  {
-    id: "p09",
-    src: cld("v1789083061/photo_9_2026-09-10_23-28-52_k9ges8.jpg"),
-    alt: "A woman in purple and gold kente with a gold headband crouching low as she sings into a microphone, with seated elders and a loudspeaker behind her.",
-    caption: "Leading the singing",
-  },
-  {
-    id: "p02",
-    src: cld("v1789083065/photo_2_2026-09-10_23-28-52_qlhfqt.jpg"),
-    alt: "A woman in Akan gold regalia wearing a gold headband with a feather ornament, stacked gold bead bracelets and gold rings, raising one hand.",
-    caption: "Akan gold regalia",
-  },
-  {
-    id: "p01",
-    src: cld("v1789083067/photo_1_2026-09-10_23-28-52_v7xqmk.jpg"),
-    alt: "A woman in a gold headband and strands of gold and blue beads holding a baby girl dressed in kente, the two of them cheek to cheek as the baby reaches forward.",
-    caption: "Cloth and beads worn for the occasion",
-  },
-  {
-    id: "p04",
-    src: cld("v1789083066/photo_4_2026-09-10_23-28-52_jkbgrb.jpg"),
-    alt: "A family group of five in kente cloth and gold jewellery posing indoors, one of the women holding a baby, and a girl at the side holding a camera.",
-    caption: "Guests in kente",
-  },
-  {
-    id: "p11",
-    src: cld("v1789083063/photo_11_2026-09-10_23-28-52_rxj0xy.jpg"),
-    alt: "Two men in blue and yellow striped northern smocks seen from behind as they face a kente-draped high table where elders sit, in a hall hung with kente.",
-    caption: "Facing the high table",
-  },
-  {
-    id: "p06",
-    src: cld("v1789083063/photo_6_2026-09-10_23-28-52_bojimn.jpg"),
-    alt: "A man wrapped in yellow and blue kente standing beside a narrow strip loom, with a weaver working behind him and warp threads stretched the length of the frame.",
-    caption: "Kente weaving on a narrow strip loom",
-  },
-  {
-    id: "p35",
-    src: cld("v1789083071/photo_35_2026-09-10_23-28-52_dos7l5.jpg"),
-    alt: "Members of the Nkrabea team standing with a woman in a gold kente gown and a man in kente cloth on a tiled verandah.",
-    caption: "The team with their hosts",
-  },
-  {
-    id: "p39",
-    src: cld("v1789083068/photo_39_2026-09-10_23-28-52_duq7lq.jpg"),
-    alt: "A chief in kente standing under a large red and gold state umbrella, with Nkrabea's Executive Director in white and two team members beside him.",
-    caption: "A visit to a traditional leader",
-  },
-  {
-    id: "g3",
-    src: "/images/social/fb-3.jpg",
-    alt: "Paintings mounted on freestanding display boards at an outdoor art exhibition, each with a printed label, as visitors walk between them.",
-    caption: "Outdoor exhibition of Ghanaian painting",
-  },
-  {
-    id: "g5",
-    src: "/images/social/fb-5.jpg",
-    alt: "Mixed-media sculptures made from reclaimed materials mounted on a white exhibition wall, each beside a printed label. One label reads: moving against waste, save the trees, use the leaves.",
-    caption: "Assemblage works made from reclaimed materials",
-  },
+  { id: "p20", ...PHOTOS.dancersLine },
+  { id: "p24", ...PHOTOS.legRaised },
+  { id: "p31", ...PHOTOS.armsSwinging },
+  { id: "p13", ...PHOTOS.smockDancer },
+  { id: "p09", ...PHOTOS.singerCrouching },
+  { id: "p02", ...PHOTOS.regalia },
+  { id: "p01", ...PHOTOS.motherAndBaby },
+  { id: "p04", ...PHOTOS.familyInKente },
+  { id: "p11", ...PHOTOS.facingHighTable },
+  { id: "p06", ...PHOTOS.loom },
+  { id: "p35", ...PHOTOS.teamWithHosts },
+  { id: "p39", ...PHOTOS.chiefUnderUmbrella },
+  { id: "g3", ...PHOTOS.exhibition },
+  { id: "g5", ...PHOTOS.assemblage },
 ];
 
 /* ---------------------------------------------------------------------------

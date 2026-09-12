@@ -8,6 +8,7 @@ import { CtaBand } from "@/components/site/cta-band";
 import { ProgrammeCard } from "@/components/site/programme-card";
 import { ProofBar } from "@/components/site/proof-bar";
 import { DataBand, RegionChips } from "@/components/site/figures";
+import { PhotoFigure, PhotoBreak } from "@/components/site/photo";
 import { WhoWeServe } from "@/components/site/who-we-serve";
 import {
   PROGRAMMES,
@@ -15,6 +16,8 @@ import {
   FIGURES,
   MISSION,
   PROGRAMME_FIGURES,
+  PHOTOS,
+  IDENTITY,
 } from "@/lib/content";
 
 const FOCUS_ICONS = {
@@ -45,6 +48,14 @@ export default function HomePage() {
                 <h2 className="mt-5 font-display text-section text-foreground">
                   Culture is the tool. Development is the work.
                 </h2>
+              </Reveal>
+              <Reveal delay={90} className="mt-10">
+                <PhotoFigure
+                  photo={PHOTOS.loom}
+                  ratio="4/5"
+                  sizes="(max-width: 1024px) 100vw, 38vw"
+                  caption={PHOTOS.loom.caption}
+                />
               </Reveal>
             </div>
             <div className="lg:col-span-7">
@@ -137,6 +148,12 @@ export default function HomePage() {
           </div>
         </DataBand>
       )}
+
+      <PhotoBreak
+        photo={PHOTOS.fiveDancers}
+        quote={IDENTITY.whoWeAre[1]}
+        cite="From our organisational profile"
+      />
 
       <div data-rhythm-node>
         <CtaBand

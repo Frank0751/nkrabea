@@ -3,7 +3,8 @@ import { PageHero } from "@/components/site/page-hero";
 import { SectionEyebrow } from "@/components/site/section-eyebrow";
 import { Reveal, RevealGroup } from "@/components/site/reveal";
 import { PartnershipForm } from "@/components/site/partnership-form";
-import { AUDIENCES, PROGRAMMES, HERO_PHOTOS } from "@/lib/content";
+import { PhotoFigure } from "@/components/site/photo";
+import { AUDIENCES, PROGRAMMES, HERO_PHOTOS, PHOTOS } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Partner With Us",
@@ -82,18 +83,28 @@ export default function PartnerPage() {
             </h2>
           </Reveal>
 
-          <RevealGroup className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {AUDIENCES.map((audience) => (
-              <div key={audience.id}>
-                <h3 className="font-display text-base leading-snug text-foreground">
-                  {audience.title}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  {audience.need}
-                </p>
-              </div>
-            ))}
-          </RevealGroup>
+          <div className="mt-12 grid gap-10 lg:grid-cols-12 lg:gap-14">
+            <Reveal className="lg:col-span-4">
+              <PhotoFigure
+                photo={PHOTOS.chiefOutside}
+                ratio="4/5"
+                sizes="(max-width: 1024px) 100vw, 33vw"
+                caption={PHOTOS.chiefOutside.caption}
+              />
+            </Reveal>
+            <RevealGroup className="grid gap-8 sm:grid-cols-2 lg:col-span-8 lg:content-start">
+              {AUDIENCES.map((audience) => (
+                <div key={audience.id} className="border-l-2 border-gold-edge/50 pl-5">
+                  <h3 className="font-display text-lg leading-snug text-foreground">
+                    {audience.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                    {audience.need}
+                  </p>
+                </div>
+              ))}
+            </RevealGroup>
+          </div>
         </div>
       </section>
 
@@ -123,6 +134,14 @@ export default function PartnerPage() {
                     )
                   )}
                 </ul>
+              </Reveal>
+              <Reveal delay={90} className="mt-10">
+                <PhotoFigure
+                  photo={PHOTOS.chiefUnderUmbrella}
+                  ratio="4/5"
+                  sizes="(max-width: 1024px) 100vw, 40vw"
+                  caption={PHOTOS.chiefUnderUmbrella.caption}
+                />
               </Reveal>
             </div>
 

@@ -9,12 +9,21 @@ import {
   StatTile,
   ProcessSteps,
 } from "@/components/site/figures";
+import { PhotoFigure, PhotoBreak } from "@/components/site/photo";
 import {
   PROGRAMMES,
   ART_FORMS,
   HERO_PHOTOS,
   PROGRAMME_FIGURES,
+  PHOTOS,
+  type Photo,
 } from "@/lib/content";
+
+/** The picture of each craft, from Nkrabea's own library. */
+const ART_FORM_PHOTOS: Record<string, Photo> = {
+  kente: PHOTOS.loom,
+  "drumming-dance": PHOTOS.drumRowWide,
+};
 
 export const metadata: Metadata = {
   title: "Our Work",
@@ -160,19 +169,32 @@ export default function ProgrammesPage() {
           </Reveal>
 
           <RevealGroup className="mt-12 grid gap-6 sm:grid-cols-2">
-            {ART_FORMS.map((form) => (
-              <div
-                key={form.id}
-                className="spotlight-card card-lift rounded-2xl border border-border bg-card p-7"
-              >
-                <h3 className="font-display text-lg text-foreground">
-                  {form.name}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  {form.note}
-                </p>
-              </div>
-            ))}
+            {ART_FORMS.map((form) => {
+              const photo = ART_FORM_PHOTOS[form.id];
+              return (
+                <div
+                  key={form.id}
+                  className="spotlight-card card-lift overflow-hidden rounded-2xl border border-border bg-card"
+                >
+                  {photo && (
+                    <PhotoFigure
+                      photo={photo}
+                      ratio="16/9"
+                      sizes="(max-width: 640px) 100vw, 50vw"
+                      bare
+                    />
+                  )}
+                  <div className="p-7">
+                    <h3 className="font-display text-lg text-foreground">
+                      {form.name}
+                    </h3>
+                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                      {form.note}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
           </RevealGroup>
 
           <Reveal delay={140} className="mt-20">
@@ -188,6 +210,8 @@ export default function ProgrammesPage() {
           </Reveal>
         </div>
       </section>
+
+      <PhotoBreak photo={PHOTOS.bendingStep} label="Nkrabea Drumming and Dance Troupe" />
 
       <div data-rhythm-node>
         <CtaBand

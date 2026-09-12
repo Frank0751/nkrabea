@@ -4,6 +4,7 @@ import { PageHero } from "@/components/site/page-hero";
 import { SectionEyebrow } from "@/components/site/section-eyebrow";
 import { Reveal, RevealGroup } from "@/components/site/reveal";
 import { CtaBand } from "@/components/site/cta-band";
+import { PhotoFigure, PhotoDuo } from "@/components/site/photo";
 import {
   ORG,
   IDENTITY,
@@ -12,6 +13,7 @@ import {
   VALUES,
   WHAT_WE_DO,
   HERO_PHOTOS,
+  PHOTOS,
 } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -35,23 +37,29 @@ export default function AboutPage() {
       <section data-rhythm-node className="py-20 lg:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
-            <div className="lg:col-span-4">
+            <div className="lg:col-span-7">
               <Reveal>
                 <SectionEyebrow>Who we are</SectionEyebrow>
                 <h2 className="mt-5 font-display text-section text-foreground">
                   Reaching back to build forward
                 </h2>
               </Reveal>
+              <div className="mt-10 space-y-6">
+                {IDENTITY.whoWeAre.map((paragraph, i) => (
+                  <Reveal key={i} delay={i * 90}>
+                    <p className="text-base leading-relaxed text-foreground/90 sm:text-lg">
+                      {paragraph}
+                    </p>
+                  </Reveal>
+                ))}
+              </div>
             </div>
-            <div className="space-y-6 lg:col-span-8">
-              {IDENTITY.whoWeAre.map((paragraph, i) => (
-                <Reveal key={i} delay={i * 90}>
-                  <p className="text-base leading-relaxed text-foreground/90 sm:text-lg">
-                    {paragraph}
-                  </p>
-                </Reveal>
-              ))}
-            </div>
+            <Reveal delay={120} className="lg:col-span-5">
+              <PhotoDuo
+                primary={PHOTOS.familyInKente}
+                secondary={PHOTOS.motherAndBaby}
+              />
+            </Reveal>
           </div>
         </div>
       </section>
@@ -62,7 +70,7 @@ export default function AboutPage() {
         className="bg-sand py-20 lg:py-28"
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <RevealGroup className="grid gap-6 lg:grid-cols-2">
+          <RevealGroup className="grid gap-6 lg:grid-cols-3">
             <div className="rounded-2xl border border-border bg-card p-8 sm:p-10">
               <p className="label-mono text-primary">Mission</p>
               <p className="mt-5 font-display text-xl leading-snug text-foreground sm:text-2xl">
@@ -75,6 +83,12 @@ export default function AboutPage() {
                 {VISION}
               </p>
             </div>
+            <PhotoFigure
+              photo={PHOTOS.regalia}
+              ratio="4/5"
+              sizes="(max-width: 1024px) 100vw, 33vw"
+              caption={PHOTOS.regalia.caption}
+            />
           </RevealGroup>
 
           <Reveal delay={160}>
@@ -134,6 +148,14 @@ export default function AboutPage() {
                 <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
                   All pursued through culture and the arts.
                 </p>
+              </Reveal>
+              <Reveal delay={90} className="mt-10">
+                <PhotoFigure
+                  photo={PHOTOS.hallPerformer}
+                  ratio="4/5"
+                  sizes="(max-width: 1024px) 100vw, 33vw"
+                  caption={PHOTOS.hallPerformer.caption}
+                />
               </Reveal>
             </div>
             <div className="lg:col-span-8">

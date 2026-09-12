@@ -4,7 +4,8 @@ import { PageHero } from "@/components/site/page-hero";
 import { SectionEyebrow } from "@/components/site/section-eyebrow";
 import { Reveal } from "@/components/site/reveal";
 import { ContactForm } from "@/components/site/contact-form";
-import { FAQS, ORG } from "@/lib/content";
+import { PhotoBreak } from "@/components/site/photo";
+import { FAQS, ORG, HERO_PHOTOS, PHOTOS } from "@/lib/content";
 import {
   Accordion,
   AccordionContent,
@@ -25,6 +26,8 @@ export default function ContactPage() {
         eyebrow="Contact"
         title="Talk to us"
         description="Partnership, programme and media enquiries all reach the same team."
+        photo={HERO_PHOTOS.contact}
+        flip
         crumbs={[{ label: "Contact" }]}
       />
 
@@ -134,6 +137,11 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+
+      <PhotoBreak
+        photo={PHOTOS.drumRowWide}
+        label="Nkrabea Drumming and Dance Troupe"
+      />
 
       {/* FAQ */}
       <section

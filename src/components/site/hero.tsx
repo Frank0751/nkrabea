@@ -27,14 +27,21 @@ import { ORG, IDENTITY, REEL } from "@/lib/content";
  */
 export function Hero() {
   return (
-    <section className="relative isolate grid min-h-svh grid-rows-[42svh_auto] overflow-hidden lg:grid-cols-[1.08fr_1fr] lg:grid-rows-1">
+    <section className="relative isolate grid min-h-svh grid-rows-[42svh_1fr] overflow-hidden lg:grid-cols-[1.08fr_1fr] lg:grid-rows-1">
       {/* Photographs. Their own panel, at full strength. */}
       <div className="relative order-1 lg:order-2">
         <PhotoReel photos={REEL} priority />
-        {/* The seam: the band bleeds into the picture rather than stopping
-            at a hard edge. Upward on mobile, sideways on desktop. */}
+        <div className="photo-grade absolute inset-0" aria-hidden="true" />
+        {/* The seam. The band bleeds a long way into the picture, and the
+            join itself is cloth: a woven strip, horizontal where the panels
+            stack on a phone, standing on end where they sit side by side. */}
+        <div className="hero-seam-fade absolute inset-0" aria-hidden="true" />
         <div
-          className="absolute inset-0 bg-gradient-to-b from-band/55 via-transparent to-band/85 lg:bg-gradient-to-l lg:from-transparent lg:via-transparent lg:to-band"
+          className="woven-edge absolute inset-x-0 bottom-0 lg:hidden"
+          aria-hidden="true"
+        />
+        <div
+          className="woven-seam absolute inset-y-0 left-0 hidden lg:block"
           aria-hidden="true"
         />
       </div>

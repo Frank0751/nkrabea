@@ -4,12 +4,14 @@ import { PageHero } from "@/components/site/page-hero";
 import { SectionEyebrow } from "@/components/site/section-eyebrow";
 import { Reveal, RevealGroup } from "@/components/site/reveal";
 import { CtaBand } from "@/components/site/cta-band";
+import { PhotoFigure } from "@/components/site/photo";
 import {
   FOUNDERS,
   BOARD,
   MANAGEMENT_ROLES,
   GOVERNANCE_NOTE,
   HERO_PHOTOS,
+  PHOTOS,
   type Person,
 } from "@/lib/content";
 
@@ -88,6 +90,14 @@ export default function LeadershipPage() {
                   The management team drives day-to-day implementation across
                   every programme.
                 </p>
+              </Reveal>
+              <Reveal delay={90} className="mt-10">
+                <PhotoFigure
+                  photo={PHOTOS.teamWatching}
+                  ratio="4/5"
+                  sizes="(max-width: 1024px) 100vw, 33vw"
+                  caption={PHOTOS.teamWatching.caption}
+                />
               </Reveal>
             </div>
             <div className="lg:col-span-8">

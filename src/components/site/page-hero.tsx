@@ -36,8 +36,13 @@ export function PageHero({
   crumbs?: { label: string; href?: string }[];
   flip?: boolean;
 }) {
-  const words = (
-    <div className="relative flex items-center bg-band text-band-foreground">
+  // The panel is a function of its grid placement so it can be the grid
+  // item itself. As a child of a stretched cell its band stopped with the
+  // text and cream showed below it, beside the photograph.
+  const words = (placement: string) => (
+    <div
+      className={`relative flex items-center bg-band text-band-foreground ${placement}`}
+    >
       <div className="kente-field absolute inset-0 opacity-80" aria-hidden="true" />
       <div className="grain-overlay absolute inset-0 opacity-60" aria-hidden="true" />
 
@@ -112,14 +117,14 @@ export function PageHero({
   if (!photo) {
     return (
       <section className="relative isolate flex min-h-svh flex-col overflow-hidden">
-        <div className="flex flex-1 flex-col [&>div]:flex-1">{words}</div>
+        {words("flex-1")}
         <div className="woven-edge relative z-10" aria-hidden="true" />
       </section>
     );
   }
 
   return (
-    <section className="relative isolate grid min-h-svh grid-rows-[38svh_auto] overflow-hidden lg:grid-cols-2 lg:grid-rows-1">
+    <section className="relative isolate grid min-h-svh grid-rows-[38svh_1fr] overflow-hidden lg:grid-cols-2 lg:grid-rows-1">
       <div
         className={`relative ${flip ? "order-1 lg:order-1" : "order-1 lg:order-2"}`}
       >
@@ -129,21 +134,26 @@ export function PageHero({
           fill
           priority
           sizes="(max-width: 1024px) 100vw, 50vw"
-          className="object-cover"
+          className="photo-tone object-cover"
+        />
+        <div className="photo-grade absolute inset-0" aria-hidden="true" />
+        <div
+          className={`hero-seam-fade absolute inset-0 ${flip ? "hero-seam-fade--flip" : ""}`}
+          aria-hidden="true"
         />
         <div
-          className={`absolute inset-0 bg-gradient-to-b from-band/45 via-transparent to-band/85 ${
-            flip
-              ? "lg:bg-gradient-to-r lg:from-transparent lg:via-transparent lg:to-band"
-              : "lg:bg-gradient-to-l lg:from-transparent lg:via-transparent lg:to-band"
+          className="woven-edge absolute inset-x-0 bottom-0 lg:hidden"
+          aria-hidden="true"
+        />
+        <div
+          className={`woven-seam absolute inset-y-0 hidden lg:block ${
+            flip ? "woven-seam--flip right-0" : "left-0"
           }`}
           aria-hidden="true"
         />
       </div>
 
-      <div className={flip ? "order-2 lg:order-2" : "order-2 lg:order-1"}>
-        {words}
-      </div>
+      {words(flip ? "order-2 lg:order-2" : "order-2 lg:order-1")}
 
       <div
         className="woven-edge absolute inset-x-0 bottom-0 z-10"
