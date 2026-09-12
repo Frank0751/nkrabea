@@ -42,24 +42,26 @@ export default function HomePage() {
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
-            <div className="lg:col-span-5">
+            {/* The photograph takes the full height of the text column, so
+                the two end on the same line instead of the picture hanging
+                below a short paragraph with a hole beside it. */}
+            <Reveal className="order-2 lg:order-1 lg:col-span-5">
+              <PhotoFigure
+                photo={PHOTOS.loom}
+                fill
+                position="50% 18%"
+                sizes="(max-width: 1024px) 100vw, 40vw"
+                caption={PHOTOS.loom.caption}
+              />
+            </Reveal>
+            <div className="order-1 lg:order-2 lg:col-span-7">
               <Reveal>
                 <SectionEyebrow>Our mission</SectionEyebrow>
                 <h2 className="mt-5 font-display text-section text-foreground">
                   Culture is the tool. Development is the work.
                 </h2>
               </Reveal>
-              <Reveal delay={90} className="mt-10">
-                <PhotoFigure
-                  photo={PHOTOS.loom}
-                  ratio="4/5"
-                  sizes="(max-width: 1024px) 100vw, 38vw"
-                  caption={PHOTOS.loom.caption}
-                />
-              </Reveal>
-            </div>
-            <div className="lg:col-span-7">
-              <Reveal delay={120}>
+              <Reveal delay={120} className="mt-8">
                 <p className="text-lg leading-relaxed text-foreground/90">
                   {MISSION}
                 </p>

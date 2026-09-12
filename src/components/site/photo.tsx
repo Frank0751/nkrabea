@@ -11,6 +11,13 @@ import type { Photo } from "@/lib/content";
  * between a site that uses photographs and a site that was designed with
  * them.
  *
+ * A photograph beside text should end where the text ends. `fill` makes the
+ * figure take the full height of its grid cell and lets the picture crop to
+ * whatever shape that produces, with `position` deciding which part of the
+ * picture survives the crop (faces are usually in the top third). A fixed
+ * aspect ratio next to a short column is how a tall portrait ends up hanging
+ * below the words with a hole beside it.
+ *
  * Captions are set below the image on the page surface, never over it, so
  * their contrast does not depend on what the photograph happens to be.
  */
@@ -22,25 +29,31 @@ export function PhotoFigure({
   caption,
   priority = false,
   bare = false,
+  fill = false,
+  position,
   className = "",
 }: {
   photo: Photo;
-  /** CSS aspect-ratio, e.g. "4/5", "3/2", "1/1". */
+  /** CSS aspect-ratio, e.g. "4/5", "3/2", "1/1". Ignored when `fill` is set. */
   ratio?: string;
   sizes?: string;
   caption?: string;
   priority?: boolean;
   /** Drops the radius and shadow, for use inside a card. */
   bare?: boolean;
+  /** Take the full height of the grid cell instead of a fixed ratio. */
+  fill?: boolean;
+  /** CSS object-position, e.g. "50% 20%" to keep faces in a tight crop. */
+  position?: string;
   className?: string;
 }) {
   return (
-    <figure className={`m-0 ${className}`}>
+    <figure className={`m-0 ${fill ? "flex h-full flex-col" : ""} ${className}`}>
       <div
         className={`photo-frame relative overflow-hidden ${
           bare ? "" : "rounded-2xl"
-        }`}
-        style={{ aspectRatio: ratio }}
+        } ${fill ? "min-h-[20rem] flex-1 lg:min-h-[16rem]" : ""}`}
+        style={fill ? undefined : { aspectRatio: ratio }}
       >
         <Image
           src={photo.src}
@@ -49,6 +62,7 @@ export function PhotoFigure({
           sizes={sizes}
           priority={priority}
           className="photo-tone object-cover"
+          style={position ? { objectPosition: position } : undefined}
         />
         <div className="photo-grade absolute inset-0" aria-hidden="true" />
       </div>

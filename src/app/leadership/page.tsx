@@ -78,7 +78,7 @@ export default function LeadershipPage() {
       {/* Management */}
       <section data-rhythm-node className="py-20 lg:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+          <div className="grid gap-12 lg:grid-cols-12 lg:gap-12">
             <div className="lg:col-span-4">
               <Reveal>
                 <SectionEyebrow>Management team</SectionEyebrow>
@@ -90,21 +90,11 @@ export default function LeadershipPage() {
                   every programme.
                 </p>
               </Reveal>
-              <Reveal delay={90} className="mt-10">
-                <PhotoFigure
-                  photo={PHOTOS.teamWatching}
-                  ratio="4/5"
-                  sizes="(max-width: 1024px) 100vw, 33vw"
-                  caption={PHOTOS.teamWatching.caption}
-                />
-              </Reveal>
             </div>
-            <div className="lg:col-span-8">
-              <RevealGroup
-                as="ul"
-                className="grid gap-3 sm:grid-cols-2"
-                stagger={0.05}
-              >
+            {/* One column of roles sets the height; the photograph beside it
+                fills exactly that height. */}
+            <div className="lg:col-span-4">
+              <RevealGroup as="ul" className="grid gap-3" stagger={0.05}>
                 {MANAGEMENT_ROLES.map((role) => (
                   <li
                     key={role}
@@ -115,6 +105,15 @@ export default function LeadershipPage() {
                 ))}
               </RevealGroup>
             </div>
+            <Reveal delay={90} className="lg:col-span-4">
+              <PhotoFigure
+                photo={PHOTOS.teamWatching}
+                fill
+                position="50% 30%"
+                sizes="(max-width: 1024px) 100vw, 33vw"
+                caption={PHOTOS.teamWatching.caption}
+              />
+            </Reveal>
           </div>
         </div>
       </section>

@@ -84,21 +84,23 @@ export default function PartnerPage() {
           </Reveal>
 
           <div className="mt-12 grid gap-10 lg:grid-cols-12 lg:gap-14">
-            <Reveal className="lg:col-span-4">
+            <Reveal className="lg:col-span-5">
               <PhotoFigure
                 photo={PHOTOS.chiefOutside}
-                ratio="4/5"
-                sizes="(max-width: 1024px) 100vw, 33vw"
+                fill
+                position="50% 20%"
+                sizes="(max-width: 1024px) 100vw, 40vw"
                 caption={PHOTOS.chiefOutside.caption}
               />
             </Reveal>
-            <RevealGroup className="grid gap-8 sm:grid-cols-2 lg:col-span-8 lg:content-start">
+            {/* Four stacked entries set the height; the photograph matches it. */}
+            <RevealGroup className="grid gap-8 lg:col-span-7 lg:content-center">
               {AUDIENCES.map((audience) => (
                 <div key={audience.id} className="border-l-2 border-gold-edge/50 pl-5">
                   <h3 className="font-display text-lg leading-snug text-foreground">
                     {audience.title}
                   </h3>
-                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                  <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">
                     {audience.need}
                   </p>
                 </div>
@@ -112,13 +114,25 @@ export default function PartnerPage() {
       <section data-rhythm-node className="py-20 lg:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
-            <div className="lg:col-span-5">
+            {/* The photograph runs the full height of the list and the form
+                together, so nothing hangs below anything. */}
+            <Reveal className="order-2 lg:order-1 lg:col-span-4">
+              <PhotoFigure
+                photo={PHOTOS.chiefUnderUmbrella}
+                fill
+                position="50% 25%"
+                sizes="(max-width: 1024px) 100vw, 33vw"
+                caption={PHOTOS.chiefUnderUmbrella.caption}
+              />
+            </Reveal>
+
+            <div className="order-1 lg:order-2 lg:col-span-8">
               <Reveal>
                 <SectionEyebrow>Open for funding</SectionEyebrow>
                 <h2 className="mt-5 font-display text-section text-foreground">
                   Programmes ready to run
                 </h2>
-                <ul className="mt-8 space-y-5">
+                <ul className="mt-8 grid gap-5 sm:grid-cols-2">
                   {PROGRAMMES.filter((p) => p.status === "fundraising").map(
                     (p) => (
                       <li key={p.id} className="border-l-2 border-accent pl-5">
@@ -135,21 +149,11 @@ export default function PartnerPage() {
                   )}
                 </ul>
               </Reveal>
-              <Reveal delay={90} className="mt-10">
-                <PhotoFigure
-                  photo={PHOTOS.chiefUnderUmbrella}
-                  ratio="4/5"
-                  sizes="(max-width: 1024px) 100vw, 40vw"
-                  caption={PHOTOS.chiefUnderUmbrella.caption}
-                />
-              </Reveal>
-            </div>
 
-            <div className="lg:col-span-7">
-              <Reveal delay={120}>
-                <h2 className="font-display text-2xl leading-tight tracking-tight text-foreground">
+              <Reveal delay={120} className="mt-12">
+                <h3 className="font-display text-2xl leading-tight tracking-tight text-foreground">
                   Start a conversation
-                </h2>
+                </h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                   Tell us a little about your organisation and we will come back
                   with a proposal that fits.

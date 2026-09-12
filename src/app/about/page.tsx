@@ -85,7 +85,8 @@ export default function AboutPage() {
             </div>
             <PhotoFigure
               photo={PHOTOS.regalia}
-              ratio="4/5"
+              fill
+              position="50% 35%"
               sizes="(max-width: 1024px) 100vw, 33vw"
               caption={PHOTOS.regalia.caption}
             />
@@ -139,7 +140,7 @@ export default function AboutPage() {
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
-            <div className="lg:col-span-4">
+            <div className="flex flex-col lg:col-span-4">
               <Reveal>
                 <SectionEyebrow>What we do</SectionEyebrow>
                 <h2 className="mt-5 font-display text-section text-foreground">
@@ -149,10 +150,12 @@ export default function AboutPage() {
                   All pursued through culture and the arts.
                 </p>
               </Reveal>
-              <Reveal delay={90} className="mt-10">
+              {/* Fills whatever height the nine objectives leave under the
+                  heading, so the column ends where the list ends. */}
+              <Reveal delay={90} className="mt-10 flex-1">
                 <PhotoFigure
                   photo={PHOTOS.hallPerformer}
-                  ratio="4/5"
+                  fill
                   sizes="(max-width: 1024px) 100vw, 33vw"
                   caption={PHOTOS.hallPerformer.caption}
                 />
