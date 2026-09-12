@@ -4,7 +4,7 @@ import { ArrowRight, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Magnetic } from "./magnetic";
 import { ScrollCue } from "./scroll-cue";
-import { ORG, IDENTITY } from "@/lib/content";
+import { ORG, IDENTITY, HERO_PHOTOS } from "@/lib/content";
 
 /**
  * Homepage hero, to the spec in Nkrabea's brief: one strong photograph, the
@@ -25,8 +25,8 @@ export function Hero() {
       <div className="absolute inset-0 -z-10">
         {/* Video slot: drop a <video> here when Nkrabea supplies a reel. */}
         <Image
-          src="/images/social/fb-1.jpg"
-          alt=""
+          src={HERO_PHOTOS.home.src}
+          alt={HERO_PHOTOS.home.alt}
           fill
           priority
           sizes="100vw"

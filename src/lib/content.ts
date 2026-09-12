@@ -9,6 +9,8 @@
 // non-profit asking the public for money cannot publish a claim it cannot
 // stand behind.
 
+import { cld } from "./cloudinary";
+
 /* ===========================================================================
    CONFIRMED - from Nkrabea's own organisational profile
    =========================================================================== */
@@ -138,6 +140,11 @@ export const FOUNDERS: Person[] = [
     name: "Ms. Sarah Serwaa Asamoah",
     role: "Co-Founder, Board Member and Executive Director",
     bio: "An entrepreneur and philanthropist. She corresponds on behalf of the Board and the Management Team.",
+    // Cropped to the face by Cloudinary rather than by CSS, so the portrait
+    // holds up in a round frame at any size.
+    image: cld(
+      "c_thumb,g_face,z_0.7,w_480,h_480/v1789220087/IMG_9498.JPG_jyeiwn.jpg"
+    ),
   },
 ];
 
@@ -434,63 +441,144 @@ export const MILESTONES: Milestone[] = [
 ];
 
 /* ---------------------------------------------------------------------------
-   Gallery.
-   Only photographs sourced from Nkrabea's own channels. The nine generated
-   PNGs in the accepted prototype are not listed here.
+   Photography.
+
+   Every photograph comes from Nkrabea's own Cloudinary library, folder
+   Nkrabea, and falls into one of three occasions: an indoor ceremony where
+   the ensemble performed for chiefs and dignitaries, an outdoor community
+   performance by the Nkrabea Drumming and Dance Troupe, and visits by the
+   team to traditional leaders. The last two gallery entries are artworks
+   from an outdoor exhibition, kept from Nkrabea's Facebook page so that the
+   visual arts strand of the work is represented.
+
+   Alt text describes what is actually in the frame. The first version of this
+   file described pictures nobody had opened, and told screen reader users
+   about drummers who were not in them. Open the file before writing a word
+   about it.
+
+   Two absences are deliberate. No caption carries an event name, place or
+   date, because Nkrabea has not supplied them. No person is named except
+   where Nkrabea has identified them.
    --------------------------------------------------------------------------- */
 
-export type GalleryItem = {
-  id: string;
-  src: string;
-  alt: string;
-  caption?: string;
-};
+export type Photo = { src: string; alt: string; caption?: string };
 
-/**
- * Alt text here describes what is actually in each frame.
- *
- * The first version of this file captioned every image as a Nkrabea
- * performance. Six of the eight are an outdoor art exhibition and individual
- * artworks, so a screen reader user was being told about drummers and dancers
- * that are not in the picture. Do not write alt text for these without
- * opening the file.
- */
+/** One hero photograph per page. Contact keeps the composed band. */
+export const HERO_PHOTOS = {
+  home: {
+    src: cld("v1789083058/photo_29_2026-09-10_23-28-52_ygilix.jpg"),
+    alt: "Children in white tunics and shorts dancing barefoot on wet ground under a canopy, smiling as they move, with carved drums, a seated audience and a Nkrabea banner behind them.",
+  },
+  about: {
+    src: cld("v1789083068/photo_38_2026-09-10_23-28-52_ujgubr.jpg"),
+    alt: "The drumming and dance troupe seated together under a canopy, children in white behind a row of tall carved drums, with adult tutors in patterned smocks at one end.",
+  },
+  programmes: {
+    src: cld("v1789083057/photo_27_2026-09-10_23-28-52_wsvev7.jpg"),
+    alt: "Four boys in white playing tall carved drums under a canopy while other children stand around them holding gourd rattles, watched by a crowd, with the Nkrabea Drumming and Dance Troupe banner behind them.",
+  },
+  impact: {
+    src: cld("v1789083067/photo_40_2026-09-10_23-28-52_athee2.jpg"),
+    alt: "Children in red, green and yellow T-shirts printed with the words impacting lives through culture and the arts, crowding around the side door of a minibus as an adult helps them aboard.",
+  },
+  leadership: {
+    src: cld("v1789083070/photo_34_2026-09-10_23-28-52_q8k4so.jpg"),
+    alt: "Five of the Nkrabea team standing together outdoors, three of them in branded Nkrabea T-shirts, with the Executive Director in the centre in a white tunic bearing the organisation's badge.",
+  },
+  partner: {
+    src: cld("v1789083059/photo_16_2026-09-10_23-28-52_i0vic7.jpg"),
+    alt: "Four young performers in beaded headbands crouching on the floor in front of a kente-draped high table where chiefs and dignitaries sit with microphones.",
+  },
+  getInvolved: {
+    src: cld("v1789083057/photo_26_2026-09-10_23-28-52_yod8xx.jpg"),
+    alt: "Around eighteen children and young people in red, green and yellow Nkrabea T-shirts grouped in front of a minibus, with a group leader standing at one side.",
+  },
+  news: {
+    src: cld("v1789083065/photo_14_2026-09-10_23-28-52_oaijyx.jpg"),
+    alt: "Three singers in blue and yellow striped northern smocks and matching caps leaning forward mid-performance, each holding a small hand instrument, with the Nkrabea banner and a seated audience in kente behind them.",
+  },
+} satisfies Record<string, Photo>;
+
+export type GalleryItem = Photo & { id: string };
+
 export const GALLERY: GalleryItem[] = [
   {
-    id: "g1",
-    src: "/images/social/fb-1.jpg",
-    alt: "Three young women in kente cloth and layered strands of yellow and multicoloured trade beads, with white markings painted on their arms and shoulders, dancing outdoors while a camera operator films them.",
-    caption: "Cultural ceremony, filmed for broadcast",
+    id: "p20",
+    src: cld("v1789083061/photo_20_2026-09-10_23-28-52_vjcqpt.jpg"),
+    alt: "Seven children in white dancing in a line on wet ground between two canopies, with drums, a seated audience and a photographer at the side.",
+    caption: "The Drumming and Dance Troupe at an outdoor community performance",
   },
   {
-    id: "g2",
-    src: "/images/social/fb-2.jpg",
-    alt: "A young woman in a patterned headwrap and many strands of yellow and multicoloured trade beads, with white markings painted on her arms, dancing at an outdoor gathering.",
-    caption: "Beadwork and body markings worn for the occasion",
+    id: "p24",
+    src: cld("v1789083060/photo_24_2026-09-10_23-28-52_azw36f.jpg"),
+    alt: "Children in white dancing in a line with one leg raised high, barefoot on muddy ground, with drums and the Nkrabea banner behind them.",
+    caption: "Dancers of the troupe in step",
   },
   {
-    id: "g7",
-    src: "/images/social/fb-reel.jpg",
-    alt: "A woman in white lace cloth and a yellow headwrap dancing under a canopy at an outdoor gathering, with drummers playing behind her.",
-    caption: "Drumming and dance at a community gathering",
+    id: "p31",
+    src: cld("v1789083057/photo_31_2026-09-10_23-28-52_nigpo7.jpg"),
+    alt: "Children in white dancing on muddy ground with their arms swinging, carved drums and a seated audience behind them.",
+    caption: "Dancing in the round, the drummers behind",
+  },
+  {
+    id: "p13",
+    src: cld("v1789083062/photo_13_2026-09-10_23-28-52_svrfhi.jpg"),
+    alt: "A dancer in a blue and yellow striped northern smock and kente trousers mid-step in front of a cloth-draped high table, with another dancer beside him.",
+    caption: "Dance before the high table",
+  },
+  {
+    id: "p09",
+    src: cld("v1789083061/photo_9_2026-09-10_23-28-52_k9ges8.jpg"),
+    alt: "A woman in purple and gold kente with a gold headband crouching low as she sings into a microphone, with seated elders and a loudspeaker behind her.",
+    caption: "Leading the singing",
+  },
+  {
+    id: "p02",
+    src: cld("v1789083065/photo_2_2026-09-10_23-28-52_qlhfqt.jpg"),
+    alt: "A woman in Akan gold regalia wearing a gold headband with a feather ornament, stacked gold bead bracelets and gold rings, raising one hand.",
+    caption: "Akan gold regalia",
+  },
+  {
+    id: "p01",
+    src: cld("v1789083067/photo_1_2026-09-10_23-28-52_v7xqmk.jpg"),
+    alt: "A woman in a gold headband and strands of gold and blue beads holding a baby girl dressed in kente, the two of them cheek to cheek as the baby reaches forward.",
+    caption: "Cloth and beads worn for the occasion",
+  },
+  {
+    id: "p04",
+    src: cld("v1789083066/photo_4_2026-09-10_23-28-52_jkbgrb.jpg"),
+    alt: "A family group of five in kente cloth and gold jewellery posing indoors, one of the women holding a baby, and a girl at the side holding a camera.",
+    caption: "Guests in kente",
+  },
+  {
+    id: "p11",
+    src: cld("v1789083063/photo_11_2026-09-10_23-28-52_rxj0xy.jpg"),
+    alt: "Two men in blue and yellow striped northern smocks seen from behind as they face a kente-draped high table where elders sit, in a hall hung with kente.",
+    caption: "Facing the high table",
+  },
+  {
+    id: "p06",
+    src: cld("v1789083063/photo_6_2026-09-10_23-28-52_bojimn.jpg"),
+    alt: "A man wrapped in yellow and blue kente standing beside a narrow strip loom, with a weaver working behind him and warp threads stretched the length of the frame.",
+    caption: "Kente weaving on a narrow strip loom",
+  },
+  {
+    id: "p35",
+    src: cld("v1789083071/photo_35_2026-09-10_23-28-52_dos7l5.jpg"),
+    alt: "Members of the Nkrabea team standing with a woman in a gold kente gown and a man in kente cloth on a tiled verandah.",
+    caption: "The team with their hosts",
+  },
+  {
+    id: "p39",
+    src: cld("v1789083068/photo_39_2026-09-10_23-28-52_duq7lq.jpg"),
+    alt: "A chief in kente standing under a large red and gold state umbrella, with Nkrabea's Executive Director in white and two team members beside him.",
+    caption: "A visit to a traditional leader",
   },
   {
     id: "g3",
     src: "/images/social/fb-3.jpg",
     alt: "Paintings mounted on freestanding display boards at an outdoor art exhibition, each with a printed label, as visitors walk between them.",
     caption: "Outdoor exhibition of Ghanaian painting",
-  },
-  {
-    id: "g6",
-    src: "/images/social/fb-6.jpg",
-    alt: "A framed painting of a masquerade figure in a brightly patterned appliqué gown, flanked by two carved columns of stacked faces.",
-    caption: "Masquerade figure, painting",
-  },
-  {
-    id: "g4",
-    src: "/images/social/fb-4.jpg",
-    alt: "A painting on a circular canvas showing a masquerade figure in layered appliqué cloth, holding a carved mask on a pole in each hand.",
-    caption: "Masquerade with twin masks, painting on board",
   },
   {
     id: "g5",

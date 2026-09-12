@@ -3,7 +3,7 @@ import { PageHero } from "@/components/site/page-hero";
 import { SectionEyebrow } from "@/components/site/section-eyebrow";
 import { Reveal, RevealGroup } from "@/components/site/reveal";
 import { PartnershipForm } from "@/components/site/partnership-form";
-import { AUDIENCES, PROGRAMMES } from "@/lib/content";
+import { AUDIENCES, PROGRAMMES, HERO_PHOTOS } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Partner With Us",
@@ -37,6 +37,7 @@ export default function PartnerPage() {
         eyebrow="Partner with us"
         title="Strategic investment, not charity"
         description="We frame support as investment because that is what it is: capability built, livelihoods created, assets left behind."
+        photo={HERO_PHOTOS.partner}
         crumbs={[{ label: "Partner" }]}
       />
 

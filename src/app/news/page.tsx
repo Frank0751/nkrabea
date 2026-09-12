@@ -5,7 +5,7 @@ import { PageHero } from "@/components/site/page-hero";
 import { SectionEyebrow } from "@/components/site/section-eyebrow";
 import { Reveal } from "@/components/site/reveal";
 import { NewsletterForm } from "@/components/site/newsletter-form";
-import { EVENTS, STORIES, PRESS } from "@/lib/content";
+import { EVENTS, STORIES, PRESS, HERO_PHOTOS } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "News & Events",
@@ -23,6 +23,7 @@ export default function NewsPage() {
         eyebrow="News and events"
         title="What is coming up"
         description="Showcases, programme milestones and press."
+        photo={HERO_PHOTOS.news}
         crumbs={[{ label: "News" }]}
       />
 

@@ -11,6 +11,7 @@ import {
   VISION,
   VALUES,
   WHAT_WE_DO,
+  HERO_PHOTOS,
 } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -26,8 +27,7 @@ export default function AboutPage() {
         eyebrow="About us"
         title="Nkrabea means destiny"
         description={IDENTITY.lead}
-        image="/images/social/fb-2.jpg"
-        imageAlt="A young woman in a patterned headwrap and many strands of trade beads, with white markings painted on her arms, dancing at an outdoor gathering."
+        photo={HERO_PHOTOS.about}
         crumbs={[{ label: "About" }]}
       />
 

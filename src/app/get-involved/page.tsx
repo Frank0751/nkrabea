@@ -5,7 +5,7 @@ import { PageHero } from "@/components/site/page-hero";
 import { SectionEyebrow } from "@/components/site/section-eyebrow";
 import { Reveal, RevealGroup } from "@/components/site/reveal";
 import { NewsletterForm } from "@/components/site/newsletter-form";
-import { ORG } from "@/lib/content";
+import { ORG, HERO_PHOTOS } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Get Involved",
@@ -20,6 +20,7 @@ export default function GetInvolvedPage() {
         eyebrow="Get involved"
         title="Ways to support the work"
         description="Every contribution goes into programmes that build skills, livelihoods and dignity in Ghanaian communities."
+        photo={HERO_PHOTOS.getInvolved}
         crumbs={[{ label: "Get Involved" }]}
       />
 

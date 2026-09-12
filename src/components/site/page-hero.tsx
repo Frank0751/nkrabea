@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ChevronRight } from "lucide-react";
 import { ScrollCue } from "./scroll-cue";
+import type { Photo } from "@/lib/content";
 
 /**
  * Subpage hero. One H1 per page lives here.
@@ -11,33 +12,31 @@ import { ScrollCue } from "./scroll-cue";
  * refers to the viewport with the address bar hidden, which is taller than
  * what the visitor actually sees on load.
  *
- * The image is optional: Nkrabea's photography is incomplete, and a page with
- * no confirmed photograph should render a composed black band rather than a
- * generated stand-in.
+ * The photograph is optional: a page with none of its own renders a composed
+ * black band rather than a stand-in. Alt text travels with the image inside
+ * the Photo record, so the two cannot drift apart.
  */
 export function PageHero({
   eyebrow,
   title,
   description,
-  image,
-  imageAlt,
+  photo,
   crumbs,
 }: {
   eyebrow: string;
   title: string;
   description?: string;
-  image?: string;
-  imageAlt?: string;
+  photo?: Photo;
   crumbs?: { label: string; href?: string }[];
 }) {
   return (
     <section className="relative isolate flex min-h-svh flex-col overflow-hidden bg-band text-band-foreground">
       <div className="absolute inset-0 -z-10">
-        {image && (
+        {photo && (
           <>
             <Image
-              src={image}
-              alt={imageAlt ?? ""}
+              src={photo.src}
+              alt={photo.alt}
               fill
               priority
               sizes="100vw"

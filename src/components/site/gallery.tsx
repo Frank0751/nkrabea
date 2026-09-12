@@ -8,10 +8,10 @@ import { GALLERY } from "@/lib/content";
 /**
  * Image grid with a lightbox.
  *
- * Everything here comes from Nkrabea's own channels. Note that most of it is
- * an art exhibition and individual artworks rather than programme delivery,
- * which is why the alt text and captions in content.ts describe paintings and
- * assemblage works. See the note on GALLERY before editing either.
+ * Everything here comes from Nkrabea's own channels: twelve photographs from
+ * their Cloudinary library and two artworks from an outdoor exhibition. Alt
+ * text and captions live with the images in content.ts. Read the note above
+ * GALLERY before editing either.
  */
 export function Gallery() {
   const [active, setActive] = React.useState<number | null>(null);

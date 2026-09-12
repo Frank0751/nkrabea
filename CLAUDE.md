@@ -45,6 +45,29 @@ around a hard rule: nothing reaches the site that Nkrabea cannot evidence.
 - `EVENTS`, `TESTIMONIALS`, `PRESS` and `STORIES` are intentionally empty.
   Components render honest empty states. Do not populate them with placeholders.
 
+## Photography
+
+Photographs come from Nkrabea's own Cloudinary library: cloud `dmyrmlj5z`,
+folder `Nkrabea`. `src/lib/cloudinary.ts` builds a delivery URL from the path
+that follows `/upload/`, version included, and `next.config.ts` allows that
+one cloud and no other host.
+
+- Delivery is public, so **no Cloudinary key or secret belongs in the repo, in
+  Vercel or in the build**. The API key used to list the library lives only in
+  the developer's `.env`, which git ignores.
+- `HERO_PHOTOS` in `content.ts` holds one photograph per page with its alt
+  text attached, so a hero cannot end up carrying someone else's description.
+  `<PageHero>` takes a single `photo` prop. Contact has no photograph and
+  renders the composed band.
+- **Never write alt text for a photograph you have not opened.** The first
+  version of this file described drummers who were not in the picture.
+- No caption carries an event name, place or date, and no person is named,
+  until Nkrabea supplies them. Sarah Serwaa Asamoah's portrait on the
+  leadership page is the one photograph identified so far.
+- Around seventeen of the photographs show identifiable children, published on
+  the client's instruction. If Nkrabea withdraws consent for any of them,
+  delete the entry rather than reword the caption.
+
 ## Architecture conventions
 
 - **Nine routes**, matching the structure Nkrabea asked for: `/`, `/about`,
@@ -93,8 +116,10 @@ around a hard rule: nothing reaches the site that Nkrabea cannot evidence.
   `bg-foreground` for a dark band; it flips to cream in dark mode.
 - After changing any colour token, run `npm run check:contrast`. It fails the
   build on any pairing below WCAG 2.2 AA.
-- Display type is Fraunces, body is Plus Jakarta Sans, labels are JetBrains
-  Mono (`.label-mono`). Inter is not used.
+- Display type is DM Serif Display, which ships in 400 only: never put
+  `font-semibold` on a display heading, and `font-synthesis-weight: none`
+  stops the browser faking one. Body is Manrope, labels are JetBrains Mono
+  (`.label-mono`). Fraunces, Plus Jakarta Sans and Inter are not used.
 - No em dashes in copy. Mobile-first: test at 390px, 768px and 1280px.
 - One H1 per page, in the hero.
 

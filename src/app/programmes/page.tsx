@@ -3,7 +3,7 @@ import { PageHero } from "@/components/site/page-hero";
 import { SectionEyebrow } from "@/components/site/section-eyebrow";
 import { Reveal, RevealGroup } from "@/components/site/reveal";
 import { CtaBand } from "@/components/site/cta-band";
-import { PROGRAMMES, ART_FORMS } from "@/lib/content";
+import { PROGRAMMES, ART_FORMS, HERO_PHOTOS } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Our Work",
@@ -24,8 +24,7 @@ export default function ProgrammesPage() {
         eyebrow="Our work"
         title="Programmes with a measurable end"
         description="Nkrabea is currently running and raising funds for the following initiatives."
-        image="/images/social/fb-reel.jpg"
-        imageAlt="A woman dancing under a canopy at an outdoor gathering, with drummers playing behind her."
+        photo={HERO_PHOTOS.programmes}
         crumbs={[{ label: "Our Work" }]}
       />
 

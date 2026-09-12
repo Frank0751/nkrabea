@@ -6,7 +6,7 @@ import { Reveal, RevealGroup } from "@/components/site/reveal";
 import { CountUp } from "@/components/site/count-up";
 import { Gallery } from "@/components/site/gallery";
 import { CtaBand } from "@/components/site/cta-band";
-import { FIGURES, MILESTONES, TESTIMONIALS } from "@/lib/content";
+import { FIGURES, MILESTONES, TESTIMONIALS, HERO_PHOTOS } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Our Impact",
@@ -21,8 +21,7 @@ export default function ImpactPage() {
         eyebrow="Our impact"
         title="What we are set up to change"
         description="The figures below state plainly whether each is a programme target or a result already achieved."
-        image="/images/social/fb-3.jpg"
-        imageAlt="Paintings mounted on display boards at an outdoor art exhibition, as visitors walk between them."
+        photo={HERO_PHOTOS.impact}
         crumbs={[{ label: "Impact" }]}
       />
 

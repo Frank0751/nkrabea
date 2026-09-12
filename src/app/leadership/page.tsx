@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { PageHero } from "@/components/site/page-hero";
 import { SectionEyebrow } from "@/components/site/section-eyebrow";
 import { Reveal, RevealGroup } from "@/components/site/reveal";
@@ -8,6 +9,7 @@ import {
   BOARD,
   MANAGEMENT_ROLES,
   GOVERNANCE_NOTE,
+  HERO_PHOTOS,
   type Person,
 } from "@/lib/content";
 
@@ -24,6 +26,7 @@ export default function LeadershipPage() {
         eyebrow="Leadership and governance"
         title="Who carries the responsibility"
         description={GOVERNANCE_NOTE}
+        photo={HERO_PHOTOS.leadership}
         crumbs={[{ label: "Leadership" }]}
       />
 
@@ -122,8 +125,9 @@ export default function LeadershipPage() {
 
 /**
  * Nkrabea's brief: "Photos are not complete so we will work with the ones we
- * have and leave the others blank on the site for now." Rather than a blank
- * or a stock face, an initials monogram holds the space with dignity.
+ * have and leave the others blank on the site for now." Where a portrait
+ * exists it is used; where none does, an initials monogram holds the space
+ * with dignity rather than a blank or a stock face.
  */
 function PersonCard({
   person,
@@ -147,12 +151,28 @@ function PersonCard({
         featured ? "sm:p-7" : ""
       }`}
     >
-      <span
-        className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-band font-display text-lg text-band-foreground"
-        aria-hidden="true"
-      >
-        {initials}
-      </span>
+      {person.image ? (
+        // The name and role sit beside the portrait in text, so the picture
+        // repeats nothing and correctly takes an empty alt.
+        <Image
+          src={person.image}
+          alt=""
+          width={160}
+          height={160}
+          className={`shrink-0 rounded-full object-cover ${
+            featured ? "h-20 w-20" : "h-14 w-14"
+          }`}
+        />
+      ) : (
+        <span
+          className={`flex shrink-0 items-center justify-center rounded-full bg-band font-display text-band-foreground ${
+            featured ? "h-20 w-20 text-xl" : "h-14 w-14 text-lg"
+          }`}
+          aria-hidden="true"
+        >
+          {initials}
+        </span>
+      )}
       <div className="min-w-0">
         <h3
           className={`font-display leading-snug text-foreground ${
