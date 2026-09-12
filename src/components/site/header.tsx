@@ -43,8 +43,11 @@ export function SiteHeader() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Every page now opens on a dark hero, not just the homepage, so the
+  // transparent state applies everywhere. pathname still decides which link
+  // is marked current.
   const isHome = pathname === "/";
-  const transparent = isHome && !scrolled;
+  const transparent = !scrolled;
 
   return (
     // Fixed rather than sticky. A sticky header occupies layout space, so the
@@ -55,7 +58,7 @@ export function SiteHeader() {
     <header
       className={`fixed inset-x-0 top-0 z-50 w-full border-b transition-colors duration-300 ${
         transparent
-          ? "border-transparent bg-transparent"
+          ? "border-transparent bg-gradient-to-b from-band/85 via-band/40 to-transparent"
           : "border-border bg-background/85 backdrop-blur-md"
       }`}
     >

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Manrope, DM_Serif_Display, JetBrains_Mono } from "next/font/google";
+import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster as SonnerToaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -14,31 +14,12 @@ import { SITE_URL, IS_PUBLIC_SITE } from "@/lib/site";
 import { OrganisationSchema } from "@/components/site/structured-data";
 
 /**
- * Body. Manrope is the closest openly licensed match to Satoshi's
- * humanist-geometric construction, and being variable it covers every weight
- * the site uses from one file.
+ * Satoshi (body) and Bespoke Serif (display) are declared as @font-face rules
+ * in globals.css against Fontshare's CDN, because their licence permits web
+ * use but not redistribution and this repository is public. JetBrains Mono is
+ * openly licensed, so next/font downloads it at build time and serves it from
+ * our own domain: one less third party in the critical path.
  */
-const body = Manrope({
-  variable: "--font-body",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-/**
- * Display. DM Serif Display is koombei-studio-skill Part 3's first named face
- * for NGO and social-impact work.
- *
- * It ships at weight 400 only. Nothing in the site may apply a heavier weight
- * to it: the browser would synthesise a fake bold and smear the letterforms.
- * globals.css disables font-synthesis on the display family as a hard guard.
- */
-const display = DM_Serif_Display({
-  variable: "--font-display",
-  subsets: ["latin"],
-  weight: "400",
-  display: "swap",
-});
-
 const mono = JetBrains_Mono({
   variable: "--font-mono",
   subsets: ["latin"],
@@ -101,8 +82,13 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${body.variable} ${display.variable} ${mono.variable} font-sans antialiased bg-background text-foreground`}
+        className={`${mono.variable} font-sans antialiased bg-background text-foreground`}
       >
+        {/* globals.css fetches the two Fontshare faces. Warming the
+            connection saves a DNS lookup and a TLS handshake before the first
+            paint, which is worth more on a Ghanaian mobile connection than it
+            is on a desk. React hoists this into the document head. */}
+        <link rel="preconnect" href="https://cdn.fontshare.com" crossOrigin="anonymous" />
         <ThemeProvider
           attribute="class"
           defaultTheme="light"

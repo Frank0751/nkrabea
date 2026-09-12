@@ -35,7 +35,7 @@ export default function ContactPage() {
             <div className="lg:col-span-5">
               <Reveal>
                 <SectionEyebrow>Details</SectionEyebrow>
-                <h2 className="mt-5 font-display text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
+                <h2 className="mt-5 font-display text-section text-foreground">
                   Where to find us
                 </h2>
 
@@ -138,12 +138,12 @@ export default function ContactPage() {
       {/* FAQ */}
       <section
         data-rhythm-node
-        className="border-t border-border bg-secondary/40 py-20 lg:py-28"
+        className="bg-sand py-20 lg:py-28"
       >
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <Reveal>
             <SectionEyebrow>Questions</SectionEyebrow>
-            <h2 className="mt-5 font-display text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
+            <h2 className="mt-5 font-display text-section text-foreground">
               Frequently asked
             </h2>
 

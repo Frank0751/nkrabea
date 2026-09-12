@@ -38,7 +38,7 @@ export default function AboutPage() {
             <div className="lg:col-span-4">
               <Reveal>
                 <SectionEyebrow>Who we are</SectionEyebrow>
-                <h2 className="mt-5 font-display text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
+                <h2 className="mt-5 font-display text-section text-foreground">
                   Reaching back to build forward
                 </h2>
               </Reveal>
@@ -59,7 +59,7 @@ export default function AboutPage() {
       {/* Mission and vision */}
       <section
         data-rhythm-node
-        className="border-y border-border bg-secondary/40 py-20 lg:py-28"
+        className="bg-sand py-20 lg:py-28"
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <RevealGroup className="grid gap-6 lg:grid-cols-2">
@@ -95,7 +95,7 @@ export default function AboutPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="max-w-2xl">
             <SectionEyebrow>Core values</SectionEyebrow>
-            <h2 className="mt-5 font-display text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
+            <h2 className="mt-5 font-display text-section text-foreground">
               Seven values guide the work
             </h2>
           </Reveal>
@@ -121,14 +121,14 @@ export default function AboutPage() {
       {/* What we do */}
       <section
         data-rhythm-node
-        className="border-y border-border bg-secondary/40 py-20 lg:py-28"
+        className="bg-sand py-20 lg:py-28"
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
             <div className="lg:col-span-4">
               <Reveal>
                 <SectionEyebrow>What we do</SectionEyebrow>
-                <h2 className="mt-5 font-display text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
+                <h2 className="mt-5 font-display text-section text-foreground">
                   Our constitutional objectives
                 </h2>
                 <p className="mt-5 text-sm leading-relaxed text-muted-foreground">

@@ -3,7 +3,18 @@ import { PageHero } from "@/components/site/page-hero";
 import { SectionEyebrow } from "@/components/site/section-eyebrow";
 import { Reveal, RevealGroup } from "@/components/site/reveal";
 import { CtaBand } from "@/components/site/cta-band";
-import { PROGRAMMES, ART_FORMS, HERO_PHOTOS } from "@/lib/content";
+import {
+  DataBand,
+  SplitBar,
+  StatTile,
+  ProcessSteps,
+} from "@/components/site/figures";
+import {
+  PROGRAMMES,
+  ART_FORMS,
+  HERO_PHOTOS,
+  PROGRAMME_FIGURES,
+} from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Our Work",
@@ -25,6 +36,7 @@ export default function ProgrammesPage() {
         title="Programmes with a measurable end"
         description="Nkrabea is currently running and raising funds for the following initiatives."
         photo={HERO_PHOTOS.programmes}
+        flip
         crumbs={[{ label: "Our Work" }]}
       />
 
@@ -98,15 +110,51 @@ export default function ProgrammesPage() {
         </div>
       </section>
 
+      <DataBand
+        eyebrow="What the funding buys"
+        title="One hundred students, split evenly between two trades"
+        lede="The Cape Coast programme is costed, dated and designed to leave its equipment behind. These are the numbers a funder would be committing to."
+      >
+        <div className="grid gap-14 lg:grid-cols-2 lg:gap-16">
+          <SplitBar
+            total={PROGRAMME_FIGURES.capeCoast.intake}
+            totalLabel="students at Cape Coast School for the Deaf with Blind Unit, over one school year"
+            parts={PROGRAMME_FIGURES.capeCoast.split}
+            caption="A programme target, not a result to date. Source: Nkrabea's Skills Development Programme design."
+          />
+
+          <div className="grid gap-5 sm:grid-cols-2">
+            <StatTile
+              value={PROGRAMME_FIGURES.capeCoast.budget}
+              label="Total programme value"
+              note="As published by Nkrabea."
+            />
+            <StatTile
+              value="12 months"
+              label="Integrated into the school calendar"
+            />
+            <StatTile
+              value={PROGRAMME_FIGURES.capeCoast.perStudent}
+              label="Per student, on average"
+              note="The published budget divided by the published intake."
+            />
+            <StatTile
+              value="Retained"
+              label="Equipment stays at the school as an institutional asset"
+            />
+          </div>
+        </div>
+      </DataBand>
+
       {/* Art forms */}
       <section
         data-rhythm-node
-        className="border-t border-border bg-secondary/40 py-20 lg:py-28"
+        className="bg-sand py-20 lg:py-28"
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="max-w-2xl">
             <SectionEyebrow>How we teach</SectionEyebrow>
-            <h2 className="mt-5 font-display text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
+            <h2 className="mt-5 font-display text-section text-foreground">
               The art forms we work through
             </h2>
           </Reveal>
@@ -115,7 +163,7 @@ export default function ProgrammesPage() {
             {ART_FORMS.map((form) => (
               <div
                 key={form.id}
-                className="spotlight-card rounded-2xl border border-border bg-card p-7"
+                className="spotlight-card card-lift rounded-2xl border border-border bg-card p-7"
               >
                 <h3 className="font-display text-lg text-foreground">
                   {form.name}
@@ -126,6 +174,18 @@ export default function ProgrammesPage() {
               </div>
             ))}
           </RevealGroup>
+
+          <Reveal delay={140} className="mt-20">
+            <h3 className="font-display text-sub text-foreground">
+              How a Deaf student learns a drum pattern
+            </h3>
+            <div className="mt-10">
+              <ProcessSteps
+                steps={PROGRAMME_FIGURES.vibrotactile}
+                caption="Nkrabea's programme design specifies vibrotactile technology for the fifty drumming and dance students. The equipment is part of the funded budget and remains at the school afterwards."
+              />
+            </div>
+          </Reveal>
         </div>
       </section>
 

@@ -7,14 +7,19 @@ import type { Photo } from "@/lib/content";
 /**
  * Subpage hero. One H1 per page lives here.
  *
- * Full viewport height, per koombei-studio-skill Part 6. Measured in svh
- * rather than vh so that mobile browser chrome cannot crop the content: vh
- * refers to the viewport with the address bar hidden, which is taller than
- * what the visitor actually sees on load.
+ * Full viewport height, per koombei-studio-skill Part 6, measured in svh so
+ * mobile browser chrome cannot crop it.
  *
- * The photograph is optional: a page with none of its own renders a composed
- * black band rather than a stand-in. Alt text travels with the image inside
- * the Photo record, so the two cannot drift apart.
+ * Two compositions, and which one a page gets depends on whether Nkrabea have
+ * a photograph for it:
+ *
+ *   with a photograph   a split: picture in its own panel at full strength,
+ *                       words on the band. `flip` puts the picture on the
+ *                       other side, so consecutive pages do not repeat the
+ *                       same composition.
+ *   without             the band alone, carrying the loom pattern and a
+ *                       larger heading. An honest empty state, not a
+ *                       stand-in photograph.
  */
 export function PageHero({
   eyebrow,
@@ -22,34 +27,30 @@ export function PageHero({
   description,
   photo,
   crumbs,
+  flip = false,
 }: {
   eyebrow: string;
   title: string;
   description?: string;
   photo?: Photo;
   crumbs?: { label: string; href?: string }[];
+  flip?: boolean;
 }) {
-  return (
-    <section className="relative isolate flex min-h-svh flex-col overflow-hidden bg-band text-band-foreground">
-      <div className="absolute inset-0 -z-10">
-        {photo && (
-          <>
-            <Image
-              src={photo.src}
-              alt={photo.alt}
-              fill
-              priority
-              sizes="100vw"
-              className="object-cover opacity-40"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-band via-band/75 to-band/40" />
-          </>
-        )}
-        <div className="absolute inset-0 grain-overlay opacity-50" />
-      </div>
+  const words = (
+    <div className="relative flex items-center bg-band text-band-foreground">
+      <div className="kente-field absolute inset-0 opacity-80" aria-hidden="true" />
+      <div className="grain-overlay absolute inset-0 opacity-60" aria-hidden="true" />
 
-      <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center px-4 pb-28 pt-28 sm:px-6 lg:px-8 lg:pt-36">
-        <div className="max-w-3xl">
+      <div
+        className={`relative w-full px-4 py-16 sm:px-6 lg:py-24 ${
+          flip ? "lg:pl-16 lg:pr-12 xl:pr-20" : "lg:pl-12 lg:pr-16 xl:pl-20"
+        }`}
+      >
+        <div
+          className={`mx-auto max-w-xl lg:mx-0 lg:max-w-2xl ${
+            flip ? "lg:mr-auto" : "lg:ml-auto"
+          }`}
+        >
           <nav
             aria-label="Breadcrumb"
             className="flex flex-wrap items-center gap-1.5 text-xs text-band-foreground/60"
@@ -61,7 +62,10 @@ export function PageHero({
               <span key={c.label} className="flex items-center gap-1.5">
                 <ChevronRight className="h-3 w-3" aria-hidden="true" />
                 {c.href ? (
-                  <Link href={c.href} className="inline-block py-1 hover:text-band-foreground">
+                  <Link
+                    href={c.href}
+                    className="inline-block py-1 hover:text-band-foreground"
+                  >
                     {c.label}
                   </Link>
                 ) : (
@@ -79,12 +83,10 @@ export function PageHero({
             {eyebrow}
           </span>
 
-          <h1 className="mt-6 font-display text-4xl leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
-            {title}
-          </h1>
+          <h1 className="mt-6 font-display text-hero">{title}</h1>
 
           {description && (
-            <p className="mt-6 max-w-2xl text-base leading-relaxed text-band-foreground/75 sm:text-lg">
+            <p className="mt-6 max-w-2xl text-lede text-band-foreground/78">
               {description}
             </p>
           )}
@@ -92,8 +94,49 @@ export function PageHero({
       </div>
 
       <ScrollCue />
+    </div>
+  );
 
-      <div className="kente-divider" aria-hidden="true" />
+  if (!photo) {
+    return (
+      <section className="relative isolate flex min-h-svh flex-col overflow-hidden">
+        <div className="flex flex-1 flex-col [&>div]:flex-1">{words}</div>
+        <div className="woven-edge relative z-10" aria-hidden="true" />
+      </section>
+    );
+  }
+
+  return (
+    <section className="relative isolate grid min-h-svh grid-rows-[38svh_auto] overflow-hidden lg:grid-cols-2 lg:grid-rows-1">
+      <div
+        className={`relative ${flip ? "order-1 lg:order-1" : "order-1 lg:order-2"}`}
+      >
+        <Image
+          src={photo.src}
+          alt={photo.alt}
+          fill
+          priority
+          sizes="(max-width: 1024px) 100vw, 50vw"
+          className="object-cover"
+        />
+        <div
+          className={`absolute inset-0 bg-gradient-to-b from-band/45 via-transparent to-band/85 ${
+            flip
+              ? "lg:bg-gradient-to-r lg:from-transparent lg:via-transparent lg:to-band"
+              : "lg:bg-gradient-to-l lg:from-transparent lg:via-transparent lg:to-band"
+          }`}
+          aria-hidden="true"
+        />
+      </div>
+
+      <div className={flip ? "order-2 lg:order-2" : "order-2 lg:order-1"}>
+        {words}
+      </div>
+
+      <div
+        className="woven-edge absolute inset-x-0 bottom-0 z-10"
+        aria-hidden="true"
+      />
     </section>
   );
 }

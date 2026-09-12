@@ -20,12 +20,12 @@ export function WhoWeServe() {
   return (
     <section
       data-rhythm-node
-      className="border-b border-border py-20 lg:py-28"
+      className="py-20 lg:py-28"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal className="max-w-2xl">
           <SectionEyebrow>Who we serve</SectionEyebrow>
-          <h2 className="mt-5 font-display text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
+          <h2 className="mt-5 font-display text-section text-foreground">
             Four groups, four different questions
           </h2>
           <p className="mt-5 text-base leading-relaxed text-muted-foreground">
@@ -37,7 +37,7 @@ export function WhoWeServe() {
           {AUDIENCES.map((audience) => (
             <article
               key={audience.id}
-              className="spotlight-card flex h-full flex-col rounded-2xl border border-border bg-card p-7"
+              className="spotlight-card card-lift flex h-full flex-col rounded-2xl border border-border bg-card p-7"
             >
               <h3 className="font-display text-lg leading-snug text-foreground">
                 {audience.title}

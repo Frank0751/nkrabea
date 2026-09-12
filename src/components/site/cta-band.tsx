@@ -18,11 +18,13 @@ export function CtaBand({
   secondaryHref?: string;
 }) {
   return (
-    <section className="bg-band py-16 text-band-foreground lg:py-20">
+    <section className="relative isolate overflow-hidden bg-band py-16 text-band-foreground lg:py-20">
+      <div className="woven-edge absolute inset-x-0 top-0" aria-hidden="true" />
+      <div className="kente-field absolute inset-0 -z-10 opacity-70" aria-hidden="true" />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-start gap-6 rounded-2xl border border-band-foreground/10 bg-band-foreground/5 p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10 lg:p-12">
           <div className="max-w-xl">
-            <h2 className="font-display text-2xl leading-tight tracking-tight sm:text-3xl">
+            <h2 className="font-display text-section">
               {title}
             </h2>
             <p className="mt-3 text-sm leading-relaxed text-band-foreground/70 sm:text-base">

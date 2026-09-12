@@ -7,8 +7,15 @@ import { CountUp } from "@/components/site/count-up";
 import { CtaBand } from "@/components/site/cta-band";
 import { ProgrammeCard } from "@/components/site/programme-card";
 import { ProofBar } from "@/components/site/proof-bar";
+import { DataBand, RegionChips } from "@/components/site/figures";
 import { WhoWeServe } from "@/components/site/who-we-serve";
-import { PROGRAMMES, STRATEGIC_FOCUS, FIGURES, MISSION } from "@/lib/content";
+import {
+  PROGRAMMES,
+  STRATEGIC_FOCUS,
+  FIGURES,
+  MISSION,
+  PROGRAMME_FIGURES,
+} from "@/lib/content";
 
 const FOCUS_ICONS = {
   economic: Target,
@@ -28,14 +35,14 @@ export default function HomePage() {
       {/* Mission */}
       <section
         data-rhythm-node
-        className="border-b border-border py-20 lg:py-28"
+        className="py-20 lg:py-28"
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
             <div className="lg:col-span-5">
               <Reveal>
                 <SectionEyebrow>Our mission</SectionEyebrow>
-                <h2 className="mt-5 font-display text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
+                <h2 className="mt-5 font-display text-section text-foreground">
                   Culture is the tool. Development is the work.
                 </h2>
               </Reveal>
@@ -77,13 +84,13 @@ export default function HomePage() {
       {/* Featured programmes */}
       <section
         data-rhythm-node
-        className="border-b border-border bg-secondary/40 py-20 lg:py-28"
+        className="bg-sand py-20 lg:py-28"
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
             <div className="max-w-2xl">
               <SectionEyebrow>Our work</SectionEyebrow>
-              <h2 className="mt-5 font-display text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
+              <h2 className="mt-5 font-display text-section text-foreground">
                 The programmes we are running and raising for
               </h2>
             </div>
@@ -109,27 +116,26 @@ export default function HomePage() {
 
       {/* Headline figure */}
       {headline && (
-        <section
-          data-rhythm-node
-          className="border-b border-border bg-band py-20 text-band-foreground lg:py-24"
+        <DataBand
+          eyebrow="The scale of the need"
+          title="Five hundred people, four regions, one programme"
+          lede="Our accessible soap production programme is designed to train five hundred persons with disabilities in a trade they can run themselves."
         >
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <Reveal className="mx-auto max-w-3xl text-center">
-              <p className="label-mono text-accent">The scale of the need</p>
-              <p className="mt-6 font-display text-6xl leading-none tracking-tight sm:text-7xl">
-                <CountUp value={500} />
-              </p>
-              <p className="mt-5 text-lg leading-relaxed text-band-foreground/80">
-                persons with disabilities to be trained across Greater Accra,
-                Ashanti, Central and Eastern regions under our accessible soap
-                production programme.
-              </p>
-              <p className="mt-4 text-sm text-band-foreground/55">
+          <div className="grid items-center gap-10 lg:grid-cols-[auto_1fr] lg:gap-20">
+            <p className="font-display text-[clamp(4.5rem,11vw,8rem)] leading-[0.85] text-accent">
+              <CountUp value={500} />
+            </p>
+            <div>
+              <RegionChips
+                regions={PROGRAMME_FIGURES.soapProduction.regions}
+                note="Nkrabea has not published how the five hundred places divide between these four regions, so no split is drawn."
+              />
+              <p className="mt-7 text-sm text-band-foreground/70">
                 A programme target, not a result to date.
               </p>
-            </Reveal>
+            </div>
           </div>
-        </section>
+        </DataBand>
       )}
 
       <div data-rhythm-node>

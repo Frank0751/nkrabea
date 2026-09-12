@@ -6,7 +6,14 @@ import { Reveal, RevealGroup } from "@/components/site/reveal";
 import { CountUp } from "@/components/site/count-up";
 import { Gallery } from "@/components/site/gallery";
 import { CtaBand } from "@/components/site/cta-band";
-import { FIGURES, MILESTONES, TESTIMONIALS, HERO_PHOTOS } from "@/lib/content";
+import { DataBand, StageBars, RegionChips } from "@/components/site/figures";
+import {
+  FIGURES,
+  MILESTONES,
+  TESTIMONIALS,
+  HERO_PHOTOS,
+  PROGRAMME_FIGURES,
+} from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Our Impact",
@@ -30,7 +37,7 @@ export default function ImpactPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="max-w-2xl">
             <SectionEyebrow>By the numbers</SectionEyebrow>
-            <h2 className="mt-5 font-display text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
+            <h2 className="mt-5 font-display text-section text-foreground">
               Targets and facts, labelled as such
             </h2>
           </Reveal>
@@ -42,7 +49,7 @@ export default function ImpactPage() {
               return (
                 <div
                   key={figure.label}
-                  className="spotlight-card rounded-2xl border border-border bg-card p-6"
+                  className="spotlight-card card-lift rounded-2xl border border-border bg-card p-6"
                 >
                   <p className="font-display text-4xl leading-none tracking-tight text-foreground">
                     {isNumber ? <CountUp value={numeric} /> : figure.value}
@@ -85,15 +92,45 @@ export default function ImpactPage() {
         </div>
       </section>
 
+      <DataBand
+        eyebrow="The soap production programme"
+        title="Five hundred trained, ninety enterprises seeded"
+        lede="Read these as a plan, because that is what they are. Nothing below has happened yet, and the captions say so rather than letting the length of a bar imply otherwise."
+      >
+        <div className="grid gap-14 lg:grid-cols-2 lg:gap-16">
+          <StageBars
+            stages={PROGRAMME_FIGURES.soapProduction.stages}
+            caption="Targets from Nkrabea's Accessible Soap Production and Entrepreneurial Skills Training programme design. The three bars share one scale, so their lengths are comparable."
+          />
+
+          <div>
+            <p className="label-mono text-accent">Where it runs</p>
+            <div className="section-mark mt-4" aria-hidden="true" />
+            <div className="mt-7">
+              <RegionChips
+                regions={PROGRAMME_FIGURES.soapProduction.regions}
+                note="Four regions. Nkrabea has not published how the five hundred places divide between them, so no split is drawn here."
+              />
+            </div>
+            <p className="mt-8 max-w-md text-sm leading-relaxed text-band-foreground/70">
+              Training runs as intensive three day workshops covering eight or
+              more soap and hygiene products, with packaging designed around
+              Adinkra symbols and local fragrances so the goods carry a
+              Ghanaian story to market.
+            </p>
+          </div>
+        </div>
+      </DataBand>
+
       {/* Milestones */}
       <section
         data-rhythm-node
-        className="border-y border-border bg-secondary/40 py-20 lg:py-28"
+        className="bg-sand py-20 lg:py-28"
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="max-w-2xl">
             <SectionEyebrow>Milestones</SectionEyebrow>
-            <h2 className="mt-5 font-display text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
+            <h2 className="mt-5 font-display text-section text-foreground">
               The record so far
             </h2>
           </Reveal>
@@ -133,7 +170,7 @@ export default function ImpactPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="max-w-2xl">
             <SectionEyebrow>In the frame</SectionEyebrow>
-            <h2 className="mt-5 font-display text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
+            <h2 className="mt-5 font-display text-section text-foreground">
               Our work in pictures
             </h2>
           </Reveal>
@@ -148,7 +185,7 @@ export default function ImpactPage() {
       {TESTIMONIALS.length > 0 && (
         <section
           data-rhythm-node
-          className="border-t border-border bg-secondary/40 py-20 lg:py-28"
+          className="bg-sand py-20 lg:py-28"
         >
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <Reveal className="max-w-2xl">

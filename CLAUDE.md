@@ -23,8 +23,9 @@ npm install           # install deps (bun is not used; there is no bun.lock)
 cp .env.example .env  # DATABASE_URL is relative; NEXT_PUBLIC_SITE_URL optional
 npm run db:push       # create/update SQLite tables (dev only, see Database)
 npm run dev           # dev server on :3000
-npm run check         # lint + typecheck + WCAG contrast, all three
+npm run check         # lint, typecheck, WCAG contrast and font URLs
 npm run check:contrast # palette contrast only
+npm run check:fonts   # the Fontshare URLs still resolve
 npm run db:studio     # browse submitted enquiries and messages
 ```
 
@@ -75,8 +76,14 @@ one cloud and no other host.
   `/news`, `/contact`.
 - **Shared chrome in the root layout**: header, footer, rhythm line, kente
   strip, back-to-top, skip link and the motion provider.
-- **Subpage hero**: `<PageHero>`. Its `image` is optional; pages without a
-  confirmed photograph render a composed black band rather than a stand-in.
+- **Heroes are splits, not overlays**: the photograph runs at full strength
+  in its own panel and the words sit on the band, where they have 12.6:1.
+  `<PageHero>` takes an optional `photo` and a `flip` that puts the picture on
+  the other side, so consecutive pages do not repeat one composition. A page
+  with no photograph renders the band alone.
+- **`<PhotoReel>`** is the homepage's movement: a crossfade through three
+  stills with a slow push. It never advances to a frame whose image has not
+  loaded, and it stops dead under reduced motion.
 - **Section labels**: `<SectionEyebrow>`, which uses the mono typeface.
 - **Scroll animation**: `<Reveal>` and `<RevealGroup>`.
 - **CTA bands**: `<CtaBand>` at the bottom of a page.
@@ -100,28 +107,84 @@ one cloud and no other host.
 - Hidden-before-reveal states are set in JS, never in CSS, so that content is
   visible rather than invisible if JavaScript fails.
 
+## Typography
+
+- Display is **Bespoke Serif** (400, 500, 700), body and interface are
+  **Satoshi** (400, 500, 700, 900), labels are **JetBrains Mono**
+  (`.label-mono`). DM Serif Display, Manrope, Fraunces, Plus Jakarta Sans and
+  Inter are all gone.
+- The two Fontshare faces are declared as `@font-face` rules at the top of
+  `globals.css` against `cdn.fontshare.com`. **Never commit the font binaries.**
+  Their licence permits web use but not redistribution, and this repository is
+  public. That is also why they are not loaded with `next/font/local`.
+  `npm run check:fonts` fails the build if a URL stops resolving, so the site
+  cannot silently fall back to system faces. JetBrains Mono is openly
+  licensed, so it stays on `next/font/google`.
+- Fontshare's CSS API returns the wrong family when two are requested in one
+  call. One request per family, or write the rules out as we have.
+- `.font-display` sets weight 700 in `@layer base`, so a `font-medium` or
+  `font-normal` utility still overrides it. Synthesis stays off.
+- Use the scale, do not invent sizes: `text-hero`, `text-section`, `text-sub`,
+  `text-lede`. Line height and tracking travel with each one.
+
 ## Styling rules
 
-- Tokens are OKLCH in `src/app/globals.css`, derived from `public/logo.svg`:
-  badge black `#14181a`, warm cream `#f4f1ea`, Akan gold `#c9a227`, badge green
-  `#1f6f5c`, clay red `#b4402f`.
-- Gold carries a three-step ramp because brand gold on cream is only 2.20:1:
-  `--accent` (fills, and text on black), `--gold-edge` (non-text UI on light),
-  `--gold-ink` (gold as text on light). Never use `--accent` as text on a light
-  background.
-- Red is the emphasis slot (`--emphasis`), used sparingly. The dark theme
-  lightens it, because brand red is 4.11:1 on the dark card.
-- **`--band` / `--band-foreground` do not invert between themes.** The hero,
-  CTA bands and footer are badge black in both light and dark. Do not use
-  `bg-foreground` for a dark band; it flips to cream in dark mode.
+- Tokens are OKLCH in `src/app/globals.css`. Brand constants come from
+  `public/logo.svg`: badge black `#14181a`, warm cream `#f4f1ea`, Akan gold
+  `#c9a227`, badge green `#1f6f5c`, clay `#b4402f`.
+- The five slots: `--band` is forest ink `#103028` (hero, CTA bands, footer,
+  every data band), `--background` is warm cream for long reading, `--sand` is
+  the second light plane so a section is built from a surface rather than a
+  1px border, `--sand-deep` is for pattern bands and frames, and `--accent` is
+  gold.
+- **`--sand-deep` is not a text surface.** Gold text on it is 4.06:1.
+- Gold carries a three-step ramp because brand gold on cream is 2.20:1:
+  `--accent` (fills, and text on the band), `--gold-edge` (non-text UI on
+  light), `--gold-ink` (gold as text on light). Never use `--accent` as text on
+  a light surface.
+- **`--band` / `--band-foreground` do not invert between themes**, and the dark
+  theme is the band's own family rather than a neutral black, so switching
+  themes does not switch identity. Do not use `bg-foreground` for a dark band.
+- `--chart-1/2/3` are **not** the brand tokens. They were validated with the
+  data-viz palette checker against the forest ink band and are only legal
+  there: on sand, brand gold measures 1.87:1 and badge green falls under the
+  chroma floor. Every chart therefore lives inside `<DataBand>`.
+- The focus ring is `currentColor`, so it inherits a colour that already
+  clears 4.5:1 against whatever the element sits on and cannot fail contrast.
 - After changing any colour token, run `npm run check:contrast`. It fails the
   build on any pairing below WCAG 2.2 AA.
-- Display type is DM Serif Display, which ships in 400 only: never put
-  `font-semibold` on a display heading, and `font-synthesis-weight: none`
-  stops the browser faking one. Body is Manrope, labels are JetBrains Mono
-  (`.label-mono`). Fraunces, Plus Jakarta Sans and Inter are not used.
 - No em dashes in copy. Mobile-first: test at 390px, 768px and 1280px.
 - One H1 per page, in the hero.
+
+## Pattern language
+
+Two motifs, both taken from cloth in Nkrabea's own photographs rather than
+invented, and all four are decorative so they carry `aria-hidden`:
+
+- `.kente-field` a loom grid at low contrast, behind every ink band.
+- `.woven-edge` the triangle weave from the cloth on the high table, used
+  where a band meets a light surface instead of a hairline. `--flip` inverts it.
+- `.weave-band` a thicker colour-block rule for major transitions.
+- `.section-mark` the short gold rule under a section label.
+
+If Nkrabea ask for specific Adinkra symbols, get the names from them and draw
+those. Do not approximate a symbol and label it.
+
+## Figures and data visuals
+
+`src/components/site/figures.tsx`, consuming `PROGRAMME_FIGURES`.
+
+- `<DataBand>` carries the ink surface the chart palette was validated
+  against. Charts go inside it, nowhere else.
+- Every mark has a permanent direct label, so identity is never colour alone,
+  and each visual is a definition list underneath: a screen reader gets name
+  and value pairs without a chart library.
+- Every caption states that the number is a target. A target drawn as a bar
+  reads as an achievement.
+- **Draw nothing Nkrabea has not published.** The soap programme covers four
+  regions with no published per-region split, so `<RegionChips>` names them
+  and says why there is no chart. Four invented bars of 125 would be
+  fabrication in the most persuasive form this site has.
 
 ## API routes
 

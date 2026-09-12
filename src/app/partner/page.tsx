@@ -46,7 +46,7 @@ export default function PartnerPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="max-w-2xl">
             <SectionEyebrow>The case for support</SectionEyebrow>
-            <h2 className="mt-5 font-display text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
+            <h2 className="mt-5 font-display text-section text-foreground">
               What your funding actually does
             </h2>
           </Reveal>
@@ -55,7 +55,7 @@ export default function PartnerPage() {
             {CASE_POINTS.map((point) => (
               <div
                 key={point.title}
-                className="spotlight-card rounded-2xl border border-border bg-card p-7"
+                className="spotlight-card card-lift rounded-2xl border border-border bg-card p-7"
               >
                 <h3 className="font-display text-lg leading-snug text-foreground">
                   {point.title}
@@ -72,12 +72,12 @@ export default function PartnerPage() {
       {/* Who we work with */}
       <section
         data-rhythm-node
-        className="border-y border-border bg-secondary/40 py-20 lg:py-28"
+        className="bg-sand py-20 lg:py-28"
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="max-w-2xl">
             <SectionEyebrow>Who we work with</SectionEyebrow>
-            <h2 className="mt-5 font-display text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
+            <h2 className="mt-5 font-display text-section text-foreground">
               Four kinds of partner
             </h2>
           </Reveal>
@@ -104,7 +104,7 @@ export default function PartnerPage() {
             <div className="lg:col-span-5">
               <Reveal>
                 <SectionEyebrow>Open for funding</SectionEyebrow>
-                <h2 className="mt-5 font-display text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
+                <h2 className="mt-5 font-display text-section text-foreground">
                   Programmes ready to run
                 </h2>
                 <ul className="mt-8 space-y-5">

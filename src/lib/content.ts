@@ -318,6 +318,60 @@ export const FIGURES: Figure[] = [
   },
 ];
 
+/* ---------------------------------------------------------------------------
+   The same figures again, structured so they can be drawn.
+
+   Every number here is published by Nkrabea in the programme designs above,
+   and every one is a target rather than a result: the visuals that consume
+   this say so in their captions, because a target drawn as a bar reads as an
+   achievement. The only derived value is the per-student average, which is
+   the published budget divided by the published intake and is labelled as an
+   average where it appears.
+
+   What is deliberately absent: a per-region split of the five hundred
+   places. Nkrabea has not published one, so the regions are named rather
+   than charted. Four invented bars of 125 would be fabrication in the most
+   persuasive form this site has.
+   --------------------------------------------------------------------------- */
+
+export const PROGRAMME_FIGURES = {
+  capeCoast: {
+    intake: 100,
+    split: [
+      { name: "Kente weaving", value: 50, token: "--chart-2" },
+      {
+        name: "Drumming and dance, with vibrotactile equipment",
+        value: 50,
+        token: "--chart-1",
+      },
+    ],
+    budget: "GHS 900,848",
+    perStudent: "about GHS 9,000",
+  },
+  soapProduction: {
+    stages: [
+      { name: "Persons with disabilities to be trained", value: 500 },
+      { name: "Trained artisans to be linked to markets", value: 250 },
+      { name: "PWD-led micro-enterprises to be seeded", value: 90 },
+    ],
+    regions: ["Greater Accra", "Ashanti", "Central", "Eastern"],
+  },
+  vibrotactile: [
+    {
+      title: "Rhythm becomes vibration",
+      body: "Vibrotactile equipment turns the drum pattern into a vibration a learner can feel.",
+    },
+    {
+      title: "The learner feels the pulse",
+      body: "Through the body rather than through the ear, so a Deaf or hard-of-hearing student can hold the timing.",
+    },
+    {
+      title: "The learner plays it back",
+      body: "And performs with the group, as a member of the cultural troupe the programme is building.",
+    },
+  ],
+};
+
 /* ===========================================================================
    NEEDS EVIDENCE - not rendered anywhere until Nkrabea confirms
    ===========================================================================
@@ -498,6 +552,18 @@ export const HERO_PHOTOS = {
     alt: "Three singers in blue and yellow striped northern smocks and matching caps leaning forward mid-performance, each holding a small hand instrument, with the Nkrabea banner and a seated audience in kente behind them.",
   },
 } satisfies Record<string, Photo>;
+
+/**
+ * The homepage reel. Three frames, in the order a visitor should meet the
+ * work: the dancers, then the drummers who carry them, then the whole troupe
+ * with their instruments. They are the same photographs the three pages use,
+ * deliberately: one alt text per picture, held in one place.
+ */
+export const REEL: Photo[] = [
+  HERO_PHOTOS.home,
+  HERO_PHOTOS.programmes,
+  HERO_PHOTOS.about,
+];
 
 export type GalleryItem = Photo & { id: string };
 

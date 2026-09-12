@@ -21,6 +21,7 @@ export default function GetInvolvedPage() {
         title="Ways to support the work"
         description="Every contribution goes into programmes that build skills, livelihoods and dignity in Ghanaian communities."
         photo={HERO_PHOTOS.getInvolved}
+        flip
         crumbs={[{ label: "Get Involved" }]}
       />
 
@@ -29,7 +30,7 @@ export default function GetInvolvedPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="max-w-2xl">
             <SectionEyebrow>Give</SectionEyebrow>
-            <h2 className="mt-5 font-display text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
+            <h2 className="mt-5 font-display text-section text-foreground">
               Make a donation
             </h2>
           </Reveal>
@@ -125,18 +126,18 @@ export default function GetInvolvedPage() {
       {/* Other ways */}
       <section
         data-rhythm-node
-        className="border-y border-border bg-secondary/40 py-20 lg:py-28"
+        className="bg-sand py-20 lg:py-28"
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="max-w-2xl">
             <SectionEyebrow>Beyond money</SectionEyebrow>
-            <h2 className="mt-5 font-display text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
+            <h2 className="mt-5 font-display text-section text-foreground">
               Other ways to help
             </h2>
           </Reveal>
 
           <RevealGroup className="mt-12 grid gap-6 sm:grid-cols-2">
-            <div className="spotlight-card rounded-2xl border border-border bg-card p-7">
+            <div className="spotlight-card card-lift rounded-2xl border border-border bg-card p-7">
               <HandHeart className="h-6 w-6 text-primary" aria-hidden="true" />
               <h3 className="mt-4 font-display text-lg text-foreground">
                 Volunteer
@@ -153,7 +154,7 @@ export default function GetInvolvedPage() {
               </Link>
             </div>
 
-            <div className="spotlight-card rounded-2xl border border-border bg-card p-7">
+            <div className="spotlight-card card-lift rounded-2xl border border-border bg-card p-7">
               <Package className="h-6 w-6 text-primary" aria-hidden="true" />
               <h3 className="mt-4 font-display text-lg text-foreground">
                 In-kind support

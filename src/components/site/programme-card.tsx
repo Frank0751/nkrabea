@@ -28,7 +28,7 @@ export function ProgrammeCard({
   const status = STATUS[programme.status];
 
   return (
-    <article className="spotlight-card flex h-full flex-col rounded-2xl border border-border bg-card p-6 sm:p-7">
+    <article className="spotlight-card card-lift flex h-full flex-col rounded-2xl border border-border bg-card p-6 sm:p-7">
       <div className="flex items-center gap-3">
         <span
           className={`label-mono rounded-full px-2.5 py-1 ${status.className}`}

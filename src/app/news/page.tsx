@@ -33,7 +33,7 @@ export default function NewsPage() {
             <>
               <Reveal className="max-w-2xl">
                 <SectionEyebrow>Upcoming</SectionEyebrow>
-                <h2 className="mt-5 font-display text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
+                <h2 className="mt-5 font-display text-section text-foreground">
                   Where to see us next
                 </h2>
               </Reveal>

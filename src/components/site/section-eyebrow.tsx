@@ -1,6 +1,6 @@
 /**
  * Section label. JetBrains Mono, per the KB-2026-009 type system: display is
- * Fraunces, body is Plus Jakarta Sans, and technical labels are mono.
+ * Bespoke Serif, body is Satoshi, and technical labels are mono.
  */
 export function SectionEyebrow({ children }: { children: React.ReactNode }) {
   return (

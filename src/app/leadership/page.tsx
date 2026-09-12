@@ -27,6 +27,7 @@ export default function LeadershipPage() {
         title="Who carries the responsibility"
         description={GOVERNANCE_NOTE}
         photo={HERO_PHOTOS.leadership}
+        flip
         crumbs={[{ label: "Leadership" }]}
       />
 
@@ -35,7 +36,7 @@ export default function LeadershipPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="max-w-2xl">
             <SectionEyebrow>Founders</SectionEyebrow>
-            <h2 className="mt-5 font-display text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
+            <h2 className="mt-5 font-display text-section text-foreground">
               The people who began it
             </h2>
           </Reveal>
@@ -51,12 +52,12 @@ export default function LeadershipPage() {
       {/* Board */}
       <section
         data-rhythm-node
-        className="border-y border-border bg-secondary/40 py-20 lg:py-28"
+        className="bg-sand py-20 lg:py-28"
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="max-w-2xl">
             <SectionEyebrow>Executive Council</SectionEyebrow>
-            <h2 className="mt-5 font-display text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
+            <h2 className="mt-5 font-display text-section text-foreground">
               Board of Directors
             </h2>
             <p className="mt-5 text-base leading-relaxed text-muted-foreground">
@@ -80,7 +81,7 @@ export default function LeadershipPage() {
             <div className="lg:col-span-4">
               <Reveal>
                 <SectionEyebrow>Management team</SectionEyebrow>
-                <h2 className="mt-5 font-display text-3xl leading-tight tracking-tight text-foreground sm:text-4xl">
+                <h2 className="mt-5 font-display text-section text-foreground">
                   Eight roles run the work
                 </h2>
                 <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
@@ -147,7 +148,7 @@ function PersonCard({
 
   return (
     <article
-      className={`spotlight-card flex h-full gap-5 rounded-2xl border border-border bg-card p-6 ${
+      className={`spotlight-card card-lift flex h-full gap-5 rounded-2xl border border-border bg-card p-6 ${
         featured ? "sm:p-7" : ""
       }`}
     >

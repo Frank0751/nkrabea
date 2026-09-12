@@ -33,8 +33,9 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-border bg-band text-band-foreground">
-      <div className="kente-divider" aria-hidden="true" />
+    <footer className="relative isolate bg-band text-band-foreground">
+      <div className="woven-edge" aria-hidden="true" />
+      <div className="kente-field absolute inset-0 -z-10 opacity-70" aria-hidden="true" />
 
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-8">

@@ -117,11 +117,12 @@ export function contrast(fg, bg) {
 
 // Sampled directly from public/logo.svg. These are the brand, not an invention.
 const BRAND = {
-  black: "#14181a", // badge black
+  black: "#14181a", // badge black, now the kente strip only
   cream: "#f4f1ea", // badge stroke
   gold: "#c9a227", // Akan gold
   green: "#1f6f5c", // badge green
   clay: "#b4402f", // badge centre
+  bandInk: "#103028", // the band: badge green taken down to an ink
 };
 
 // Resolved token values. Light and dark.
@@ -131,36 +132,46 @@ const LIGHT = {
   foreground: "#14181a",
   card: "#fffdf8",
   cardForeground: "#14181a",
+  sand: "#e9e2d1", // second light plane
+  sandDeep: "#ded5c0", // pattern bands and frames, never body text
   muted: "#ebe6da",
-  mutedForeground: "#57605c",
+  mutedForeground: "#505955",
   primary: "#1a5f4f",
   primaryForeground: "#f7f4ed",
   accent: "#c9a227",
   accentForeground: "#14181a",
+  goldInk: "#7d6000", // gold as text on a light surface
+  goldEdge: "#9f7d00", // gold as a rule or border on a light surface
   border: "#ddd6c6",
-  onBlack: "#f4f1ea", // text on the black band
-  goldOnBlack: "#d9b640", // gold as text on black
-  emphasis: "#b4402f", // brand red, used sparingly
+  onBand: "#f4f1ea", // text on the band
+  goldOnBand: "#d9b640", // gold as text on the band
+  greenOnBand: "#6fbfa5", // green as text on the band
+  emphasis: "#aa3828", // clay, deepened so it also clears AA on sand
   onEmphasis: "#ffffff",
 };
 
 const DARK = {
-  background: "#14181a",
+  background: "#0f1c19",
   foreground: "#f0ece2",
-  card: "#1c2123",
+  card: "#16241f",
   cardForeground: "#f0ece2",
-  muted: "#232a2c",
+  sand: "#16241f",
+  sandDeep: "#1d2f28",
+  muted: "#1d2f28",
   mutedForeground: "#a8b0ad",
   primary: "#6fbfa5",
   primaryForeground: "#14181a",
   accent: "#d9b640",
   accentForeground: "#14181a",
-  border: "#2f3639",
-  onBlack: "#f0ece2",
-  goldOnBlack: "#d9b640",
-  // Brand red is only 3.16:1 on badge black and 4.11:1 on the dark card, so
-  // the dark theme lifts it until it clears AA on the lighter card surface.
-  emphasis: "#da624f",
+  goldInk: "#d9b640", // on a dark surface, gold text needs no deepening
+  goldEdge: "#d9b640",
+  border: "#2a3d36",
+  onBand: "#f0ece2",
+  goldOnBand: "#d9b640",
+  greenOnBand: "#6fbfa5",
+  // Clay is lifted until it clears AA on the lightest dark surface, the
+  // muted panel, at 4.95:1.
+  emphasis: "#ed7663",
   onEmphasis: "#14181a",
 };
 
@@ -174,16 +185,26 @@ const PAIRINGS = (t) => [
   ["body text on card", t.cardForeground, t.card, false],
   ["muted text on card", t.mutedForeground, t.card, false],
   ["muted text on muted panel", t.mutedForeground, t.muted, false],
+  ["body text on sand", t.foreground, t.sand, false],
+  ["muted text on sand", t.mutedForeground, t.sand, false],
+  ["primary link on sand", t.primary, t.sand, false],
+  ["gold ink on sand", t.goldInk, t.sand, false],
+  ["gold ink on page", t.goldInk, t.background, false],
+  ["gold rule on sand, non-text 3:1", t.goldEdge, t.sand, true],
+  ["body text on sand deep", t.foreground, t.sandDeep, false],
   ["primary link on page", t.primary, t.background, false],
   ["primary link on card", t.primary, t.card, false],
   ["text on primary button", t.primaryForeground, t.primary, false],
   ["text on gold button", t.accentForeground, t.accent, false],
   ["display heading on page", t.foreground, t.background, true],
-  ["cream text on black band", t.onBlack, BRAND.black, false],
-  ["gold heading on black band", t.goldOnBlack, BRAND.black, true],
-  ["gold body on black band", t.goldOnBlack, BRAND.black, false],
+  ["cream text on the band", t.onBand, BRAND.bandInk, false],
+  ["gold heading on the band", t.goldOnBand, BRAND.bandInk, true],
+  ["gold body on the band", t.goldOnBand, BRAND.bandInk, false],
+  ["brand gold fill on the band, 3:1", t.accent, BRAND.bandInk, true],
+  ["green text on the band", t.greenOnBand, BRAND.bandInk, false],
   ["emphasis text on page", t.emphasis, t.background, false],
   ["emphasis text on card", t.emphasis, t.card, false],
+  ["emphasis text on sand", t.emphasis, t.sand, false],
   ["text on emphasis button", t.onEmphasis, t.emphasis, false],
 ];
 
