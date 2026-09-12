@@ -519,7 +519,13 @@ export const MILESTONES: Milestone[] = [
    where Nkrabea has identified them: the Executive Director, and nobody else.
    --------------------------------------------------------------------------- */
 
-export type Photo = { src: string; alt: string; caption?: string };
+export type Photo = {
+  src: string;
+  alt: string;
+  caption?: string;
+  /** Inline placeholder, attached in server components by withBlur(). */
+  blur?: string;
+};
 
 export const PHOTOS = {
   /* ------------------------------------------ outdoor community performance */

@@ -6,6 +6,7 @@ import { Magnetic } from "./magnetic";
 import { ScrollCue } from "./scroll-cue";
 import { PhotoReel } from "./photo-reel";
 import { HeroBackdrop } from "./hero-backdrop";
+import { withBlur } from "@/lib/blur";
 import { ORG, IDENTITY, REEL } from "@/lib/content";
 
 /**
@@ -30,7 +31,7 @@ export function Hero() {
   return (
     <section className="relative isolate flex min-h-svh items-center justify-center overflow-hidden bg-band text-band-foreground">
       <HeroBackdrop>
-        <PhotoReel photos={REEL} priority />
+        <PhotoReel photos={REEL.map(withBlur)} priority />
       </HeroBackdrop>
 
       <div className="relative mx-auto flex w-full max-w-3xl flex-col items-center px-4 pb-32 pt-32 text-center sm:px-6 lg:pb-36 lg:pt-40">

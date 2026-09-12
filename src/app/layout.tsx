@@ -89,6 +89,8 @@ export default function RootLayout({
             paint, which is worth more on a Ghanaian mobile connection than it
             is on a desk. React hoists this into the document head. */}
         <link rel="preconnect" href="https://cdn.fontshare.com" crossOrigin="anonymous" />
+        {/* Every photograph comes from here, the hero one first of all. */}
+        <link rel="preconnect" href="https://res.cloudinary.com" />
         <ThemeProvider
           attribute="class"
           defaultTheme="light"

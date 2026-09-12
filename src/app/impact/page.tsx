@@ -7,12 +7,14 @@ import { CountUp } from "@/components/site/count-up";
 import { Gallery } from "@/components/site/gallery";
 import { CtaBand } from "@/components/site/cta-band";
 import { DataBand, StageBars, RegionChips } from "@/components/site/figures";
+import { withBlur } from "@/lib/blur";
 import {
   FIGURES,
   MILESTONES,
   TESTIMONIALS,
   HERO_PHOTOS,
   PROGRAMME_FIGURES,
+  GALLERY,
 } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -176,7 +178,7 @@ export default function ImpactPage() {
           </Reveal>
 
           <div className="mt-12">
-            <Gallery />
+            <Gallery items={GALLERY.map(withBlur)} />
           </div>
         </div>
       </section>

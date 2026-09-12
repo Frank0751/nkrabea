@@ -56,6 +56,14 @@ one cloud and no other host.
 - Delivery is public, so **no Cloudinary key or secret belongs in the repo, in
   Vercel or in the build**. The API key used to list the library lives only in
   the developer's `.env`, which git ignores.
+- **Cloudinary serves every size itself.** `next.config.ts` points next/image
+  at `src/lib/cloudinary-loader.ts`, which rewrites each request to
+  `f_auto,q_auto,c_limit,w_{width}`. Vercel's image optimiser is not in the
+  path. After adding a photograph run `npm run images:blur` (regenerates the
+  inline placeholders in `src/lib/blur-data.json`, commit it) and
+  `npm run images:warm` (generates every derived size once so no visitor pays
+  for a cold transformation). `withBlur()` attaches a placeholder in a server
+  component; never import the JSON from a client component.
 - `HERO_PHOTOS` in `content.ts` holds one photograph per page with its alt
   text attached, so a hero cannot end up carrying someone else's description.
   `<PageHero>` takes a single `photo` prop. Contact has no photograph and

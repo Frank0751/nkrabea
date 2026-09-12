@@ -26,6 +26,9 @@ import type { Photo } from "@/lib/content";
  *    media query. The first frame simply stays.
  * 4. Frames that are not showing are hidden from assistive technology, so a
  *    screen reader hears one description rather than a queue of them.
+ * 5. Only the first frame competes for bandwidth. The others are fetched at
+ *    low priority, and every frame paints its inline blur placeholder while
+ *    the real picture is on its way.
  */
 export function PhotoReel({
   photos,
@@ -84,7 +87,10 @@ export function PhotoReel({
               alt={photo.alt}
               fill
               priority={priority && i === 0}
-              sizes="(max-width: 1024px) 100vw, 52vw"
+              fetchPriority={i === 0 ? (priority ? "high" : "auto") : "low"}
+              sizes="100vw"
+              placeholder={photo.blur ? "blur" : "empty"}
+              blurDataURL={photo.blur}
               className={`photo-tone object-cover ${active && rotating ? "ken-burns" : ""}`}
               onLoad={() => {
                 loadedRef.current[i] = true;

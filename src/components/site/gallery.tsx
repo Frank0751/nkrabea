@@ -3,7 +3,7 @@
 import * as React from "react";
 import Image from "next/image";
 import { X } from "lucide-react";
-import { GALLERY } from "@/lib/content";
+import type { GalleryItem } from "@/lib/content";
 
 /**
  * Image grid with a lightbox.
@@ -13,7 +13,7 @@ import { GALLERY } from "@/lib/content";
  * text and captions live with the images in content.ts. Read the note above
  * GALLERY before editing either.
  */
-export function Gallery() {
+export function Gallery({ items }: { items: GalleryItem[] }) {
   const [active, setActive] = React.useState<number | null>(null);
   const closeRef = React.useRef<HTMLButtonElement>(null);
   const dialogRef = React.useRef<HTMLDivElement>(null);
@@ -73,14 +73,14 @@ export function Gallery() {
     };
   }, [active]);
 
-  if (GALLERY.length === 0) return null;
+  if (items.length === 0) return null;
 
-  const current = active === null ? null : GALLERY[active];
+  const current = active === null ? null : items[active];
 
   return (
     <>
       <ul className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
-        {GALLERY.map((item, i) => (
+        {items.map((item, i) => (
           <li key={item.id}>
             <button
               type="button"
@@ -92,6 +92,8 @@ export function Gallery() {
                 alt={item.alt}
                 fill
                 sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 33vw"
+                placeholder={item.blur ? "blur" : "empty"}
+                blurDataURL={item.blur}
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <span className="absolute inset-0 bg-band/0 transition-colors duration-300 group-hover:bg-band/20" />
@@ -130,6 +132,8 @@ export function Gallery() {
                 alt={current.alt}
                 fill
                 sizes="100vw"
+                placeholder={current.blur ? "blur" : "empty"}
+                blurDataURL={current.blur}
                 className="object-contain"
               />
             </div>

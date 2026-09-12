@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { Photo } from "@/lib/content";
+import { withBlur } from "@/lib/blur";
 
 /**
  * The four ways a photograph appears outside a hero.
@@ -47,6 +48,7 @@ export function PhotoFigure({
   position?: string;
   className?: string;
 }) {
+  const p = withBlur(photo);
   return (
     <figure className={`m-0 ${fill ? "flex h-full flex-col" : ""} ${className}`}>
       <div
@@ -56,11 +58,13 @@ export function PhotoFigure({
         style={fill ? undefined : { aspectRatio: ratio }}
       >
         <Image
-          src={photo.src}
-          alt={photo.alt}
+          src={p.src}
+          alt={p.alt}
           fill
           sizes={sizes}
           priority={priority}
+          placeholder={p.blur ? "blur" : "empty"}
+          blurDataURL={p.blur}
           className="photo-tone object-cover"
           style={position ? { objectPosition: position } : undefined}
         />
@@ -164,17 +168,20 @@ export function PhotoBreak({
   /** A short mono label when there is no quote. */
   label?: string;
 }) {
+  const p = withBlur(photo);
   return (
     <section
       data-rhythm-node
       className="relative isolate flex min-h-[clamp(20rem,58svh,36rem)] items-end overflow-hidden bg-band text-band-foreground"
-      aria-label={quote ? undefined : label ?? photo.alt}
+      aria-label={quote ? undefined : label ?? p.alt}
     >
       <Image
-        src={photo.src}
-        alt={photo.alt}
+        src={p.src}
+        alt={p.alt}
         fill
         sizes="100vw"
+        placeholder={p.blur ? "blur" : "empty"}
+        blurDataURL={p.blur}
         className="photo-tone object-cover"
       />
       <div

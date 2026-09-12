@@ -3,6 +3,7 @@ import Image from "next/image";
 import { ChevronRight } from "lucide-react";
 import { ScrollCue } from "./scroll-cue";
 import { HeroBackdrop } from "./hero-backdrop";
+import { withBlur } from "@/lib/blur";
 import type { Photo } from "@/lib/content";
 
 /**
@@ -28,16 +29,19 @@ export function PageHero({
   photo?: Photo;
   crumbs?: { label: string; href?: string }[];
 }) {
+  const p = photo ? withBlur(photo) : undefined;
   return (
     <section className="relative isolate flex min-h-svh items-center justify-center overflow-hidden bg-band text-band-foreground">
       <HeroBackdrop>
-        {photo && (
+        {p && (
           <Image
-            src={photo.src}
-            alt={photo.alt}
+            src={p.src}
+            alt={p.alt}
             fill
             priority
             sizes="100vw"
+            placeholder={p.blur ? "blur" : "empty"}
+            blurDataURL={p.blur}
             className="photo-tone object-cover"
           />
         )}
