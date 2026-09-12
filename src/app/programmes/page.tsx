@@ -45,7 +45,6 @@ export default function ProgrammesPage() {
         title="Programmes with a measurable end"
         description="Nkrabea is currently running and raising funds for the following initiatives."
         photo={HERO_PHOTOS.programmes}
-        flip
         crumbs={[{ label: "Our Work" }]}
       />
 

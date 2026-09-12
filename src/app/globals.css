@@ -463,18 +463,6 @@
   background: var(--gold-edge);
 }
 
-/* The same weave standing on end, for a join between panels that sit side
-   by side. The flat side touches the band, the points face into the picture,
-   the same way the horizontal strip points away from the band. */
-.woven-seam {
-  width: 12px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='48'%3E%3Cpolygon points='0,0 12,8 0,16' fill='%231f6f5c'/%3E%3Cpolygon points='0,16 12,24 0,32' fill='%23c9a227'/%3E%3Cpolygon points='0,32 12,40 0,48' fill='%23b4402f'/%3E%3C/svg%3E");
-  background-size: 12px 48px;
-  background-repeat: repeat-y;
-}
-.woven-seam--flip {
-  transform: scaleX(-1);
-}
 
 /* ---------------------------------------------------------------------------
    The photographic grade.
@@ -509,35 +497,65 @@
   box-shadow: 0 28px 60px -40px color-mix(in oklch, var(--band) 65%, transparent);
 }
 
-/* The hero seam. The band bleeds a long way into the picture so the join is
-   never a hard edge: from the foot on a phone, from the inner side on a
-   desktop, mirrored when the picture sits on the left. */
-.hero-seam-fade {
+/* ---------------------------------------------------------------------------
+   The hero backdrop. The photograph is the whole background and the words
+   are centred on it, so the picture has to hold cream text wherever the
+   words fall. Three layers do that (see hero-backdrop.tsx for the arithmetic
+   against a pure white picture): a multiply wash that tints the photograph
+   towards the band, a veil that is heaviest at the foot, and a soft pool of
+   ink behind the centred column. The loom grid then runs over the lot.
+   --------------------------------------------------------------------------- */
+.hero-wash {
+  pointer-events: none;
+  background: color-mix(in oklch, var(--band) 35%, transparent);
+  mix-blend-mode: multiply;
+}
+.hero-veil {
   pointer-events: none;
   background: linear-gradient(
-    to bottom,
-    color-mix(in oklch, var(--band) 45%, transparent) 0%,
-    transparent 28%,
-    transparent 60%,
-    var(--band) 100%
+    to top,
+    color-mix(in oklch, var(--band) 92%, transparent) 0%,
+    color-mix(in oklch, var(--band) 52%, transparent) 45%,
+    color-mix(in oklch, var(--band) 26%, transparent) 100%
   );
 }
-@media (min-width: 1024px) {
-  .hero-seam-fade {
-    background: linear-gradient(
-      to left,
-      transparent 48%,
-      color-mix(in oklch, var(--band) 38%, transparent) 78%,
-      var(--band) 100%
-    );
-  }
-  .hero-seam-fade--flip {
-    background: linear-gradient(
-      to right,
-      transparent 48%,
-      color-mix(in oklch, var(--band) 38%, transparent) 78%,
-      var(--band) 100%
-    );
+.hero-well {
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 64% 60% at 50% 56%,
+    color-mix(in oklch, var(--band) 42%, transparent) 0%,
+    transparent 100%
+  );
+}
+
+/* The mark in the hero: the logo in two concentric rings, the outer one
+   turning slowly. koombei-studio-skill Part 6's visual element. */
+.hero-mark {
+  position: relative;
+  display: inline-flex;
+  padding: 0.9rem;
+  border-radius: 9999px;
+  background: color-mix(in oklch, var(--band) 55%, transparent);
+}
+.hero-mark::before,
+.hero-mark::after {
+  content: "";
+  position: absolute;
+  border-radius: 9999px;
+  pointer-events: none;
+}
+.hero-mark::before {
+  inset: -0.5rem;
+  border: 1px solid color-mix(in oklch, var(--accent) 45%, transparent);
+}
+.hero-mark::after {
+  inset: -1.15rem;
+  border: 1px dashed color-mix(in oklch, var(--accent) 35%, transparent);
+  animation: hero-ring-spin 48s linear infinite;
+}
+@keyframes hero-ring-spin {
+  to {
+    transform: rotate(360deg);
   }
 }
 
@@ -885,7 +903,8 @@
   }
   /* The reel stops rotating and stops pushing. The frame the server painted
      stays on screen, so the hero is still a photograph. */
-  :root:not([data-motion="on"]) .ken-burns {
+  :root:not([data-motion="on"]) .ken-burns,
+  :root:not([data-motion="on"]) .hero-mark::after {
     animation: none !important;
   }
 }
@@ -913,6 +932,7 @@
 :root[data-motion="off"] .spotlight-card::before {
   display: none !important;
 }
-:root[data-motion="off"] .ken-burns {
+:root[data-motion="off"] .ken-burns,
+:root[data-motion="off"] .hero-mark::after {
   animation: none !important;
 }

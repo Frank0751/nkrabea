@@ -76,11 +76,12 @@ one cloud and no other host.
   `/news`, `/contact`.
 - **Shared chrome in the root layout**: header, footer, rhythm line, kente
   strip, back-to-top, skip link and the motion provider.
-- **Heroes are splits, not overlays**: the photograph runs at full strength
-  in its own panel and the words sit on the band, where they have 12.6:1.
-  `<PageHero>` takes an optional `photo` and a `flip` that puts the picture on
-  the other side, so consecutive pages do not repeat one composition. A page
-  with no photograph renders the band alone.
+- **Heroes are full-background and centred.** The photograph fills the
+  section and the words sit centred on it. `<HeroBackdrop>` supplies the
+  layers (multiply wash, foot-heavy veil, a radial pool behind the column,
+  the loom grid) that keep cream text at AA on any picture: 6.7:1 in the
+  centre against pure white, the worst case. `<PageHero>` takes an optional
+  `photo`; without one it renders the same composition on the band alone.
 - **`<PhotoReel>`** is the homepage's movement: a crossfade through three
   stills with a slow push. It never advances to a frame whose image has not
   loaded, and it stops dead under reduced motion.
@@ -94,10 +95,11 @@ one cloud and no other host.
 ## Motion
 
 - All motion goes through `src/lib/motion.ts` and `<MotionProvider>`.
-- Two inputs decide whether motion runs: the OS `prefers-reduced-motion`
-  setting, and an explicit visitor choice made with the header toggle. **The
-  explicit choice wins in both directions.** The result is mirrored onto
-  `<html data-motion="on|off">` so CSS can follow.
+- One input decides whether motion runs: the OS `prefers-reduced-motion`
+  setting. The header toggle that let a visitor override it was removed at
+  the client's request in September 2026. `MotionProvider` still mirrors the
+  result onto `<html data-motion>` so CSS can follow, and still honours a
+  stored choice if one exists, so the CSS guards for both states stay.
 - Never gate an animation on the media query alone. Use `useReducedMotion()`
   or `useMotion()`, and mirror any new CSS animation in both guard blocks in
   `globals.css`.

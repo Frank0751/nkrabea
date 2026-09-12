@@ -29,7 +29,6 @@ export default function LeadershipPage() {
         title="Who carries the responsibility"
         description={GOVERNANCE_NOTE}
         photo={HERO_PHOTOS.leadership}
-        flip
         crumbs={[{ label: "Leadership" }]}
       />
 

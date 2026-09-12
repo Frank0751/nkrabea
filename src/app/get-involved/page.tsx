@@ -22,7 +22,6 @@ export default function GetInvolvedPage() {
         title="Ways to support the work"
         description="Every contribution goes into programmes that build skills, livelihoods and dignity in Ghanaian communities."
         photo={HERO_PHOTOS.getInvolved}
-        flip
         crumbs={[{ label: "Get Involved" }]}
       />
 

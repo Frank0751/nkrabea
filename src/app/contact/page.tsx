@@ -27,7 +27,6 @@ export default function ContactPage() {
         title="Talk to us"
         description="Partnership, programme and media enquiries all reach the same team."
         photo={HERO_PHOTOS.contact}
-        flip
         crumbs={[{ label: "Contact" }]}
       />
 
