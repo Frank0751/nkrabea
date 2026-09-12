@@ -41,15 +41,27 @@ export function PageHero({
       <div className="kente-field absolute inset-0 opacity-80" aria-hidden="true" />
       <div className="grain-overlay absolute inset-0 opacity-60" aria-hidden="true" />
 
+      {/* Beside a photograph the words sit against the seam, so the column
+          hugs the inner edge of its panel. With no photograph the panel is the
+          whole width, and the column has to line up with the page margin the
+          header and every section below use, or it reads as adrift. */}
       <div
-        className={`relative w-full px-4 py-16 sm:px-6 lg:py-24 ${
-          flip ? "lg:pl-16 lg:pr-12 xl:pr-20" : "lg:pl-12 lg:pr-16 xl:pl-20"
-        }`}
+        className={
+          photo
+            ? `relative w-full px-4 py-16 sm:px-6 lg:py-24 ${
+                flip ? "lg:pl-16 lg:pr-12 xl:pr-20" : "lg:pl-12 lg:pr-16 xl:pl-20"
+              }`
+            : "relative mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24"
+        }
       >
         <div
-          className={`mx-auto max-w-xl lg:mx-0 lg:max-w-2xl ${
-            flip ? "lg:mr-auto" : "lg:ml-auto"
-          }`}
+          className={
+            photo
+              ? `mx-auto max-w-xl lg:mx-0 lg:max-w-2xl ${
+                  flip ? "lg:mr-auto" : "lg:ml-auto"
+                }`
+              : "max-w-3xl"
+          }
         >
           <nav
             aria-label="Breadcrumb"
