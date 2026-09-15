@@ -533,7 +533,8 @@
 .hero-mark {
   position: relative;
   display: inline-flex;
-  padding: 0.9rem;
+  /* The badge brings its own black disc, so the mat is only a hairline. */
+  padding: 0.3rem;
   border-radius: 9999px;
   background: color-mix(in oklch, var(--band) 55%, transparent);
 }

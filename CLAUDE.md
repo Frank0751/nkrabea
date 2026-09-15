@@ -20,13 +20,13 @@ Next.js 16 App Router + TypeScript + Tailwind CSS 4 + shadcn/ui + GSAP 3.
 
 ```bash
 npm install           # install deps (bun is not used; there is no bun.lock)
-cp .env.example .env  # DATABASE_URL is relative; NEXT_PUBLIC_SITE_URL optional
-npm run db:push       # create/update SQLite tables (dev only, see Database)
+cp .env.example .env  # every variable is optional; see .env.example
 npm run dev           # dev server on :3000
 npm run check         # lint, typecheck, WCAG contrast and font URLs
 npm run check:contrast # palette contrast only
 npm run check:fonts   # the Fontshare URLs still resolve
-npm run db:studio     # browse submitted enquiries and messages
+npm run images:blur   # regenerate inline placeholders after adding photographs
+npm run images:warm   # pre-generate every Cloudinary size
 ```
 
 ## Content rules
@@ -50,8 +50,8 @@ around a hard rule: nothing reaches the site that Nkrabea cannot evidence.
 
 Photographs come from Nkrabea's own Cloudinary library: cloud `dmyrmlj5z`,
 folder `Nkrabea`. `src/lib/cloudinary.ts` builds a delivery URL from the path
-that follows `/upload/`, version included, and `next.config.ts` allows that
-one cloud and no other host.
+that follows `/upload/`, version included, and the custom image loader only
+rewrites that one cloud's URLs.
 
 - Delivery is public, so **no Cloudinary key or secret belongs in the repo, in
   Vercel or in the build**. The API key used to list the library lives only in
@@ -66,8 +66,7 @@ one cloud and no other host.
   component; never import the JSON from a client component.
 - `HERO_PHOTOS` in `content.ts` holds one photograph per page with its alt
   text attached, so a hero cannot end up carrying someone else's description.
-  `<PageHero>` takes a single `photo` prop. Contact has no photograph and
-  renders the composed band.
+  `<PageHero>` takes a single `photo` prop. Every page currently has one.
 - **Never write alt text for a photograph you have not opened.** The first
   version of this file described drummers who were not in the picture.
 - No caption carries an event name, place or date, and no person is named,
@@ -83,7 +82,8 @@ one cloud and no other host.
   `/leadership`, `/programmes`, `/impact`, `/partner`, `/get-involved`,
   `/news`, `/contact`.
 - **Shared chrome in the root layout**: header, footer, rhythm line, kente
-  strip, back-to-top, skip link and the motion provider.
+  strip, back-to-top, WhatsApp float, Clarity, skip link and the motion
+  provider.
 - **Heroes are full-background and centred.** The photograph fills the
   section and the words sit centred on it. `<HeroBackdrop>` supplies the
   layers (multiply wash, foot-heavy veil, a radial pool behind the column,
@@ -139,9 +139,11 @@ one cloud and no other host.
 
 ## Styling rules
 
-- Tokens are OKLCH in `src/app/globals.css`. Brand constants come from
-  `public/logo.svg`: badge black `#14181a`, warm cream `#f4f1ea`, Akan gold
-  `#c9a227`, badge green `#1f6f5c`, clay `#b4402f`.
+- Tokens are OKLCH in `src/app/globals.css`. The brand constants, badge
+  black `#14181a`, warm cream `#f4f1ea`, Akan gold `#c9a227`, badge green
+  `#1f6f5c` and clay `#b4402f`, are a considered reading of the red, yellow,
+  green and black in Nkrabea's logo, not samples of it: the logo's own values
+  are pure flag primaries that fail contrast as text and fight photography.
 - The five slots: `--band` is forest ink `#103028` (hero, CTA bands, footer,
   every data band), `--background` is warm cream for long reading, `--sand` is
   the second light plane so a section is built from a surface rather than a
@@ -196,36 +198,51 @@ those. Do not approximate a symbol and label it.
   and says why there is no chart. Four invented bars of 125 would be
   fabrication in the most persuasive form this site has.
 
-## API routes
+## Logo and icons
 
-Three POST endpoints under `src/app/api/`:
+`LOGO` in `content.ts` holds three Cloudinary cuts of Nkrabea's own logo file,
+with crop geometry measured from it (see the comment there): `badge` for the
+header, hero and footer, `emblem` for anything small, `schema` for search
+engines. `src/app/favicon.ico`, `icon.png` and `apple-icon.jpg` were generated
+from `emblem`; regenerate them if Nkrabea supply a new logo file.
 
-- `/api/partnership` - funder and sponsor enquiries, persists to
-  `PartnershipEnquiry`
-- `/api/contact` - persists to `ContactMessage`
-- `/api/newsletter` - upserts `NewsletterSubscriber`
+`src/app/opengraph-image.tsx` and `twitter-image.tsx` render the share card
+through `src/lib/og-card.tsx` at build. Every fetch in it degrades rather than
+failing the deploy.
 
-All return `{ ok: boolean, ... }`. Use sonner toasts for feedback.
+## Forms
 
-## Database
+The partnership, contact and newsletter forms post to Web3Forms directly
+from the browser through `src/lib/web3forms.ts`. There are no API routes and
+no database.
 
-Prisma with SQLite at `prisma/db/custom.db`. Prisma resolves a relative
-`file:` URL against `prisma/schema.prisma`, not the project root, which is why
-the file lands there and why `.gitignore` matches `*.db` in any location.
+- **Each submission is emailed to the address the access key was created
+  with.** The site cannot choose the recipient. To change it, generate a new
+  key with the new address and set `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY`.
+- The key is public by design (Web3Forms requires a free key to be used from
+  the browser) and ships in the page's JavaScript, so it is written in the
+  code rather than hidden in an environment variable.
+- If the key is ever blank, `FORMS_ENABLED` is false: each form shows
+  `<FormUnavailable>` and disables its button. Keep that state.
+- `<Honeypot>` is a hidden checkbox; only a ticked one is sent. Keep it in
+  every form.
+- The prototype's Prisma and SQLite layer was removed in September 2026. A
+  searchable record of enquiries, if Nkrabea want one, is hosted Postgres
+  alongside Web3Forms, not instead of it.
 
-**SQLite is a development placeholder only.** A serverless filesystem is wiped
-on every deployment, so a submission written there would not survive. Phase 3
-replaces it with hosted Postgres.
+## Analytics and WhatsApp
 
-`src/lib/persistence.ts` guards this: a file-backed database on a serverless
-host makes all three API routes return 503 with a message telling the sender
-their enquiry was **not** sent. Never weaken that guard to make a deployment
-look like it works. `src/lib/db.ts` constructs the Prisma client lazily, so an
-unset `DATABASE_URL` returns that honest error rather than crashing on import.
+- `<Analytics>` loads Microsoft Clarity only when
+  `NEXT_PUBLIC_CLARITY_PROJECT_ID` is set, with `lazyOnload`. A privacy notice
+  goes live the same day.
+- `<WhatsAppFloat>` renders only when `ORG.whatsapp` holds a confirmed number
+  in wa.me form. `<BackToTop>` moves up to sit above it. Its glyph is ink,
+  not white, for contrast.
 
 ## Do not
 
-- Do not add authentication. The API routes are intentionally open.
+- Do not let a form report success for a message that did not go.
+- Do not redraw, recolour or reconstruct the logo. Use the cuts in `LOGO`.
 - Do not render anything from `NEEDS_EVIDENCE`.
 - Do not present a programme target as an achieved result.
 - Do not put KoomBei's bank or mobile money details on the site. The invoice

@@ -7,24 +7,22 @@ culture and the creative arts as tools for socio-economic development.
 Built by [KoomBei Digital](https://koombei.com) under project KB-2026-009.
 
 Next.js 16 (App Router) · TypeScript · Tailwind CSS 4 · shadcn/ui · GSAP 3 ·
-Prisma
+Cloudinary · Web3Forms
 
 ## Running locally
 
 ```bash
 npm install
 cp .env.example .env
-npm run db:push     # create the local SQLite tables
 npm run dev         # http://localhost:3000
 ```
 
 ## Checks
 
 ```bash
-npm run check           # lint + typecheck + WCAG contrast
+npm run check           # lint, typecheck, WCAG contrast, font URLs
 npm run check:contrast  # palette only, fails below WCAG 2.2 AA
 npm run build           # production build
-npm run db:studio       # browse submitted enquiries
 ```
 
 ## Deployment
@@ -34,35 +32,29 @@ deploys to production.**
 
 ### Environment variables
 
-| Variable | Required | Notes |
-| --- | --- | --- |
-| `DATABASE_URL` | optional for now | See the warning below. Left unset, the forms refuse politely, which is the same behaviour they have with SQLite on a serverless host. Required once Postgres is provisioned. |
-| `NEXT_PUBLIC_SITE_URL` | **leave unset until the real domain is live** | Setting this declares "this is the organisation's public site", which switches search-engine indexing **on**. Left unset, the origin is derived from `VERCEL_URL` automatically and the deployment serves `noindex`, so a staging copy can never compete with the real domain later. |
+All optional. The site builds and runs with none of them set.
 
-### The database is not yet deployable
+| Variable | When | Notes |
+|---|---|---|
+| `NEXT_PUBLIC_SITE_URL` | once the domain is live | While unset the site is `noindex`, so the vercel.app address never competes with the real one. |
+| `NEXT_PUBLIC_CLARITY_PROJECT_ID` | to turn on analytics | Microsoft Clarity loads only when this is set. Publish a privacy notice the same day. |
+| `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY` | to change the form recipient | Overrides the key in `src/lib/web3forms.ts`. |
 
-`prisma/schema.prisma` still uses SQLite. **A serverless filesystem is wiped on
-every deployment**, so a submission written there would not survive, and the
-sender would see a success message either way. This is the defect KB-2026-009
-Section 03 leads with, and Phase 3 replaces SQLite with hosted Postgres.
+All are `NEXT_PUBLIC_`, so they are baked in at build time: after adding or
+changing one in Vercel, redeploy.
 
-Until then the three API routes refuse to accept submissions on a serverless
-host. `src/lib/persistence.ts` detects a file-backed database on a serverless
-platform and returns HTTP 503 with a message telling the sender their enquiry
-was **not** sent and to email `nkrabea.cna@gmail.com` instead.
+### Forms
 
-This means a deployment made today is safe to show people, but its forms do not
-work, by design. That is the honest failure, and it is deliberately preferred
-to a silent one. Local development is unaffected: SQLite on a real disk is
-treated as durable and every form works normally.
+The partnership, contact and newsletter forms post to Web3Forms straight from
+the browser. **Each submission is emailed to the address the Web3Forms access
+key was created with**; the site cannot choose a different recipient. To send
+enquiries somewhere else, generate a new key at web3forms.com with that
+address and set it as `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY`.
 
-To make the forms live:
-
-1. Provision hosted Postgres and set `DATABASE_URL` to its connection string.
-2. Change the `datasource` provider in `prisma/schema.prisma` to `postgresql`.
-3. Run `prisma migrate deploy` against it.
-
-The guard then passes automatically. No application code needs changing.
+There is no database. The prototype's SQLite layer was removed once Web3Forms
+took over delivery, because a serverless filesystem loses a SQLite file on
+every deployment. The forms never report success for a message that did not
+go.
 
 ## Content
 

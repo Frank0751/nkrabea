@@ -14,7 +14,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { PROGRAMMES } from "@/lib/content";
+import { PROGRAMMES, ORG } from "@/lib/content";
+import { FormUnavailable, Honeypot } from "./form-guard";
+import { FORMS_ENABLED, HONEYPOT_FIELD, submitToWeb3Forms } from "@/lib/web3forms";
 
 const PARTNER_TYPES = [
   { value: "corporate", label: "Corporate sponsor" },
@@ -37,24 +39,44 @@ export function PartnershipForm() {
     const form = event.currentTarget;
     const data = new FormData(form);
 
-    try {
-      const res = await fetch("/api/partnership", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: data.get("name"),
-          email: data.get("email"),
-          phone: data.get("phone"),
-          organisation: data.get("organisation"),
-          partnerType,
-          programme: programme === "any" ? "" : programme,
-          message: data.get("message"),
-        }),
-      });
-      const json = await res.json();
-      if (!res.ok || !json.ok) throw new Error(json.error ?? "Request failed");
+    const name = String(data.get("name") ?? "").trim();
+    const email = String(data.get("email") ?? "").trim();
+    const message = String(data.get("message") ?? "").trim();
+    const organisation = String(data.get("organisation") ?? "").trim();
+    const phone = String(data.get("phone") ?? "").trim();
+    const typeLabel =
+      PARTNER_TYPES.find((t) => t.value === partnerType)?.label ?? partnerType;
+    const programmeName =
+      programme === "any"
+        ? "No preference yet"
+        : (PROGRAMMES.find((p) => p.id === programme)?.name ?? programme);
 
-      toast.success(json.message);
+    if (!name || !email || !message) {
+      toast.error("Name, email and message are required.");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const result = await submitToWeb3Forms(
+        {
+          subject: `Partnership enquiry from ${organisation || name}`,
+          email,
+          Name: name,
+          Organisation: organisation || "Not given",
+          Phone: phone || "Not given",
+          "Partnership type": typeLabel,
+          "Programme of interest": programmeName,
+          Message: message,
+          [HONEYPOT_FIELD]: data.get(HONEYPOT_FIELD) ? "true" : "",
+        },
+        ORG.email
+      );
+      if (!result.ok) throw new Error(result.error);
+
+      toast.success(
+        "Thank you. Your enquiry has reached the Executive Director, who will respond directly."
+      );
       form.reset();
       setPartnerType("corporate");
       setProgramme("any");
@@ -75,6 +97,8 @@ export function PartnershipForm() {
       className="rounded-2xl border border-border bg-card p-6 sm:p-8"
       noValidate
     >
+      <FormUnavailable />
+      <Honeypot />
       <div className="grid gap-5 sm:grid-cols-2">
         <div className="space-y-2">
           <Label htmlFor={`${formId}-name`}>
@@ -174,7 +198,7 @@ export function PartnershipForm() {
       <Button
         type="submit"
         size="lg"
-        disabled={loading}
+        disabled={loading || !FORMS_ENABLED}
         className="mt-6 w-full bg-accent text-accent-foreground hover:bg-accent/90 sm:w-auto"
       >
         {loading ? "Sending..." : "Send enquiry"}

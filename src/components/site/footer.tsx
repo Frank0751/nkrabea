@@ -1,7 +1,8 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { NewsletterForm } from "./newsletter-form";
-import { ORG } from "@/lib/content";
+import { ORG, LOGO } from "@/lib/content";
 
 const COLUMNS = [
   {
@@ -41,10 +42,22 @@ export function Footer() {
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-8">
           {/* Identity */}
           <div className="lg:col-span-4">
-            <p className="font-display text-xl tracking-tight">
-              {ORG.shortName}
-            </p>
-            <p className="label-mono mt-2 text-accent">{ORG.motto}</p>
+            <div className="flex items-center gap-4">
+              {/* Decorative: the name sits right beside it. */}
+              <Image
+                src={LOGO.badge}
+                alt=""
+                width={72}
+                height={72}
+                className="h-[4.5rem] w-[4.5rem] shrink-0 rounded-full ring-1 ring-band-foreground/20"
+              />
+              <div>
+                <p className="font-display text-xl tracking-tight">
+                  {ORG.shortName}
+                </p>
+                <p className="label-mono mt-1.5 text-accent">{ORG.motto}</p>
+              </div>
+            </div>
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-band-foreground/70">
               A registered Ghanaian NGO using culture and the creative arts as
               tools for socio-economic development.

@@ -12,6 +12,8 @@ import { MotionProvider } from "@/components/site/motion-provider";
 import { ORG } from "@/lib/content";
 import { SITE_URL, IS_PUBLIC_SITE } from "@/lib/site";
 import { OrganisationSchema } from "@/components/site/structured-data";
+import { Analytics } from "@/components/site/analytics";
+import { WhatsAppFloat } from "@/components/site/whatsapp-float";
 
 /**
  * Satoshi (body) and Bespoke Serif (display) are declared as @font-face rules
@@ -51,9 +53,6 @@ export const metadata: Metadata = {
     "Accra",
   ],
   authors: [{ name: ORG.legalName }],
-  icons: {
-    icon: "/logo.svg",
-  },
   alternates: {
     canonical: "/",
   },
@@ -110,11 +109,13 @@ export default function RootLayout({
                 {children}
               </main>
               <Footer />
+              <WhatsAppFloat />
               <BackToTop />
             </div>
           </MotionProvider>
           <SonnerToaster position="bottom-right" />
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );

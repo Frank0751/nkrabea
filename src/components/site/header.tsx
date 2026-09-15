@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -14,7 +15,7 @@ import {
 } from "@/components/ui/sheet";
 import { ThemeToggle } from "./theme-toggle";
 import { TextSizeToggle } from "./text-size-toggle";
-import { ORG } from "@/lib/content";
+import { ORG, LOGO } from "@/lib/content";
 
 /**
  * Navigation follows the structure Nkrabea set out in their brief, labelled
@@ -67,7 +68,7 @@ export function SiteHeader() {
           className="flex shrink-0 items-center gap-3"
           aria-label={`${ORG.name} home`}
         >
-          <BrandMark />
+          <BrandMark onDark={transparent} />
           <span className="flex flex-col leading-none">
             <span
               className={`font-display text-base tracking-tight ${
@@ -221,19 +222,22 @@ export function SiteHeader() {
   );
 }
 
-function BrandMark() {
+/**
+ * Nkrabea's badge. Decorative here, because the link around it already
+ * carries the organisation's name as its label. Over the dark hero a faint
+ * ring separates the black disc from the ink behind it.
+ */
+function BrandMark({ onDark = false }: { onDark?: boolean }) {
   return (
-    <span
-      className="relative flex h-9 w-9 items-center justify-center rounded-full bg-band"
-      aria-hidden="true"
-    >
-      <svg viewBox="0 0 32 32" className="h-7 w-7">
-        <path
-          d="M16 3 L19.6 12.4 L29 12.4 L21.4 17.8 L24.2 27 L16 21.4 L7.8 27 L10.6 17.8 L3 12.4 L12.4 12.4 Z"
-          fill="var(--brand-gold)"
-        />
-        <circle cx="16" cy="16" r="2.4" fill="var(--brand-clay)" />
-      </svg>
-    </span>
+    <Image
+      src={LOGO.badge}
+      alt=""
+      width={40}
+      height={40}
+      priority
+      className={`h-10 w-10 shrink-0 rounded-full transition-shadow duration-300 ${
+        onDark ? "ring-1 ring-band-foreground/25" : ""
+      }`}
+    />
   );
 }

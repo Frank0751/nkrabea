@@ -5,6 +5,9 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { FormUnavailable, Honeypot } from "./form-guard";
+import { FORMS_ENABLED, HONEYPOT_FIELD, submitToWeb3Forms } from "@/lib/web3forms";
+import { ORG } from "@/lib/content";
 
 export function NewsletterForm({ compact = false }: { compact?: boolean }) {
   const [loading, setLoading] = React.useState(false);
@@ -17,19 +20,28 @@ export function NewsletterForm({ compact = false }: { compact?: boolean }) {
     const form = event.currentTarget;
     const data = new FormData(form);
 
-    try {
-      const res = await fetch("/api/newsletter", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: data.get("name"),
-          email: data.get("email"),
-        }),
-      });
-      const json = await res.json();
-      if (!res.ok || !json.ok) throw new Error(json.error ?? "Request failed");
+    const email = String(data.get("email") ?? "").trim();
+    if (!email) {
+      toast.error("Please enter your email address.");
+      setLoading(false);
+      return;
+    }
 
-      toast.success(json.message);
+    try {
+      const result = await submitToWeb3Forms(
+        {
+          subject: `Newsletter signup: ${email}`,
+          email,
+          Request: "Please add this address to the updates list.",
+          [HONEYPOT_FIELD]: data.get(HONEYPOT_FIELD) ? "true" : "",
+        },
+        ORG.email
+      );
+      if (!result.ok) throw new Error(result.error);
+
+      toast.success(
+        "You are signed up. We will write when a programme opens or completes."
+      );
       form.reset();
     } catch (err) {
       toast.error(
@@ -43,9 +55,15 @@ export function NewsletterForm({ compact = false }: { compact?: boolean }) {
   return (
     <form
       onSubmit={onSubmit}
-      className="flex flex-col gap-3 sm:flex-row"
+      className={`flex flex-col gap-3 sm:flex-row ${FORMS_ENABLED ? "" : "sm:flex-wrap"}`}
       noValidate
     >
+      {!FORMS_ENABLED && (
+        <div className="basis-full">
+          <FormUnavailable />
+        </div>
+      )}
+      <Honeypot />
       <div className="flex-1">
         <Label htmlFor={`${formId}-email`} className="sr-only">
           Email address
@@ -62,7 +80,7 @@ export function NewsletterForm({ compact = false }: { compact?: boolean }) {
       </div>
       <Button
         type="submit"
-        disabled={loading}
+        disabled={loading || !FORMS_ENABLED}
         size={compact ? "default" : "lg"}
         className="bg-accent text-accent-foreground hover:bg-accent/90"
       >

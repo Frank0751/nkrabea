@@ -3,6 +3,7 @@
 import * as React from "react";
 import { ArrowUp } from "lucide-react";
 import { useMotion } from "@/lib/motion";
+import { ORG } from "@/lib/content";
 
 export function BackToTop() {
   const [visible, setVisible] = React.useState(false);
@@ -25,7 +26,7 @@ export function BackToTop() {
       type="button"
       onClick={scrollTop}
       aria-label="Back to top"
-      className={`fixed bottom-6 right-6 z-40 flex h-11 w-11 items-center justify-center rounded-full bg-band text-band-foreground shadow-lg transition-all duration-300 hover:bg-band/85 lg:right-9 ${
+      className={`fixed ${ORG.whatsapp ? "bottom-24" : "bottom-6"} right-6 z-40 flex h-11 w-11 items-center justify-center rounded-full bg-band text-band-foreground shadow-lg transition-all duration-300 hover:bg-band/85 lg:right-9 ${
         visible
           ? "translate-y-0 opacity-100"
           : "pointer-events-none translate-y-4 opacity-0"

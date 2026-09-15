@@ -47,6 +47,14 @@ export const ORG = {
   /** For donations. Nkrabea's own MTN MoMo line. */
   momo: "0597431527",
 
+  /**
+   * The line for the WhatsApp float button, in wa.me form: country code and
+   * number, digits only, no leading zero, e.g. "233246287975". Null until
+   * Nkrabea confirm which of their numbers is on WhatsApp. The button does not
+   * render while this is null.
+   */
+  whatsapp: null as string | null,
+
   // Nkrabea's brief states they have no website, domain or established social
   // handles yet. Nothing is linked until each one is confirmed live.
   website: null as string | null,
@@ -695,6 +703,39 @@ export const PHOTOS = {
     caption: "Assemblage works made from reclaimed materials",
   },
 } satisfies Record<string, Photo>;
+
+/* ---------------------------------------------------------------------------
+   The logo.
+
+   Nkrabea's own mark, supplied as a 1080px square JPEG in their Cloudinary
+   library: a black circular badge carrying the wordmark, the Sankofa bird and
+   the Sankofa heart, and four figures in red, yellow and green, on a white
+   square with the tagline beneath.
+
+   Three cuts come from that one file, with geometry measured from it: the
+   badge's black disc has radius 339px about (539.5, 539.5), and the white
+   ring round the four figures sits at 201 to 209px.
+
+   badge   the disc cut 4px inside its black edge, so no fringe of the white
+           JPEG background can show on a dark surface. Transparent corners.
+   emblem  the four figures inside the white ring, for anything small, where
+           the lettering would be unreadable. favicon.ico, icon.png and
+           apple-icon.jpg in src/app were generated from it.
+   schema  the badge square on white, for search engines, which show a logo
+           on white.
+
+   All three pass through the image loader like any photograph, so they
+   arrive as WebP or AVIF at the size each place needs.
+
+   The public/logo.svg this replaces was a star in a circle drawn for the
+   prototype. It was never Nkrabea's mark and has been deleted.
+   --------------------------------------------------------------------------- */
+
+export const LOGO = {
+  badge: cld("c_crop,x_205,y_205,w_670,h_670/r_max/v1789230051/Nkrabea_s_logoj_peg.jpg_pawmbq.jpg"),
+  emblem: cld("c_crop,x_322,y_322,w_436,h_436/r_max/v1789230051/Nkrabea_s_logoj_peg.jpg_pawmbq.jpg"),
+  schema: cld("c_crop,x_171,y_171,w_738,h_738/f_jpg,q_auto,w_512/v1789230051/Nkrabea_s_logoj_peg.jpg_pawmbq.jpg"),
+};
 
 /** One hero photograph per page. */
 export const HERO_PHOTOS = {

@@ -1,4 +1,4 @@
-import { ORG, MISSION } from "@/lib/content";
+import { ORG, MISSION, LOGO } from "@/lib/content";
 import { SITE_URL } from "@/lib/site";
 
 /**
@@ -18,7 +18,8 @@ export function OrganisationSchema() {
     legalName: ORG.legalName,
     alternateName: ORG.shortName,
     url: SITE_URL,
-    logo: `${SITE_URL}/logo.svg`,
+    // The badge square on white: search engines show a logo on white.
+    logo: LOGO.schema,
     slogan: ORG.motto,
     description: MISSION,
     foundingDate: "2021-05-14",

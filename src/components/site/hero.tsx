@@ -7,7 +7,7 @@ import { ScrollCue } from "./scroll-cue";
 import { PhotoReel } from "./photo-reel";
 import { HeroBackdrop } from "./hero-backdrop";
 import { withBlur } from "@/lib/blur";
-import { ORG, IDENTITY, REEL } from "@/lib/content";
+import { ORG, IDENTITY, REEL, LOGO } from "@/lib/content";
 
 /**
  * Homepage hero, to the spec in Nkrabea's brief: the photography, the logo
@@ -40,13 +40,13 @@ export function Hero() {
             already provides the linked, labelled logo. */}
         <div className="hero-rise hero-rise-1 hero-mark">
           <Image
-            src="/logo.svg"
+            src={LOGO.badge}
             alt=""
-            width={64}
-            height={64}
+            width={112}
+            height={112}
             priority
             aria-hidden="true"
-            className="h-14 w-14 sm:h-16 sm:w-16"
+            className="h-24 w-24 rounded-full sm:h-28 sm:w-28"
           />
         </div>
 

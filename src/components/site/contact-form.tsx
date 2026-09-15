@@ -14,6 +14,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { FormUnavailable, Honeypot } from "./form-guard";
+import { FORMS_ENABLED, HONEYPOT_FIELD, submitToWeb3Forms } from "@/lib/web3forms";
+import { ORG } from "@/lib/content";
 
 const INTENTS = [
   { value: "general", label: "General enquiry" },
@@ -37,22 +40,33 @@ export function ContactForm() {
     const label =
       INTENTS.find((i) => i.value === intent)?.label ?? "General enquiry";
 
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: data.get("name"),
-          email: data.get("email"),
-          subject: label,
-          intent,
-          message: data.get("message"),
-        }),
-      });
-      const json = await res.json();
-      if (!res.ok || !json.ok) throw new Error(json.error ?? "Request failed");
+    const name = String(data.get("name") ?? "").trim();
+    const email = String(data.get("email") ?? "").trim();
+    const message = String(data.get("message") ?? "").trim();
 
-      toast.success(json.message);
+    if (!name || !email || !message) {
+      toast.error("Name, email and message are required.");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const result = await submitToWeb3Forms(
+        {
+          subject: `Website contact: ${label} from ${name}`,
+          email,
+          Name: name,
+          About: label,
+          Message: message,
+          [HONEYPOT_FIELD]: data.get(HONEYPOT_FIELD) ? "true" : "",
+        },
+        ORG.email
+      );
+      if (!result.ok) throw new Error(result.error);
+
+      toast.success(
+        "Your message has been sent. We aim to respond within three working days."
+      );
       form.reset();
       setIntent("general");
     } catch (err) {
@@ -72,6 +86,8 @@ export function ContactForm() {
       className="rounded-2xl border border-border bg-card p-6 sm:p-8"
       noValidate
     >
+      <FormUnavailable />
+      <Honeypot />
       <div className="grid gap-5 sm:grid-cols-2">
         <div className="space-y-2">
           <Label htmlFor={`${formId}-name`}>
@@ -133,7 +149,7 @@ export function ContactForm() {
       <Button
         type="submit"
         size="lg"
-        disabled={loading}
+        disabled={loading || !FORMS_ENABLED}
         className="mt-6 w-full sm:w-auto"
       >
         {loading ? "Sending..." : "Send message"}
