@@ -46,6 +46,8 @@ type Receipt = {
   firstName: string;
 };
 
+type Notice = { tone: "info" | "error"; text: string };
+
 /**
  * The online donation form. See src/lib/paystack.ts for why only the public
  * key is used and why there is no server-side verification.
@@ -61,6 +63,10 @@ export function DonateForm() {
   const [designation, setDesignation] = React.useState("general");
   const [status, setStatus] = React.useState<Status>("idle");
   const [receipt, setReceipt] = React.useState<Receipt | null>(null);
+  // What happened to the last attempt, shown in the form under the button
+  // until the next one. A corner toast vanishes in four seconds and is easy
+  // to miss while Paystack's checkout is closing.
+  const [notice, setNotice] = React.useState<Notice | null>(null);
   const thanksRef = React.useRef<HTMLHeadingElement>(null);
 
   const amount =
@@ -79,6 +85,7 @@ export function DonateForm() {
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (busy) return;
+    setNotice(null);
 
     const data = new FormData(event.currentTarget);
     const name = String(data.get("name") ?? "").trim();
@@ -151,7 +158,7 @@ export function DonateForm() {
           // Closing Paystack's frame after an error can also report a
           // cancel; the donor has already been told what happened.
           if (failed) return;
-          toast("Payment cancelled. Nothing was charged.");
+          setNotice({ tone: "info", text: "Payment cancelled. Nothing was charged." });
         },
         onError: (error) => {
           console.error("Donation: Paystack reported an error.", error);
@@ -165,18 +172,19 @@ export function DonateForm() {
           } catch {
             // Already closed.
           }
-          toast.error(
-            `The payment form could not open (${error.message}). You can also give by MTN MoMo to ${ORG.momo}.`,
-            { duration: 12000 }
-          );
+          setNotice({
+            tone: "error",
+            text: `The payment form could not open (${error.message}). You can also give by MTN MoMo to ${ORG.momo}.`,
+          });
         },
       });
     } catch (err) {
       console.error("Donation: the Paystack checkout failed to start.", err);
       setStatus("idle");
-      toast.error(
-        `The payment form could not load. Check your connection, or give by MTN MoMo to ${ORG.momo}.`
-      );
+      setNotice({
+        tone: "error",
+        text: `The payment form could not load. Check your connection, or give by MTN MoMo to ${ORG.momo}.`,
+      });
     }
   }
 
@@ -357,6 +365,23 @@ export function DonateForm() {
             : "Donate"}
         {!busy && <Heart className="ml-2 h-4 w-4" aria-hidden="true" />}
       </Button>
+
+      {/* Always mounted, so screen readers announce a message when it
+          appears. Empty, it takes no space. Text stays in the foreground
+          colour; the border alone marks an error. */}
+      <div role="status" aria-live="polite">
+        {notice && (
+          <p
+            className={`mt-4 rounded-lg border px-3.5 py-2.5 text-sm leading-relaxed text-foreground ${
+              notice.tone === "error"
+                ? "border-emphasis/60 bg-emphasis/5"
+                : "border-border bg-muted/50"
+            }`}
+          >
+            {notice.text}
+          </p>
+        )}
+      </div>
 
       <p className="mt-4 flex items-start gap-2 text-xs leading-relaxed text-muted-foreground">
         <Lock className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden="true" />

@@ -253,6 +253,10 @@ has no types, so `src/types/paystack-inline.d.ts` declares the parts used.
 - On `onError` the form closes Paystack's overlay with `cancelTransaction()`
   before showing its own message, because Paystack's error dialog sits above
   everything at the maximum z-index and would hide the MoMo fallback.
+- Cancellations and errors are reported **in the form**, under the button, in
+  an always-mounted `aria-live` region, and stay until the next attempt. Not
+  as toasts: a corner toast lasts four seconds and is easily missed while
+  Paystack's checkout is closing. Validation messages remain toasts.
 - `Permissions-Policy` allows `payment` for `self` and
   `https://checkout.paystack.com` only. The checkout frame requests it for
   Apple Pay and Google Pay; `payment=()` would block them silently.
