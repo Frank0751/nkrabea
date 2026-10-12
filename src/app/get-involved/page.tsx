@@ -6,12 +6,15 @@ import { SectionEyebrow } from "@/components/site/section-eyebrow";
 import { Reveal, RevealGroup } from "@/components/site/reveal";
 import { NewsletterForm } from "@/components/site/newsletter-form";
 import { PhotoStrip } from "@/components/site/photo";
+import { DonateForm } from "@/components/site/donate-form";
 import { ORG, HERO_PHOTOS, PHOTOS } from "@/lib/content";
+import { DONATIONS_ENABLED } from "@/lib/paystack";
 
 export const metadata: Metadata = {
   title: "Get Involved",
-  description:
-    "Support Nkrabea Culture and Arts Ensemble through mobile money, volunteering or in-kind support.",
+  description: DONATIONS_ENABLED
+    ? "Donate to Nkrabea Culture and Arts Ensemble online by card or mobile money, or support the work by volunteering and in-kind giving."
+    : "Support Nkrabea Culture and Arts Ensemble through mobile money, volunteering or in-kind support.",
 };
 
 export default function GetInvolvedPage() {
@@ -26,7 +29,7 @@ export default function GetInvolvedPage() {
       />
 
       {/* Give */}
-      <section data-rhythm-node className="py-20 lg:py-28">
+      <section data-rhythm-node id="give" className="scroll-mt-16 py-20 lg:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="max-w-2xl">
             <SectionEyebrow>Give</SectionEyebrow>
@@ -35,91 +38,37 @@ export default function GetInvolvedPage() {
             </h2>
           </Reveal>
 
-          <div className="mt-12 grid gap-6 lg:grid-cols-3">
-            <Reveal className="lg:col-span-1">
-              <div className="h-full rounded-2xl border-2 border-accent bg-card p-7">
-                <Smartphone
-                  className="h-6 w-6 text-accent"
-                  aria-hidden="true"
-                />
-                <h3 className="mt-4 font-display text-lg text-foreground">
-                  Mobile money
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  The fastest way to give from within Ghana.
-                </p>
-                <dl className="mt-5 space-y-3 border-t border-border pt-5">
-                  <div>
-                    <dt className="label-mono text-muted-foreground">
-                      MTN MoMo
-                    </dt>
-                    <dd className="mt-1 font-display text-xl tracking-tight text-foreground">
-                      {ORG.momo}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt className="label-mono text-muted-foreground">
-                      Account name
-                    </dt>
-                    <dd className="mt-1 text-sm text-foreground">
-                      {ORG.legalName}
-                    </dd>
-                  </div>
-                </dl>
-                <p className="mt-5 text-xs leading-relaxed text-muted-foreground">
-                  Please use your name as the reference so we can thank you
-                  properly.
-                </p>
+          {/* With a Paystack key the online form leads and the direct routes
+              sit beside it. Without one, nothing offers a payment the site
+              cannot take: the original three cards stay, card giving still
+              marked as being set up. See src/lib/paystack.ts. */}
+          {DONATIONS_ENABLED ? (
+            <div className="mt-12 grid gap-6 lg:grid-cols-12">
+              <Reveal className="lg:col-span-7">
+                <DonateForm />
+              </Reveal>
+              <div className="grid gap-6 lg:col-span-5 lg:content-start">
+                <Reveal delay={100}>
+                  <MomoCard />
+                </Reveal>
+                <Reveal delay={180}>
+                  <BankCard />
+                </Reveal>
               </div>
-            </Reveal>
-
-            <Reveal delay={100}>
-              <div className="h-full rounded-2xl border border-border bg-card p-7">
-                <Landmark
-                  className="h-6 w-6 text-muted-foreground"
-                  aria-hidden="true"
-                />
-                <h3 className="mt-4 font-display text-lg text-foreground">
-                  Bank transfer
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  For larger gifts and institutional grants, a bank transfer is
-                  usually simpler.
-                </p>
-                <p className="mt-5 rounded-lg border border-border bg-muted/50 p-4 text-sm leading-relaxed text-muted-foreground">
-                  Bank details are issued directly on request, so that they
-                  always come from us and can be verified.{" "}
-                  <Link
-                    href="/contact"
-                    className="font-semibold text-primary underline-offset-4 hover:underline"
-                  >
-                    Request bank details
-                  </Link>
-                  .
-                </p>
-              </div>
-            </Reveal>
-
-            <Reveal delay={180}>
-              <div className="h-full rounded-2xl border border-border bg-card p-7">
-                <CreditCard
-                  className="h-6 w-6 text-muted-foreground"
-                  aria-hidden="true"
-                />
-                <h3 className="mt-4 font-display text-lg text-foreground">
-                  Card payment
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  Card giving, including from outside Ghana, is being set up.
-                </p>
-                <p className="mt-5 rounded-lg border border-border bg-muted/50 p-4 text-sm leading-relaxed text-muted-foreground">
-                  Coming soon. In the meantime, mobile money and bank transfer
-                  are both available, and we can invoice an organisation
-                  directly.
-                </p>
-              </div>
-            </Reveal>
-          </div>
+            </div>
+          ) : (
+            <div className="mt-12 grid gap-6 lg:grid-cols-3">
+              <Reveal>
+                <MomoCard featured />
+              </Reveal>
+              <Reveal delay={100}>
+                <BankCard />
+              </Reveal>
+              <Reveal delay={180}>
+                <CardComingSoon />
+              </Reveal>
+            </div>
+          )}
 
           <Reveal delay={160} className="mt-20">
             <PhotoStrip
@@ -197,5 +146,85 @@ export default function GetInvolvedPage() {
         </div>
       </section>
     </>
+  );
+}
+
+/** Nkrabea's own MTN MoMo line, ORG.momo. */
+function MomoCard({ featured = false }: { featured?: boolean }) {
+  return (
+    <div
+      className={`h-full rounded-2xl bg-card p-7 ${
+        featured ? "border-2 border-accent" : "border border-border"
+      }`}
+    >
+      <Smartphone
+        className={`h-6 w-6 ${featured ? "text-gold-ink" : "text-muted-foreground"}`}
+        aria-hidden="true"
+      />
+      <h3 className="mt-4 font-display text-lg text-foreground">
+        {featured ? "Mobile money" : "Send by MoMo directly"}
+      </h3>
+      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+        {featured
+          ? "The fastest way to give from within Ghana."
+          : "Prefer to send from your phone? Use Nkrabea's own MTN MoMo line."}
+      </p>
+      <dl className="mt-5 space-y-3 border-t border-border pt-5">
+        <div>
+          <dt className="label-mono text-muted-foreground">MTN MoMo</dt>
+          <dd className="mt-1 font-display text-xl tracking-tight text-foreground">
+            {ORG.momo}
+          </dd>
+        </div>
+        <div>
+          <dt className="label-mono text-muted-foreground">Account name</dt>
+          <dd className="mt-1 text-sm text-foreground">{ORG.legalName}</dd>
+        </div>
+      </dl>
+      <p className="mt-5 text-xs leading-relaxed text-muted-foreground">
+        Please use your name as the reference so we can thank you properly.
+      </p>
+    </div>
+  );
+}
+
+function BankCard() {
+  return (
+    <div className="h-full rounded-2xl border border-border bg-card p-7">
+      <Landmark className="h-6 w-6 text-muted-foreground" aria-hidden="true" />
+      <h3 className="mt-4 font-display text-lg text-foreground">Bank transfer</h3>
+      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+        For larger gifts and institutional grants, a bank transfer is usually
+        simpler.
+      </p>
+      <p className="mt-5 rounded-lg border border-border bg-muted/50 p-4 text-sm leading-relaxed text-muted-foreground">
+        Bank details are issued directly on request, so that they always come
+        from us and can be verified.{" "}
+        <Link
+          href="/contact"
+          className="font-semibold text-primary underline-offset-4 hover:underline"
+        >
+          Request bank details
+        </Link>
+        .
+      </p>
+    </div>
+  );
+}
+
+/** Shown only while there is no Paystack public key. */
+function CardComingSoon() {
+  return (
+    <div className="h-full rounded-2xl border border-border bg-card p-7">
+      <CreditCard className="h-6 w-6 text-muted-foreground" aria-hidden="true" />
+      <h3 className="mt-4 font-display text-lg text-foreground">Card payment</h3>
+      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+        Card giving, including from outside Ghana, is being set up.
+      </p>
+      <p className="mt-5 rounded-lg border border-border bg-muted/50 p-4 text-sm leading-relaxed text-muted-foreground">
+        Coming soon. In the meantime, mobile money and bank transfer are both
+        available, and we can invoice an organisation directly.
+      </p>
+    </div>
   );
 }

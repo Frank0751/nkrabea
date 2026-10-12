@@ -39,6 +39,7 @@ All optional. The site builds and runs with none of them set.
 | `NEXT_PUBLIC_SITE_URL` | once the domain is live | While unset the site is `noindex`, so the vercel.app address never competes with the real one. |
 | `NEXT_PUBLIC_CLARITY_PROJECT_ID` | to turn on analytics | Microsoft Clarity loads only when this is set. Publish a privacy notice the same day. |
 | `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY` | to change the form recipient | Overrides the key in `src/lib/web3forms.ts`. |
+| `NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY` | to point a preview at the test key | Overrides the public key in `src/lib/paystack.ts`. **Public keys only**: a secret key here stops the build. |
 
 All are `NEXT_PUBLIC_`, so they are baked in at build time: after adding or
 changing one in Vercel, redeploy.
@@ -55,6 +56,25 @@ There is no database. The prototype's SQLite layer was removed once Web3Forms
 took over delivery, because a serverless filesystem loses a SQLite file on
 every deployment. The forms never report success for a message that did not
 go.
+
+### Donations
+
+The Get involved page takes online donations by card or mobile money through
+Paystack's pop-up checkout (`src/components/site/donate-form.tsx`). Card and
+mobile money details are entered in Paystack's frame, never on this site, and
+every gift appears in Nkrabea's Paystack dashboard with what it was for, the
+donor's name and a reference starting `NKR-`.
+
+- **Only the public key is used** (`pk_live_...`). It lives in
+  `src/lib/paystack.ts`. Until it is set, the form does not render and the
+  page shows card giving as being set up.
+- **A secret key (`sk_...`) must never be in this repository or in a
+  `NEXT_PUBLIC_` variable.** `next.config.ts` scans both on every build and
+  refuses to continue if it finds one. If a secret key is ever exposed,
+  regenerate it in Paystack.
+- There is no server, so payments are not re-verified through Paystack's API.
+  Nothing is released on the strength of the checkout's success message
+  except a thank-you; the Paystack dashboard is the record of what was paid.
 
 ## Content
 

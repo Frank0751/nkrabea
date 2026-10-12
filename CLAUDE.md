@@ -230,6 +230,35 @@ no database.
   searchable record of enquiries, if Nkrabea want one, is hosted Postgres
   alongside Web3Forms, not instead of it.
 
+## Donations
+
+Paystack's inline checkout, opened from `<DonateForm>` on `/get-involved`
+(section id `give`; the "Make a donation" buttons elsewhere link to
+`/get-involved#give`). Settings live in `src/lib/paystack.ts`; the package
+has no types, so `src/types/paystack-inline.d.ts` declares the parts used.
+
+- **Public key only.** `DONATIONS_ENABLED` is true only for a valid `pk_live_`
+  or `pk_test_` key. Without one the form does not render and the page keeps
+  the "card giving is being set up" card. A `pk_test_` key shows a visible
+  "test mode" note on the form.
+- **Never a secret key.** `next.config.ts` fails the build if an `sk_live_` or
+  `sk_test_` key appears in any `NEXT_PUBLIC_` variable or any file under
+  `src/`. Do not weaken that check; do not write an example secret key in a
+  comment, which would trip it.
+- Import `@paystack/inline-js` only inside the click handler. It touches
+  `document` on load and would break server rendering.
+- Leave `firstName` and `lastName` **out** of the transaction when they are
+  empty. Paystack validates in the browser and rejects the whole transaction
+  if either key is present with `undefined`.
+- On `onError` the form closes Paystack's overlay with `cancelTransaction()`
+  before showing its own message, because Paystack's error dialog sits above
+  everything at the maximum z-index and would hide the MoMo fallback.
+- `Permissions-Policy` allows `payment` for `self` and
+  `https://checkout.paystack.com` only. The checkout frame requests it for
+  Apple Pay and Google Pay; `payment=()` would block them silently.
+- Amounts are pesewas (`toPesewas`), between GHS 1 and GHS 50,000; larger
+  gifts are pointed to a bank transfer.
+
 ## Analytics and WhatsApp
 
 - `<Analytics>` loads Microsoft Clarity only when
@@ -242,6 +271,9 @@ no database.
 ## Do not
 
 - Do not let a form report success for a message that did not go.
+- Do not put a Paystack secret key (`sk_`) anywhere in `src/` or in a
+  `NEXT_PUBLIC_` variable, and do not ask Nkrabea to send one. The site needs
+  only the public key.
 - Do not redraw, recolour or reconstruct the logo. Use the cuts in `LOGO`.
 - Do not render anything from `NEEDS_EVIDENCE`.
 - Do not present a programme target as an achieved result.

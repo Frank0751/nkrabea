@@ -164,7 +164,7 @@ export default function HomePage() {
           primaryLabel="Partner With Us"
           primaryHref="/partner"
           secondaryLabel="Make a donation"
-          secondaryHref="/get-involved"
+          secondaryHref="/get-involved#give"
         />
       </div>
     </>
