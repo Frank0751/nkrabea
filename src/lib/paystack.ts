@@ -26,7 +26,8 @@
  * message, and the Paystack dashboard is the record of what was paid.
  */
 
-const DEFAULT_PUBLIC_KEY = "";
+/** Nkrabea's live public key, supplied by the organisation on 12 October 2026. */
+const DEFAULT_PUBLIC_KEY = "pk_live_08292aeb359c1e37af82cb83addf0727b671343d";
 
 const PUBLIC_KEY = /^pk_(live|test)_[A-Za-z0-9]{8,}$/;
 
