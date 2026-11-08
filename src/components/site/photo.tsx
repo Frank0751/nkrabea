@@ -32,6 +32,7 @@ export function PhotoFigure({
   bare = false,
   fill = false,
   position,
+  fit = "cover",
   className = "",
 }: {
   photo: Photo;
@@ -46,6 +47,8 @@ export function PhotoFigure({
   fill?: boolean;
   /** CSS object-position, e.g. "50% 20%" to keep faces in a tight crop. */
   position?: string;
+  /** "contain" shows the whole picture, for a flyer or anything with text. */
+  fit?: "cover" | "contain";
   className?: string;
 }) {
   const p = withBlur(photo);
@@ -65,7 +68,7 @@ export function PhotoFigure({
           priority={priority}
           placeholder={p.blur ? "blur" : "empty"}
           blurDataURL={p.blur}
-          className="photo-tone object-cover"
+          className={`photo-tone ${fit === "contain" ? "object-contain" : "object-cover"}`}
           style={position ? { objectPosition: position } : undefined}
         />
         <div className="photo-grade absolute inset-0" aria-hidden="true" />

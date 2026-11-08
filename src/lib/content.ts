@@ -480,10 +480,24 @@ export type Testimonial = {
 /** Awaiting three named testimonials with written permission to publish. */
 export const TESTIMONIALS: Testimonial[] = [];
 
-export type PressItem = { name: string; context: string };
+export type PressItem = {
+  name: string;
+  context: string;
+  date: string;
+  /** Where the coverage is shown on this site, e.g. "/news#...". */
+  href?: string;
+};
 
 /** Awaiting evidence of each relationship. */
-export const PRESS: PressItem[] = [];
+export const PRESS: PressItem[] = [
+  {
+    name: "Angel TV",
+    context:
+      "News report on the Ayawaso North programme for persons with disabilities",
+    date: "November 2026",
+    href: "/news#caregivers-ayawaso-north-2026-press",
+  },
+];
 
 export type Story = {
   /** Also the anchor on the news page: /news#id. */
@@ -502,7 +516,25 @@ export type Story = {
   thanks?: string;
   /** First photograph leads; the rest follow on the news page. */
   photos: Photo[];
+  /** Smaller pictures of the occasion around the work: food, the flyer. */
+  moments?: Photo[];
+  /** Broadcast or published coverage of the story. */
+  press?: StoryPress;
   source: string;
+};
+
+export type StoryPress = {
+  outlet: string;
+  headline: string;
+  date: string;
+  video: {
+    src: string;
+    poster: string;
+    /** As it should read, e.g. "4 min 33 s". */
+    duration: string;
+  };
+  /** Shown under the video. */
+  note: string;
 };
 
 /**
@@ -534,6 +566,22 @@ export const STORIES: Story[] = [
     thanks:
       "Nkrabea thanks the Department of Social Welfare and Community Development and the DFMC for their support and collaboration.",
     photos: [], // filled below, once PHOTOS exists
+    press: {
+      outlet: "Angel TV",
+      headline:
+        "\u201cWe want them to feel they belong\u201d: Ayawaso North organises programme for persons with disabilities",
+      date: "November 2026",
+      video: {
+        // Nkrabea's copy of the broadcast, held in their Cloudinary library.
+        // q_auto,vc_auto halves the 35 MB original. No official upload by
+        // the station could be found to embed instead.
+        src: "https://res.cloudinary.com/dmyrmlj5z/video/upload/q_auto,vc_auto/v1794179089/Nkrabea/caregivers-2026-video.mp4",
+        poster:
+          "https://res.cloudinary.com/dmyrmlj5z/video/upload/so_70,q_auto,f_jpg,w_1280/v1794179089/Nkrabea/caregivers-2026-video.jpg",
+        duration: "4 min 33 s",
+      },
+      note: "Report and footage: Angel TV. Shared here as coverage of Nkrabea's work. Captions are not yet available for this clip.",
+    },
     source: "Nkrabea programme announcement, November 2026",
   },
 ];
@@ -587,6 +635,8 @@ export type Photo = {
   caption?: string;
   /** Inline placeholder, attached in server components by withBlur(). */
   blur?: string;
+  /** "contain" for pictures that must be seen whole, such as a flyer. */
+  fit?: "cover" | "contain";
 };
 
 export const PHOTOS = {
@@ -767,6 +817,28 @@ export const PHOTOS = {
     caption: "Products made during the training",
   },
 
+  caregiversDrinksServing: {
+    src: cld("v1794179067/Nkrabea/caregivers-2026-drinks-serving.jpg"),
+    alt: "Two members of the Nkrabea team in branded T-shirts serving drinks from large calabashes with woven lids, labelled Sobolo and Lamugin, on a table covered in kente-print cloth.",
+    caption: "Sobolo and lamugin for the participants",
+  },
+  caregiversDrinksPouring: {
+    src: cld("v1794179068/Nkrabea/caregivers-2026-drinks-pouring.jpg"),
+    alt: "A member of the Nkrabea team in a green T-shirt ladling a drink from a calabash into a cup, beside calabashes labelled Lamugin and Sobolo.",
+    caption: "Local drinks, served from calabashes",
+  },
+  caregiversLunch: {
+    src: cld("v1794179069/Nkrabea/caregivers-2026-lunch.jpg"),
+    alt: "Packed lunches in brown paper bags stacked on a table covered in kente-print cloth, beside calabashes and a bag of drinking water sachets.",
+    caption: "Packed lunches for the participants",
+  },
+  caregiversFlyer: {
+    src: cld("v1794179070/Nkrabea/caregivers-2026-flyer.jpg"),
+    alt: "Flyer for the programme, bordered in kente pattern: 3-days skills development program for caregivers at Ayawaso North Municipal Assembly. Main skills: liquid soap making, shower gel making, and powder soap making (Powder Zone). 5th to 7th November, at Ayawaso North Municipal Assembly, 9:00 AM daily. Organized by Nkrabea Culture and Arts Ensemble LBG. For more information and registration call 0302 986 038 or 0208 522 120.",
+    caption: "The programme flyer",
+    fit: "contain",
+  },
+
   /* ------------------------------------------------------------- artworks */
   exhibition: {
     src: "/images/social/fb-3.jpg",
@@ -921,4 +993,10 @@ STORIES[0].photos = [
   PHOTOS.caregiversDemo,
   PHOTOS.caregiversProducts,
   PHOTOS.caregiversStirring,
+];
+STORIES[0].moments = [
+  PHOTOS.caregiversDrinksServing,
+  PHOTOS.caregiversDrinksPouring,
+  PHOTOS.caregiversLunch,
+  PHOTOS.caregiversFlyer,
 ];

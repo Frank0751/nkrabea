@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, PlayCircle } from "lucide-react";
 import { Reveal, RevealGroup } from "./reveal";
 import { PhotoFigure } from "./photo";
 import type { Story } from "@/lib/content";
@@ -95,16 +95,27 @@ export function StoryFeature({
               </div>
             )}
 
-            <Link
-              href={`/news#${story.id}`}
-              className="group mt-8 inline-flex items-center self-start py-1 text-sm font-semibold text-accent underline-offset-4 hover:underline"
-            >
-              Read the full story
-              <ArrowRight
-                className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-0.5"
-                aria-hidden="true"
-              />
-            </Link>
+            <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3">
+              <Link
+                href={`/news#${story.id}`}
+                className="group inline-flex items-center py-1 text-sm font-semibold text-accent underline-offset-4 hover:underline"
+              >
+                Read the full story
+                <ArrowRight
+                  className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-0.5"
+                  aria-hidden="true"
+                />
+              </Link>
+              {story.press && (
+                <Link
+                  href={`/news#${story.id}-press`}
+                  className="group inline-flex items-center gap-2 py-1 text-sm text-band-foreground/85 underline-offset-4 hover:text-band-foreground hover:underline"
+                >
+                  <PlayCircle className="h-4 w-4 text-accent" aria-hidden="true" />
+                  Featured on {story.press.outlet}
+                </Link>
+              )}
+            </div>
           </Reveal>
         </div>
       </div>
@@ -199,6 +210,76 @@ export function StoryArticle({ story }: { story: Story }) {
             </li>
           ))}
         </RevealGroup>
+      )}
+
+      {story.press && (
+        <section
+          id={`${story.id}-press`}
+          aria-labelledby={`${story.id}-press-title`}
+          className="mt-16 scroll-mt-24 rounded-2xl bg-band p-6 text-band-foreground sm:p-8 lg:p-10"
+        >
+          <div className="grid gap-8 lg:grid-cols-12 lg:gap-10">
+            <div className="lg:col-span-4">
+              <p className="label-mono text-accent">In the news</p>
+              <div className="section-mark mt-4" aria-hidden="true" />
+              <h3
+                id={`${story.id}-press-title`}
+                className="mt-5 font-display text-sub"
+              >
+                {story.press.headline}
+              </h3>
+              <p className="label-mono mt-4 text-band-foreground/75">
+                {story.press.outlet}
+                <span aria-hidden="true"> / </span>
+                {story.press.date}
+                <span aria-hidden="true"> / </span>
+                {story.press.video.duration}
+              </p>
+              <p className="mt-5 text-sm leading-relaxed text-band-foreground/75">
+                {story.press.note}
+              </p>
+            </div>
+            <div className="lg:col-span-8">
+              {/* Nothing downloads until the visitor presses play: the
+                  report is 18 MB, too heavy to fetch for everyone. */}
+              <video
+                controls
+                preload="none"
+                playsInline
+                poster={story.press.video.poster}
+                className="aspect-video w-full rounded-xl bg-black"
+                aria-label={`${story.press.outlet} report: ${story.press.headline}`}
+              >
+                <source src={story.press.video.src} type="video/mp4" />
+                Your browser cannot play this video.
+              </video>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {story.moments && story.moments.length > 0 && (
+        <div className="mt-16">
+          <h3 className="font-display text-lg text-foreground">
+            More from the three days
+          </h3>
+          <RevealGroup
+            as="ul"
+            className="mt-6 grid grid-cols-2 gap-5 lg:grid-cols-4"
+          >
+            {story.moments.map((photo) => (
+              <li key={photo.src}>
+                <PhotoFigure
+                  photo={photo}
+                  ratio="4/5"
+                  fit={photo.fit ?? "cover"}
+                  sizes="(max-width: 1024px) 50vw, 25vw"
+                  caption={photo.caption}
+                />
+              </li>
+            ))}
+          </RevealGroup>
+        </div>
       )}
     </article>
   );

@@ -118,7 +118,34 @@ export default function NewsPage() {
             />
           </Reveal>
 
-          {PRESS.length === 0 && (
+          {PRESS.length > 0 ? (
+            <Reveal delay={140} className="mt-20">
+              <SectionEyebrow>Press</SectionEyebrow>
+              <ul className="mt-6 divide-y divide-border overflow-hidden rounded-2xl border border-border bg-card">
+                {PRESS.map((item) => (
+                  <li
+                    key={`${item.name}-${item.date}`}
+                    className="flex flex-col gap-2 p-5 sm:flex-row sm:items-baseline sm:gap-6 sm:p-6"
+                  >
+                    <span className="font-display text-lg text-foreground sm:w-40 sm:shrink-0">
+                      {item.name}
+                    </span>
+                    <span className="flex-1 text-sm leading-relaxed text-muted-foreground">
+                      {item.context}, {item.date}.
+                    </span>
+                    {item.href && (
+                      <Link
+                        href={item.href}
+                        className="text-sm font-semibold text-primary underline-offset-4 hover:underline"
+                      >
+                        See the coverage
+                      </Link>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
+          ) : (
             <Reveal delay={140}>
               <p className="mx-auto mt-12 max-w-2xl text-center text-xs leading-relaxed text-muted-foreground">
                 Press mentions and partner logos will appear here once each
