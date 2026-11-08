@@ -10,6 +10,7 @@ import { ProofBar } from "@/components/site/proof-bar";
 import { DataBand, RegionChips } from "@/components/site/figures";
 import { PhotoFigure, PhotoBreak } from "@/components/site/photo";
 import { WhoWeServe } from "@/components/site/who-we-serve";
+import { StoryFeature } from "@/components/site/story";
 import {
   PROGRAMMES,
   STRATEGIC_FOCUS,
@@ -18,6 +19,7 @@ import {
   PROGRAMME_FIGURES,
   PHOTOS,
   IDENTITY,
+  STORIES,
 } from "@/lib/content";
 
 const FOCUS_ICONS = {
@@ -91,6 +93,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {STORIES[0] && <StoryFeature story={STORIES[0]} />}
 
       <WhoWeServe />
 

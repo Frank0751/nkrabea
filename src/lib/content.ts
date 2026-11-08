@@ -301,6 +301,12 @@ export type Figure = {
 
 export const FIGURES: Figure[] = [
   {
+    value: "5",
+    label: "Caregivers of persons with disabilities trained in Ayawaso North",
+    kind: "achieved",
+    source: "Skills Development Programme, 5 to 7 November 2026",
+  },
+  {
     value: "2021",
     label: "Incorporated under Act 992",
     kind: "fact",
@@ -480,20 +486,67 @@ export type PressItem = { name: string; context: string };
 export const PRESS: PressItem[] = [];
 
 export type Story = {
+  /** Also the anchor on the news page: /news#id. */
   id: string;
   category: string;
   title: string;
-  excerpt: string;
+  /** As it should read, e.g. "5 to 7 November 2026". */
   date: string;
-  readTime: string;
-  image: string;
+  /** ISO date of the first day, for <time>. */
+  isoDate: string;
+  place: string;
+  excerpt: string;
+  body: string[];
+  /** What participants learnt, when the story is a training. */
+  learnt?: string[];
+  thanks?: string;
+  /** First photograph leads; the rest follow on the news page. */
+  photos: Photo[];
+  source: string;
 };
 
-export const STORIES: Story[] = [];
+/**
+ * Newest first. Each story comes from Nkrabea's own account of the event,
+ * with its photographs supplied by them.
+ *
+ * Ayawaso North, November 2026: from Nkrabea's post-event announcement. Two
+ * points were reconciled against other sources. Ms. Asamoah is described as
+ * Co-Founder, matching LEADERSHIP, where the announcement said "Founder".
+ * The venue is the ECG Vocational Training Institute, per the announcement;
+ * the earlier flyer gave the Municipal Assembly. The third product is given
+ * as the announcement named it.
+ */
+export const STORIES: Story[] = [
+  {
+    id: "caregivers-ayawaso-north-2026",
+    category: "Programme update",
+    title: "Five caregivers trained in Ayawaso North",
+    date: "5 to 7 November 2026",
+    isoDate: "2026-11-05",
+    place: "ECG Vocational Training Institute, Ayawaso North, Accra",
+    excerpt:
+      "A three-day skills programme for caregivers of persons with disabilities, run in partnership with the DFMC of Ayawaso North Municipal Assembly, has ended with five caregivers trained.",
+    body: [
+      "Nkrabea's three-day Skills Development Programme for caregivers of persons with disabilities ran from 5 to 7 November 2026 at the ECG Vocational Training Institute in Ayawaso North, Accra.",
+      "It was led by Ms. Sarah Serwaa Asamoah, Co-Founder and Executive Director, in partnership with the DFMC of Ayawaso North Municipal Assembly. Five caregivers took part, and because the group was small, every one of them had full hands-on practice.",
+    ],
+    learnt: ["Liquid soap", "Shower gel", "Powerzone (Parazone)"],
+    thanks:
+      "Nkrabea thanks the Department of Social Welfare and Community Development and the DFMC for their support and collaboration.",
+    photos: [], // filled below, once PHOTOS exists
+    source: "Nkrabea programme announcement, November 2026",
+  },
+];
 
 export type Milestone = { year: string; title: string; description: string };
 
 export const MILESTONES: Milestone[] = [
+  {
+    year: "2026",
+    title: "First caregivers trained",
+    description:
+      "Five caregivers of persons with disabilities completed a three-day skills programme in Ayawaso North, Accra, in partnership with the DFMC of Ayawaso North Municipal Assembly.",
+  },
   {
     year: "2021",
     title: "Incorporated as an NGO",
@@ -523,8 +576,9 @@ export const MILESTONES: Milestone[] = [
    about it.
 
    Two absences are deliberate. No caption carries an event name, place or
-   date, because Nkrabea has not supplied them. No person is named except
-   where Nkrabea has identified them: the Executive Director, and nobody else.
+   date unless Nkrabea has supplied them (so far only for the Ayawaso North
+   training). No person is named except where Nkrabea has identified them:
+   the Executive Director, and nobody else.
    --------------------------------------------------------------------------- */
 
 export type Photo = {
@@ -691,6 +745,28 @@ export const PHOTOS = {
     caption: "Watching a performance",
   },
 
+  /* ------------------------- caregiver training, Ayawaso North, Nov 2026 */
+  caregiversGroup: {
+    src: cld("v1794139627/Nkrabea/caregivers-2026-group.jpg"),
+    alt: "Participants and members of the Nkrabea team standing together in a hall in front of a Nkrabea Culture and Arts Ensemble banner and a painted mural. Several wear green or red Nkrabea T-shirts, and one man holds a white cane.",
+    caption: "Participants and the Nkrabea team, Ayawaso North, November 2026",
+  },
+  caregiversDemo: {
+    src: cld("v1794139627/Nkrabea/caregivers-2026-demo.jpg"),
+    alt: "A woman seated on a low stool stirring a mixture in a large black basin with a wooden paddle, while a man in a yellow T-shirt explains and participants and Nkrabea team members gather round to watch.",
+    caption: "A hands-on soap-making demonstration",
+  },
+  caregiversStirring: {
+    src: cld("v1794139628/Nkrabea/caregivers-2026-stirring.jpg"),
+    alt: "Participants standing in a circle around a black basin as one of them stirs the mixture, with the Nkrabea banner and stacked chairs behind them.",
+    caption: "Hands-on practice around the mixing basin",
+  },
+  caregiversProducts: {
+    src: cld("v1794139629/Nkrabea/caregivers-2026-products.jpg"),
+    alt: "Four women and a man holding a white cane standing behind a table lined with filled white bottles, in front of the Nkrabea banner.",
+    caption: "Products made during the training",
+  },
+
   /* ------------------------------------------------------------- artworks */
   exhibition: {
     src: "/images/social/fb-3.jpg",
@@ -836,4 +912,13 @@ export const ART_FORMS: ArtForm[] = [
     name: "Drumming and dance",
     note: "Taught to 50 students using vibrotactile technology so Deaf and hard-of-hearing learners can feel and perform rhythm.",
   },
+];
+
+/* Photographs for STORIES, attached here because PHOTOS is declared after
+   STORIES in this file. */
+STORIES[0].photos = [
+  PHOTOS.caregiversGroup,
+  PHOTOS.caregiversDemo,
+  PHOTOS.caregiversProducts,
+  PHOTOS.caregiversStirring,
 ];

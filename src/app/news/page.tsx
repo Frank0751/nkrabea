@@ -6,6 +6,7 @@ import { SectionEyebrow } from "@/components/site/section-eyebrow";
 import { Reveal } from "@/components/site/reveal";
 import { NewsletterForm } from "@/components/site/newsletter-form";
 import { PhotoStrip } from "@/components/site/photo";
+import { StoryArticle } from "@/components/site/story";
 import { EVENTS, STORIES, PRESS, HERO_PHOTOS, PHOTOS } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -15,21 +16,29 @@ export const metadata: Metadata = {
 };
 
 export default function NewsPage() {
-  const hasContent =
-    EVENTS.length > 0 || STORIES.length > 0 || PRESS.length > 0;
-
   return (
     <>
       <PageHero
         eyebrow="News and events"
-        title="What is coming up"
-        description="Showcases, programme milestones and press."
+        title="News from the work"
+        description="Programme updates, showcases and press."
         photo={HERO_PHOTOS.news}
         crumbs={[{ label: "News" }]}
       />
 
       <section data-rhythm-node className="py-20 lg:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          {STORIES.length > 0 && (
+            <div className="mb-24 space-y-24">
+              <Reveal className="max-w-2xl">
+                <SectionEyebrow>Programme updates</SectionEyebrow>
+              </Reveal>
+              {STORIES.map((story) => (
+                <StoryArticle key={story.id} story={story} />
+              ))}
+            </div>
+          )}
+
           {EVENTS.length > 0 ? (
             <>
               <Reveal className="max-w-2xl">
@@ -109,7 +118,7 @@ export default function NewsPage() {
             />
           </Reveal>
 
-          {!hasContent && (
+          {PRESS.length === 0 && (
             <Reveal delay={140}>
               <p className="mx-auto mt-12 max-w-2xl text-center text-xs leading-relaxed text-muted-foreground">
                 Press mentions and partner logos will appear here once each

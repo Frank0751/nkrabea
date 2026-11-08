@@ -7,9 +7,11 @@ import { CountUp } from "@/components/site/count-up";
 import { Gallery } from "@/components/site/gallery";
 import { CtaBand } from "@/components/site/cta-band";
 import { DataBand, StageBars, RegionChips } from "@/components/site/figures";
+import { StoryFeature } from "@/components/site/story";
 import { withBlur } from "@/lib/blur";
 import {
   FIGURES,
+  STORIES,
   MILESTONES,
   TESTIMONIALS,
   HERO_PHOTOS,
@@ -34,24 +36,32 @@ export default function ImpactPage() {
         crumbs={[{ label: "Impact" }]}
       />
 
+      {STORIES[0] && (
+        <StoryFeature story={STORIES[0]} eyebrow="Latest result" />
+      )}
+
       {/* Figures */}
       <section data-rhythm-node className="py-20 lg:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="max-w-2xl">
             <SectionEyebrow>By the numbers</SectionEyebrow>
             <h2 className="mt-5 font-display text-section text-foreground">
-              Targets and facts, labelled as such
+              Results, targets and facts, labelled as such
             </h2>
           </Reveal>
 
-          <RevealGroup className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {/* Five cards: the achieved result spans both columns on a
+              tablet so no card is left alone on the last row. */}
+          <RevealGroup className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
             {FIGURES.map((figure) => {
               const numeric = parseInt(figure.value, 10);
               const isNumber = !Number.isNaN(numeric) && figure.kind !== "fact";
               return (
                 <div
                   key={figure.label}
-                  className="spotlight-card card-lift rounded-2xl border border-border bg-card p-6"
+                  className={`spotlight-card card-lift rounded-2xl border border-border bg-card p-6 ${
+                    figure.kind === "achieved" ? "sm:col-span-2 lg:col-span-1" : ""
+                  }`}
                 >
                   <p className="font-display text-4xl leading-none tracking-tight text-foreground">
                     {isNumber ? <CountUp value={numeric} /> : figure.value}
