@@ -541,12 +541,12 @@ export type StoryPress = {
  * Newest first. Each story comes from Nkrabea's own account of the event,
  * with its photographs supplied by them.
  *
- * Ayawaso North, November 2026: from Nkrabea's post-event announcement. Two
- * points were reconciled against other sources. Ms. Asamoah is described as
- * Co-Founder, matching LEADERSHIP, where the announcement said "Founder".
+ * Ayawaso North, November 2026: from Nkrabea's post-event announcement, with
+ * three points confirmed by Nkrabea on 9 November 2026. Ms. Asamoah is
+ * Co-Founder (the announcement said "Founder"), the third product is
+ * Powerzone, and the Angel TV footage was given to Nkrabea by the station.
  * The venue is the ECG Vocational Training Institute, per the announcement;
- * the earlier flyer gave the Municipal Assembly. The third product is given
- * as the announcement named it.
+ * the earlier flyer gave the Municipal Assembly.
  */
 export const STORIES: Story[] = [
   {
@@ -562,7 +562,7 @@ export const STORIES: Story[] = [
       "Nkrabea's three-day Skills Development Programme for caregivers of persons with disabilities ran from 5 to 7 November 2026 at the ECG Vocational Training Institute in Ayawaso North, Accra.",
       "It was led by Ms. Sarah Serwaa Asamoah, Co-Founder and Executive Director, in partnership with the DFMC of Ayawaso North Municipal Assembly. Five caregivers took part, and because the group was small, every one of them had full hands-on practice.",
     ],
-    learnt: ["Liquid soap", "Shower gel", "Powerzone (Parazone)"],
+    learnt: ["Liquid soap", "Shower gel", "Powerzone"],
     thanks:
       "Nkrabea thanks the Department of Social Welfare and Community Development and the DFMC for their support and collaboration.",
     photos: [], // filled below, once PHOTOS exists
@@ -572,15 +572,14 @@ export const STORIES: Story[] = [
         "\u201cWe want them to feel they belong\u201d: Ayawaso North organises programme for persons with disabilities",
       date: "November 2026",
       video: {
-        // Nkrabea's copy of the broadcast, held in their Cloudinary library.
-        // q_auto,vc_auto halves the 35 MB original. No official upload by
-        // the station could be found to embed instead.
+        // The station gave Nkrabea this footage; it is held in their
+        // Cloudinary library. q_auto,vc_auto halves the 35 MB original.
         src: "https://res.cloudinary.com/dmyrmlj5z/video/upload/q_auto,vc_auto/v1794179089/Nkrabea/caregivers-2026-video.mp4",
         poster:
           "https://res.cloudinary.com/dmyrmlj5z/video/upload/so_70,q_auto,f_jpg,w_1280/v1794179089/Nkrabea/caregivers-2026-video.jpg",
         duration: "4 min 33 s",
       },
-      note: "Report and footage: Angel TV. Shared here as coverage of Nkrabea's work. Captions are not yet available for this clip.",
+      note: "Report and footage: Angel TV, shared with Nkrabea by the station. Captions are not yet available for this clip.",
     },
     source: "Nkrabea programme announcement, November 2026",
   },
