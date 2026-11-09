@@ -146,7 +146,7 @@ export const FOUNDERS: Person[] = [
   },
   {
     name: "Ms. Sarah Serwaa Asamoah",
-    role: "Co-Founder, Board Member and Executive Director",
+    role: "Founder, Board Member and Executive Director",
     bio: "An entrepreneur and philanthropist. She corresponds on behalf of the Board and the Management Team.",
     // Cropped to the face by Cloudinary rather than by CSS, so the portrait
     // holds up in a round frame at any size.
@@ -543,7 +543,7 @@ export type StoryPress = {
  *
  * Ayawaso North, November 2026: from Nkrabea's post-event announcement, with
  * three points confirmed by Nkrabea on 9 November 2026. Ms. Asamoah is
- * Co-Founder (the announcement said "Founder"), the third product is
+ * Founder (Nkrabea's instruction, matching the announcement), the third product is
  * Powerzone, and the Angel TV footage was given to Nkrabea by the station.
  * The venue is the ECG Vocational Training Institute, per the announcement;
  * the earlier flyer gave the Municipal Assembly.
@@ -560,7 +560,7 @@ export const STORIES: Story[] = [
       "A three-day skills programme for caregivers of persons with disabilities, run in partnership with the DFMC of Ayawaso North Municipal Assembly, has ended with five caregivers trained.",
     body: [
       "Nkrabea's three-day Skills Development Programme for caregivers of persons with disabilities ran from 5 to 7 November 2026 at the ECG Vocational Training Institute in Ayawaso North, Accra.",
-      "It was led by Ms. Sarah Serwaa Asamoah, Co-Founder and Executive Director, in partnership with the DFMC of Ayawaso North Municipal Assembly. Five caregivers took part, and because the group was small, every one of them had full hands-on practice.",
+      "It was led by Ms. Sarah Serwaa Asamoah, Founder and Executive Director, in partnership with the DFMC of Ayawaso North Municipal Assembly. Five caregivers took part, and because the group was small, every one of them had full hands-on practice.",
     ],
     learnt: ["Liquid soap", "Shower gel", "Powerzone"],
     thanks:
