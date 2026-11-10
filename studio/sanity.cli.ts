@@ -5,5 +5,5 @@ export default defineCliConfig({
   // Hosted free by Sanity at https://nkrabea.sanity.studio
   studioHost: "nkrabea",
   // Bug fixes and new Studio features arrive without a redeploy.
-  deployment: { autoUpdates: true },
+  deployment: { appId: "jg9n6sqhauzbcwtx9zi0t4jc", autoUpdates: true },
 });
