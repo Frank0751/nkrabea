@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Target, Users, HeartHandshake } from "lucide-react";
 import { Hero } from "@/components/site/hero";
@@ -13,6 +14,10 @@ import { WhoWeServe } from "@/components/site/who-we-serve";
 import { StoryFeature } from "@/components/site/story";
 import { PROGRAMME_FIGURES, PHOTOS } from "@/lib/content";
 import { getSiteContent } from "@/lib/site-content";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 /** Check Sanity for edits at most once a minute. */
 export const revalidate = 60;

@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/accordion";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/contact" },
   title: "Contact",
   description:
     "Contact Nkrabea Culture and Arts Ensemble LBG in Adentan Municipal, Greater Accra.",

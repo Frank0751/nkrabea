@@ -16,6 +16,7 @@ import { getSiteContent } from "@/lib/site-content";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/impact" },
   title: "Our Impact",
   description:
     "Programme targets, milestones and photography from Nkrabea Culture and Arts Ensemble.",

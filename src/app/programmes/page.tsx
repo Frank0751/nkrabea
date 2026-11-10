@@ -23,6 +23,7 @@ const ART_FORM_PHOTOS: Record<string, Photo> = {
 };
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/programmes" },
   title: "Our Work",
   description:
     "The programmes Nkrabea is running and raising funds for: skills development at Cape Coast School for the Deaf, accessible soap production for persons with disabilities, and a Culture and Arts Centre.",

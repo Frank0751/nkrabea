@@ -1,17 +1,15 @@
 /**
  * The public origin of the site.
  *
- * Nkrabea do not yet hold a domain, so this is resolved rather than hardcoded.
- *
  * Resolution order:
- *   1. NEXT_PUBLIC_SITE_URL, once the real domain is secured.
- *   2. The Vercel project's stable production domain.
- *   3. This specific Vercel deployment's URL.
- *   4. The intended domain, as a last resort.
+ *   1. NEXT_PUBLIC_SITE_URL, if set deliberately.
+ *   2. The real domain, for Vercel's production build.
+ *   3. This specific Vercel deployment's URL, for previews.
+ *   4. The real domain, as a last resort.
  *
- * Every candidate is validated, and anything blank or malformed is skipped.
- * `??` is deliberately not used: an environment variable that exists with an
- * empty value is a string, not null, so `??` passes "" straight through. That
+ * Every environment value is validated, and anything blank or malformed is
+ * skipped by toOrigin(): an environment variable that exists with an
+ * empty value is a string, not null, so `??` alone passes "" straight through. That
  * is exactly what broke the first Vercel build, where `new URL("")` threw
  * ERR_INVALID_URL while collecting page data.
  *
@@ -45,27 +43,34 @@ function toOrigin(value: string | undefined): string | undefined {
   }
 }
 
-const FALLBACK = "https://nkrabeacultureandarts.org";
+/** Nkrabea's domain, live since November 2026. */
+export const PRODUCTION_ORIGIN = "https://www.nkrabeacultureandarts.org";
 
 /** Explicitly configured origin, if there is one. */
 const CONFIGURED = toOrigin(process.env.NEXT_PUBLIC_SITE_URL);
 
+/**
+ * Vercel marks the build that serves the real domain as "production". Preview
+ * builds of branches are "preview" and stay out of search engines.
+ */
+const IS_PRODUCTION_BUILD = process.env.VERCEL_ENV === "production";
+
 export const SITE_URL =
   CONFIGURED ??
-  toOrigin(process.env.VERCEL_PROJECT_PRODUCTION_URL) ??
+  (IS_PRODUCTION_BUILD ? PRODUCTION_ORIGIN : undefined) ??
   toOrigin(process.env.VERCEL_URL) ??
-  FALLBACK;
+  PRODUCTION_ORIGIN;
 
 /**
- * True only when someone has deliberately set NEXT_PUBLIC_SITE_URL, which is
- * how we know we are serving the organisation's real public domain rather
- * than an auto-generated deployment URL.
+ * True for the production build (and for any build with NEXT_PUBLIC_SITE_URL
+ * set deliberately): search engines may index it, the sitemap is published,
+ * and every page names its address on www.nkrabeacultureandarts.org as
+ * canonical. Preview builds and local development stay noindex.
  *
- * Search engines are kept off everything else. A *.vercel.app staging copy
- * indexed today would compete with nkrabeacultureandarts.org later, and
- * duplicate content is a painful thing to unpick once it is in the index.
+ * nkrabea.vercel.app also serves the production build, so next.config.ts
+ * redirects it to the real domain; otherwise Google would find two copies.
  */
-export const IS_PUBLIC_SITE = CONFIGURED !== undefined;
+export const IS_PUBLIC_SITE = CONFIGURED !== undefined || IS_PRODUCTION_BUILD;
 
 /**
  * Every route, with the relative priority a search engine should give it.

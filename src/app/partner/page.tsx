@@ -11,6 +11,7 @@ import { getSiteContent } from "@/lib/site-content";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/partner" },
   title: "Partner With Us",
   description:
     "Nkrabea works with corporate sponsors, grant funders and institutional partners. Support is structured as strategic investment in Ghanaian communities.",

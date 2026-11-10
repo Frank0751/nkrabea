@@ -55,9 +55,6 @@ export const metadata: Metadata = {
     "Accra",
   ],
   authors: [{ name: ORG.legalName }],
-  alternates: {
-    canonical: "/",
-  },
   openGraph: {
     title: "Nkrabea Culture and Arts Ensemble",
     description:

@@ -64,6 +64,18 @@ const nextConfig: NextConfig = {
   // yet: the page loads Fontshare, Cloudinary and Web3Forms, and a policy that
   // is wrong breaks the site silently in some browsers. Add one deliberately,
   // tested, rather than by default.
+  // nkrabea.vercel.app serves the same production build. Send it to the
+  // real domain permanently so search engines see one site, not two.
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "nkrabea.vercel.app" }],
+        destination: "https://www.nkrabeacultureandarts.org/:path*",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {

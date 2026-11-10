@@ -12,6 +12,7 @@ import { getSiteContent } from "@/lib/site-content";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/about" },
   title: "About Us",
   description:
     "Nkrabea Culture and Arts Ensemble LBG is a registered Ghanaian NGO using culture and the creative arts as tools for socio-economic development.",

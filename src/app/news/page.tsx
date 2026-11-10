@@ -14,6 +14,7 @@ import { getSiteContent } from "@/lib/site-content";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/news" },
   title: "News & Events",
   description:
     "Updates, upcoming showcases and press mentions from Nkrabea Culture and Arts Ensemble.",

@@ -15,6 +15,7 @@ export const revalidate = 60;
 import { DONATIONS_ENABLED } from "@/lib/paystack";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/get-involved" },
   title: "Get Involved",
   description: DONATIONS_ENABLED
     ? "Donate to Nkrabea Culture and Arts Ensemble online by card or mobile money, or support the work by volunteering and in-kind giving."
