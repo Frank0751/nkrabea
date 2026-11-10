@@ -1,4 +1,4 @@
-import { ORG } from "@/lib/content";
+import { getSiteContent } from "@/lib/site-content";
 
 /**
  * Proof bar, koombei-studio-skill Part 4 section 2: credibility immediately
@@ -17,7 +17,8 @@ const PROOF = [
   { value: "National", label: "Area of operation" },
 ];
 
-export function ProofBar() {
+export async function ProofBar() {
+  const { org } = await getSiteContent();
   return (
     <section
       aria-label="Registration and governance"
@@ -43,9 +44,9 @@ export function ProofBar() {
           ))}
         </dl>
         <p className="sr-only">
-          {ORG.legalName} is a registered Ghanaian non-governmental
-          organisation, incorporated on {ORG.incorporated} under the{" "}
-          {ORG.registration}, operating nationally.
+          {org.legalName} is a registered Ghanaian non-governmental
+          organisation, incorporated on {org.incorporated} under the{" "}
+          {org.registration}, operating nationally.
         </p>
       </div>
     </section>

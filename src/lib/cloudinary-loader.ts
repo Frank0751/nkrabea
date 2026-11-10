@@ -19,5 +19,11 @@ import { withTransform } from "./cloudinary";
  * as static files.
  */
 export default function cloudinaryLoader({ src, width }: ImageLoaderProps): string {
+  // Photographs editors upload in Sanity come from Sanity's image CDN, which
+  // resizes and picks the format through query parameters.
+  if (src.startsWith("https://cdn.sanity.io/images/")) {
+    const sep = src.includes("?") ? "&" : "?";
+    return `${src}${sep}w=${width}&q=75&auto=format&fit=max`;
+  }
   return withTransform(src, `f_auto,q_auto,c_limit,w_${width}`);
 }

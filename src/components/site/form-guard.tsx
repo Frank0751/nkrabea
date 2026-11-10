@@ -1,16 +1,19 @@
+"use client";
+
 import { Info } from "lucide-react";
 import {
   FORMS_ENABLED,
   HONEYPOT_FIELD,
   unavailableMessage,
 } from "@/lib/web3forms";
-import { ORG } from "@/lib/content";
+import { useOrg } from "./site-content-context";
 
 /**
  * Shown above a form only when the site has no Web3Forms key, so nobody types
  * a message into a form that cannot send it.
  */
 export function FormUnavailable() {
+  const org = useOrg();
   if (FORMS_ENABLED) return null;
   return (
     <p
@@ -18,7 +21,7 @@ export function FormUnavailable() {
       className="mb-5 flex items-start gap-3 rounded-xl border border-border bg-muted/60 p-4 text-sm leading-relaxed text-muted-foreground"
     >
       <Info className="mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
-      <span>{unavailableMessage(ORG.email)}</span>
+      <span>{unavailableMessage(org.email)}</span>
     </p>
   );
 }

@@ -10,14 +10,11 @@ import {
   ProcessSteps,
 } from "@/components/site/figures";
 import { PhotoFigure, PhotoBreak } from "@/components/site/photo";
-import {
-  PROGRAMMES,
-  ART_FORMS,
-  HERO_PHOTOS,
-  PROGRAMME_FIGURES,
-  PHOTOS,
-  type Photo,
-} from "@/lib/content";
+import { ART_FORMS, PROGRAMME_FIGURES, PHOTOS, type Photo } from "@/lib/content";
+import { getSiteContent } from "@/lib/site-content";
+
+/** Check Sanity for edits at most once a minute. */
+export const revalidate = 60;
 
 /** The picture of each craft, from Nkrabea's own library. */
 const ART_FORM_PHOTOS: Record<string, Photo> = {
@@ -37,21 +34,19 @@ const STATUS_LABEL = {
   vision: "Long-term vision",
 } as const;
 
-export default function ProgrammesPage() {
+export default async function ProgrammesPage() {
+  const c = await getSiteContent();
   return (
     <>
       <PageHero
-        eyebrow="Our work"
-        title="Programmes with a measurable end"
-        description="Nkrabea is currently running and raising funds for the following initiatives."
-        photo={HERO_PHOTOS.programmes}
+        {...c.heroes.programmes}
         crumbs={[{ label: "Our Work" }]}
       />
 
       <section data-rhythm-node className="py-20 lg:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="space-y-16 lg:space-y-24">
-            {PROGRAMMES.map((programme, index) => (
+            {c.programmes.map((programme, index) => (
               <Reveal key={programme.id}>
                 <article className="grid gap-8 lg:grid-cols-12 lg:gap-12">
                   <div className="lg:col-span-4">

@@ -27,11 +27,51 @@ npm run check:contrast # palette contrast only
 npm run check:fonts   # the Fontshare URLs still resolve
 npm run images:blur   # regenerate inline placeholders after adding photographs
 npm run images:warm   # pre-generate every Cloudinary size
+npm run cms:import    # copy content.ts into Sanity (never overwrites; needs SANITY_API_WRITE_TOKEN)
+cd studio && npm run dev     # the Sanity Studio on :3333
+cd studio && npm run deploy  # publish the Studio to https://nkrabea.sanity.studio
 ```
+
+## Content management (Sanity)
+
+Nkrabea edit the site in **Sanity Studio**, hosted free at
+https://nkrabea.sanity.studio (project `31l59nsi`, dataset `production`,
+public). The Studio is a separate app in `studio/` with its own
+`package.json`; the website never imports from it, and it is excluded from
+the website's typecheck and lint.
+
+- **Pages read `getSiteContent()`** (`src/lib/site-content.ts`), never the
+  content constants directly, for anything editable. One GROQ query, cached by
+  React per request and by Next for 60 seconds; every page exports
+  `revalidate = 60`, so an edit is live within about a minute.
+- **Client components** (header, forms) read contact details and programmes
+  through `useOrg()` / `useProgrammes()` from `site-content-context.tsx`,
+  filled by the root layout.
+- **`content.ts` is the fallback and the import source.** The site shows it
+  until the `siteSettings` document exists, and whenever Sanity cannot be
+  reached. Once Sanity has content it is the source of truth for every list:
+  an empty list in Sanity renders empty, it is not refilled from content.ts.
+- `npm run cms:import` copies content.ts into Sanity. It never overwrites:
+  singletons use createIfNotExists and collections are skipped once Sanity has
+  any document of that type.
+- **Editable:** site settings, every page banner, the home headline and photo
+  reel, About, Leadership, programmes, figures, milestones, gallery, stories,
+  events, press, testimonials and FAQs. **Not editable, by design:** section
+  headings and layout, the charts (`PROGRAMME_FIGURES`), audiences, art forms,
+  the logo, and `NEEDS_EVIDENCE`.
+- The Studio uses only Free-plan features. On Free the only roles are
+  Administrator and Viewer, so **invite editors as Administrators**; Editors
+  are turned into Viewers when the trial ends.
+- Photos: uploads come from `cdn.sanity.io` and are sized by the image loader;
+  imported photos keep their Cloudinary link in the photo's `url` field. The
+  editor's hotspot becomes `Photo.position`. Video never goes into Sanity:
+  a story's video is a Cloudinary link in its "In the news" fields.
+- Schema rules carry the honesty rules: every figure must have a kind and a
+  source, and every photo a description.
 
 ## Content rules
 
-**`src/lib/content.ts` is the single source of truth**, and it is organised
+**`src/lib/content.ts` is the default content**, and it is organised
 around a hard rule: nothing reaches the site that Nkrabea cannot evidence.
 
 - The `CONFIRMED` section comes verbatim from Nkrabea's own organisational

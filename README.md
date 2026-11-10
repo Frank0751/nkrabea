@@ -57,6 +57,19 @@ took over delivery, because a serverless filesystem loses a SQLite file on
 every deployment. The forms never report success for a message that did not
 go.
 
+### Content management
+
+Nkrabea edit the site in Sanity Studio at https://nkrabea.sanity.studio. The
+Studio lives in `studio/` as a separate app. Edits appear on the site within
+about a minute. If Sanity is ever unreachable, the site shows its built-in
+content from `src/lib/content.ts` instead of failing.
+
+```bash
+npm run cms:import            # one-off: copy the built-in content into Sanity
+cd studio && npm run dev      # run the Studio locally on :3333
+cd studio && npm run deploy   # publish the Studio (needs: npx sanity login)
+```
+
 ### Donations
 
 The Get involved page takes online donations by card or mobile money through

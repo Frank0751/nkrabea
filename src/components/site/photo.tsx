@@ -69,7 +69,11 @@ export function PhotoFigure({
           placeholder={p.blur ? "blur" : "empty"}
           blurDataURL={p.blur}
           className={`photo-tone ${fit === "contain" ? "object-contain" : "object-cover"}`}
-          style={position ? { objectPosition: position } : undefined}
+          style={
+            position ?? p.position
+              ? { objectPosition: position ?? p.position }
+              : undefined
+          }
         />
         <div className="photo-grade absolute inset-0" aria-hidden="true" />
       </div>

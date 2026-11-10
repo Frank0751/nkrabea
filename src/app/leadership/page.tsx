@@ -5,15 +5,11 @@ import { SectionEyebrow } from "@/components/site/section-eyebrow";
 import { Reveal, RevealGroup } from "@/components/site/reveal";
 import { CtaBand } from "@/components/site/cta-band";
 import { PhotoFigure } from "@/components/site/photo";
-import {
-  FOUNDERS,
-  BOARD,
-  MANAGEMENT_ROLES,
-  GOVERNANCE_NOTE,
-  HERO_PHOTOS,
-  PHOTOS,
-  type Person,
-} from "@/lib/content";
+import { PHOTOS, type Person } from "@/lib/content";
+import { getSiteContent } from "@/lib/site-content";
+
+/** Check Sanity for edits at most once a minute. */
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Leadership & Governance",
@@ -21,14 +17,12 @@ export const metadata: Metadata = {
     "Nkrabea is governed by an Executive Council supported by an eight member management team. Meet the founders and the Board of Directors.",
 };
 
-export default function LeadershipPage() {
+export default async function LeadershipPage() {
+  const c = await getSiteContent();
   return (
     <>
       <PageHero
-        eyebrow="Leadership and governance"
-        title="Who carries the responsibility"
-        description={GOVERNANCE_NOTE}
-        photo={HERO_PHOTOS.leadership}
+        {...c.heroes.leadership}
         crumbs={[{ label: "Leadership" }]}
       />
 
@@ -43,7 +37,7 @@ export default function LeadershipPage() {
           </Reveal>
 
           <RevealGroup className="mt-12 grid gap-6 lg:grid-cols-2">
-            {FOUNDERS.map((person) => (
+            {c.founders.map((person) => (
               <PersonCard key={person.name} person={person} featured />
             ))}
           </RevealGroup>
@@ -68,7 +62,7 @@ export default function LeadershipPage() {
           </Reveal>
 
           <RevealGroup className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {BOARD.map((person) => (
+            {c.board.map((person) => (
               <PersonCard key={person.name} person={person} />
             ))}
           </RevealGroup>
@@ -95,7 +89,7 @@ export default function LeadershipPage() {
                 fills exactly that height. */}
             <div className="lg:col-span-4">
               <RevealGroup as="ul" className="grid gap-3" stagger={0.05}>
-                {MANAGEMENT_ROLES.map((role) => (
+                {c.managementRoles.map((role) => (
                   <li
                     key={role}
                     className="rounded-xl border border-border bg-card px-5 py-4 text-sm font-medium text-foreground"

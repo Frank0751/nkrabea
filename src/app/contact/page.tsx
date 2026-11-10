@@ -5,7 +5,11 @@ import { SectionEyebrow } from "@/components/site/section-eyebrow";
 import { Reveal } from "@/components/site/reveal";
 import { ContactForm } from "@/components/site/contact-form";
 import { PhotoBreak } from "@/components/site/photo";
-import { FAQS, ORG, HERO_PHOTOS, PHOTOS } from "@/lib/content";
+import { PHOTOS } from "@/lib/content";
+import { getSiteContent } from "@/lib/site-content";
+
+/** Check Sanity for edits at most once a minute. */
+export const revalidate = 60;
 import {
   Accordion,
   AccordionContent,
@@ -19,14 +23,12 @@ export const metadata: Metadata = {
     "Contact Nkrabea Culture and Arts Ensemble LBG in Adentan Municipal, Greater Accra.",
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const c = await getSiteContent();
   return (
     <>
       <PageHero
-        eyebrow="Contact"
-        title="Talk to us"
-        description="Partnership, programme and media enquiries all reach the same team."
-        photo={HERO_PHOTOS.contact}
+        {...c.heroes.contact}
         crumbs={[{ label: "Contact" }]}
       />
 
@@ -52,7 +54,7 @@ export default function ContactPage() {
                         Head office
                       </dt>
                       <dd className="mt-2 text-sm leading-relaxed text-foreground">
-                        {ORG.headOffice}
+                        {c.org.headOffice}
                       </dd>
                     </div>
                   </div>
@@ -67,7 +69,7 @@ export default function ContactPage() {
                         Postal address
                       </dt>
                       <dd className="mt-2 text-sm leading-relaxed text-foreground">
-                        {ORG.postalAddress}
+                        {c.org.postalAddress}
                       </dd>
                     </div>
                   </div>
@@ -83,10 +85,10 @@ export default function ContactPage() {
                       </dt>
                       <dd className="mt-2 text-sm">
                         <a
-                          href={`mailto:${ORG.email}`}
+                          href={`mailto:${c.org.email}`}
                           className="inline-block py-1 text-foreground underline-offset-4 hover:text-primary hover:underline"
                         >
-                          {ORG.email}
+                          {c.org.email}
                         </a>
                       </dd>
                     </div>
@@ -102,7 +104,7 @@ export default function ContactPage() {
                         Telephone
                       </dt>
                       <dd className="mt-1 space-y-0.5">
-                        {ORG.phones.map((phone) => (
+                        {c.org.phones.map((phone) => (
                           <div key={phone}>
                             <a
                               href={`tel:${phone.replace(/[^\d+]/g, "")}`}
@@ -155,7 +157,7 @@ export default function ContactPage() {
             </h2>
 
             <Accordion type="single" collapsible className="mt-10">
-              {FAQS.map((faq, i) => (
+              {c.faqs.map((faq, i) => (
                 <AccordionItem key={faq.question} value={`item-${i}`}>
                   <AccordionTrigger className="text-left font-display text-base">
                     {faq.question}

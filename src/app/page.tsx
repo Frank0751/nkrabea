@@ -11,16 +11,11 @@ import { DataBand, RegionChips } from "@/components/site/figures";
 import { PhotoFigure, PhotoBreak } from "@/components/site/photo";
 import { WhoWeServe } from "@/components/site/who-we-serve";
 import { StoryFeature } from "@/components/site/story";
-import {
-  PROGRAMMES,
-  STRATEGIC_FOCUS,
-  FIGURES,
-  MISSION,
-  PROGRAMME_FIGURES,
-  PHOTOS,
-  IDENTITY,
-  STORIES,
-} from "@/lib/content";
+import { PROGRAMME_FIGURES, PHOTOS } from "@/lib/content";
+import { getSiteContent } from "@/lib/site-content";
+
+/** Check Sanity for edits at most once a minute. */
+export const revalidate = 60;
 
 const FOCUS_ICONS = {
   economic: Target,
@@ -28,8 +23,9 @@ const FOCUS_ICONS = {
   wellbeing: HeartHandshake,
 } as const;
 
-export default function HomePage() {
-  const headline = FIGURES.find((f) => f.value === "500");
+export default async function HomePage() {
+  const c = await getSiteContent();
+  const headline = c.figures.find((f) => f.value === "500");
 
   return (
     <>
@@ -65,12 +61,12 @@ export default function HomePage() {
               </Reveal>
               <Reveal delay={120} className="mt-8">
                 <p className="text-lg leading-relaxed text-foreground/90">
-                  {MISSION}
+                  {c.mission}
                 </p>
               </Reveal>
 
               <RevealGroup className="mt-10 grid gap-6 sm:grid-cols-3">
-                {STRATEGIC_FOCUS.map((focus) => {
+                {c.focus.map((focus) => {
                   const Icon =
                     FOCUS_ICONS[focus.id as keyof typeof FOCUS_ICONS] ?? Target;
                   return (
@@ -94,7 +90,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {STORIES[0] && <StoryFeature story={STORIES[0]} />}
+      {c.stories[0] && <StoryFeature story={c.stories[0]} />}
 
       <WhoWeServe />
 
@@ -124,7 +120,7 @@ export default function HomePage() {
           </Reveal>
 
           <RevealGroup className="mt-12 grid gap-6 lg:grid-cols-3">
-            {PROGRAMMES.map((programme) => (
+            {c.programmes.map((programme) => (
               <ProgrammeCard key={programme.id} programme={programme} />
             ))}
           </RevealGroup>
@@ -157,7 +153,7 @@ export default function HomePage() {
 
       <PhotoBreak
         photo={PHOTOS.fiveDancers}
-        quote={IDENTITY.whoWeAre[1]}
+        quote={c.identity.whoWeAre[1]}
         cite="From our organisational profile"
       />
 

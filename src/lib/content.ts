@@ -636,6 +636,8 @@ export type Photo = {
   blur?: string;
   /** "contain" for pictures that must be seen whole, such as a flyer. */
   fit?: "cover" | "contain";
+  /** CSS object-position, from the focal point an editor sets in Sanity. */
+  position?: string;
 };
 
 export const PHOTOS = {
@@ -999,3 +1001,90 @@ STORIES[0].moments = [
   PHOTOS.caregiversLunch,
   PHOTOS.caregiversFlyer,
 ];
+
+/* ---------------------------------------------------------------------------
+   Page heroes and the home headline.
+
+   These used to be written into each page file. They live here now so that
+   Sanity can import them and the site can fall back to them, which makes
+   this file the default for everything editors can change in the CMS.
+   --------------------------------------------------------------------------- */
+
+export type PageHeroContent = {
+  eyebrow: string;
+  title: string;
+  description?: string;
+  photo?: Photo;
+};
+
+export type HeroKey =
+  | "about"
+  | "programmes"
+  | "impact"
+  | "leadership"
+  | "partner"
+  | "getInvolved"
+  | "news"
+  | "contact";
+
+export const HOME_HERO = {
+  headline: "Ghanaian culture as a tool for",
+  highlight: "real change",
+  lead: IDENTITY.lead,
+};
+
+export const PAGE_HEROES: Record<HeroKey, PageHeroContent> = {
+  about: {
+    eyebrow: "About us",
+    title: "Nkrabea means destiny",
+    description: IDENTITY.lead,
+    photo: HERO_PHOTOS.about,
+  },
+  programmes: {
+    eyebrow: "Our work",
+    title: "Programmes with a measurable end",
+    description:
+      "Nkrabea is currently running and raising funds for the following initiatives.",
+    photo: HERO_PHOTOS.programmes,
+  },
+  impact: {
+    eyebrow: "Our impact",
+    title: "What we are set up to change",
+    description:
+      "The figures below state plainly whether each is a programme target or a result already achieved.",
+    photo: HERO_PHOTOS.impact,
+  },
+  leadership: {
+    eyebrow: "Leadership and governance",
+    title: "Who carries the responsibility",
+    description: GOVERNANCE_NOTE,
+    photo: HERO_PHOTOS.leadership,
+  },
+  partner: {
+    eyebrow: "Partner with us",
+    title: "Strategic investment, not charity",
+    description:
+      "We frame support as investment because that is what it is: capability built, livelihoods created, assets left behind.",
+    photo: HERO_PHOTOS.partner,
+  },
+  getInvolved: {
+    eyebrow: "Get involved",
+    title: "Ways to support the work",
+    description:
+      "Every contribution goes into programmes that build skills, livelihoods and dignity in Ghanaian communities.",
+    photo: HERO_PHOTOS.getInvolved,
+  },
+  news: {
+    eyebrow: "News and events",
+    title: "News from the work",
+    description: "Programme updates, showcases and press.",
+    photo: HERO_PHOTOS.news,
+  },
+  contact: {
+    eyebrow: "Contact",
+    title: "Talk to us",
+    description:
+      "Partnership, programme and media enquiries all reach the same team.",
+    photo: HERO_PHOTOS.contact,
+  },
+};

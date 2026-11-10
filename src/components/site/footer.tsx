@@ -2,7 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { NewsletterForm } from "./newsletter-form";
-import { ORG, LOGO } from "@/lib/content";
+import { LOGO } from "@/lib/content";
+import { getSiteContent } from "@/lib/site-content";
 
 const COLUMNS = [
   {
@@ -30,7 +31,8 @@ const COLUMNS = [
   },
 ];
 
-export function Footer() {
+export async function Footer() {
+  const { org } = await getSiteContent();
   const year = new Date().getFullYear();
 
   return (
@@ -53,9 +55,9 @@ export function Footer() {
               />
               <div>
                 <p className="font-display text-xl tracking-tight">
-                  {ORG.shortName}
+                  {org.shortName}
                 </p>
-                <p className="label-mono mt-1.5 text-accent">{ORG.motto}</p>
+                <p className="label-mono mt-1.5 text-accent">{org.motto}</p>
               </div>
             </div>
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-band-foreground/70">
@@ -70,7 +72,7 @@ export function Footer() {
                   aria-hidden="true"
                 />
                 <dd className="leading-relaxed text-band-foreground/70">
-                  {ORG.headOffice}
+                  {org.headOffice}
                 </dd>
               </div>
               <div className="flex gap-3">
@@ -80,10 +82,10 @@ export function Footer() {
                 />
                 <dd>
                   <a
-                    href={`mailto:${ORG.email}`}
+                    href={`mailto:${org.email}`}
                     className="inline-block py-1 text-band-foreground/70 underline-offset-4 hover:text-band-foreground hover:underline"
                   >
-                    {ORG.email}
+                    {org.email}
                   </a>
                 </dd>
               </div>
@@ -93,7 +95,7 @@ export function Footer() {
                   aria-hidden="true"
                 />
                 <dd className="space-y-1">
-                  {ORG.phones.slice(0, 2).map((phone) => (
+                  {org.phones.slice(0, 2).map((phone) => (
                     <div key={phone}>
                       <a
                         href={`tel:${phone.replace(/[^\d+]/g, "")}`}
@@ -147,11 +149,11 @@ export function Footer() {
 
         <div className="mt-14 flex flex-col gap-4 border-t border-band-foreground/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xs leading-relaxed text-band-foreground/50">
-            &copy; {year} {ORG.legalName}. Registered under the{" "}
-            {ORG.registration}. Incorporated {ORG.incorporated}.
+            &copy; {year} {org.legalName}. Registered under the{" "}
+            {org.registration}. Incorporated {org.incorporated}.
           </p>
           <p className="text-xs text-band-foreground/50">
-            {ORG.postalAddress}
+            {org.postalAddress}
           </p>
         </div>
       </div>

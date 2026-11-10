@@ -43,6 +43,7 @@ export function PageHero({
             placeholder={p.blur ? "blur" : "empty"}
             blurDataURL={p.blur}
             className="photo-tone object-cover"
+            style={p.position ? { objectPosition: p.position } : undefined}
           />
         )}
       </HeroBackdrop>

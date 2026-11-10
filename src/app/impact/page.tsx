@@ -9,15 +9,11 @@ import { CtaBand } from "@/components/site/cta-band";
 import { DataBand, StageBars, RegionChips } from "@/components/site/figures";
 import { StoryFeature } from "@/components/site/story";
 import { withBlur } from "@/lib/blur";
-import {
-  FIGURES,
-  STORIES,
-  MILESTONES,
-  TESTIMONIALS,
-  HERO_PHOTOS,
-  PROGRAMME_FIGURES,
-  GALLERY,
-} from "@/lib/content";
+import { PROGRAMME_FIGURES } from "@/lib/content";
+import { getSiteContent } from "@/lib/site-content";
+
+/** Check Sanity for edits at most once a minute. */
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Our Impact",
@@ -25,19 +21,17 @@ export const metadata: Metadata = {
     "Programme targets, milestones and photography from Nkrabea Culture and Arts Ensemble.",
 };
 
-export default function ImpactPage() {
+export default async function ImpactPage() {
+  const c = await getSiteContent();
   return (
     <>
       <PageHero
-        eyebrow="Our impact"
-        title="What we are set up to change"
-        description="The figures below state plainly whether each is a programme target or a result already achieved."
-        photo={HERO_PHOTOS.impact}
+        {...c.heroes.impact}
         crumbs={[{ label: "Impact" }]}
       />
 
-      {STORIES[0] && (
-        <StoryFeature story={STORIES[0]} eyebrow="Latest result" />
+      {c.stories[0] && (
+        <StoryFeature story={c.stories[0]} eyebrow="Latest result" />
       )}
 
       {/* Figures */}
@@ -53,7 +47,7 @@ export default function ImpactPage() {
           {/* Five cards: the achieved result spans both columns on a
               tablet so no card is left alone on the last row. */}
           <RevealGroup className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
-            {FIGURES.map((figure) => {
+            {c.figures.map((figure) => {
               const numeric = parseInt(figure.value, 10);
               const isNumber = !Number.isNaN(numeric) && figure.kind !== "fact";
               return (
@@ -148,7 +142,7 @@ export default function ImpactPage() {
           </Reveal>
 
           <RevealGroup as="ol" className="mt-12 space-y-6">
-            {MILESTONES.map((milestone) => (
+            {c.milestones.map((milestone) => (
               <li
                 key={milestone.year}
                 className="flex flex-col gap-4 rounded-2xl border border-border bg-card p-6 sm:flex-row sm:gap-8 sm:p-7"
@@ -188,13 +182,13 @@ export default function ImpactPage() {
           </Reveal>
 
           <div className="mt-12">
-            <Gallery items={GALLERY.map(withBlur)} />
+            <Gallery items={c.gallery.map(withBlur)} />
           </div>
         </div>
       </section>
 
       {/* Testimonials, only when real ones exist */}
-      {TESTIMONIALS.length > 0 && (
+      {c.testimonials.length > 0 && (
         <section
           data-rhythm-node
           className="bg-sand py-20 lg:py-28"
@@ -204,7 +198,7 @@ export default function ImpactPage() {
               <SectionEyebrow>In their words</SectionEyebrow>
             </Reveal>
             <RevealGroup className="mt-12 grid gap-6 lg:grid-cols-3">
-              {TESTIMONIALS.map((t) => (
+              {c.testimonials.map((t) => (
                 <figure
                   key={t.author}
                   className="rounded-2xl border border-border bg-card p-7"

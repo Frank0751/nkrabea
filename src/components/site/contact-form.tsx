@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/select";
 import { FormUnavailable, Honeypot } from "./form-guard";
 import { FORMS_ENABLED, HONEYPOT_FIELD, submitToWeb3Forms } from "@/lib/web3forms";
-import { ORG } from "@/lib/content";
+import { useOrg } from "./site-content-context";
 
 const INTENTS = [
   { value: "general", label: "General enquiry" },
@@ -27,6 +27,7 @@ const INTENTS = [
 ];
 
 export function ContactForm() {
+  const org = useOrg();
   const [loading, setLoading] = React.useState(false);
   const [intent, setIntent] = React.useState("general");
   const formId = React.useId();
@@ -60,7 +61,7 @@ export function ContactForm() {
           Message: message,
           [HONEYPOT_FIELD]: data.get(HONEYPOT_FIELD) ? "true" : "",
         },
-        ORG.email
+        org.email
       );
       if (!result.ok) throw new Error(result.error);
 

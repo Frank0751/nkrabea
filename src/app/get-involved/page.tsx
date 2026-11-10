@@ -7,7 +7,11 @@ import { Reveal, RevealGroup } from "@/components/site/reveal";
 import { NewsletterForm } from "@/components/site/newsletter-form";
 import { PhotoStrip } from "@/components/site/photo";
 import { DonateForm } from "@/components/site/donate-form";
-import { ORG, HERO_PHOTOS, PHOTOS } from "@/lib/content";
+import { PHOTOS } from "@/lib/content";
+import { getSiteContent } from "@/lib/site-content";
+
+/** Check Sanity for edits at most once a minute. */
+export const revalidate = 60;
 import { DONATIONS_ENABLED } from "@/lib/paystack";
 
 export const metadata: Metadata = {
@@ -17,14 +21,12 @@ export const metadata: Metadata = {
     : "Support Nkrabea Culture and Arts Ensemble through mobile money, volunteering or in-kind support.",
 };
 
-export default function GetInvolvedPage() {
+export default async function GetInvolvedPage() {
+  const c = await getSiteContent();
   return (
     <>
       <PageHero
-        eyebrow="Get involved"
-        title="Ways to support the work"
-        description="Every contribution goes into programmes that build skills, livelihoods and dignity in Ghanaian communities."
-        photo={HERO_PHOTOS.getInvolved}
+        {...c.heroes.getInvolved}
         crumbs={[{ label: "Get Involved" }]}
       />
 
@@ -49,7 +51,7 @@ export default function GetInvolvedPage() {
               </Reveal>
               <div className="grid gap-6 lg:col-span-5 lg:content-start">
                 <Reveal delay={100}>
-                  <MomoCard />
+                  <MomoCard momo={c.org.momo} accountName={c.org.legalName} />
                 </Reveal>
                 <Reveal delay={180}>
                   <BankCard />
@@ -59,7 +61,7 @@ export default function GetInvolvedPage() {
           ) : (
             <div className="mt-12 grid gap-6 lg:grid-cols-3">
               <Reveal>
-                <MomoCard featured />
+                <MomoCard momo={c.org.momo} accountName={c.org.legalName} featured />
               </Reveal>
               <Reveal delay={100}>
                 <BankCard />
@@ -149,8 +151,16 @@ export default function GetInvolvedPage() {
   );
 }
 
-/** Nkrabea's own MTN MoMo line, ORG.momo. */
-function MomoCard({ featured = false }: { featured?: boolean }) {
+/** Nkrabea's own MTN MoMo line, from the site settings in Sanity. */
+function MomoCard({
+  momo,
+  accountName,
+  featured = false,
+}: {
+  momo: string;
+  accountName: string;
+  featured?: boolean;
+}) {
   return (
     <div
       className={`h-full rounded-2xl bg-card p-7 ${
@@ -173,12 +183,12 @@ function MomoCard({ featured = false }: { featured?: boolean }) {
         <div>
           <dt className="label-mono text-muted-foreground">MTN MoMo</dt>
           <dd className="mt-1 font-display text-xl tracking-tight text-foreground">
-            {ORG.momo}
+            {momo}
           </dd>
         </div>
         <div>
           <dt className="label-mono text-muted-foreground">Account name</dt>
-          <dd className="mt-1 text-sm text-foreground">{ORG.legalName}</dd>
+          <dd className="mt-1 text-sm text-foreground">{accountName}</dd>
         </div>
       </dl>
       <p className="mt-5 text-xs leading-relaxed text-muted-foreground">

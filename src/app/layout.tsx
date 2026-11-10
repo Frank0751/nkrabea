@@ -14,6 +14,8 @@ import { SITE_URL, IS_PUBLIC_SITE } from "@/lib/site";
 import { OrganisationSchema } from "@/components/site/structured-data";
 import { Analytics } from "@/components/site/analytics";
 import { WhatsAppFloat } from "@/components/site/whatsapp-float";
+import { SiteContentProvider } from "@/components/site/site-content-context";
+import { getSiteContent } from "@/lib/site-content";
 
 /**
  * Satoshi (body) and Bespoke Serif (display) are declared as @font-face rules
@@ -73,11 +75,19 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Contact details and the programme list for the client components (the
+  // header and the forms). Everything else reads getSiteContent() itself.
+  const { org, programmes } = await getSiteContent();
+  const clientContent = {
+    org,
+    programmes: programmes.map(({ id, name, status }) => ({ id, name, status })),
+  };
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -96,6 +106,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <SiteContentProvider value={clientContent}>
           <MotionProvider>
             <OrganisationSchema />
             <a href="#main" className="skip-link">
@@ -113,6 +124,7 @@ export default function RootLayout({
               <BackToTop />
             </div>
           </MotionProvider>
+          </SiteContentProvider>
           <SonnerToaster position="bottom-right" />
         </ThemeProvider>
         <Analytics />

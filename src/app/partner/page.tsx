@@ -4,7 +4,11 @@ import { SectionEyebrow } from "@/components/site/section-eyebrow";
 import { Reveal, RevealGroup } from "@/components/site/reveal";
 import { PartnershipForm } from "@/components/site/partnership-form";
 import { PhotoFigure } from "@/components/site/photo";
-import { AUDIENCES, PROGRAMMES, HERO_PHOTOS, PHOTOS } from "@/lib/content";
+import { AUDIENCES, PHOTOS } from "@/lib/content";
+import { getSiteContent } from "@/lib/site-content";
+
+/** Check Sanity for edits at most once a minute. */
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "Partner With Us",
@@ -31,14 +35,12 @@ const CASE_POINTS = [
   },
 ];
 
-export default function PartnerPage() {
+export default async function PartnerPage() {
+  const c = await getSiteContent();
   return (
     <>
       <PageHero
-        eyebrow="Partner with us"
-        title="Strategic investment, not charity"
-        description="We frame support as investment because that is what it is: capability built, livelihoods created, assets left behind."
-        photo={HERO_PHOTOS.partner}
+        {...c.heroes.partner}
         crumbs={[{ label: "Partner" }]}
       />
 
@@ -133,7 +135,7 @@ export default function PartnerPage() {
                   Programmes ready to run
                 </h2>
                 <ul className="mt-8 grid gap-5 sm:grid-cols-2">
-                  {PROGRAMMES.filter((p) => p.status === "fundraising").map(
+                  {c.programmes.filter((p) => p.status === "fundraising").map(
                     (p) => (
                       <li key={p.id} className="border-l-2 border-accent pl-5">
                         <h3 className="font-display text-base leading-snug text-foreground">

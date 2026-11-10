@@ -15,7 +15,8 @@ import {
 } from "@/components/ui/sheet";
 import { ThemeToggle } from "./theme-toggle";
 import { TextSizeToggle } from "./text-size-toggle";
-import { ORG, LOGO } from "@/lib/content";
+import { LOGO } from "@/lib/content";
+import { useOrg } from "./site-content-context";
 
 /**
  * Navigation follows the structure Nkrabea set out in their brief, labelled
@@ -32,6 +33,7 @@ export const NAV_LINKS = [
 ];
 
 export function SiteHeader() {
+  const org = useOrg();
   const [scrolled, setScrolled] = React.useState(false);
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const pathname = usePathname();
@@ -66,7 +68,7 @@ export function SiteHeader() {
         <Link
           href="/"
           className="flex shrink-0 items-center gap-3"
-          aria-label={`${ORG.name} home`}
+          aria-label={`${org.name} home`}
         >
           <BrandMark onDark={transparent} />
           <span className="flex flex-col leading-none">

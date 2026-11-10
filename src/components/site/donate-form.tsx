@@ -25,18 +25,19 @@ import {
   formatCedis,
   newReference,
 } from "@/lib/paystack";
-import { ORG, PROGRAMMES } from "@/lib/content";
+import { useOrg, useProgrammes } from "./site-content-context";
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 /** Where a gift can go: anywhere, or one of the programmes raising funds. */
-const DESIGNATIONS = [
-  { value: "general", label: "Where it is needed most" },
-  ...PROGRAMMES.filter((p) => p.status === "fundraising").map((p) => ({
-    value: p.id,
-    label: p.name,
-  })),
-];
+function designationsFor(programmes: { id: string; name: string; status: string }[]) {
+  return [
+    { value: "general", label: "Where it is needed most" },
+    ...programmes
+      .filter((p) => p.status === "fundraising")
+      .map((p) => ({ value: p.id, label: p.name })),
+  ];
+}
 
 type Status = "idle" | "opening" | "open" | "done";
 
@@ -57,6 +58,9 @@ type Notice = { tone: "info" | "error"; text: string };
  * document as soon as it loads, so it must never run on the server.
  */
 export function DonateForm() {
+  const org = useOrg();
+  const programmes = useProgrammes();
+  const DESIGNATIONS = React.useMemo(() => designationsFor(programmes), [programmes]);
   const formId = React.useId();
   const [choice, setChoice] = React.useState(String(DEFAULT_AMOUNT));
   const [other, setOther] = React.useState("");
@@ -174,7 +178,7 @@ export function DonateForm() {
           }
           setNotice({
             tone: "error",
-            text: `The payment form could not open (${error.message}). You can also give by MTN MoMo to ${ORG.momo}.`,
+            text: `The payment form could not open (${error.message}). You can also give by MTN MoMo to ${org.momo}.`,
           });
         },
       });
@@ -183,7 +187,7 @@ export function DonateForm() {
       setStatus("idle");
       setNotice({
         tone: "error",
-        text: `The payment form could not load. Check your connection, or give by MTN MoMo to ${ORG.momo}.`,
+        text: `The payment form could not load. Check your connection, or give by MTN MoMo to ${org.momo}.`,
       });
     }
   }
@@ -201,7 +205,7 @@ export function DonateForm() {
         </h3>
         <p className="mt-3 text-base leading-relaxed text-muted-foreground">
           Paystack has confirmed your gift of {formatCedis(receipt.amount)} to{" "}
-          {ORG.name}.
+          {org.name}.
         </p>
         <dl className="mt-6 rounded-xl border border-border bg-muted/50 p-4">
           <dt className="label-mono text-muted-foreground">Your reference</dt>

@@ -14,7 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { PROGRAMMES, ORG } from "@/lib/content";
+import { useOrg, useProgrammes } from "./site-content-context";
 import { FormUnavailable, Honeypot } from "./form-guard";
 import { FORMS_ENABLED, HONEYPOT_FIELD, submitToWeb3Forms } from "@/lib/web3forms";
 
@@ -27,6 +27,8 @@ const PARTNER_TYPES = [
 ];
 
 export function PartnershipForm() {
+  const org = useOrg();
+  const programmes = useProgrammes();
   const [loading, setLoading] = React.useState(false);
   const [partnerType, setPartnerType] = React.useState("corporate");
   const [programme, setProgramme] = React.useState("any");
@@ -49,7 +51,7 @@ export function PartnershipForm() {
     const programmeName =
       programme === "any"
         ? "No preference yet"
-        : (PROGRAMMES.find((p) => p.id === programme)?.name ?? programme);
+        : (programmes.find((p) => p.id === programme)?.name ?? programme);
 
     if (!name || !email || !message) {
       toast.error("Name, email and message are required.");
@@ -70,7 +72,7 @@ export function PartnershipForm() {
           Message: message,
           [HONEYPOT_FIELD]: data.get(HONEYPOT_FIELD) ? "true" : "",
         },
-        ORG.email
+        org.email
       );
       if (!result.ok) throw new Error(result.error);
 
@@ -172,7 +174,7 @@ export function PartnershipForm() {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="any">No preference yet</SelectItem>
-              {PROGRAMMES.map((p) => (
+              {programmes.map((p) => (
                 <SelectItem key={p.id} value={p.id}>
                   {p.name}
                 </SelectItem>

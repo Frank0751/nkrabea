@@ -7,7 +7,8 @@ import { ScrollCue } from "./scroll-cue";
 import { PhotoReel } from "./photo-reel";
 import { HeroBackdrop } from "./hero-backdrop";
 import { withBlur } from "@/lib/blur";
-import { ORG, IDENTITY, REEL, LOGO } from "@/lib/content";
+import { LOGO } from "@/lib/content";
+import { getSiteContent } from "@/lib/site-content";
 
 /**
  * Homepage hero, to the spec in Nkrabea's brief: the photography, the logo
@@ -27,11 +28,12 @@ import { ORG, IDENTITY, REEL, LOGO } from "@/lib/content";
  * claim currently evidenced. The GES partnership and the PWD unemployment
  * figure both sit in NEEDS_EVIDENCE until Nkrabea supplies a source.
  */
-export function Hero() {
+export async function Hero() {
+  const { org, homeHero } = await getSiteContent();
   return (
     <section className="relative isolate flex min-h-svh items-center justify-center overflow-hidden bg-band text-band-foreground">
       <HeroBackdrop>
-        <PhotoReel photos={REEL.map(withBlur)} priority />
+        <PhotoReel photos={homeHero.reel.map(withBlur)} priority />
       </HeroBackdrop>
 
       <div className="relative mx-auto flex w-full max-w-3xl flex-col items-center px-4 pb-32 pt-32 text-center sm:px-6 lg:pb-36 lg:pt-40">
@@ -51,17 +53,17 @@ export function Hero() {
         </div>
 
         <p className="hero-rise hero-rise-1 label-mono mt-8 text-accent">
-          {ORG.motto}
+          {org.motto}
         </p>
         <div className="hero-rise hero-rise-1 section-mark mt-6" aria-hidden="true" />
 
         <h1 className="hero-rise hero-rise-2 mt-7 font-display text-hero">
-          Ghanaian culture as a tool for{" "}
-          <span className="text-accent">real change</span>
+          {homeHero.headline}{" "}
+          <span className="text-accent">{homeHero.highlight}</span>
         </h1>
 
         <p className="hero-rise hero-rise-3 mt-6 max-w-2xl text-lede text-band-foreground/85">
-          {IDENTITY.lead}
+          {homeHero.lead}
         </p>
 
         <div className="hero-rise hero-rise-4 mt-9 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap sm:justify-center">
@@ -108,8 +110,8 @@ export function Hero() {
             aria-hidden="true"
           />
           <span>
-            A registered Ghanaian NGO under the {ORG.registration}, operating
-            nationally since {ORG.incorporated}.
+            A registered Ghanaian NGO under the {org.registration}, operating
+            nationally since {org.incorporated}.
           </span>
         </p>
       </div>

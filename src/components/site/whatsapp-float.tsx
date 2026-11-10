@@ -1,9 +1,9 @@
 import { MessageCircle } from "lucide-react";
-import { ORG } from "@/lib/content";
+import { getSiteContent } from "@/lib/site-content";
 
 /**
  * koombei-studio-skill Part 7's WhatsApp float. It renders only once
- * ORG.whatsapp holds a number Nkrabea have confirmed is on WhatsApp; until
+ * org.whatsapp holds a number Nkrabea have confirmed is on WhatsApp; until
  * then there is nothing on the page, rather than a button that opens a chat
  * with a landline.
  *
@@ -16,8 +16,9 @@ import { ORG } from "@/lib/content";
  */
 const WA_NUMBER = /^[1-9]\d{7,14}$/;
 
-export function WhatsAppFloat() {
-  const number = (ORG.whatsapp ?? "").replace(/\D/g, "");
+export async function WhatsAppFloat() {
+  const { org } = await getSiteContent();
+  const number = (org.whatsapp ?? "").replace(/\D/g, "");
   if (!WA_NUMBER.test(number)) return null;
 
   const text = encodeURIComponent(

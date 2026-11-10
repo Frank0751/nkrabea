@@ -5,16 +5,11 @@ import { SectionEyebrow } from "@/components/site/section-eyebrow";
 import { Reveal, RevealGroup } from "@/components/site/reveal";
 import { CtaBand } from "@/components/site/cta-band";
 import { PhotoFigure, PhotoDuo } from "@/components/site/photo";
-import {
-  ORG,
-  IDENTITY,
-  MISSION,
-  VISION,
-  VALUES,
-  WHAT_WE_DO,
-  HERO_PHOTOS,
-  PHOTOS,
-} from "@/lib/content";
+import { PHOTOS } from "@/lib/content";
+import { getSiteContent } from "@/lib/site-content";
+
+/** Check Sanity for edits at most once a minute. */
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -22,14 +17,12 @@ export const metadata: Metadata = {
     "Nkrabea Culture and Arts Ensemble LBG is a registered Ghanaian NGO using culture and the creative arts as tools for socio-economic development.",
 };
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const c = await getSiteContent();
   return (
     <>
       <PageHero
-        eyebrow="About us"
-        title="Nkrabea means destiny"
-        description={IDENTITY.lead}
-        photo={HERO_PHOTOS.about}
+        {...c.heroes.about}
         crumbs={[{ label: "About" }]}
       />
 
@@ -45,7 +38,7 @@ export default function AboutPage() {
                 </h2>
               </Reveal>
               <div className="mt-10 space-y-6">
-                {IDENTITY.whoWeAre.map((paragraph, i) => (
+                {c.identity.whoWeAre.map((paragraph, i) => (
                   <Reveal key={i} delay={i * 90}>
                     <p className="text-base leading-relaxed text-foreground/90 sm:text-lg">
                       {paragraph}
@@ -74,13 +67,13 @@ export default function AboutPage() {
             <div className="rounded-2xl border border-border bg-card p-8 sm:p-10">
               <p className="label-mono text-primary">Mission</p>
               <p className="mt-5 font-display text-xl leading-snug text-foreground sm:text-2xl">
-                {MISSION}
+                {c.mission}
               </p>
             </div>
             <div className="rounded-2xl border border-border bg-card p-8 sm:p-10">
               <p className="label-mono text-primary">Vision</p>
               <p className="mt-5 font-display text-xl leading-snug text-foreground sm:text-2xl">
-                {VISION}
+                {c.vision}
               </p>
             </div>
             <PhotoFigure
@@ -95,7 +88,7 @@ export default function AboutPage() {
           <Reveal delay={160}>
             <blockquote className="mx-auto mt-12 max-w-3xl text-center">
               <p className="font-display text-2xl leading-snug text-foreground sm:text-3xl">
-                &ldquo;{ORG.motto}&rdquo;
+                &ldquo;{c.org.motto}&rdquo;
               </p>
               <footer className="label-mono mt-4 text-muted-foreground">
                 Our motto
@@ -119,7 +112,7 @@ export default function AboutPage() {
             className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-7"
             stagger={0.06}
           >
-            {VALUES.map((value) => (
+            {c.values.map((value) => (
               <div
                 key={value}
                 className="rounded-xl border border-border bg-card px-4 py-6 text-center"
@@ -163,7 +156,7 @@ export default function AboutPage() {
             </div>
             <div className="lg:col-span-8">
               <RevealGroup as="ul" className="space-y-4" stagger={0.05}>
-                {WHAT_WE_DO.map((item) => (
+                {c.whatWeDo.map((item) => (
                   <li
                     key={item}
                     className="flex gap-4 border-b border-border pb-4 last:border-0"
@@ -189,13 +182,13 @@ export default function AboutPage() {
           <Reveal>
             <SectionEyebrow>Registration</SectionEyebrow>
             <dl className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              <Detail label="Legal name" value={ORG.legalName} />
-              <Detail label="Status" value={ORG.type} />
-              <Detail label="Registered under" value={ORG.registration} />
-              <Detail label="Incorporated" value={ORG.incorporated} />
-              <Detail label="Area of operation" value={ORG.areaOfOperation} />
-              <Detail label="Head office" value={ORG.headOffice} />
-              <Detail label="Postal address" value={ORG.postalAddress} />
+              <Detail label="Legal name" value={c.org.legalName} />
+              <Detail label="Status" value={c.org.type} />
+              <Detail label="Registered under" value={c.org.registration} />
+              <Detail label="Incorporated" value={c.org.incorporated} />
+              <Detail label="Area of operation" value={c.org.areaOfOperation} />
+              <Detail label="Head office" value={c.org.headOffice} />
+              <Detail label="Postal address" value={c.org.postalAddress} />
               <Detail label="Governance" value="Executive Council" />
             </dl>
             <p className="mt-8 text-sm text-muted-foreground">

@@ -7,9 +7,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FormUnavailable, Honeypot } from "./form-guard";
 import { FORMS_ENABLED, HONEYPOT_FIELD, submitToWeb3Forms } from "@/lib/web3forms";
-import { ORG } from "@/lib/content";
+import { useOrg } from "./site-content-context";
 
 export function NewsletterForm({ compact = false }: { compact?: boolean }) {
+  const org = useOrg();
   const [loading, setLoading] = React.useState(false);
   const formId = React.useId();
 
@@ -35,7 +36,7 @@ export function NewsletterForm({ compact = false }: { compact?: boolean }) {
           Request: "Please add this address to the updates list.",
           [HONEYPOT_FIELD]: data.get(HONEYPOT_FIELD) ? "true" : "",
         },
-        ORG.email
+        org.email
       );
       if (!result.ok) throw new Error(result.error);
 

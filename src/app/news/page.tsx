@@ -7,7 +7,11 @@ import { Reveal } from "@/components/site/reveal";
 import { NewsletterForm } from "@/components/site/newsletter-form";
 import { PhotoStrip } from "@/components/site/photo";
 import { StoryArticle } from "@/components/site/story";
-import { EVENTS, STORIES, PRESS, HERO_PHOTOS, PHOTOS } from "@/lib/content";
+import { PHOTOS } from "@/lib/content";
+import { getSiteContent } from "@/lib/site-content";
+
+/** Check Sanity for edits at most once a minute. */
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: "News & Events",
@@ -15,31 +19,29 @@ export const metadata: Metadata = {
     "Updates, upcoming showcases and press mentions from Nkrabea Culture and Arts Ensemble.",
 };
 
-export default function NewsPage() {
+export default async function NewsPage() {
+  const c = await getSiteContent();
   return (
     <>
       <PageHero
-        eyebrow="News and events"
-        title="News from the work"
-        description="Programme updates, showcases and press."
-        photo={HERO_PHOTOS.news}
+        {...c.heroes.news}
         crumbs={[{ label: "News" }]}
       />
 
       <section data-rhythm-node className="py-20 lg:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          {STORIES.length > 0 && (
+          {c.stories.length > 0 && (
             <div className="mb-24 space-y-24">
               <Reveal className="max-w-2xl">
                 <SectionEyebrow>Programme updates</SectionEyebrow>
               </Reveal>
-              {STORIES.map((story) => (
+              {c.stories.map((story) => (
                 <StoryArticle key={story.id} story={story} />
               ))}
             </div>
           )}
 
-          {EVENTS.length > 0 ? (
+          {c.events.length > 0 ? (
             <>
               <Reveal className="max-w-2xl">
                 <SectionEyebrow>Upcoming</SectionEyebrow>
@@ -48,7 +50,7 @@ export default function NewsPage() {
                 </h2>
               </Reveal>
               <ul className="mt-12 divide-y divide-border overflow-hidden rounded-2xl border border-border bg-card">
-                {EVENTS.map((event) => (
+                {c.events.map((event) => (
                   <li
                     key={event.id}
                     className="flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:gap-6 sm:p-6"
@@ -118,11 +120,11 @@ export default function NewsPage() {
             />
           </Reveal>
 
-          {PRESS.length > 0 ? (
+          {c.press.length > 0 ? (
             <Reveal delay={140} className="mt-20">
               <SectionEyebrow>Press</SectionEyebrow>
               <ul className="mt-6 divide-y divide-border overflow-hidden rounded-2xl border border-border bg-card">
-                {PRESS.map((item) => (
+                {c.press.map((item) => (
                   <li
                     key={`${item.name}-${item.date}`}
                     className="flex flex-col gap-2 p-5 sm:flex-row sm:items-baseline sm:gap-6 sm:p-6"

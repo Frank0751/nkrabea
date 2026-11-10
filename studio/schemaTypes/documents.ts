@@ -1,0 +1,210 @@
+import { defineArrayMember, defineField, defineType } from "sanity";
+import { lines } from "./objects";
+
+export const programme = defineType({
+  name: "programme",
+  title: "Programme",
+  type: "document",
+  fields: [
+    defineField({ name: "name", title: "Name", type: "string", validation: (r) => r.required() }),
+    defineField({
+      name: "slug",
+      title: "Web address name",
+      type: "slug",
+      options: { source: "name", maxLength: 60 },
+      description: "Click Generate. Used by the donation form; avoid changing it once published.",
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: "status",
+      title: "Status",
+      type: "string",
+      options: {
+        list: [
+          { title: "Running", value: "running" },
+          { title: "Raising funds (shown in the donation form)", value: "fundraising" },
+          { title: "Long-term vision", value: "vision" },
+        ],
+        layout: "radio",
+      },
+      validation: (r) => r.required(),
+    }),
+    defineField({ name: "summary", title: "Summary", type: "text", rows: 3, validation: (r) => r.required() }),
+    lines("details", "Key points"),
+    defineField({ name: "value", title: "Programme value", type: "string", description: "e.g. GHS 900,848. Leave empty if not published." }),
+    defineField({
+      name: "sdgs",
+      title: "UN Sustainable Development Goals",
+      type: "array",
+      of: [defineArrayMember({ type: "number" })],
+      options: { layout: "tags" },
+    }),
+    defineField({ name: "order", title: "Order on the page", type: "number", description: "1 shows first." }),
+  ],
+  orderings: [{ title: "Order on the page", name: "order", by: [{ field: "order", direction: "asc" }] }],
+  preview: { select: { title: "name", subtitle: "status" } },
+});
+
+export const story = defineType({
+  name: "story",
+  title: "News story",
+  type: "document",
+  groups: [
+    { name: "story", title: "Story", default: true },
+    { name: "photos", title: "Photos" },
+    { name: "press", title: "In the news" },
+  ],
+  fields: [
+    defineField({ name: "title", title: "Headline", type: "string", group: "story", validation: (r) => r.required() }),
+    defineField({
+      name: "slug",
+      title: "Web address name",
+      type: "slug",
+      group: "story",
+      options: { source: "title", maxLength: 80 },
+      description: "Click Generate.",
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: "category",
+      title: "Category",
+      type: "string",
+      group: "story",
+      options: { list: ["Programme update", "Event", "Partnership", "Announcement"] },
+      initialValue: "Programme update",
+    }),
+    defineField({
+      name: "date",
+      title: "Date",
+      type: "date",
+      group: "story",
+      description: "The first day. Stories are listed newest first, and the newest appears on the home page.",
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: "displayDate",
+      title: "Date as it should read (optional)",
+      type: "string",
+      group: "story",
+      description: "For events over several days, e.g. \"5 to 7 November 2026\". Leave empty to use the date above.",
+    }),
+    defineField({ name: "place", title: "Place", type: "string", group: "story" }),
+    defineField({
+      name: "excerpt",
+      title: "Summary",
+      type: "text",
+      rows: 3,
+      group: "story",
+      description: "One or two sentences, shown on the home and impact pages.",
+      validation: (r) => r.required().max(320),
+    }),
+    defineField({
+      name: "body",
+      title: "Story",
+      type: "text",
+      rows: 12,
+      group: "story",
+      description: "Leave an empty line between paragraphs.",
+      validation: (r) => r.required(),
+    }),
+    lines("learnt", "What participants learnt (optional)", "For trainings. One skill per line.", "story"),
+    defineField({ name: "thanks", title: "Thanks (optional)", type: "text", rows: 2, group: "story" }),
+    defineField({
+      name: "source",
+      title: "Source",
+      type: "string",
+      group: "story",
+      description: "Where the facts come from, e.g. \"Nkrabea programme report, November 2026\".",
+    }),
+    defineField({
+      name: "photos",
+      title: "Main photos",
+      type: "array",
+      group: "photos",
+      description: "The first photo leads the story. Drag to reorder.",
+      of: [defineArrayMember({ type: "photo" })],
+      validation: (r) => r.required().min(1),
+    }),
+    defineField({
+      name: "moments",
+      title: "More photos (optional)",
+      type: "array",
+      group: "photos",
+      description: "Smaller pictures shown under \"More from the day\", e.g. refreshments, a flyer.",
+      of: [defineArrayMember({ type: "photo" })],
+    }),
+    defineField({ name: "press", title: "In the news (optional)", type: "storyPress", group: "press" }),
+  ],
+  orderings: [{ title: "Newest first", name: "dateDesc", by: [{ field: "date", direction: "desc" }] }],
+  preview: { select: { title: "title", subtitle: "date", media: "photos.0.image" } },
+});
+
+export const event = defineType({
+  name: "event",
+  title: "Event",
+  type: "document",
+  fields: [
+    defineField({ name: "title", title: "Title", type: "string", validation: (r) => r.required() }),
+    defineField({ name: "date", title: "Date", type: "date", validation: (r) => r.required() }),
+    defineField({ name: "venue", title: "Venue", type: "string", validation: (r) => r.required() }),
+    defineField({ name: "type", title: "Type", type: "string", description: "e.g. Showcase, Training, Workshop" }),
+    defineField({
+      name: "status",
+      title: "Status",
+      type: "string",
+      options: {
+        list: [
+          { title: "Upcoming", value: "upcoming" },
+          { title: "Open for registration", value: "open" },
+          { title: "Past", value: "past" },
+        ],
+        layout: "radio",
+      },
+      initialValue: "upcoming",
+    }),
+  ],
+  orderings: [{ title: "Soonest first", name: "dateAsc", by: [{ field: "date", direction: "asc" }] }],
+  preview: { select: { title: "title", subtitle: "date" } },
+});
+
+export const pressItem = defineType({
+  name: "pressItem",
+  title: "Press mention",
+  type: "document",
+  fields: [
+    defineField({ name: "name", title: "Outlet", type: "string", validation: (r) => r.required() }),
+    defineField({ name: "context", title: "What it was", type: "string", validation: (r) => r.required() }),
+    defineField({ name: "date", title: "Date", type: "string", description: "As it should read, e.g. November 2026" }),
+    defineField({
+      name: "link",
+      title: "Link",
+      type: "string",
+      description: "A web address, or a page on this site such as /news#caregivers-ayawaso-north-2026-press",
+    }),
+    defineField({ name: "order", title: "Order", type: "number" }),
+  ],
+  preview: { select: { title: "name", subtitle: "context" } },
+});
+
+export const testimonial = defineType({
+  name: "testimonial",
+  title: "Testimonial",
+  type: "document",
+  fields: [
+    defineField({
+      name: "quote",
+      title: "Quote",
+      type: "text",
+      rows: 4,
+      description: "Only publish with the person's written permission.",
+      validation: (r) => r.required(),
+    }),
+    defineField({ name: "author", title: "Name", type: "string", validation: (r) => r.required() }),
+    defineField({ name: "role", title: "Role", type: "string", validation: (r) => r.required() }),
+    defineField({ name: "organisation", title: "Organisation", type: "string" }),
+    defineField({ name: "order", title: "Order", type: "number" }),
+  ],
+  preview: { select: { title: "author", subtitle: "organisation" } },
+});
+
+export const documentTypes = [programme, story, event, pressItem, testimonial];
