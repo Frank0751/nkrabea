@@ -16,6 +16,8 @@
  * - Programmes gain their photos; stories gain the heading over extra photos.
  */
 import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
 import { randomUUID } from "node:crypto";
 import { createClient } from "@sanity/client";
 import * as C from "../src/lib/content";
@@ -106,7 +108,12 @@ async function retype(id: string, type: string) {
     void _rev;
     void _createdAt;
     void _updatedAt;
-    await client.createOrReplace({ ...rest, _id: docId, _type: type } as { _id: string; _type: string });
+    // _type is immutable, even inside one transaction, so keep a copy on
+    // disk, delete, then create. Sanity history also keeps the old document.
+    const backup = path.join(os.tmpdir(), `sanity-backup-${docId}-${Date.now()}.json`);
+    fs.writeFileSync(backup, JSON.stringify(doc, null, 2));
+    await client.delete(docId);
+    await client.create({ ...rest, _id: docId, _type: type } as { _id: string; _type: string });
     console.log(`  ${docId}: now a ${type} document`);
   }
 }
