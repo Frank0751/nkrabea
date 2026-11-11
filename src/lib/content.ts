@@ -195,7 +195,15 @@ export type Programme = {
   /** Stated programme value, where Nkrabea has published one. */
   value?: string;
   sdgs?: number[];
-  image?: string;
+  /** First photo leads the programme; the rest show as thumbnails. */
+  photos?: Photo[];
+  /** The programme's flyer, shown whole and openable at full size. */
+  flyer?: Photo;
+  /** A YouTube link or a direct video file. */
+  videoUrl?: string;
+  /** Optional button, e.g. "Register" to a form or phone number. */
+  linkLabel?: string;
+  link?: string;
 };
 
 export const PROGRAMMES: Programme[] = [
@@ -458,14 +466,50 @@ export const NEEDS_EVIDENCE: UnverifiedClaim[] = [
 
 export type EventItem = {
   id: string;
+  /** As it reads, e.g. "5 November 2026". */
   date: string;
+  /** ISO date, used to sort and to move the event to Past events. */
+  isoDate: string;
   day: string;
   month: string;
   title: string;
   venue: string;
   type: string;
   status: "upcoming" | "open" | "past";
+  time?: string;
+  description?: string;
+  flyer?: Photo;
+  linkLabel?: string;
+  link?: string;
 };
+
+/* ---------------------------------------------------------------------------
+   Social media. Shown with each platform's own logo in the footer of every
+   page, in the mobile menu and on the Contact page. Tracking parameters from
+   the share links Nkrabea sent are removed.
+   --------------------------------------------------------------------------- */
+
+export type SocialPlatform =
+  | "facebook"
+  | "instagram"
+  | "tiktok"
+  | "youtube"
+  | "threads"
+  | "x"
+  | "whatsapp";
+
+export type Social = { platform: SocialPlatform; url: string };
+
+export const SOCIALS: Social[] = [
+  { platform: "facebook", url: "https://www.facebook.com/nkrabea0" },
+  { platform: "instagram", url: "https://www.instagram.com/nkra.bea" },
+  { platform: "tiktok", url: "https://www.tiktok.com/@nkrabea0" },
+  { platform: "youtube", url: "https://www.youtube.com/channel/UCoEl4CNus8t-kpLRCp9iK0Q" },
+  { platform: "threads", url: "https://www.threads.com/@nkra.bea" },
+];
+
+export const FOOTER_TEXT =
+  "A registered Ghanaian NGO using culture and the creative arts as tools for socio-economic development.";
 
 /** No confirmed listings yet. The prototype's four had all already happened. */
 export const EVENTS: EventItem[] = [];
@@ -500,6 +544,8 @@ export const PRESS: PressItem[] = [
 ];
 
 export type Story = {
+  /** Heading above the smaller photos, e.g. "More from the three days". */
+  momentsTitle?: string;
   /** Also the anchor on the news page: /news#id. */
   id: string;
   category: string;
@@ -1088,3 +1134,16 @@ export const PAGE_HEROES: Record<HeroKey, PageHeroContent> = {
     photo: HERO_PHOTOS.contact,
   },
 };
+STORIES[0].momentsTitle = "More from the three days";
+
+/* Programme photographs. None was taken at these programmes yet, so each
+   shows the craft or the work it builds on, captioned to say so. */
+PROGRAMMES[0].photos = [PHOTOS.loom, PHOTOS.drumRowWide];
+PROGRAMMES[1].photos = [
+  { ...PHOTOS.caregiversDemo, caption: "Soap-making at the caregiver training, Ayawaso North, November 2026" },
+  { ...PHOTOS.caregiversProducts, caption: "Products made at the caregiver training, November 2026" },
+];
+PROGRAMMES[2].photos = [
+  { ...PHOTOS.troupeSeated, caption: "The Nkrabea Drumming and Dance Troupe" },
+  PHOTOS.exhibition,
+];

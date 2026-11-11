@@ -29,7 +29,8 @@ import { getSiteContent } from "@/lib/site-content";
  * figure both sit in NEEDS_EVIDENCE until Nkrabea supplies a source.
  */
 export async function Hero() {
-  const { org, homeHero } = await getSiteContent();
+  const { org, homeHero, text } = await getSiteContent();
+  const t = text.homePage;
   return (
     <section className="relative isolate flex min-h-svh items-center justify-center overflow-hidden bg-band text-band-foreground">
       <HeroBackdrop>
@@ -74,7 +75,7 @@ export async function Hero() {
               className="group w-full bg-accent text-accent-foreground hover:bg-accent/90 sm:w-auto"
             >
               <Link href="/partner">
-                Partner With Us
+                {t.s("heroPrimaryLabel")}
                 <ArrowRight
                   className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5"
                   aria-hidden="true"
@@ -90,7 +91,7 @@ export async function Hero() {
               variant="outline"
               className="w-full border-band-foreground/35 bg-band/30 text-band-foreground backdrop-blur-sm hover:bg-band-foreground/10 hover:text-band-foreground sm:w-auto"
             >
-              <Link href="/get-involved">Support Our Work</Link>
+              <Link href="/get-involved">{t.s("heroSecondaryLabel")}</Link>
             </Button>
           </Magnetic>
 
@@ -100,7 +101,7 @@ export async function Hero() {
             variant="ghost"
             className="w-full text-band-foreground/85 hover:bg-band-foreground/10 hover:text-band-foreground sm:w-auto"
           >
-            <Link href="/programmes">Explore Our Work</Link>
+            <Link href="/programmes">{t.s("heroTertiaryLabel")}</Link>
           </Button>
         </div>
 

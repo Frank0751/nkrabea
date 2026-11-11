@@ -9,7 +9,6 @@ import { CtaBand } from "@/components/site/cta-band";
 import { DataBand, StageBars, RegionChips } from "@/components/site/figures";
 import { StoryFeature } from "@/components/site/story";
 import { withBlur } from "@/lib/blur";
-import { PROGRAMME_FIGURES } from "@/lib/content";
 import { getSiteContent } from "@/lib/site-content";
 
 /** Check Sanity for edits at most once a minute. */
@@ -24,6 +23,7 @@ export const metadata: Metadata = {
 
 export default async function ImpactPage() {
   const c = await getSiteContent();
+  const t = c.text.impactPage;
   return (
     <>
       <PageHero
@@ -32,30 +32,38 @@ export default async function ImpactPage() {
       />
 
       {c.stories[0] && (
-        <StoryFeature story={c.stories[0]} eyebrow="Latest result" />
+        <StoryFeature
+          story={c.stories[0]}
+          eyebrow={t.s("storyEyebrow")}
+          learntLabel={c.text.newsPage.s("learntLabel")}
+        />
       )}
 
       {/* Figures */}
       <section data-rhythm-node className="py-20 lg:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="max-w-2xl">
-            <SectionEyebrow>By the numbers</SectionEyebrow>
+            <SectionEyebrow>{t.s("figuresEyebrow")}</SectionEyebrow>
             <h2 className="mt-5 font-display text-section text-foreground">
-              Results, targets and facts, labelled as such
+              {t.s("figuresTitle")}
             </h2>
           </Reveal>
 
           {/* Five cards: the achieved result spans both columns on a
               tablet so no card is left alone on the last row. */}
-          <RevealGroup className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
-            {c.figures.map((figure) => {
+          <RevealGroup
+            className={`mt-12 grid gap-6 sm:grid-cols-2 ${
+              c.figures.length === 5 ? "lg:grid-cols-5" : c.figures.length % 3 === 0 ? "lg:grid-cols-3" : "lg:grid-cols-4"
+            }`}
+          >
+            {c.figures.map((figure, i) => {
               const numeric = parseInt(figure.value, 10);
               const isNumber = !Number.isNaN(numeric) && figure.kind !== "fact";
               return (
                 <div
-                  key={figure.label}
+                  key={`${figure.label}-${i}`}
                   className={`spotlight-card card-lift rounded-2xl border border-border bg-card p-6 ${
-                    figure.kind === "achieved" ? "sm:col-span-2 lg:col-span-1" : ""
+                    figure.kind === "achieved" && c.figures.length % 2 === 1 ? "sm:col-span-2 lg:col-span-1" : ""
                   }`}
                 >
                   <p className="font-display text-4xl leading-none tracking-tight text-foreground">
@@ -89,45 +97,40 @@ export default async function ImpactPage() {
                 className="mt-0.5 h-4 w-4 shrink-0 text-primary"
                 aria-hidden="true"
               />
-              <span>
-                Nkrabea publishes programme targets and achieved results
-                separately. A target describes what a funded programme is
-                designed to deliver, not what has already been delivered.
-              </span>
+              <span>{t.s("figuresNote")}</span>
             </p>
           </Reveal>
         </div>
       </section>
 
+      {t.on("showChart") && t.values("stages").length > 0 && (
       <DataBand
-        eyebrow="The soap production programme"
-        title="Five hundred trained, ninety enterprises seeded"
-        lede="Read these as a plan, because that is what they are. Nothing below has happened yet, and the captions say so rather than letting the length of a bar imply otherwise."
+        eyebrow={t.s("chartEyebrow")}
+        title={t.s("chartTitle")}
+        lede={t.s("chartLede")}
       >
         <div className="grid gap-14 lg:grid-cols-2 lg:gap-16">
           <StageBars
-            stages={PROGRAMME_FIGURES.soapProduction.stages}
-            caption="Targets from Nkrabea's Accessible Soap Production and Entrepreneurial Skills Training programme design. The three bars share one scale, so their lengths are comparable."
+            stages={t.values("stages")}
+            caption={t.s("stagesCaption")}
           />
 
           <div>
-            <p className="label-mono text-accent">Where it runs</p>
+            <p className="label-mono text-accent">{t.s("regionsLabel")}</p>
             <div className="section-mark mt-4" aria-hidden="true" />
             <div className="mt-7">
               <RegionChips
-                regions={PROGRAMME_FIGURES.soapProduction.regions}
-                note="Four regions. Nkrabea has not published how the five hundred places divide between them, so no split is drawn here."
+                regions={t.lines("regions")}
+                note={t.s("regionsNote")}
               />
             </div>
             <p className="mt-8 max-w-md text-sm leading-relaxed text-band-foreground/70">
-              Training runs as intensive three day workshops covering eight or
-              more soap and hygiene products, with packaging designed around
-              Adinkra symbols and local fragrances so the goods carry a
-              Ghanaian story to market.
+              {t.s("chartDetail")}
             </p>
           </div>
         </div>
       </DataBand>
+      )}
 
       {/* Milestones */}
       <section
@@ -136,16 +139,16 @@ export default async function ImpactPage() {
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="max-w-2xl">
-            <SectionEyebrow>Milestones</SectionEyebrow>
+            <SectionEyebrow>{t.s("milestonesEyebrow")}</SectionEyebrow>
             <h2 className="mt-5 font-display text-section text-foreground">
-              The record so far
+              {t.s("milestonesTitle")}
             </h2>
           </Reveal>
 
           <RevealGroup as="ol" className="mt-12 space-y-6">
-            {c.milestones.map((milestone) => (
+            {c.milestones.map((milestone, i) => (
               <li
-                key={milestone.year}
+                key={`${milestone.year}-${i}`}
                 className="flex flex-col gap-4 rounded-2xl border border-border bg-card p-6 sm:flex-row sm:gap-8 sm:p-7"
               >
                 <span className="font-display text-2xl text-accent sm:w-24 sm:shrink-0">
@@ -165,8 +168,7 @@ export default async function ImpactPage() {
 
           <Reveal delay={120}>
             <p className="mt-8 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-              Further milestones will be published as Nkrabea confirms dates and
-              supporting evidence for each.
+              {t.s("milestonesNote")}
             </p>
           </Reveal>
         </div>
@@ -176,9 +178,9 @@ export default async function ImpactPage() {
       <section data-rhythm-node className="py-20 lg:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="max-w-2xl">
-            <SectionEyebrow>In the frame</SectionEyebrow>
+            <SectionEyebrow>{t.s("galleryEyebrow")}</SectionEyebrow>
             <h2 className="mt-5 font-display text-section text-foreground">
-              Our work in pictures
+              {t.s("galleryTitle")}
             </h2>
           </Reveal>
 
@@ -196,7 +198,7 @@ export default async function ImpactPage() {
         >
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <Reveal className="max-w-2xl">
-              <SectionEyebrow>In their words</SectionEyebrow>
+              <SectionEyebrow>{t.s("testimonialsEyebrow")}</SectionEyebrow>
             </Reveal>
             <RevealGroup className="mt-12 grid gap-6 lg:grid-cols-3">
               {c.testimonials.map((t) => (
@@ -225,11 +227,11 @@ export default async function ImpactPage() {
 
       <div data-rhythm-node>
         <CtaBand
-          title="Turn a target into a result"
-          description="Every figure on this page becomes an achieved result once a programme is funded."
-          primaryLabel="Partner With Us"
+          title={t.cta().title}
+          description={t.cta().description}
+          primaryLabel={t.cta().primaryLabel}
           primaryHref="/partner"
-          secondaryLabel="Make a donation"
+          secondaryLabel={t.cta().secondaryLabel}
           secondaryHref="/get-involved#give"
         />
       </div>

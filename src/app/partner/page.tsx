@@ -4,7 +4,6 @@ import { SectionEyebrow } from "@/components/site/section-eyebrow";
 import { Reveal, RevealGroup } from "@/components/site/reveal";
 import { PartnershipForm } from "@/components/site/partnership-form";
 import { PhotoFigure } from "@/components/site/photo";
-import { AUDIENCES, PHOTOS } from "@/lib/content";
 import { getSiteContent } from "@/lib/site-content";
 
 /** Check Sanity for edits at most once a minute. */
@@ -17,27 +16,9 @@ export const metadata: Metadata = {
     "Nkrabea works with corporate sponsors, grant funders and institutional partners. Support is structured as strategic investment in Ghanaian communities.",
 };
 
-const CASE_POINTS = [
-  {
-    title: "Equipment stays with the community",
-    body: "Under the Cape Coast programme, every instrument and loom procured remains permanently at the school as an institutional asset. Your funding does not evaporate when the programme ends.",
-  },
-  {
-    title: "Costed, time-bound programmes",
-    body: "Each initiative has a defined value, duration and beneficiary count, so a funder can see exactly what a contribution buys and when it completes.",
-  },
-  {
-    title: "Aligned to the SDGs",
-    body: "Our skills development work aligns with UN Sustainable Development Goals 4, 8, 10 and 17, which maps directly onto most corporate and institutional reporting frameworks.",
-  },
-  {
-    title: "Governed and accountable",
-    body: "A registered NGO with an Executive Council, a board secretary and an eight member management team. Accountability is one of our seven core values, not an afterthought.",
-  },
-];
-
 export default async function PartnerPage() {
   const c = await getSiteContent();
+  const t = c.text.partnerPage;
   return (
     <>
       <PageHero
@@ -49,16 +30,16 @@ export default async function PartnerPage() {
       <section data-rhythm-node className="py-20 lg:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="max-w-2xl">
-            <SectionEyebrow>The case for support</SectionEyebrow>
+            <SectionEyebrow>{t.s("caseEyebrow")}</SectionEyebrow>
             <h2 className="mt-5 font-display text-section text-foreground">
-              What your funding actually does
+              {t.s("caseTitle")}
             </h2>
           </Reveal>
 
           <RevealGroup className="mt-12 grid gap-6 sm:grid-cols-2">
-            {CASE_POINTS.map((point) => (
+            {t.cards("casePoints").map((point, i) => (
               <div
-                key={point.title}
+                key={`${point.title}-${i}`}
                 className="spotlight-card card-lift rounded-2xl border border-border bg-card p-7"
               >
                 <h3 className="font-display text-lg leading-snug text-foreground">
@@ -80,31 +61,31 @@ export default async function PartnerPage() {
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="max-w-2xl">
-            <SectionEyebrow>Who we work with</SectionEyebrow>
+            <SectionEyebrow>{t.s("partnersEyebrow")}</SectionEyebrow>
             <h2 className="mt-5 font-display text-section text-foreground">
-              Four kinds of partner
+              {t.s("partnersTitle")}
             </h2>
           </Reveal>
 
           <div className="mt-12 grid gap-10 lg:grid-cols-12 lg:gap-14">
             <Reveal className="lg:col-span-5">
               <PhotoFigure
-                photo={PHOTOS.chiefOutside}
+                photo={t.photo("partnersPhoto")}
                 fill
                 position="50% 20%"
                 sizes="(max-width: 1024px) 100vw, 40vw"
-                caption={PHOTOS.chiefOutside.caption}
+                caption={t.photo("partnersPhoto").caption}
               />
             </Reveal>
             {/* Four stacked entries set the height; the photograph matches it. */}
             <RevealGroup className="grid gap-8 lg:col-span-7 lg:content-center">
-              {AUDIENCES.map((audience) => (
-                <div key={audience.id} className="border-l-2 border-gold-edge/50 pl-5">
+              {c.text.homePage.cards("audiences").map((audience, i) => (
+                <div key={`${audience.title}-${i}`} className="border-l-2 border-gold-edge/50 pl-5">
                   <h3 className="font-display text-lg leading-snug text-foreground">
                     {audience.title}
                   </h3>
                   <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">
-                    {audience.need}
+                    {audience.body}
                   </p>
                 </div>
               ))}
@@ -121,19 +102,19 @@ export default async function PartnerPage() {
                 together, so nothing hangs below anything. */}
             <Reveal className="order-2 lg:order-1 lg:col-span-4">
               <PhotoFigure
-                photo={PHOTOS.chiefUnderUmbrella}
+                photo={t.photo("fundingPhoto")}
                 fill
                 position="50% 25%"
                 sizes="(max-width: 1024px) 100vw, 33vw"
-                caption={PHOTOS.chiefUnderUmbrella.caption}
+                caption={t.photo("fundingPhoto").caption}
               />
             </Reveal>
 
             <div className="order-1 lg:order-2 lg:col-span-8">
               <Reveal>
-                <SectionEyebrow>Open for funding</SectionEyebrow>
+                <SectionEyebrow>{t.s("fundingEyebrow")}</SectionEyebrow>
                 <h2 className="mt-5 font-display text-section text-foreground">
-                  Programmes ready to run
+                  {t.s("fundingTitle")}
                 </h2>
                 <ul className="mt-8 grid gap-5 sm:grid-cols-2">
                   {c.programmes.filter((p) => p.status === "fundraising").map(
@@ -155,11 +136,10 @@ export default async function PartnerPage() {
 
               <Reveal delay={120} className="mt-12">
                 <h3 className="font-display text-2xl leading-tight tracking-tight text-foreground">
-                  Start a conversation
+                  {t.s("formTitle")}
                 </h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  Tell us a little about your organisation and we will come back
-                  with a proposal that fits.
+                  {t.s("formIntro")}
                 </p>
                 <div className="mt-6">
                   <PartnershipForm />

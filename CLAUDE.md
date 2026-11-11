@@ -54,11 +54,28 @@ the website's typecheck and lint.
 - `npm run cms:import` copies content.ts into Sanity. It never overwrites:
   singletons use createIfNotExists and collections are skipped once Sanity has
   any document of that type.
-- **Editable:** site settings, every page banner, the home headline and photo
-  reel, About, Leadership, programmes, figures, milestones, gallery, stories,
-  events, press, testimonials and FAQs. **Not editable, by design:** section
-  headings and layout, the charts (`PROGRAMME_FIGURES`), audiences, art forms,
-  the logo, and `NEEDS_EVIDENCE`.
+- **Editable:** site settings (contact, social accounts, footer sentence),
+  every page banner, every section's words, photos, cards, steps, chart values
+  and closing call to action, plus programmes (photos, flyer, video, button),
+  stories, events (flyer, time, button), press, testimonials and FAQs.
+  **Not editable, by design:** the order and layout of sections, the logo,
+  and `NEEDS_EVIDENCE`.
+- **Page section slots.** `studio/page-text.json` lists every editable slot,
+  page by page and section by section, with its kind (toggle, string, text,
+  photo, photos, lines, cta, stats, values, steps, cards). The Studio builds
+  each page's tabs from it (`studio/schemaTypes/pages.ts`) and the site reads
+  it through `PageText` (`src/lib/page-text.ts`): `t.s()`, `t.photo()`,
+  `t.cards()` and so on. `src/lib/page-text-defaults.ts` holds the original
+  value of every slot. **An empty slot shows its original**, which is how an
+  editor reverts; a toggle switches a whole optional section off. To add a
+  slot: add it to the JSON, add its default, read it in the page. The build
+  throws if any of the three disagree.
+- `scripts/sanity-upgrade.ts` fills empty slots in Sanity with the defaults
+  (setIfMissing, never overwrites). Run it after adding slots so editors see
+  the current words rather than blank fields.
+- Videos are links, never uploads: YouTube (played from youtube-nocookie.com
+  after a click, `<VideoEmbed>`) or a direct .mp4. Flyers are photos shown
+  whole (`fit: "contain"`) by `<FlyerCard>`.
 - The Studio uses only Free-plan features. On Free the only roles are
   Administrator and Viewer, so **invite editors as Administrators**; Editors
   are turned into Viewers when the trial ends.
@@ -83,8 +100,12 @@ around a hard rule: nothing reaches the site that Nkrabea cannot evidence.
   partnership, the PWD unemployment statistic, the press strip, and the
   Adowa/Kete programme detail. Moving an item out of this array requires
   written evidence from Nkrabea, not a judgement call.
-- `EVENTS`, `TESTIMONIALS`, `PRESS` and `STORIES` are intentionally empty.
-  Components render honest empty states. Do not populate them with placeholders.
+- `EVENTS` and `TESTIMONIALS` are intentionally empty; `PRESS` and `STORIES`
+  hold only the evidenced Ayawaso North training. Components render honest
+  empty states. Do not populate any of them with placeholders.
+- `SOCIALS` holds Nkrabea's confirmed accounts. `<SocialLinks>` draws each
+  platform's own logo (Simple Icons, CC0, in `social-icons-data.ts`) in its
+  own brand colour, in the footer, the mobile menu and on Contact.
 
 ## Photography
 
@@ -324,7 +345,8 @@ has no types, so `src/types/paystack-inline.d.ts` declares the parts used.
 - Do not put KoomBei's bank or mobile money details on the site. The invoice
   details belong to the developer; Nkrabea's donation line is `ORG.momo`.
 - Do not reintroduce `scroll-behavior: smooth` on `html`.
-- Do not introduce indigo or blue.
+- Do not introduce indigo or blue. The one exception is the Facebook and
+  other platform logos in `<SocialLinks>`, which keep their owners' colours.
 
 ## Testing changes
 

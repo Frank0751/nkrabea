@@ -1,5 +1,13 @@
 import { cache } from "react";
 import { sanityClient, CONTENT_REVALIDATE_SECONDS } from "./sanity";
+import {
+  PageText,
+  PAGE_IDS,
+  PAGE_DOC_IDS,
+  photoFromRaw,
+  type PageId,
+  type RawPhoto as RawSlotPhoto,
+} from "./page-text";
 import * as D from "./content";
 import type {
   Photo,
@@ -17,6 +25,8 @@ import type {
   FocusArea,
   PageHeroContent,
   HeroKey,
+  Social,
+  SocialPlatform,
 } from "./content";
 
 /**
@@ -59,6 +69,10 @@ export type SiteContent = {
   testimonials: Testimonial[];
   stories: Story[];
   faqs: FAQ[];
+  socials: Social[];
+  footerText: string;
+  /** Every page's editable slots: c.text.homePage.s("missionTitle"). */
+  text: Record<PageId, PageText>;
 };
 
 export const DEFAULT_CONTENT: SiteContent = {
@@ -84,6 +98,9 @@ export const DEFAULT_CONTENT: SiteContent = {
   testimonials: D.TESTIMONIALS,
   stories: D.STORIES,
   faqs: D.FAQS,
+  socials: D.SOCIALS,
+  footerText: D.FOOTER_TEXT,
+  text: Object.fromEntries(PAGE_IDS.map((id) => [id, new PageText(id, null)])) as Record<PageId, PageText>,
 };
 
 /* --------------------------------------------------------------- the query */
@@ -92,16 +109,16 @@ const PHOTO = `alt, caption, fit, url, "asset": image.asset->{url, "lqip": metad
 const HERO = `eyebrow, title, description, "photo": photo{${PHOTO}}`;
 
 const QUERY = `{
-  "settings": *[_id == "siteSettings"][0]{legalName, name, shortName, motto, registration, incorporated, areaOfOperation, headOffice, postalAddress, phones, email, momo, whatsapp},
+  "settings": *[_id == "siteSettings"][0]{legalName, name, shortName, motto, registration, incorporated, areaOfOperation, headOffice, postalAddress, phones, email, momo, whatsapp, socials[]{platform, url}, footerText},
   "home": *[_id == "homePage"][0]{headline, highlight, lead, "reel": reel[]{${PHOTO}}},
   "about": *[_id == "aboutPage"][0]{"hero": hero{${HERO}}, whoWeAre, mission, vision, values, "focus": focus[]{_key, icon, title, description}, whatWeDo},
-  "leadership": *[_id == "leadershipPage"][0]{"hero": hero{${HERO}}, governanceNote, "founders": founders[]{name, role, bio, "photo": photo{${PHOTO}}}, "board": board[]{name, role}, managementRoles},
+  "leadership": *[_id == "leadershipPage"][0]{"hero": hero{${HERO}}, governanceNote, "founders": founders[]{name, role, bio, "photo": photo{${PHOTO}}}, "board": board[]{name, role, "photo": photo{${PHOTO}}}, managementRoles},
   "impact": *[_id == "impactPage"][0]{"hero": hero{${HERO}}, "figures": figures[]{value, label, kind, source}, "milestones": milestones[]{year, title, description}, "gallery": gallery[]{_key, ${PHOTO}}},
   "contact": *[_id == "contactPage"][0]{"hero": hero{${HERO}}, "faqs": faqs[]{question, answer}},
-  "basicPages": *[_type == "basicPage"]{_id, "hero": hero{${HERO}}},
-  "programmes": *[_type == "programme" && defined(slug.current)] | order(order asc, name asc){name, "id": slug.current, status, summary, details, value, sdgs},
-  "stories": *[_type == "story" && defined(slug.current)] | order(date desc){"id": slug.current, category, title, date, displayDate, place, excerpt, body, learnt, thanks, source, "photos": photos[]{${PHOTO}}, "moments": moments[]{${PHOTO}}, press{outlet, headline, date, videoUrl, posterUrl, duration, note}},
-  "events": *[_type == "event"] | order(date asc){_id, title, date, venue, type, status},
+  "pageDocs": *[_id in $pageIds],
+  "programmes": *[_type == "programme" && defined(slug.current)] | order(order asc, name asc){name, "id": slug.current, status, summary, details, value, sdgs, photos, flyer, videoUrl, linkLabel, link},
+  "stories": *[_type == "story" && defined(slug.current)] | order(date desc){"id": slug.current, category, title, date, displayDate, place, excerpt, body, learnt, thanks, source, momentsTitle, "photos": photos[]{${PHOTO}}, "moments": moments[]{${PHOTO}}, press{outlet, headline, date, videoUrl, posterUrl, duration, note}},
+  "events": *[_type == "event"] | order(date asc){_id, title, date, time, venue, type, status, description, flyer, linkLabel, link},
   "press": *[_type == "pressItem"] | order(order asc, _createdAt desc){name, context, date, link},
   "testimonials": *[_type == "testimonial"] | order(order asc, _createdAt desc){quote, author, role, organisation}
 }`;
@@ -125,7 +142,11 @@ type RawHero = {
 } | null;
 
 type Raw = {
-  settings: Partial<Omit<typeof D.ORG, "whatsapp">> & { whatsapp?: string | null } | null;
+  settings: Partial<Omit<typeof D.ORG, "whatsapp">> & {
+    whatsapp?: string | null;
+    socials?: { platform?: string; url?: string }[];
+    footerText?: string;
+  } | null;
   home: { headline?: string; highlight?: string; lead?: string; reel?: RawPhoto[] } | null;
   about: {
     hero?: RawHero;
@@ -140,7 +161,7 @@ type Raw = {
     hero?: RawHero;
     governanceNote?: string;
     founders?: { name?: string; role?: string; bio?: string; photo?: RawPhoto }[];
-    board?: { name?: string; role?: string }[];
+    board?: { name?: string; role?: string; photo?: RawPhoto }[];
     managementRoles?: string[];
   } | null;
   impact: {
@@ -150,7 +171,7 @@ type Raw = {
     gallery?: (NonNullable<RawPhoto> & { _key: string })[];
   } | null;
   contact: { hero?: RawHero; faqs?: { question?: string; answer?: string }[] } | null;
-  basicPages: { _id: string; hero?: RawHero }[];
+  pageDocs: ({ _id: string } & Record<string, unknown>)[];
   programmes: {
     name?: string;
     id: string;
@@ -159,6 +180,11 @@ type Raw = {
     details?: string[];
     value?: string;
     sdgs?: number[];
+    photos?: RawSlotPhoto[];
+    flyer?: RawSlotPhoto;
+    videoUrl?: string;
+    linkLabel?: string;
+    link?: string;
   }[];
   stories: {
     id: string;
@@ -172,6 +198,7 @@ type Raw = {
     learnt?: string[];
     thanks?: string;
     source?: string;
+    momentsTitle?: string;
     photos?: RawPhoto[];
     moments?: RawPhoto[];
     press?: {
@@ -184,7 +211,19 @@ type Raw = {
       note?: string;
     } | null;
   }[];
-  events: { _id: string; title?: string; date?: string; venue?: string; type?: string; status?: EventItem["status"] }[];
+  events: {
+    _id: string;
+    title?: string;
+    date?: string;
+    time?: string;
+    venue?: string;
+    type?: string;
+    status?: EventItem["status"];
+    description?: string;
+    flyer?: RawSlotPhoto;
+    linkLabel?: string;
+    link?: string;
+  }[];
   press: { name?: string; context?: string; date?: string; link?: string }[];
   testimonials: { quote?: string; author?: string; role?: string; organisation?: string }[];
 };
@@ -241,8 +280,26 @@ function longDate(iso: string | undefined): string {
 function fromSanity(r: Raw): SiteContent {
   const d = DEFAULT_CONTENT;
   const s = r.settings ?? {};
-  const basic = (key: HeroKey) =>
-    hero(r.basicPages.find((p) => p._id === `page-${key}`)?.hero, d.heroes[key]);
+  const doc = (id: string) => r.pageDocs.find((p) => p._id === id);
+  // Heroes of the pages fetched whole: photos are raw references here.
+  const basic = (key: HeroKey) => {
+    const raw = doc(`page-${key}`)?.hero as
+      | { eyebrow?: string; title?: string; description?: string; photo?: RawSlotPhoto }
+      | undefined;
+    if (!raw) return d.heroes[key];
+    return {
+      eyebrow: raw.eyebrow ?? d.heroes[key].eyebrow,
+      title: raw.title ?? d.heroes[key].title,
+      description: raw.description ?? undefined,
+      photo: photoFromRaw(raw.photo),
+    };
+  };
+  const text = Object.fromEntries(
+    PAGE_IDS.map((id) => [id, new PageText(id, doc(PAGE_DOC_IDS[id]))])
+  ) as Record<PageId, PageText>;
+  const PLATFORMS: SocialPlatform[] = ["facebook", "instagram", "tiktok", "youtube", "threads", "x", "whatsapp"];
+  const socials = (s.socials ?? [])
+    .filter((x): x is Social => PLATFORMS.includes(x.platform as SocialPlatform) && /^https?:\/\//.test(x.url ?? ""));
 
   const stories: Story[] = r.stories.map((x) => {
     const story: Story = {
@@ -258,6 +315,7 @@ function fromSanity(r: Raw): SiteContent {
       source: x.source ?? "",
     };
     if (x.learnt?.length) story.learnt = x.learnt;
+    if (x.momentsTitle) story.momentsTitle = x.momentsTitle;
     if (x.thanks) story.thanks = x.thanks;
     const moments = photos(x.moments);
     if (moments.length) story.moments = moments;
@@ -282,7 +340,9 @@ function fromSanity(r: Raw): SiteContent {
     org: {
       ...d.org,
       ...Object.fromEntries(
-        Object.entries(s).filter(([, v]) => v !== null && v !== undefined && v !== "")
+        Object.entries(s).filter(
+          ([k, v]) => !["socials", "footerText"].includes(k) && v !== null && v !== undefined && v !== ""
+        )
       ),
       phones: s.phones?.length ? s.phones : d.org.phones,
       whatsapp: s.whatsapp ? s.whatsapp : null,
@@ -324,7 +384,12 @@ function fromSanity(r: Raw): SiteContent {
         })
       : d.founders,
     board: r.leadership?.board
-      ? r.leadership.board.map((p) => ({ name: p.name ?? "", role: p.role ?? "" }))
+      ? r.leadership.board.map((p) => {
+          const person: Person = { name: p.name ?? "", role: p.role ?? "" };
+          const photo = toPhoto(p.photo);
+          if (photo) person.image = photo.src;
+          return person;
+        })
       : d.board,
     governanceNote: r.leadership?.governanceNote ?? d.governanceNote,
     managementRoles: r.leadership?.managementRoles ?? d.managementRoles,
@@ -338,6 +403,15 @@ function fromSanity(r: Raw): SiteContent {
       };
       if (p.value) programme.value = p.value;
       if (p.sdgs?.length) programme.sdgs = p.sdgs;
+      const photos = (p.photos ?? []).map(photoFromRaw).filter((x): x is Photo => Boolean(x));
+      if (photos.length) programme.photos = photos;
+      const flyer = photoFromRaw(p.flyer);
+      if (flyer) programme.flyer = { ...flyer, fit: "contain" };
+      if (p.videoUrl) programme.videoUrl = p.videoUrl;
+      if (p.linkLabel && p.link) {
+        programme.linkLabel = p.linkLabel;
+        programme.link = p.link;
+      }
       return programme;
     }),
     figures: r.impact?.figures
@@ -361,16 +435,26 @@ function fromSanity(r: Raw): SiteContent {
       : d.gallery,
     events: r.events.map((e) => {
       const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(e.date ?? "");
-      return {
+      const event: EventItem = {
         id: e._id,
         date: longDate(e.date),
-        day: m ? m[3] : "",
+        isoDate: e.date ?? "",
+        day: m ? String(Number(m[3])) : "",
         month: m ? MONTHS[Number(m[2]) - 1] : "",
         title: e.title ?? "",
         venue: e.venue ?? "",
         type: e.type ?? "",
         status: e.status ?? "upcoming",
       };
+      if (e.time) event.time = e.time;
+      if (e.description) event.description = e.description;
+      const flyer = photoFromRaw(e.flyer);
+      if (flyer) event.flyer = { ...flyer, fit: "contain" };
+      if (e.linkLabel && e.link) {
+        event.linkLabel = e.linkLabel;
+        event.link = e.link;
+      }
+      return event;
     }),
     press: r.press.map((p) => {
       const item: PressItem = { name: p.name ?? "", context: p.context ?? "", date: p.date ?? "" };
@@ -386,6 +470,9 @@ function fromSanity(r: Raw): SiteContent {
     faqs: r.contact?.faqs
       ? r.contact.faqs.map((f) => ({ question: f.question ?? "", answer: f.answer ?? "" }))
       : d.faqs,
+    socials: s.socials ? socials : d.socials,
+    footerText: s.footerText || d.footerText,
+    text,
   };
 }
 
@@ -396,7 +483,7 @@ function fromSanity(r: Raw): SiteContent {
  */
 export const getSiteContent = cache(async (): Promise<SiteContent> => {
   try {
-    const raw = await sanityClient.fetch<Raw>(QUERY, {}, {
+    const raw = await sanityClient.fetch<Raw>(QUERY, { pageIds: Object.values(PAGE_DOC_IDS) }, {
       next: { revalidate: CONTENT_REVALIDATE_SECONDS, tags: ["sanity"] },
     });
     // No settings document means the import has not run yet.

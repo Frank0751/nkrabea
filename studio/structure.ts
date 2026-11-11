@@ -8,12 +8,12 @@ export const SINGLETONS: { id: string; type: string; title: string }[] = [
   { id: "siteSettings", type: "siteSettings", title: "Site settings" },
   { id: "homePage", type: "homePage", title: "Home" },
   { id: "aboutPage", type: "aboutPage", title: "About" },
-  { id: "page-programmes", type: "basicPage", title: "Our Work" },
+  { id: "page-programmes", type: "programmesPage", title: "Our Work" },
   { id: "impactPage", type: "impactPage", title: "Impact" },
   { id: "leadershipPage", type: "leadershipPage", title: "Leadership" },
-  { id: "page-partner", type: "basicPage", title: "Partner" },
-  { id: "page-getInvolved", type: "basicPage", title: "Get Involved" },
-  { id: "page-news", type: "basicPage", title: "News" },
+  { id: "page-partner", type: "partnerPage", title: "Partner" },
+  { id: "page-getInvolved", type: "getInvolvedPage", title: "Get Involved" },
+  { id: "page-news", type: "newsPage", title: "News" },
   { id: "contactPage", type: "contactPage", title: "Contact" },
 ];
 

@@ -3,24 +3,13 @@ import { PageHero } from "@/components/site/page-hero";
 import { SectionEyebrow } from "@/components/site/section-eyebrow";
 import { Reveal, RevealGroup } from "@/components/site/reveal";
 import { CtaBand } from "@/components/site/cta-band";
-import {
-  DataBand,
-  SplitBar,
-  StatTile,
-  ProcessSteps,
-} from "@/components/site/figures";
+import { DataBand, SplitBar, StatTile, ProcessSteps } from "@/components/site/figures";
 import { PhotoFigure, PhotoBreak } from "@/components/site/photo";
-import { ART_FORMS, PROGRAMME_FIGURES, PHOTOS, type Photo } from "@/lib/content";
+import { ProgrammeFeature } from "@/components/site/programme-feature";
 import { getSiteContent } from "@/lib/site-content";
 
 /** Check Sanity for edits at most once a minute. */
 export const revalidate = 60;
-
-/** The picture of each craft, from Nkrabea's own library. */
-const ART_FORM_PHOTOS: Record<string, Photo> = {
-  kente: PHOTOS.loom,
-  "drumming-dance": PHOTOS.drumRowWide,
-};
 
 export const metadata: Metadata = {
   alternates: { canonical: "/programmes" },
@@ -29,192 +18,108 @@ export const metadata: Metadata = {
     "The programmes Nkrabea is running and raising funds for: skills development at Cape Coast School for the Deaf, accessible soap production for persons with disabilities, and a Culture and Arts Centre.",
 };
 
-const STATUS_LABEL = {
-  running: "Running",
-  fundraising: "Raising funds",
-  vision: "Long-term vision",
-} as const;
+/** The two parts of the split bar take the chart palette in order. */
+const SPLIT_TOKENS = ["--chart-2", "--chart-1", "--chart-3"];
 
 export default async function ProgrammesPage() {
   const c = await getSiteContent();
+  const t = c.text.programmesPage;
+  const total = parseInt(t.s("splitTotal").replace(/[^\d]/g, ""), 10);
+  const parts = t.values("splitParts").map((p, i) => ({
+    name: p.name,
+    value: p.value,
+    token: SPLIT_TOKENS[i % SPLIT_TOKENS.length],
+  }));
+  const stats = t.stats("stats");
+  const artForms = t.cards("artForms");
+  const steps = t.steps("steps");
+  const cta = t.cta();
+
   return (
     <>
-      <PageHero
-        {...c.heroes.programmes}
-        crumbs={[{ label: "Our Work" }]}
-      />
+      <PageHero {...c.heroes.programmes} crumbs={[{ label: "Our Work" }]} />
 
-      <section data-rhythm-node className="py-20 lg:py-28">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="space-y-16 lg:space-y-24">
+      {c.programmes.length > 0 && (
+        <section data-rhythm-node className="py-20 lg:py-28">
+          <div className="mx-auto max-w-7xl space-y-20 px-4 sm:px-6 lg:space-y-28 lg:px-8">
             {c.programmes.map((programme, index) => (
-              <Reveal key={programme.id}>
-                <article className="grid gap-8 lg:grid-cols-12 lg:gap-12">
-                  <div className="lg:col-span-4">
-                    <p className="label-mono text-muted-foreground">
-                      {String(index + 1).padStart(2, "0")}
-                    </p>
-                    <span
-                      className={`label-mono mt-4 inline-block rounded-full px-2.5 py-1 ${
-                        programme.status === "fundraising"
-                          ? "bg-accent/20 text-gold-ink"
-                          : programme.status === "running"
-                            ? "bg-primary/10 text-primary"
-                            : "bg-muted text-muted-foreground"
-                      }`}
-                    >
-                      {STATUS_LABEL[programme.status]}
-                    </span>
-                    <h2 className="mt-5 font-display text-2xl leading-snug tracking-tight text-foreground sm:text-3xl">
-                      {programme.name}
-                    </h2>
-                    {programme.value && (
-                      <p className="mt-4 text-sm text-muted-foreground">
-                        Programme value{" "}
-                        <span className="font-semibold text-emphasis">
-                          {programme.value}
-                        </span>
-                      </p>
-                    )}
-                  </div>
-
-                  <div className="lg:col-span-8">
-                    <p className="text-base leading-relaxed text-foreground/90 sm:text-lg">
-                      {programme.summary}
-                    </p>
-
-                    <ul className="mt-8 space-y-4">
-                      {programme.details.map((detail) => (
-                        <li
-                          key={detail}
-                          className="flex gap-4 border-b border-border pb-4 last:border-0"
-                        >
-                          <span
-                            className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"
-                            aria-hidden="true"
-                          />
-                          <span className="text-sm leading-relaxed text-foreground/90 sm:text-base">
-                            {detail}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-
-                    {programme.sdgs && programme.sdgs.length > 0 && (
-                      <p className="mt-6 text-sm text-muted-foreground">
-                        Aligns with UN Sustainable Development Goals{" "}
-                        {programme.sdgs.join(", ")}.
-                      </p>
-                    )}
-                  </div>
-                </article>
-              </Reveal>
+              <ProgrammeFeature key={programme.id} programme={programme} index={index} />
             ))}
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
-      <DataBand
-        eyebrow="What the funding buys"
-        title="One hundred students, split evenly between two trades"
-        lede="The Cape Coast programme is costed, dated and designed to leave its equipment behind. These are the numbers a funder would be committing to."
-      >
-        <div className="grid gap-14 lg:grid-cols-2 lg:gap-16">
-          <SplitBar
-            total={PROGRAMME_FIGURES.capeCoast.intake}
-            totalLabel="students at Cape Coast School for the Deaf with Blind Unit, over one school year"
-            parts={PROGRAMME_FIGURES.capeCoast.split}
-            caption="A programme target, not a result to date. Source: Nkrabea's Skills Development Programme design."
-          />
-
-          <div className="grid gap-5 sm:grid-cols-2">
-            <StatTile
-              value={PROGRAMME_FIGURES.capeCoast.budget}
-              label="Total programme value"
-              note="As published by Nkrabea."
+      {t.on("showChart") && Number.isFinite(total) && total > 0 && (
+        <DataBand eyebrow={t.s("chartEyebrow")} title={t.s("chartTitle")} lede={t.s("chartLede")}>
+          <div className={`grid gap-14 ${stats.length > 0 ? "lg:grid-cols-2 lg:gap-16" : ""}`}>
+            <SplitBar
+              total={total}
+              totalLabel={t.s("splitTotalLabel")}
+              parts={parts}
+              caption={t.s("splitCaption")}
             />
-            <StatTile
-              value="12 months"
-              label="Integrated into the school calendar"
-            />
-            <StatTile
-              value={PROGRAMME_FIGURES.capeCoast.perStudent}
-              label="Per student, on average"
-              note="The published budget divided by the published intake."
-            />
-            <StatTile
-              value="Retained"
-              label="Equipment stays at the school as an institutional asset"
-            />
+            {stats.length > 0 && (
+              <div className="grid gap-5 sm:grid-cols-2">
+                {stats.map((stat, i) => (
+                  <StatTile key={`${stat.label}-${i}`} value={stat.value} label={stat.label} note={stat.note} />
+                ))}
+              </div>
+            )}
           </div>
-        </div>
-      </DataBand>
+        </DataBand>
+      )}
 
       {/* Art forms */}
-      <section
-        data-rhythm-node
-        className="bg-sand py-20 lg:py-28"
-      >
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <Reveal className="max-w-2xl">
-            <SectionEyebrow>How we teach</SectionEyebrow>
-            <h2 className="mt-5 font-display text-section text-foreground">
-              The art forms we work through
-            </h2>
-          </Reveal>
+      {(artForms.length > 0 || (t.on("showSteps") && steps.length > 0)) && (
+        <section data-rhythm-node className="bg-sand py-20 lg:py-28">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            {artForms.length > 0 && (
+              <>
+                <Reveal className="max-w-2xl">
+                  <SectionEyebrow>{t.s("artEyebrow")}</SectionEyebrow>
+                  <h2 className="mt-5 font-display text-section text-foreground">{t.s("artTitle")}</h2>
+                </Reveal>
 
-          <RevealGroup className="mt-12 grid gap-6 sm:grid-cols-2">
-            {ART_FORMS.map((form) => {
-              const photo = ART_FORM_PHOTOS[form.id];
-              return (
-                <div
-                  key={form.id}
-                  className="spotlight-card card-lift overflow-hidden rounded-2xl border border-border bg-card"
-                >
-                  {photo && (
-                    <PhotoFigure
-                      photo={photo}
-                      ratio="16/9"
-                      sizes="(max-width: 640px) 100vw, 50vw"
-                      bare
-                    />
-                  )}
-                  <div className="p-7">
-                    <h3 className="font-display text-lg text-foreground">
-                      {form.name}
-                    </h3>
-                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                      {form.note}
-                    </p>
-                  </div>
+                <RevealGroup className={`mt-12 grid gap-6 sm:grid-cols-2 ${artForms.length >= 3 ? "lg:grid-cols-3" : ""}`}>
+                  {artForms.map((form, i) => (
+                    <div
+                      key={`${form.title}-${i}`}
+                      className="spotlight-card card-lift overflow-hidden rounded-2xl border border-border bg-card"
+                    >
+                      {form.photo && (
+                        <PhotoFigure photo={form.photo} ratio="16/9" sizes="(max-width: 640px) 100vw, 50vw" bare />
+                      )}
+                      <div className="p-7">
+                        <h3 className="font-display text-lg text-foreground">{form.title}</h3>
+                        <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{form.body}</p>
+                      </div>
+                    </div>
+                  ))}
+                </RevealGroup>
+              </>
+            )}
+
+            {t.on("showSteps") && steps.length > 0 && (
+              <Reveal delay={140} className={artForms.length > 0 ? "mt-20" : ""}>
+                <h3 className="font-display text-sub text-foreground">{t.s("stepsTitle")}</h3>
+                <div className="mt-10">
+                  <ProcessSteps steps={steps} caption={t.s("stepsCaption")} />
                 </div>
-              );
-            })}
-          </RevealGroup>
+              </Reveal>
+            )}
+          </div>
+        </section>
+      )}
 
-          <Reveal delay={140} className="mt-20">
-            <h3 className="font-display text-sub text-foreground">
-              How a Deaf student learns a drum pattern
-            </h3>
-            <div className="mt-10">
-              <ProcessSteps
-                steps={PROGRAMME_FIGURES.vibrotactile}
-                caption="Nkrabea's programme design specifies vibrotactile technology for the fifty drumming and dance students. The equipment is part of the funded budget and remains at the school afterwards."
-              />
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      <PhotoBreak photo={PHOTOS.bendingStep} label="Nkrabea Drumming and Dance Troupe" />
+      {t.on("showPhoto") && <PhotoBreak photo={t.photo("breakPhoto")} label={t.s("breakLabel")} />}
 
       <div data-rhythm-node>
         <CtaBand
-          title="Fund a programme"
-          description="Each of these initiatives is costed and ready to run. Partnership puts them in motion."
-          primaryLabel="Partner With Us"
+          title={cta.title}
+          description={cta.description}
+          primaryLabel={cta.primaryLabel}
           primaryHref="/partner"
-          secondaryLabel="Make a donation"
+          secondaryLabel={cta.secondaryLabel}
           secondaryHref="/get-involved#give"
         />
       </div>

@@ -4,6 +4,7 @@ import { Mail, Phone, MapPin } from "lucide-react";
 import { NewsletterForm } from "./newsletter-form";
 import { LOGO } from "@/lib/content";
 import { getSiteContent } from "@/lib/site-content";
+import { SocialLinks } from "./social-links";
 
 const COLUMNS = [
   {
@@ -32,7 +33,7 @@ const COLUMNS = [
 ];
 
 export async function Footer() {
-  const { org } = await getSiteContent();
+  const { org, socials, footerText } = await getSiteContent();
   const year = new Date().getFullYear();
 
   return (
@@ -61,9 +62,14 @@ export async function Footer() {
               </div>
             </div>
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-band-foreground/70">
-              A registered Ghanaian NGO using culture and the creative arts as
-              tools for socio-economic development.
+              {footerText}
             </p>
+
+            {socials.length > 0 && (
+              <nav aria-label="Nkrabea on social media" className="mt-7">
+                <SocialLinks socials={socials} size="sm" />
+              </nav>
+            )}
 
             <dl className="mt-8 space-y-4 text-sm">
               <div className="flex gap-3">

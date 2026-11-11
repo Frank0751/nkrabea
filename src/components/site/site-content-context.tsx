@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { ORG, PROGRAMMES, type Programme } from "@/lib/content";
+import { ORG, PROGRAMMES, SOCIALS, type Programme, type Social } from "@/lib/content";
 
 /**
  * The editable content that client components need: the organisation's
@@ -14,11 +14,13 @@ import { ORG, PROGRAMMES, type Programme } from "@/lib/content";
 export type ClientContent = {
   org: typeof ORG;
   programmes: Pick<Programme, "id" | "name" | "status">[];
+  socials: Social[];
 };
 
 const SiteContentContext = React.createContext<ClientContent>({
   org: ORG,
   programmes: PROGRAMMES.map(({ id, name, status }) => ({ id, name, status })),
+  socials: SOCIALS,
 });
 
 export function SiteContentProvider({
@@ -35,6 +37,10 @@ export function SiteContentProvider({
 
 export function useOrg() {
   return React.useContext(SiteContentContext).org;
+}
+
+export function useSocials() {
+  return React.useContext(SiteContentContext).socials;
 }
 
 export function useProgrammes() {

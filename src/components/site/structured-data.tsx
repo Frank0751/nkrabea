@@ -11,7 +11,7 @@ import { SITE_URL } from "@/lib/site";
  * prototype is held in NEEDS_EVIDENCE and deliberately absent.
  */
 export async function OrganisationSchema() {
-  const { org, mission } = await getSiteContent();
+  const { org, mission, socials } = await getSiteContent();
   const schema = {
     "@context": "https://schema.org",
     "@type": "NGO",
@@ -35,6 +35,8 @@ export async function OrganisationSchema() {
     },
     email: org.email,
     telephone: org.phones,
+    // Tells search engines these accounts belong to the organisation.
+    ...(socials.length ? { sameAs: socials.map((s) => s.url) } : {}),
     areaServed: {
       "@type": "Country",
       name: "Ghana",

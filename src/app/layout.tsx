@@ -79,10 +79,11 @@ export default async function RootLayout({
 }>) {
   // Contact details and the programme list for the client components (the
   // header and the forms). Everything else reads getSiteContent() itself.
-  const { org, programmes } = await getSiteContent();
+  const { org, programmes, socials } = await getSiteContent();
   const clientContent = {
     org,
     programmes: programmes.map(({ id, name, status }) => ({ id, name, status })),
+    socials,
   };
 
   return (

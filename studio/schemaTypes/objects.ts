@@ -21,11 +21,11 @@ export const photo = defineType({
     }),
     defineField({
       name: "url",
-      title: "Linked photo (from the old site)",
+      title: "Or paste a link to a photo",
       type: "url",
-      readOnly: true,
-      hidden: ({ parent, value }) => !value || Boolean(parent?.image),
-      description: "Imported automatically. Upload an image above to replace it.",
+      hidden: ({ parent }) => Boolean(parent?.image?.asset),
+      description:
+        "A direct link to an image (ending in .jpg, .png or similar). Photos from the old site are linked this way. An uploaded image above takes priority.",
     }),
     defineField({
       name: "alt",
@@ -57,10 +57,15 @@ export const photo = defineType({
   ],
   validation: (r) =>
     r.custom((value: { image?: { asset?: unknown }; url?: string } | undefined) =>
-      !value || value.image?.asset || value.url ? true : "Upload an image."
+      !value || value.image?.asset || value.url ? true : "Upload an image or paste a link to one."
     ),
   preview: {
-    select: { media: "image", title: "alt", subtitle: "caption" },
+    select: { media: "image", title: "alt", subtitle: "caption", url: "url" },
+    prepare: ({ media, title, subtitle, url }) => ({
+      title: title || "Photo (no description yet)",
+      subtitle: subtitle || (url && !media ? "Linked photo" : undefined),
+      media,
+    }),
   },
 });
 
@@ -189,8 +194,14 @@ export const boardMember = defineType({
   fields: [
     defineField({ name: "name", title: "Name", type: "string", validation: (r) => r.required() }),
     defineField({ name: "role", title: "Role", type: "string", validation: (r) => r.required() }),
+    defineField({
+      name: "photo",
+      title: "Portrait (optional)",
+      type: "photo",
+      description: "Without one, the person's initials are shown.",
+    }),
   ],
-  preview: { select: { title: "name", subtitle: "role" } },
+  preview: { select: { title: "name", subtitle: "role", media: "photo.image" } },
 });
 
 export const faq = defineType({
@@ -215,12 +226,17 @@ export const storyPress = defineType({
     defineField({ name: "date", title: "Date", type: "string", description: "As it should read, e.g. November 2026" }),
     defineField({
       name: "videoUrl",
-      title: "Video link (.mp4)",
+      title: "Video link",
       type: "url",
       description:
-        "Videos are hosted on Cloudinary, not uploaded here: video is too heavy for this system. Ask KoomBei to add a new video and send you its link.",
+        "Paste a YouTube link (best: upload the video to Nkrabea's YouTube channel first) or a direct link to a video file. Videos are not uploaded here: video is too heavy for this system.",
     }),
-    defineField({ name: "posterUrl", title: "Video still (image link)", type: "url" }),
+    defineField({
+      name: "posterUrl",
+      title: "Video still (optional image link)",
+      type: "url",
+      description: "YouTube videos use their own thumbnail, so this is only needed for direct video files.",
+    }),
     defineField({ name: "duration", title: "Length", type: "string", description: "e.g. 4 min 33 s" }),
     defineField({ name: "note", title: "Credit line", type: "string", description: "Shown under the video." }),
   ],

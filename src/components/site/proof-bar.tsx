@@ -10,23 +10,23 @@ import { getSiteContent } from "@/lib/site-content";
  * exists to remove. Registration, incorporation, reach and governance are
  * also what a grant funder actually checks first.
  */
-const PROOF = [
-  { value: "Registered", label: "Non-governmental organisation" },
-  { value: "Act 992", label: "Companies Act, 2019" },
-  { value: "2021", label: "Incorporated 14 May" },
-  { value: "National", label: "Area of operation" },
-];
-
 export async function ProofBar() {
-  const { org } = await getSiteContent();
+  const { org, text } = await getSiteContent();
+  // Editable on the Home page in Sanity, under Credibility strip.
+  const items = text.homePage.stats("proofItems");
+  if (items.length === 0) return null;
   return (
     <section
       aria-label="Registration and governance"
       className="border-y border-accent/30 bg-accent text-accent-foreground"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <dl className="grid grid-cols-2 divide-accent-foreground/15 sm:divide-x lg:grid-cols-4">
-          {PROOF.map((item) => (
+        <dl
+          className={`grid grid-cols-2 divide-accent-foreground/15 sm:divide-x ${
+            items.length >= 4 ? "lg:grid-cols-4" : items.length === 3 ? "lg:grid-cols-3" : ""
+          }`}
+        >
+          {items.map((item) => (
             <div
               key={item.label}
               className="px-2 py-6 text-center sm:px-6 lg:py-7"

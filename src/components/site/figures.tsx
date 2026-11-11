@@ -252,7 +252,11 @@ export function ProcessSteps({
 }) {
   return (
     <figure className="m-0">
-      <ol className="grid gap-8 sm:grid-cols-3">
+      <ol
+        className={`grid gap-8 ${
+          steps.length === 2 ? "sm:grid-cols-2" : steps.length >= 4 ? "sm:grid-cols-2 lg:grid-cols-4" : "sm:grid-cols-3"
+        }`}
+      >
         {steps.map((step, i) => (
           <li key={step.title} className="relative">
             <div className="flex items-center gap-3">

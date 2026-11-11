@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight, PlayCircle } from "lucide-react";
 import { Reveal, RevealGroup } from "./reveal";
 import { PhotoFigure } from "./photo";
+import { VideoEmbed } from "./video-embed";
 import type { Story } from "@/lib/content";
 
 /**
@@ -36,9 +37,11 @@ function DatePlace({ story, onBand }: { story: Story; onBand?: boolean }) {
 export function StoryFeature({
   story,
   eyebrow = "Latest from the field",
+  learntLabel = "What they learnt",
 }: {
   story: Story;
   eyebrow?: string;
+  learntLabel?: string;
 }) {
   const lead = story.photos[0];
   return (
@@ -67,7 +70,7 @@ export function StoryFeature({
 
           <Reveal
             delay={100}
-            className="flex flex-col justify-center lg:col-span-6"
+            className={`flex flex-col justify-center ${lead ? "lg:col-span-6" : "lg:col-span-8"}`}
           >
             <p className="label-mono text-accent">{eyebrow}</p>
             <div className="section-mark mt-4" aria-hidden="true" />
@@ -80,7 +83,7 @@ export function StoryFeature({
             {story.learnt && story.learnt.length > 0 && (
               <div className="mt-7">
                 <p className="text-sm text-band-foreground/75">
-                  What they learnt
+                  {learntLabel}
                 </p>
                 <ul className="mt-3 flex flex-wrap gap-2.5">
                   {story.learnt.map((item) => (
@@ -128,13 +131,22 @@ export function StoryFeature({
   );
 }
 
-export function StoryArticle({ story }: { story: Story }) {
+export function StoryArticle({
+  story,
+  learntLabel = "What they learnt",
+  pressLabel = "In the news",
+}: {
+  story: Story;
+  learntLabel?: string;
+  pressLabel?: string;
+}) {
   const [lead, ...rest] = story.photos;
   return (
     <article id={story.id} className="scroll-mt-24">
       <div className="grid gap-10 lg:grid-cols-12 lg:gap-14">
         {lead && (
-          <Reveal className="lg:col-span-7">
+          // Stays in view beside a long story on wide screens.
+          <Reveal className="lg:sticky lg:top-24 lg:col-span-7 lg:self-start">
             <PhotoFigure
               photo={lead}
               ratio="3/2"
@@ -144,7 +156,7 @@ export function StoryArticle({ story }: { story: Story }) {
           </Reveal>
         )}
 
-        <Reveal delay={100} className="lg:col-span-5">
+        <Reveal delay={100} className={lead ? "lg:col-span-5" : "lg:col-span-8"}>
           <span className="label-mono inline-block rounded-full bg-primary/10 px-2.5 py-1 text-primary">
             {story.category}
           </span>
@@ -154,9 +166,9 @@ export function StoryArticle({ story }: { story: Story }) {
           <DatePlace story={story} />
 
           <div className="mt-6 space-y-4">
-            {story.body.map((paragraph) => (
+            {story.body.map((paragraph, i) => (
               <p
-                key={paragraph.slice(0, 40)}
+                key={i}
                 className="text-base leading-relaxed text-foreground/90"
               >
                 {paragraph}
@@ -167,7 +179,7 @@ export function StoryArticle({ story }: { story: Story }) {
           {story.learnt && story.learnt.length > 0 && (
             <div className="mt-7">
               <h3 className="font-display text-lg text-foreground">
-                What they learnt
+                {learntLabel}
               </h3>
               <ul className="mt-3 space-y-2">
                 {story.learnt.map((item) => (
@@ -220,7 +232,7 @@ export function StoryArticle({ story }: { story: Story }) {
         >
           <div className="grid gap-8 lg:grid-cols-12 lg:gap-10">
             <div className="lg:col-span-4">
-              <p className="label-mono text-accent">In the news</p>
+              <p className="label-mono text-accent">{pressLabel}</p>
               <div className="section-mark mt-4" aria-hidden="true" />
               <h3
                 id={`${story.id}-press-title`}
@@ -240,19 +252,13 @@ export function StoryArticle({ story }: { story: Story }) {
               </p>
             </div>
             <div className="lg:col-span-8">
-              {/* Nothing downloads until the visitor presses play: the
-                  report is 18 MB, too heavy to fetch for everyone. */}
-              <video
-                controls
-                preload="none"
-                playsInline
-                poster={story.press.video.poster}
-                className="aspect-video w-full rounded-xl bg-black"
-                aria-label={`${story.press.outlet} report: ${story.press.headline}`}
-              >
-                <source src={story.press.video.src} type="video/mp4" />
-                Your browser cannot play this video.
-              </video>
+              {/* Nothing downloads until the visitor presses play. A YouTube
+                  link or a direct video file both work. */}
+              <VideoEmbed
+                url={story.press.video.src}
+                poster={story.press.video.poster || undefined}
+                title={`${story.press.outlet} report: ${story.press.headline}`}
+              />
             </div>
           </div>
         </section>
@@ -261,7 +267,7 @@ export function StoryArticle({ story }: { story: Story }) {
       {story.moments && story.moments.length > 0 && (
         <div className="mt-16">
           <h3 className="font-display text-lg text-foreground">
-            More from the three days
+            {story.momentsTitle || "More from the day"}
           </h3>
           <RevealGroup
             as="ul"

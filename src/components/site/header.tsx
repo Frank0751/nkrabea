@@ -16,7 +16,8 @@ import {
 import { ThemeToggle } from "./theme-toggle";
 import { TextSizeToggle } from "./text-size-toggle";
 import { LOGO } from "@/lib/content";
-import { useOrg } from "./site-content-context";
+import { useOrg, useSocials } from "./site-content-context";
+import { SocialLinks } from "./social-links";
 
 /**
  * Navigation follows the structure Nkrabea set out in their brief, labelled
@@ -34,6 +35,7 @@ export const NAV_LINKS = [
 
 export function SiteHeader() {
   const org = useOrg();
+  const socials = useSocials();
   const [scrolled, setScrolled] = React.useState(false);
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const pathname = usePathname();
@@ -213,6 +215,11 @@ export function SiteHeader() {
                     <div className="flex items-center justify-center gap-1">
                       <TextSizeToggle />
                     </div>
+                    {socials.length > 0 && (
+                      <nav aria-label="Nkrabea on social media" className="pt-1">
+                        <SocialLinks socials={socials} size="sm" className="justify-center" />
+                      </nav>
+                    )}
                   </div>
                 </div>
               </SheetContent>

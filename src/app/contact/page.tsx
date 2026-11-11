@@ -5,7 +5,7 @@ import { SectionEyebrow } from "@/components/site/section-eyebrow";
 import { Reveal } from "@/components/site/reveal";
 import { ContactForm } from "@/components/site/contact-form";
 import { PhotoBreak } from "@/components/site/photo";
-import { PHOTOS } from "@/lib/content";
+import { SocialLinks } from "@/components/site/social-links";
 import { getSiteContent } from "@/lib/site-content";
 
 /** Check Sanity for edits at most once a minute. */
@@ -26,6 +26,7 @@ export const metadata: Metadata = {
 
 export default async function ContactPage() {
   const c = await getSiteContent();
+  const t = c.text.contactPage;
   return (
     <>
       <PageHero
@@ -39,9 +40,9 @@ export default async function ContactPage() {
             {/* Details */}
             <div className="lg:col-span-5">
               <Reveal>
-                <SectionEyebrow>Details</SectionEyebrow>
+                <SectionEyebrow>{t.s("detailsEyebrow")}</SectionEyebrow>
                 <h2 className="mt-5 font-display text-section text-foreground">
-                  Where to find us
+                  {t.s("detailsTitle")}
                 </h2>
 
                 <dl className="mt-10 space-y-8">
@@ -119,6 +120,14 @@ export default async function ContactPage() {
                     </div>
                   </div>
                 </dl>
+                {c.socials.length > 0 && (
+                  <div className="mt-10 border-t border-border pt-8">
+                    <p className="label-mono text-muted-foreground">{t.s("followTitle")}</p>
+                    <nav aria-label="Nkrabea on social media" className="mt-5">
+                      <SocialLinks socials={c.socials} withNames />
+                    </nav>
+                  </div>
+                )}
               </Reveal>
             </div>
 
@@ -126,10 +135,10 @@ export default async function ContactPage() {
             <div className="lg:col-span-7">
               <Reveal delay={120}>
                 <h2 className="font-display text-2xl leading-tight tracking-tight text-foreground">
-                  Send a message
+                  {t.s("formTitle")}
                 </h2>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  We aim to respond within three working days.
+                  {t.s("formIntro")}
                 </p>
                 <div className="mt-6">
                   <ContactForm />
@@ -140,10 +149,9 @@ export default async function ContactPage() {
         </div>
       </section>
 
-      <PhotoBreak
-        photo={PHOTOS.drumRowWide}
-        label="Nkrabea Drumming and Dance Troupe"
-      />
+      {t.on("showPhoto") && (
+        <PhotoBreak photo={t.photo("breakPhoto")} label={t.s("breakLabel")} />
+      )}
 
       {/* FAQ */}
       <section
@@ -152,14 +160,14 @@ export default async function ContactPage() {
       >
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <Reveal>
-            <SectionEyebrow>Questions</SectionEyebrow>
+            <SectionEyebrow>{t.s("faqEyebrow")}</SectionEyebrow>
             <h2 className="mt-5 font-display text-section text-foreground">
-              Frequently asked
+              {t.s("faqTitle")}
             </h2>
 
             <Accordion type="single" collapsible className="mt-10">
               {c.faqs.map((faq, i) => (
-                <AccordionItem key={faq.question} value={`item-${i}`}>
+                <AccordionItem key={`${faq.question}-${i}`} value={`item-${i}`}>
                   <AccordionTrigger className="text-left font-display text-base">
                     {faq.question}
                   </AccordionTrigger>

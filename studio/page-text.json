@@ -1,0 +1,1088 @@
+{
+  "$comment": "Every editable slot on every page. The Studio builds its forms from this file and the website reads the same names (src/lib/page-text.ts, with defaults in src/lib/page-text-defaults.ts). Add a slot here, give it a default there, and use it on the page. Kinds: toggle, string, text, photo, photos, lines, cta, stats, values, steps, cards.",
+  "pages": {
+    "homePage": {
+      "sections": [
+        {
+          "id": "banner",
+          "title": "Banner",
+          "fields": [
+            {
+              "name": "heroPrimaryLabel",
+              "label": "First button",
+              "kind": "string"
+            },
+            {
+              "name": "heroSecondaryLabel",
+              "label": "Second button",
+              "kind": "string"
+            },
+            {
+              "name": "heroTertiaryLabel",
+              "label": "Third link",
+              "kind": "string"
+            }
+          ]
+        },
+        {
+          "id": "proof",
+          "title": "Credibility strip",
+          "fields": [
+            {
+              "name": "proofItems",
+              "label": "Four facts in the gold strip",
+              "kind": "stats",
+              "help": "Short facts shown in the gold strip under the banner. Four fit best."
+            }
+          ]
+        },
+        {
+          "id": "mission",
+          "title": "Mission",
+          "fields": [
+            {
+              "name": "missionEyebrow",
+              "label": "Small label",
+              "kind": "string"
+            },
+            {
+              "name": "missionTitle",
+              "label": "Heading",
+              "kind": "string"
+            },
+            {
+              "name": "missionPhoto",
+              "label": "Photo",
+              "kind": "photo"
+            }
+          ]
+        },
+        {
+          "id": "story",
+          "title": "Latest story",
+          "fields": [
+            {
+              "name": "storyEyebrow",
+              "label": "Small label above the newest news story",
+              "kind": "string"
+            }
+          ]
+        },
+        {
+          "id": "audiences",
+          "title": "Who we serve",
+          "fields": [
+            {
+              "name": "audiencesEyebrow",
+              "label": "Small label",
+              "kind": "string"
+            },
+            {
+              "name": "audiencesTitle",
+              "label": "Heading",
+              "kind": "string"
+            },
+            {
+              "name": "audiencesIntro",
+              "label": "Introduction",
+              "kind": "text"
+            },
+            {
+              "name": "audiences",
+              "label": "Groups",
+              "kind": "cards",
+              "help": "Also listed on the Partner page."
+            }
+          ]
+        },
+        {
+          "id": "programmes",
+          "title": "Programmes",
+          "fields": [
+            {
+              "name": "programmesEyebrow",
+              "label": "Small label",
+              "kind": "string"
+            },
+            {
+              "name": "programmesTitle",
+              "label": "Heading",
+              "kind": "string"
+            },
+            {
+              "name": "programmesLinkLabel",
+              "label": "Link to all programmes",
+              "kind": "string"
+            }
+          ]
+        },
+        {
+          "id": "figure",
+          "title": "Big number",
+          "fields": [
+            {
+              "name": "showFigure",
+              "label": "Show the big number section",
+              "kind": "toggle"
+            },
+            {
+              "name": "figureEyebrow",
+              "label": "Small label",
+              "kind": "string"
+            },
+            {
+              "name": "figureTitle",
+              "label": "Heading",
+              "kind": "string"
+            },
+            {
+              "name": "figureLede",
+              "label": "Introduction",
+              "kind": "text"
+            },
+            {
+              "name": "figureNumber",
+              "label": "The number",
+              "kind": "string",
+              "help": "Digits only. It counts up as visitors scroll to it."
+            },
+            {
+              "name": "figureRegions",
+              "label": "Places",
+              "kind": "lines"
+            },
+            {
+              "name": "figureNote",
+              "label": "Note under the places",
+              "kind": "text"
+            },
+            {
+              "name": "figureTargetNote",
+              "label": "Target or result note",
+              "kind": "string",
+              "help": "Say plainly whether the number is a target or something already achieved."
+            }
+          ]
+        },
+        {
+          "id": "quote",
+          "title": "Photo with quote",
+          "fields": [
+            {
+              "name": "showQuote",
+              "label": "Show the photo with quote",
+              "kind": "toggle"
+            },
+            {
+              "name": "breakPhoto",
+              "label": "Photo",
+              "kind": "photo"
+            },
+            {
+              "name": "breakQuote",
+              "label": "Quote",
+              "kind": "text"
+            },
+            {
+              "name": "breakCite",
+              "label": "Where the quote comes from",
+              "kind": "string"
+            }
+          ]
+        },
+        {
+          "id": "cta",
+          "title": "Call to action",
+          "fields": [
+            {
+              "name": "cta",
+              "label": "Box at the bottom of the page",
+              "kind": "cta"
+            }
+          ]
+        }
+      ]
+    },
+    "aboutPage": {
+      "sections": [
+        {
+          "id": "who",
+          "title": "Who we are",
+          "fields": [
+            {
+              "name": "whoEyebrow",
+              "label": "Small label",
+              "kind": "string"
+            },
+            {
+              "name": "whoTitle",
+              "label": "Heading",
+              "kind": "string"
+            },
+            {
+              "name": "whoPhoto",
+              "label": "Large photo",
+              "kind": "photo"
+            },
+            {
+              "name": "whoInsetPhoto",
+              "label": "Small photo on its corner",
+              "kind": "photo"
+            }
+          ]
+        },
+        {
+          "id": "missionVision",
+          "title": "Mission and vision",
+          "fields": [
+            {
+              "name": "missionLabel",
+              "label": "Mission label",
+              "kind": "string"
+            },
+            {
+              "name": "visionLabel",
+              "label": "Vision label",
+              "kind": "string"
+            },
+            {
+              "name": "missionVisionPhoto",
+              "label": "Photo",
+              "kind": "photo"
+            },
+            {
+              "name": "mottoLabel",
+              "label": "Label under the motto",
+              "kind": "string",
+              "help": "The motto itself is in Site settings."
+            }
+          ]
+        },
+        {
+          "id": "values",
+          "title": "Values",
+          "fields": [
+            {
+              "name": "valuesEyebrow",
+              "label": "Small label",
+              "kind": "string"
+            },
+            {
+              "name": "valuesTitle",
+              "label": "Heading",
+              "kind": "string"
+            }
+          ]
+        },
+        {
+          "id": "what",
+          "title": "What we do",
+          "fields": [
+            {
+              "name": "whatEyebrow",
+              "label": "Small label",
+              "kind": "string"
+            },
+            {
+              "name": "whatTitle",
+              "label": "Heading",
+              "kind": "string"
+            },
+            {
+              "name": "whatIntro",
+              "label": "Introduction",
+              "kind": "text"
+            },
+            {
+              "name": "whatPhoto",
+              "label": "Photo",
+              "kind": "photo"
+            }
+          ]
+        },
+        {
+          "id": "registration",
+          "title": "Registration",
+          "fields": [
+            {
+              "name": "registrationEyebrow",
+              "label": "Small label",
+              "kind": "string"
+            },
+            {
+              "name": "governanceValue",
+              "label": "Governance",
+              "kind": "string"
+            },
+            {
+              "name": "registrationLinkLabel",
+              "label": "Link to the Leadership page",
+              "kind": "string"
+            }
+          ]
+        },
+        {
+          "id": "cta",
+          "title": "Call to action",
+          "fields": [
+            {
+              "name": "cta",
+              "label": "Box at the bottom of the page",
+              "kind": "cta"
+            }
+          ]
+        }
+      ]
+    },
+    "leadershipPage": {
+      "sections": [
+        {
+          "id": "founders",
+          "title": "Founders",
+          "fields": [
+            {
+              "name": "foundersEyebrow",
+              "label": "Small label",
+              "kind": "string"
+            },
+            {
+              "name": "foundersTitle",
+              "label": "Heading",
+              "kind": "string"
+            }
+          ]
+        },
+        {
+          "id": "board",
+          "title": "Board",
+          "fields": [
+            {
+              "name": "boardEyebrow",
+              "label": "Small label",
+              "kind": "string"
+            },
+            {
+              "name": "boardTitle",
+              "label": "Heading",
+              "kind": "string"
+            },
+            {
+              "name": "boardIntro",
+              "label": "Introduction",
+              "kind": "text"
+            }
+          ]
+        },
+        {
+          "id": "management",
+          "title": "Management",
+          "fields": [
+            {
+              "name": "managementEyebrow",
+              "label": "Small label",
+              "kind": "string"
+            },
+            {
+              "name": "managementTitle",
+              "label": "Heading",
+              "kind": "string"
+            },
+            {
+              "name": "managementIntro",
+              "label": "Introduction",
+              "kind": "text"
+            },
+            {
+              "name": "managementPhoto",
+              "label": "Photo",
+              "kind": "photo"
+            }
+          ]
+        },
+        {
+          "id": "cta",
+          "title": "Call to action",
+          "fields": [
+            {
+              "name": "cta",
+              "label": "Box at the bottom of the page",
+              "kind": "cta"
+            }
+          ]
+        }
+      ]
+    },
+    "programmesPage": {
+      "sections": [
+        {
+          "id": "chart",
+          "title": "Funding chart",
+          "fields": [
+            {
+              "name": "showChart",
+              "label": "Show the funding chart",
+              "kind": "toggle"
+            },
+            {
+              "name": "chartEyebrow",
+              "label": "Small label",
+              "kind": "string"
+            },
+            {
+              "name": "chartTitle",
+              "label": "Heading",
+              "kind": "string"
+            },
+            {
+              "name": "chartLede",
+              "label": "Introduction",
+              "kind": "text"
+            },
+            {
+              "name": "splitTotal",
+              "label": "Total (big number)",
+              "kind": "string"
+            },
+            {
+              "name": "splitTotalLabel",
+              "label": "What the total counts",
+              "kind": "text"
+            },
+            {
+              "name": "splitParts",
+              "label": "The two parts of the bar",
+              "kind": "values",
+              "help": "Two parts. Their numbers should add up to the total."
+            },
+            {
+              "name": "splitCaption",
+              "label": "Caption",
+              "kind": "text",
+              "help": "Say plainly that these are targets, if they are."
+            },
+            {
+              "name": "stats",
+              "label": "Facts beside the chart",
+              "kind": "stats"
+            }
+          ]
+        },
+        {
+          "id": "artForms",
+          "title": "Art forms",
+          "fields": [
+            {
+              "name": "showSteps",
+              "label": "Show the steps",
+              "kind": "toggle"
+            },
+            {
+              "name": "artEyebrow",
+              "label": "Small label",
+              "kind": "string"
+            },
+            {
+              "name": "artTitle",
+              "label": "Heading",
+              "kind": "string"
+            },
+            {
+              "name": "artForms",
+              "label": "Art forms",
+              "kind": "cards"
+            },
+            {
+              "name": "stepsTitle",
+              "label": "Heading above the steps",
+              "kind": "string"
+            },
+            {
+              "name": "steps",
+              "label": "Steps",
+              "kind": "steps",
+              "help": "Three steps fit best."
+            },
+            {
+              "name": "stepsCaption",
+              "label": "Note under the steps",
+              "kind": "text"
+            }
+          ]
+        },
+        {
+          "id": "photo",
+          "title": "Wide photo",
+          "fields": [
+            {
+              "name": "showPhoto",
+              "label": "Show the wide photo",
+              "kind": "toggle"
+            },
+            {
+              "name": "breakPhoto",
+              "label": "Photo",
+              "kind": "photo"
+            },
+            {
+              "name": "breakLabel",
+              "label": "Label on the photo",
+              "kind": "string"
+            }
+          ]
+        },
+        {
+          "id": "cta",
+          "title": "Call to action",
+          "fields": [
+            {
+              "name": "cta",
+              "label": "Box at the bottom of the page",
+              "kind": "cta"
+            }
+          ]
+        }
+      ]
+    },
+    "impactPage": {
+      "sections": [
+        {
+          "id": "story",
+          "title": "Latest story",
+          "fields": [
+            {
+              "name": "storyEyebrow",
+              "label": "Small label above the newest news story",
+              "kind": "string"
+            }
+          ]
+        },
+        {
+          "id": "figures",
+          "title": "Numbers",
+          "fields": [
+            {
+              "name": "figuresEyebrow",
+              "label": "Small label",
+              "kind": "string"
+            },
+            {
+              "name": "figuresTitle",
+              "label": "Heading",
+              "kind": "string"
+            },
+            {
+              "name": "figuresNote",
+              "label": "Note under the numbers",
+              "kind": "text"
+            }
+          ]
+        },
+        {
+          "id": "chart",
+          "title": "Programme chart",
+          "fields": [
+            {
+              "name": "showChart",
+              "label": "Show the programme chart",
+              "kind": "toggle"
+            },
+            {
+              "name": "chartEyebrow",
+              "label": "Small label",
+              "kind": "string"
+            },
+            {
+              "name": "chartTitle",
+              "label": "Heading",
+              "kind": "string"
+            },
+            {
+              "name": "chartLede",
+              "label": "Introduction",
+              "kind": "text"
+            },
+            {
+              "name": "stages",
+              "label": "Bars",
+              "kind": "values",
+              "help": "Each bar is drawn to scale."
+            },
+            {
+              "name": "stagesCaption",
+              "label": "Caption under the bars",
+              "kind": "text"
+            },
+            {
+              "name": "regionsLabel",
+              "label": "Places: small label",
+              "kind": "string"
+            },
+            {
+              "name": "regions",
+              "label": "Places",
+              "kind": "lines"
+            },
+            {
+              "name": "regionsNote",
+              "label": "Note under the places",
+              "kind": "text"
+            },
+            {
+              "name": "chartDetail",
+              "label": "Paragraph under the places",
+              "kind": "text"
+            }
+          ]
+        },
+        {
+          "id": "milestones",
+          "title": "Milestones",
+          "fields": [
+            {
+              "name": "milestonesEyebrow",
+              "label": "Small label",
+              "kind": "string"
+            },
+            {
+              "name": "milestonesTitle",
+              "label": "Heading",
+              "kind": "string"
+            },
+            {
+              "name": "milestonesNote",
+              "label": "Note under the milestones",
+              "kind": "text"
+            }
+          ]
+        },
+        {
+          "id": "gallery",
+          "title": "Gallery",
+          "fields": [
+            {
+              "name": "galleryEyebrow",
+              "label": "Small label",
+              "kind": "string"
+            },
+            {
+              "name": "galleryTitle",
+              "label": "Heading",
+              "kind": "string"
+            }
+          ]
+        },
+        {
+          "id": "testimonials",
+          "title": "Testimonials",
+          "fields": [
+            {
+              "name": "testimonialsEyebrow",
+              "label": "Small label",
+              "kind": "string"
+            }
+          ]
+        },
+        {
+          "id": "cta",
+          "title": "Call to action",
+          "fields": [
+            {
+              "name": "cta",
+              "label": "Box at the bottom of the page",
+              "kind": "cta"
+            }
+          ]
+        }
+      ]
+    },
+    "partnerPage": {
+      "sections": [
+        {
+          "id": "case",
+          "title": "The case for support",
+          "fields": [
+            {
+              "name": "caseEyebrow",
+              "label": "Small label",
+              "kind": "string"
+            },
+            {
+              "name": "caseTitle",
+              "label": "Heading",
+              "kind": "string"
+            },
+            {
+              "name": "casePoints",
+              "label": "Reasons",
+              "kind": "cards"
+            }
+          ]
+        },
+        {
+          "id": "partners",
+          "title": "Who we work with",
+          "fields": [
+            {
+              "name": "partnersEyebrow",
+              "label": "Small label",
+              "kind": "string"
+            },
+            {
+              "name": "partnersTitle",
+              "label": "Heading",
+              "kind": "string",
+              "help": "The groups listed are edited on the Home page, under Who we serve."
+            },
+            {
+              "name": "partnersPhoto",
+              "label": "Photo",
+              "kind": "photo"
+            }
+          ]
+        },
+        {
+          "id": "funding",
+          "title": "Open for funding",
+          "fields": [
+            {
+              "name": "fundingEyebrow",
+              "label": "Small label",
+              "kind": "string"
+            },
+            {
+              "name": "fundingTitle",
+              "label": "Heading",
+              "kind": "string",
+              "help": "Programmes marked Raising funds are listed here automatically."
+            },
+            {
+              "name": "fundingPhoto",
+              "label": "Photo",
+              "kind": "photo"
+            },
+            {
+              "name": "formTitle",
+              "label": "Form heading",
+              "kind": "string"
+            },
+            {
+              "name": "formIntro",
+              "label": "Form introduction",
+              "kind": "text"
+            }
+          ]
+        }
+      ]
+    },
+    "getInvolvedPage": {
+      "sections": [
+        {
+          "id": "give",
+          "title": "Give",
+          "fields": [
+            {
+              "name": "giveEyebrow",
+              "label": "Small label",
+              "kind": "string"
+            },
+            {
+              "name": "giveTitle",
+              "label": "Heading",
+              "kind": "string"
+            },
+            {
+              "name": "momoTitle",
+              "label": "Mobile money: heading",
+              "kind": "string",
+              "help": "The MoMo number itself is in Site settings."
+            },
+            {
+              "name": "momoBody",
+              "label": "Mobile money: text",
+              "kind": "text"
+            },
+            {
+              "name": "momoNote",
+              "label": "Mobile money: note",
+              "kind": "text"
+            },
+            {
+              "name": "bankTitle",
+              "label": "Bank transfer: heading",
+              "kind": "string"
+            },
+            {
+              "name": "bankBody",
+              "label": "Bank transfer: text",
+              "kind": "text"
+            },
+            {
+              "name": "bankNote",
+              "label": "Bank transfer: note",
+              "kind": "text"
+            },
+            {
+              "name": "bankLinkLabel",
+              "label": "Bank transfer: link",
+              "kind": "string"
+            }
+          ]
+        },
+        {
+          "id": "strip",
+          "title": "Photo strip",
+          "fields": [
+            {
+              "name": "showStrip",
+              "label": "Show the photo strip",
+              "kind": "toggle"
+            },
+            {
+              "name": "stripLabel",
+              "label": "Small label",
+              "kind": "string"
+            },
+            {
+              "name": "stripPhotos",
+              "label": "Photos",
+              "kind": "photos",
+              "help": "Three photos fit best."
+            },
+            {
+              "name": "stripNote",
+              "label": "Note under the photos",
+              "kind": "text"
+            }
+          ]
+        },
+        {
+          "id": "other",
+          "title": "Other ways to help",
+          "fields": [
+            {
+              "name": "otherEyebrow",
+              "label": "Small label",
+              "kind": "string"
+            },
+            {
+              "name": "otherTitle",
+              "label": "Heading",
+              "kind": "string"
+            },
+            {
+              "name": "otherWays",
+              "label": "Ways to help",
+              "kind": "cards"
+            }
+          ]
+        },
+        {
+          "id": "newsletter",
+          "title": "Newsletter",
+          "fields": [
+            {
+              "name": "newsletterEyebrow",
+              "label": "Small label",
+              "kind": "string"
+            },
+            {
+              "name": "newsletterTitle",
+              "label": "Heading",
+              "kind": "string"
+            }
+          ]
+        }
+      ]
+    },
+    "newsPage": {
+      "sections": [
+        {
+          "id": "stories",
+          "title": "Stories",
+          "fields": [
+            {
+              "name": "storiesEyebrow",
+              "label": "Small label above the stories",
+              "kind": "string",
+              "help": "The stories themselves are under News stories."
+            },
+            {
+              "name": "learntLabel",
+              "label": "Heading above what participants learnt",
+              "kind": "string"
+            },
+            {
+              "name": "pressPanelLabel",
+              "label": "Label on a story's news report",
+              "kind": "string"
+            }
+          ]
+        },
+        {
+          "id": "events",
+          "title": "Events",
+          "fields": [
+            {
+              "name": "eventsEyebrow",
+              "label": "Small label",
+              "kind": "string",
+              "help": "The events themselves are under Events. They move to Past events after their date."
+            },
+            {
+              "name": "eventsTitle",
+              "label": "Heading",
+              "kind": "string"
+            },
+            {
+              "name": "pastEventsTitle",
+              "label": "Past events heading",
+              "kind": "string"
+            },
+            {
+              "name": "noEventsTitle",
+              "label": "When there are no upcoming events: heading",
+              "kind": "string"
+            },
+            {
+              "name": "noEventsBody",
+              "label": "When there are no upcoming events: text",
+              "kind": "text"
+            },
+            {
+              "name": "noEventsLinkIntro",
+              "label": "When there are no upcoming events: question",
+              "kind": "string"
+            },
+            {
+              "name": "noEventsLinkLabel",
+              "label": "When there are no upcoming events: link",
+              "kind": "string"
+            }
+          ]
+        },
+        {
+          "id": "strip",
+          "title": "Photo strip",
+          "fields": [
+            {
+              "name": "showStrip",
+              "label": "Show the photo strip",
+              "kind": "toggle"
+            },
+            {
+              "name": "stripLabel",
+              "label": "Small label",
+              "kind": "string"
+            },
+            {
+              "name": "stripPhotos",
+              "label": "Photos",
+              "kind": "photos",
+              "help": "Three photos fit best."
+            },
+            {
+              "name": "stripNote",
+              "label": "Note under the photos",
+              "kind": "text"
+            }
+          ]
+        },
+        {
+          "id": "press",
+          "title": "Press",
+          "fields": [
+            {
+              "name": "pressEyebrow",
+              "label": "Small label",
+              "kind": "string",
+              "help": "Press mentions themselves are under Press."
+            },
+            {
+              "name": "pressLinkLabel",
+              "label": "Link on each mention",
+              "kind": "string"
+            },
+            {
+              "name": "noPressNote",
+              "label": "When there are no press mentions",
+              "kind": "text"
+            }
+          ]
+        }
+      ]
+    },
+    "contactPage": {
+      "sections": [
+        {
+          "id": "details",
+          "title": "Details and form",
+          "fields": [
+            {
+              "name": "detailsEyebrow",
+              "label": "Small label",
+              "kind": "string",
+              "help": "The addresses, phone numbers and email are in Site settings."
+            },
+            {
+              "name": "detailsTitle",
+              "label": "Heading",
+              "kind": "string"
+            },
+            {
+              "name": "followTitle",
+              "label": "Social media heading",
+              "kind": "string"
+            },
+            {
+              "name": "formTitle",
+              "label": "Form heading",
+              "kind": "string"
+            },
+            {
+              "name": "formIntro",
+              "label": "Form introduction",
+              "kind": "text"
+            }
+          ]
+        },
+        {
+          "id": "photo",
+          "title": "Wide photo",
+          "fields": [
+            {
+              "name": "showPhoto",
+              "label": "Show the wide photo",
+              "kind": "toggle"
+            },
+            {
+              "name": "breakPhoto",
+              "label": "Photo",
+              "kind": "photo"
+            },
+            {
+              "name": "breakLabel",
+              "label": "Label on the photo",
+              "kind": "string"
+            }
+          ]
+        },
+        {
+          "id": "faq",
+          "title": "Questions",
+          "fields": [
+            {
+              "name": "faqEyebrow",
+              "label": "Small label",
+              "kind": "string"
+            },
+            {
+              "name": "faqTitle",
+              "label": "Heading",
+              "kind": "string"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

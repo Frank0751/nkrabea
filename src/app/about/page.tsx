@@ -5,7 +5,6 @@ import { SectionEyebrow } from "@/components/site/section-eyebrow";
 import { Reveal, RevealGroup } from "@/components/site/reveal";
 import { CtaBand } from "@/components/site/cta-band";
 import { PhotoFigure, PhotoDuo } from "@/components/site/photo";
-import { PHOTOS } from "@/lib/content";
 import { getSiteContent } from "@/lib/site-content";
 
 /** Check Sanity for edits at most once a minute. */
@@ -20,6 +19,7 @@ export const metadata: Metadata = {
 
 export default async function AboutPage() {
   const c = await getSiteContent();
+  const t = c.text.aboutPage;
   return (
     <>
       <PageHero
@@ -33,9 +33,9 @@ export default async function AboutPage() {
           <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
             <div className="lg:col-span-7">
               <Reveal>
-                <SectionEyebrow>Who we are</SectionEyebrow>
+                <SectionEyebrow>{t.s("whoEyebrow")}</SectionEyebrow>
                 <h2 className="mt-5 font-display text-section text-foreground">
-                  Reaching back to build forward
+                  {t.s("whoTitle")}
                 </h2>
               </Reveal>
               <div className="mt-10 space-y-6">
@@ -50,8 +50,8 @@ export default async function AboutPage() {
             </div>
             <Reveal delay={120} className="lg:col-span-5">
               <PhotoDuo
-                primary={PHOTOS.familyInKente}
-                secondary={PHOTOS.motherAndBaby}
+                primary={t.photo("whoPhoto")}
+                secondary={t.photo("whoInsetPhoto")}
               />
             </Reveal>
           </div>
@@ -66,23 +66,23 @@ export default async function AboutPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <RevealGroup className="grid gap-6 lg:grid-cols-3">
             <div className="rounded-2xl border border-border bg-card p-8 sm:p-10">
-              <p className="label-mono text-primary">Mission</p>
+              <p className="label-mono text-primary">{t.s("missionLabel")}</p>
               <p className="mt-5 font-display text-xl leading-snug text-foreground sm:text-2xl">
                 {c.mission}
               </p>
             </div>
             <div className="rounded-2xl border border-border bg-card p-8 sm:p-10">
-              <p className="label-mono text-primary">Vision</p>
+              <p className="label-mono text-primary">{t.s("visionLabel")}</p>
               <p className="mt-5 font-display text-xl leading-snug text-foreground sm:text-2xl">
                 {c.vision}
               </p>
             </div>
             <PhotoFigure
-              photo={PHOTOS.regalia}
+              photo={t.photo("missionVisionPhoto")}
               fill
               position="50% 35%"
               sizes="(max-width: 1024px) 100vw, 33vw"
-              caption={PHOTOS.regalia.caption}
+              caption={t.photo("missionVisionPhoto").caption}
             />
           </RevealGroup>
 
@@ -92,7 +92,7 @@ export default async function AboutPage() {
                 &ldquo;{c.org.motto}&rdquo;
               </p>
               <footer className="label-mono mt-4 text-muted-foreground">
-                Our motto
+                {t.s("mottoLabel")}
               </footer>
             </blockquote>
           </Reveal>
@@ -103,14 +103,14 @@ export default async function AboutPage() {
       <section data-rhythm-node className="py-20 lg:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="max-w-2xl">
-            <SectionEyebrow>Core values</SectionEyebrow>
+            <SectionEyebrow>{t.s("valuesEyebrow")}</SectionEyebrow>
             <h2 className="mt-5 font-display text-section text-foreground">
-              Seven values guide the work
+              {t.s("valuesTitle")}
             </h2>
           </Reveal>
 
           <RevealGroup
-            className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-7"
+            className={`mt-12 grid grid-cols-2 gap-3 sm:grid-cols-3 ${c.values.length >= 7 ? "lg:grid-cols-7" : c.values.length >= 4 ? "lg:grid-cols-4" : ""}`}
             stagger={0.06}
           >
             {c.values.map((value) => (
@@ -136,22 +136,22 @@ export default async function AboutPage() {
           <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
             <div className="flex flex-col lg:col-span-4">
               <Reveal>
-                <SectionEyebrow>What we do</SectionEyebrow>
+                <SectionEyebrow>{t.s("whatEyebrow")}</SectionEyebrow>
                 <h2 className="mt-5 font-display text-section text-foreground">
-                  Our constitutional objectives
+                  {t.s("whatTitle")}
                 </h2>
                 <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
-                  All pursued through culture and the arts.
+                  {t.s("whatIntro")}
                 </p>
               </Reveal>
               {/* Fills whatever height the nine objectives leave under the
                   heading, so the column ends where the list ends. */}
               <Reveal delay={90} className="mt-10 flex-1">
                 <PhotoFigure
-                  photo={PHOTOS.hallPerformer}
+                  photo={t.photo("whatPhoto")}
                   fill
                   sizes="(max-width: 1024px) 100vw, 33vw"
-                  caption={PHOTOS.hallPerformer.caption}
+                  caption={t.photo("whatPhoto").caption}
                 />
               </Reveal>
             </div>
@@ -181,7 +181,7 @@ export default async function AboutPage() {
       <section data-rhythm-node className="py-20 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal>
-            <SectionEyebrow>Registration</SectionEyebrow>
+            <SectionEyebrow>{t.s("registrationEyebrow")}</SectionEyebrow>
             <dl className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               <Detail label="Legal name" value={c.org.legalName} />
               <Detail label="Status" value={c.org.type} />
@@ -190,17 +190,15 @@ export default async function AboutPage() {
               <Detail label="Area of operation" value={c.org.areaOfOperation} />
               <Detail label="Head office" value={c.org.headOffice} />
               <Detail label="Postal address" value={c.org.postalAddress} />
-              <Detail label="Governance" value="Executive Council" />
+              <Detail label="Governance" value={t.s("governanceValue")} />
             </dl>
             <p className="mt-8 text-sm text-muted-foreground">
-              Read more about{" "}
               <Link
                 href="/leadership"
                 className="font-semibold text-primary underline-offset-4 hover:underline"
               >
-                our leadership and governance
+                {t.s("registrationLinkLabel")}
               </Link>
-              .
             </p>
           </Reveal>
         </div>
@@ -208,11 +206,11 @@ export default async function AboutPage() {
 
       <div data-rhythm-node>
         <CtaBand
-          title="Work with us"
-          description="Whether you fund, partner or participate, there is a way in."
-          primaryLabel="Partner With Us"
+          title={t.cta().title}
+          description={t.cta().description}
+          primaryLabel={t.cta().primaryLabel}
           primaryHref="/partner"
-          secondaryLabel="Contact us"
+          secondaryLabel={t.cta().secondaryLabel}
           secondaryHref="/contact"
         />
       </div>

@@ -12,7 +12,6 @@ import { DataBand, RegionChips } from "@/components/site/figures";
 import { PhotoFigure, PhotoBreak } from "@/components/site/photo";
 import { WhoWeServe } from "@/components/site/who-we-serve";
 import { StoryFeature } from "@/components/site/story";
-import { PROGRAMME_FIGURES, PHOTOS } from "@/lib/content";
 import { getSiteContent } from "@/lib/site-content";
 
 export const metadata: Metadata = {
@@ -30,7 +29,9 @@ const FOCUS_ICONS = {
 
 export default async function HomePage() {
   const c = await getSiteContent();
-  const headline = c.figures.find((f) => f.value === "500");
+  const t = c.text.homePage;
+  const figure = parseInt(t.s("figureNumber").replace(/[^\d]/g, ""), 10);
+  const cta = t.cta();
 
   return (
     <>
@@ -39,29 +40,25 @@ export default async function HomePage() {
       <ProofBar />
 
       {/* Mission */}
-      <section
-        data-rhythm-node
-        className="py-20 lg:py-28"
-      >
+      <section data-rhythm-node className="py-20 lg:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
             {/* The photograph takes the full height of the text column, so
-                the two end on the same line instead of the picture hanging
-                below a short paragraph with a hole beside it. */}
+                the two end on the same line. */}
             <Reveal className="order-2 lg:order-1 lg:col-span-5">
               <PhotoFigure
-                photo={PHOTOS.loom}
+                photo={t.photo("missionPhoto")}
                 fill
                 position="50% 18%"
                 sizes="(max-width: 1024px) 100vw, 40vw"
-                caption={PHOTOS.loom.caption}
+                caption={t.photo("missionPhoto").caption}
               />
             </Reveal>
             <div className="order-1 lg:order-2 lg:col-span-7">
               <Reveal>
-                <SectionEyebrow>Our mission</SectionEyebrow>
+                <SectionEyebrow>{t.s("missionEyebrow")}</SectionEyebrow>
                 <h2 className="mt-5 font-display text-section text-foreground">
-                  Culture is the tool. Development is the work.
+                  {t.s("missionTitle")}
                 </h2>
               </Reveal>
               <Reveal delay={120} className="mt-8">
@@ -70,105 +67,110 @@ export default async function HomePage() {
                 </p>
               </Reveal>
 
-              <RevealGroup className="mt-10 grid gap-6 sm:grid-cols-3">
-                {c.focus.map((focus) => {
-                  const Icon =
-                    FOCUS_ICONS[focus.id as keyof typeof FOCUS_ICONS] ?? Target;
-                  return (
-                    <div key={focus.id}>
-                      <Icon
-                        className="h-5 w-5 text-primary"
-                        aria-hidden="true"
-                      />
-                      <h3 className="mt-3 font-display text-base text-foreground">
-                        {focus.title}
-                      </h3>
-                      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                        {focus.description}
-                      </p>
-                    </div>
-                  );
-                })}
-              </RevealGroup>
+              {c.focus.length > 0 && (
+                <RevealGroup className="mt-10 grid gap-6 sm:grid-cols-3">
+                  {c.focus.map((focus, i) => {
+                    const Icon =
+                      FOCUS_ICONS[focus.id as keyof typeof FOCUS_ICONS] ?? Target;
+                    return (
+                      <div key={`${focus.title}-${i}`}>
+                        <Icon className="h-5 w-5 text-primary" aria-hidden="true" />
+                        <h3 className="mt-3 font-display text-base text-foreground">
+                          {focus.title}
+                        </h3>
+                        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                          {focus.description}
+                        </p>
+                      </div>
+                    );
+                  })}
+                </RevealGroup>
+              )}
             </div>
           </div>
         </div>
       </section>
 
-      {c.stories[0] && <StoryFeature story={c.stories[0]} />}
+      {c.stories[0] && (
+        <StoryFeature
+          story={c.stories[0]}
+          eyebrow={t.s("storyEyebrow")}
+          learntLabel={c.text.newsPage.s("learntLabel")}
+        />
+      )}
 
       <WhoWeServe />
 
       {/* Featured programmes */}
-      <section
-        data-rhythm-node
-        className="bg-sand py-20 lg:py-28"
-      >
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <Reveal className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-            <div className="max-w-2xl">
-              <SectionEyebrow>Our work</SectionEyebrow>
-              <h2 className="mt-5 font-display text-section text-foreground">
-                The programmes we are running and raising for
-              </h2>
-            </div>
-            <Link
-              href="/programmes"
-              className="group inline-flex shrink-0 items-center py-1 text-sm font-semibold text-primary underline-offset-4 hover:underline"
+      {c.programmes.length > 0 && (
+        <section data-rhythm-node className="bg-sand py-20 lg:py-28">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <Reveal className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+              <div className="max-w-2xl">
+                <SectionEyebrow>{t.s("programmesEyebrow")}</SectionEyebrow>
+                <h2 className="mt-5 font-display text-section text-foreground">
+                  {t.s("programmesTitle")}
+                </h2>
+              </div>
+              <Link
+                href="/programmes"
+                className="group inline-flex shrink-0 items-center py-1 text-sm font-semibold text-primary underline-offset-4 hover:underline"
+              >
+                {t.s("programmesLinkLabel")}
+                <ArrowRight
+                  className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-0.5"
+                  aria-hidden="true"
+                />
+              </Link>
+            </Reveal>
+
+            <RevealGroup
+              className={`mt-12 grid gap-6 sm:grid-cols-2 ${c.programmes.length % 3 === 0 || c.programmes.length > 4 ? "lg:grid-cols-3" : ""}`}
             >
-              All programmes
-              <ArrowRight
-                className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-0.5"
-                aria-hidden="true"
-              />
-            </Link>
-          </Reveal>
+              {c.programmes.map((programme) => (
+                <ProgrammeCard key={programme.id} programme={programme} />
+              ))}
+            </RevealGroup>
+          </div>
+        </section>
+      )}
 
-          <RevealGroup className="mt-12 grid gap-6 lg:grid-cols-3">
-            {c.programmes.map((programme) => (
-              <ProgrammeCard key={programme.id} programme={programme} />
-            ))}
-          </RevealGroup>
-        </div>
-      </section>
-
-      {/* Headline figure */}
-      {headline && (
+      {/* Big number */}
+      {t.on("showFigure") && Number.isFinite(figure) && (
         <DataBand
-          eyebrow="The scale of the need"
-          title="Five hundred people, four regions, one programme"
-          lede="Our accessible soap production programme is designed to train five hundred persons with disabilities in a trade they can run themselves."
+          eyebrow={t.s("figureEyebrow")}
+          title={t.s("figureTitle")}
+          lede={t.s("figureLede")}
         >
           <div className="grid items-center gap-10 lg:grid-cols-[auto_1fr] lg:gap-20">
             <p className="font-display text-[clamp(4.5rem,11vw,8rem)] leading-[0.85] text-accent">
-              <CountUp value={500} />
+              <CountUp value={figure} />
             </p>
             <div>
-              <RegionChips
-                regions={PROGRAMME_FIGURES.soapProduction.regions}
-                note="Nkrabea has not published how the five hundred places divide between these four regions, so no split is drawn."
-              />
+              <RegionChips regions={t.lines("figureRegions")} note={t.s("figureNote")} />
               <p className="mt-7 text-sm text-band-foreground/70">
-                A programme target, not a result to date.
+                {t.s("figureTargetNote")}
               </p>
             </div>
           </div>
         </DataBand>
       )}
 
-      <PhotoBreak
-        photo={PHOTOS.fiveDancers}
-        quote={c.identity.whoWeAre[1]}
-        cite="From our organisational profile"
-      />
+      {t.on("showQuote") && (
+        <PhotoBreak
+          photo={t.photo("breakPhoto")}
+          quote={t.s("breakQuote")}
+          cite={t.s("breakCite")}
+        />
+      )}
 
       <div data-rhythm-node>
         <CtaBand
-          title="Support that works as investment, not charity"
-          description="We work with corporate sponsors, grant funders and institutional partners to put Ghanaian culture to work for the communities that need it most."
-          primaryLabel="Partner With Us"
+          title={cta.title}
+          description={cta.description}
+          primaryLabel={cta.primaryLabel}
           primaryHref="/partner"
-          secondaryLabel="Make a donation"
+          secondaryLabel={cta.secondaryLabel}
           secondaryHref="/get-involved#give"
         />
       </div>

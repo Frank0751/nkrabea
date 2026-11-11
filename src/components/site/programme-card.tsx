@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { Programme } from "@/lib/content";
+import { PhotoFigure } from "./photo";
 
 const STATUS: Record<Programme["status"], { label: string; className: string }> =
   {
@@ -26,40 +27,45 @@ export function ProgrammeCard({
   href?: string;
 }) {
   const status = STATUS[programme.status];
+  const photo = programme.photos?.[0];
 
   return (
-    <article className="spotlight-card card-lift flex h-full flex-col rounded-2xl border border-border bg-card p-6 sm:p-7">
-      <div className="flex items-center gap-3">
-        <span
-          className={`label-mono rounded-full px-2.5 py-1 ${status.className}`}
-        >
-          {status.label}
-        </span>
-        {programme.value && (
-          <span className="text-xs text-muted-foreground">
-            {programme.value}
-          </span>
-        )}
-      </div>
-
-      <h3 className="mt-4 font-display text-lg leading-snug text-foreground">
-        {programme.name}
-      </h3>
-
-      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-        {programme.summary}
-      </p>
-
-      {programme.sdgs && programme.sdgs.length > 0 && (
-        <p className="mt-4 text-xs text-muted-foreground">
-          Aligns with UN Sustainable Development Goals{" "}
-          {programme.sdgs.join(", ")}.
-        </p>
+    <article className="spotlight-card card-lift flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card">
+      {photo && (
+        <PhotoFigure
+          photo={photo}
+          ratio="16/10"
+          bare
+          sizes="(max-width: 1024px) 100vw, 33vw"
+        />
       )}
-
-      {href && (
+      <div className="flex flex-1 flex-col p-6 sm:p-7">
+        <div className="flex flex-wrap items-center gap-3">
+          <span
+            className={`label-mono rounded-full px-2.5 py-1 ${status.className}`}
+          >
+            {status.label}
+          </span>
+          {programme.value && (
+            <span className="text-xs text-muted-foreground">
+              {programme.value}
+            </span>
+          )}
+        </div>
+        <h3 className="mt-4 font-display text-lg leading-snug text-foreground">
+          {programme.name}
+        </h3>
+        <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+          {programme.summary}
+        </p>
+        {programme.sdgs && programme.sdgs.length > 0 && (
+          <p className="mt-4 text-xs text-muted-foreground">
+            Aligns with UN Sustainable Development Goals{" "}
+            {programme.sdgs.join(", ")}.
+          </p>
+        )}
         <Link
-          href={href}
+          href={href ?? `/programmes#${programme.id}`}
           className="group mt-auto inline-flex items-center pb-1 pt-6 text-sm font-semibold text-primary underline-offset-4 hover:underline"
         >
           Read more
@@ -69,7 +75,7 @@ export function ProgrammeCard({
           />
           <span className="sr-only"> about {programme.name}</span>
         </Link>
-      )}
+      </div>
     </article>
   );
 }

@@ -5,7 +5,7 @@ import { SectionEyebrow } from "@/components/site/section-eyebrow";
 import { Reveal, RevealGroup } from "@/components/site/reveal";
 import { CtaBand } from "@/components/site/cta-band";
 import { PhotoFigure } from "@/components/site/photo";
-import { PHOTOS, type Person } from "@/lib/content";
+import type { Person } from "@/lib/content";
 import { getSiteContent } from "@/lib/site-content";
 
 /** Check Sanity for edits at most once a minute. */
@@ -20,6 +20,7 @@ export const metadata: Metadata = {
 
 export default async function LeadershipPage() {
   const c = await getSiteContent();
+  const t = c.text.leadershipPage;
   return (
     <>
       <PageHero
@@ -31,15 +32,15 @@ export default async function LeadershipPage() {
       <section data-rhythm-node className="py-20 lg:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="max-w-2xl">
-            <SectionEyebrow>Founders</SectionEyebrow>
+            <SectionEyebrow>{t.s("foundersEyebrow")}</SectionEyebrow>
             <h2 className="mt-5 font-display text-section text-foreground">
-              The people who began it
+              {t.s("foundersTitle")}
             </h2>
           </Reveal>
 
           <RevealGroup className="mt-12 grid gap-6 lg:grid-cols-2">
-            {c.founders.map((person) => (
-              <PersonCard key={person.name} person={person} featured />
+            {c.founders.map((person, i) => (
+              <PersonCard key={`${person.name}-${i}`} person={person} featured />
             ))}
           </RevealGroup>
         </div>
@@ -52,19 +53,18 @@ export default async function LeadershipPage() {
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal className="max-w-2xl">
-            <SectionEyebrow>Executive Council</SectionEyebrow>
+            <SectionEyebrow>{t.s("boardEyebrow")}</SectionEyebrow>
             <h2 className="mt-5 font-display text-section text-foreground">
-              Board of Directors
+              {t.s("boardTitle")}
             </h2>
             <p className="mt-5 text-base leading-relaxed text-muted-foreground">
-              The Executive Council is the highest decision-making body of the
-              organisation.
+              {t.s("boardIntro")}
             </p>
           </Reveal>
 
           <RevealGroup className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {c.board.map((person) => (
-              <PersonCard key={person.name} person={person} />
+            {c.board.map((person, i) => (
+              <PersonCard key={`${person.name}-${i}`} person={person} />
             ))}
           </RevealGroup>
         </div>
@@ -76,13 +76,12 @@ export default async function LeadershipPage() {
           <div className="grid gap-12 lg:grid-cols-12 lg:gap-12">
             <div className="lg:col-span-4">
               <Reveal>
-                <SectionEyebrow>Management team</SectionEyebrow>
+                <SectionEyebrow>{t.s("managementEyebrow")}</SectionEyebrow>
                 <h2 className="mt-5 font-display text-section text-foreground">
-                  Eight roles run the work
+                  {t.s("managementTitle")}
                 </h2>
                 <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
-                  The management team drives day-to-day implementation across
-                  every programme.
+                  {t.s("managementIntro")}
                 </p>
               </Reveal>
             </div>
@@ -102,11 +101,11 @@ export default async function LeadershipPage() {
             </div>
             <Reveal delay={90} className="lg:col-span-4">
               <PhotoFigure
-                photo={PHOTOS.teamWatching}
+                photo={t.photo("managementPhoto")}
                 fill
                 position="50% 30%"
                 sizes="(max-width: 1024px) 100vw, 33vw"
-                caption={PHOTOS.teamWatching.caption}
+                caption={t.photo("managementPhoto").caption}
               />
             </Reveal>
           </div>
@@ -115,11 +114,11 @@ export default async function LeadershipPage() {
 
       <div data-rhythm-node>
         <CtaBand
-          title="Talk to the Executive Director"
-          description="Partnership and funding enquiries are answered by the Executive Director on behalf of the Board and Management Team."
-          primaryLabel="Partner With Us"
+          title={t.cta().title}
+          description={t.cta().description}
+          primaryLabel={t.cta().primaryLabel}
           primaryHref="/partner"
-          secondaryLabel="Contact us"
+          secondaryLabel={t.cta().secondaryLabel}
           secondaryHref="/contact"
         />
       </div>
