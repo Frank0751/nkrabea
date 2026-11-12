@@ -3,6 +3,7 @@ import Image from "next/image";
 import { ChevronRight } from "lucide-react";
 import { ScrollCue } from "./scroll-cue";
 import { HeroBackdrop } from "./hero-backdrop";
+import { HeroSocials } from "./hero-socials";
 import { withBlur } from "@/lib/blur";
 import type { Photo } from "@/lib/content";
 
@@ -87,6 +88,8 @@ export function PageHero({
             {description}
           </p>
         )}
+
+        <HeroSocials className="mt-9" />
       </div>
 
       <ScrollCue />

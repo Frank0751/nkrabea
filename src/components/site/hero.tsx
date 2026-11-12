@@ -6,6 +6,7 @@ import { Magnetic } from "./magnetic";
 import { ScrollCue } from "./scroll-cue";
 import { PhotoReel } from "./photo-reel";
 import { HeroBackdrop } from "./hero-backdrop";
+import { HeroSocials } from "./hero-socials";
 import { withBlur } from "@/lib/blur";
 import { LOGO } from "@/lib/content";
 import { getSiteContent } from "@/lib/site-content";
@@ -115,6 +116,8 @@ export async function Hero() {
             nationally since {org.incorporated}.
           </span>
         </p>
+
+        <HeroSocials className="hero-rise hero-rise-4 mt-7" />
       </div>
 
       <ScrollCue />
