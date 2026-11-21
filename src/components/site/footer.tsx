@@ -158,9 +158,21 @@ export async function Footer() {
             &copy; {year} {org.legalName}. Registered under the{" "}
             {org.registration}. Incorporated {org.incorporated}.
           </p>
-          <p className="text-xs text-band-foreground/50">
-            {org.postalAddress}
-          </p>
+          <div className="flex flex-col gap-1.5 text-xs text-band-foreground/50 sm:items-end sm:text-right">
+            <p>{org.postalAddress}</p>
+            <p>
+              Website by{" "}
+              <a
+                href="https://koombei.com"
+                target="_blank"
+                rel="noopener"
+                className="font-medium text-band-foreground/80 underline-offset-4 transition-colors hover:text-accent hover:underline"
+              >
+                KoomBei
+                <span className="sr-only"> (koombei.com, opens in a new tab)</span>
+              </a>
+            </p>
+          </div>
         </div>
       </div>
     </footer>
