@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Smartphone, Landmark, CreditCard } from "lucide-react";
 import { PageHero } from "@/components/site/page-hero";
-import { SectionEyebrow } from "@/components/site/section-eyebrow";
 import { Reveal, RevealGroup } from "@/components/site/reveal";
 import { NewsletterForm } from "@/components/site/newsletter-form";
 import { PhotoStrip } from "@/components/site/photo";
@@ -36,9 +35,8 @@ export default async function GetInvolvedPage() {
       {/* Give */}
       <section data-rhythm-node id="give" className="scroll-mt-16 py-20 lg:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <Reveal className="max-w-2xl">
-            <SectionEyebrow>{t.s("giveEyebrow")}</SectionEyebrow>
-            <h2 className="mt-5 font-display text-section text-foreground">{t.s("giveTitle")}</h2>
+          <Reveal className="mx-auto max-w-2xl text-center">
+            <h2 className="font-display text-section text-foreground">{t.s("giveTitle")}</h2>
           </Reveal>
 
           {/* With a Paystack key the online form leads and the direct routes
@@ -84,9 +82,8 @@ export default async function GetInvolvedPage() {
       {otherWays.length > 0 && (
         <section data-rhythm-node className="bg-sand py-20 lg:py-28">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <Reveal className="max-w-2xl">
-              <SectionEyebrow>{t.s("otherEyebrow")}</SectionEyebrow>
-              <h2 className="mt-5 font-display text-section text-foreground">{t.s("otherTitle")}</h2>
+            <Reveal className="mx-auto max-w-2xl text-center">
+              <h2 className="font-display text-section text-foreground">{t.s("otherTitle")}</h2>
             </Reveal>
 
             <RevealGroup className={`mt-12 grid gap-6 sm:grid-cols-2 ${otherWays.length >= 3 ? "lg:grid-cols-3" : ""}`}>
@@ -119,8 +116,7 @@ export default async function GetInvolvedPage() {
       <section data-rhythm-node className="py-20 lg:py-24">
         <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
           <Reveal>
-            <SectionEyebrow>{t.s("newsletterEyebrow")}</SectionEyebrow>
-            <h2 className="mt-5 font-display text-2xl leading-tight tracking-tight text-foreground sm:text-3xl">
+            <h2 className="font-display text-2xl leading-tight tracking-tight text-foreground sm:text-3xl">
               {t.s("newsletterTitle")}
             </h2>
             <div className="mt-8">

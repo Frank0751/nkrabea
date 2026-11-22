@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Target, Users, HeartHandshake } from "lucide-react";
 import { Hero } from "@/components/site/hero";
-import { SectionEyebrow } from "@/components/site/section-eyebrow";
 import { Reveal, RevealGroup } from "@/components/site/reveal";
 import { CountUp } from "@/components/site/count-up";
 import { CtaBand } from "@/components/site/cta-band";
@@ -42,6 +41,11 @@ export default async function HomePage() {
       {/* Mission */}
       <section data-rhythm-node className="py-20 lg:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <Reveal className="mx-auto mb-12 max-w-2xl text-center lg:mb-16">
+            <h2 className="font-display text-section text-foreground">
+              {t.s("missionTitle")}
+            </h2>
+          </Reveal>
           <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
             {/* The photograph takes the full height of the text column, so
                 the two end on the same line. */}
@@ -55,13 +59,7 @@ export default async function HomePage() {
               />
             </Reveal>
             <div className="order-1 lg:order-2 lg:col-span-7">
-              <Reveal>
-                <SectionEyebrow>{t.s("missionEyebrow")}</SectionEyebrow>
-                <h2 className="mt-5 font-display text-section text-foreground">
-                  {t.s("missionTitle")}
-                </h2>
-              </Reveal>
-              <Reveal delay={120} className="mt-8">
+              <Reveal delay={120}>
                 <p className="text-lg leading-relaxed text-foreground/90">
                   {c.mission}
                 </p>
@@ -94,7 +92,6 @@ export default async function HomePage() {
       {c.stories[0] && (
         <StoryFeature
           story={c.stories[0]}
-          eyebrow={t.s("storyEyebrow")}
           learntLabel={c.text.newsPage.s("learntLabel")}
         />
       )}
@@ -105,10 +102,9 @@ export default async function HomePage() {
       {c.programmes.length > 0 && (
         <section data-rhythm-node className="bg-sand py-20 lg:py-28">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <Reveal className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-              <div className="max-w-2xl">
-                <SectionEyebrow>{t.s("programmesEyebrow")}</SectionEyebrow>
-                <h2 className="mt-5 font-display text-section text-foreground">
+            <Reveal className="mx-auto flex max-w-2xl flex-col items-center gap-5 text-center">
+              <div>
+                <h2 className="font-display text-section text-foreground">
                   {t.s("programmesTitle")}
                 </h2>
               </div>
@@ -138,7 +134,6 @@ export default async function HomePage() {
       {/* Big number */}
       {t.on("showFigure") && Number.isFinite(figure) && (
         <DataBand
-          eyebrow={t.s("figureEyebrow")}
           title={t.s("figureTitle")}
           lede={t.s("figureLede")}
         >

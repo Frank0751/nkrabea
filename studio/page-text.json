@@ -41,11 +41,6 @@
           "title": "Mission",
           "fields": [
             {
-              "name": "missionEyebrow",
-              "label": "Small label",
-              "kind": "string"
-            },
-            {
               "name": "missionTitle",
               "label": "Heading",
               "kind": "string"
@@ -58,25 +53,9 @@
           ]
         },
         {
-          "id": "story",
-          "title": "Latest story",
-          "fields": [
-            {
-              "name": "storyEyebrow",
-              "label": "Small label above the newest news story",
-              "kind": "string"
-            }
-          ]
-        },
-        {
           "id": "audiences",
           "title": "Who we serve",
           "fields": [
-            {
-              "name": "audiencesEyebrow",
-              "label": "Small label",
-              "kind": "string"
-            },
             {
               "name": "audiencesTitle",
               "label": "Heading",
@@ -100,11 +79,6 @@
           "title": "Programmes",
           "fields": [
             {
-              "name": "programmesEyebrow",
-              "label": "Small label",
-              "kind": "string"
-            },
-            {
               "name": "programmesTitle",
               "label": "Heading",
               "kind": "string"
@@ -124,11 +98,6 @@
               "name": "showFigure",
               "label": "Show the big number section",
               "kind": "toggle"
-            },
-            {
-              "name": "figureEyebrow",
-              "label": "Small label",
-              "kind": "string"
             },
             {
               "name": "figureTitle",
@@ -210,11 +179,6 @@
           "title": "Who we are",
           "fields": [
             {
-              "name": "whoEyebrow",
-              "label": "Small label",
-              "kind": "string"
-            },
-            {
               "name": "whoTitle",
               "label": "Heading",
               "kind": "string"
@@ -263,11 +227,6 @@
           "title": "Values",
           "fields": [
             {
-              "name": "valuesEyebrow",
-              "label": "Small label",
-              "kind": "string"
-            },
-            {
               "name": "valuesTitle",
               "label": "Heading",
               "kind": "string"
@@ -278,11 +237,6 @@
           "id": "what",
           "title": "What we do",
           "fields": [
-            {
-              "name": "whatEyebrow",
-              "label": "Small label",
-              "kind": "string"
-            },
             {
               "name": "whatTitle",
               "label": "Heading",
@@ -306,7 +260,7 @@
           "fields": [
             {
               "name": "registrationEyebrow",
-              "label": "Small label",
+              "label": "Heading",
               "kind": "string"
             },
             {
@@ -341,11 +295,6 @@
           "title": "Founders",
           "fields": [
             {
-              "name": "foundersEyebrow",
-              "label": "Small label",
-              "kind": "string"
-            },
-            {
               "name": "foundersTitle",
               "label": "Heading",
               "kind": "string"
@@ -356,11 +305,6 @@
           "id": "board",
           "title": "Board",
           "fields": [
-            {
-              "name": "boardEyebrow",
-              "label": "Small label",
-              "kind": "string"
-            },
             {
               "name": "boardTitle",
               "label": "Heading",
@@ -377,11 +321,6 @@
           "id": "management",
           "title": "Management",
           "fields": [
-            {
-              "name": "managementEyebrow",
-              "label": "Small label",
-              "kind": "string"
-            },
             {
               "name": "managementTitle",
               "label": "Heading",
@@ -422,11 +361,6 @@
               "name": "showChart",
               "label": "Show the funding chart",
               "kind": "toggle"
-            },
-            {
-              "name": "chartEyebrow",
-              "label": "Small label",
-              "kind": "string"
             },
             {
               "name": "chartTitle",
@@ -475,11 +409,6 @@
               "name": "showSteps",
               "label": "Show the steps",
               "kind": "toggle"
-            },
-            {
-              "name": "artEyebrow",
-              "label": "Small label",
-              "kind": "string"
             },
             {
               "name": "artTitle",
@@ -546,25 +475,9 @@
     "impactPage": {
       "sections": [
         {
-          "id": "story",
-          "title": "Latest story",
-          "fields": [
-            {
-              "name": "storyEyebrow",
-              "label": "Small label above the newest news story",
-              "kind": "string"
-            }
-          ]
-        },
-        {
           "id": "figures",
           "title": "Numbers",
           "fields": [
-            {
-              "name": "figuresEyebrow",
-              "label": "Small label",
-              "kind": "string"
-            },
             {
               "name": "figuresTitle",
               "label": "Heading",
@@ -585,11 +498,6 @@
               "name": "showChart",
               "label": "Show the programme chart",
               "kind": "toggle"
-            },
-            {
-              "name": "chartEyebrow",
-              "label": "Small label",
-              "kind": "string"
             },
             {
               "name": "chartTitle",
@@ -639,11 +547,6 @@
           "title": "Milestones",
           "fields": [
             {
-              "name": "milestonesEyebrow",
-              "label": "Small label",
-              "kind": "string"
-            },
-            {
               "name": "milestonesTitle",
               "label": "Heading",
               "kind": "string"
@@ -660,11 +563,6 @@
           "title": "Gallery",
           "fields": [
             {
-              "name": "galleryEyebrow",
-              "label": "Small label",
-              "kind": "string"
-            },
-            {
               "name": "galleryTitle",
               "label": "Heading",
               "kind": "string"
@@ -677,7 +575,7 @@
           "fields": [
             {
               "name": "testimonialsEyebrow",
-              "label": "Small label",
+              "label": "Heading",
               "kind": "string"
             }
           ]
@@ -702,11 +600,6 @@
           "title": "The case for support",
           "fields": [
             {
-              "name": "caseEyebrow",
-              "label": "Small label",
-              "kind": "string"
-            },
-            {
               "name": "caseTitle",
               "label": "Heading",
               "kind": "string"
@@ -722,11 +615,6 @@
           "id": "partners",
           "title": "Who we work with",
           "fields": [
-            {
-              "name": "partnersEyebrow",
-              "label": "Small label",
-              "kind": "string"
-            },
             {
               "name": "partnersTitle",
               "label": "Heading",
@@ -744,11 +632,6 @@
           "id": "funding",
           "title": "Open for funding",
           "fields": [
-            {
-              "name": "fundingEyebrow",
-              "label": "Small label",
-              "kind": "string"
-            },
             {
               "name": "fundingTitle",
               "label": "Heading",
@@ -780,11 +663,6 @@
           "id": "give",
           "title": "Give",
           "fields": [
-            {
-              "name": "giveEyebrow",
-              "label": "Small label",
-              "kind": "string"
-            },
             {
               "name": "giveTitle",
               "label": "Heading",
@@ -860,11 +738,6 @@
           "title": "Other ways to help",
           "fields": [
             {
-              "name": "otherEyebrow",
-              "label": "Small label",
-              "kind": "string"
-            },
-            {
               "name": "otherTitle",
               "label": "Heading",
               "kind": "string"
@@ -880,11 +753,6 @@
           "id": "newsletter",
           "title": "Newsletter",
           "fields": [
-            {
-              "name": "newsletterEyebrow",
-              "label": "Small label",
-              "kind": "string"
-            },
             {
               "name": "newsletterTitle",
               "label": "Heading",
@@ -902,18 +770,13 @@
           "fields": [
             {
               "name": "storiesEyebrow",
-              "label": "Small label above the stories",
+              "label": "Heading",
               "kind": "string",
               "help": "The stories themselves are under News stories."
             },
             {
               "name": "learntLabel",
               "label": "Heading above what participants learnt",
-              "kind": "string"
-            },
-            {
-              "name": "pressPanelLabel",
-              "label": "Label on a story's news report",
               "kind": "string"
             }
           ]
@@ -922,12 +785,6 @@
           "id": "events",
           "title": "Events",
           "fields": [
-            {
-              "name": "eventsEyebrow",
-              "label": "Small label",
-              "kind": "string",
-              "help": "The events themselves are under Events. They move to Past events after their date."
-            },
             {
               "name": "eventsTitle",
               "label": "Heading",
@@ -993,7 +850,7 @@
           "fields": [
             {
               "name": "pressEyebrow",
-              "label": "Small label",
+              "label": "Heading",
               "kind": "string",
               "help": "Press mentions themselves are under Press."
             },
@@ -1017,12 +874,6 @@
           "id": "details",
           "title": "Details and form",
           "fields": [
-            {
-              "name": "detailsEyebrow",
-              "label": "Small label",
-              "kind": "string",
-              "help": "The addresses, phone numbers and email are in Site settings."
-            },
             {
               "name": "detailsTitle",
               "label": "Heading",
@@ -1070,11 +921,6 @@
           "id": "faq",
           "title": "Questions",
           "fields": [
-            {
-              "name": "faqEyebrow",
-              "label": "Small label",
-              "kind": "string"
-            },
             {
               "name": "faqTitle",
               "label": "Heading",

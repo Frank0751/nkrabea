@@ -13,17 +13,15 @@ import { withTransform } from "./cloudinary";
  * missing font falls back to the renderer's own sans. A share card is never
  * worth a failed deploy.
  *
- * The fonts are Fontshare's TTF files, because the renderer cannot read
- * WOFF2. They are fetched from Fontshare at build, exactly like the site's
- * own faces, and are never committed, for the licence reason in globals.css.
+ * The fonts are Ubuntu in WOFF, because the renderer cannot read WOFF2,
+ * fetched at build from a pinned Fontsource release on jsDelivr.
  */
 
 export const SHARE_CARD_SIZE = { width: 1200, height: 630 };
 
 const FONT_URLS = {
-  display:
-    "https://cdn.fontshare.com/wf/LJ2MIWBZLOP5ROTPIATJWJHTCINMBNEE/S7KFQDT7WDO3EXV2IMELFT6AAOX24DTM/A3D35MFKWQ3EIKAD2QI6LGKQ7ZD2BKN5.ttf",
-  body: "https://cdn.fontshare.com/wf/P2LQKHE6KA6ZP4AAGN72KDWMHH6ZH3TA/ZC32TK2P7FPS5GFTL46EU6KQJA24ZYDB/7AHDUZ4A7LFLVFUIFSARGIWCRQJHISQP.ttf",
+  display: "https://cdn.jsdelivr.net/npm/@fontsource/ubuntu@5.3.0/files/ubuntu-latin-700-normal.woff",
+  body: "https://cdn.jsdelivr.net/npm/@fontsource/ubuntu@5.3.0/files/ubuntu-latin-500-normal.woff",
 };
 
 const INK = "#103028";
@@ -84,8 +82,8 @@ export async function renderShareCard(): Promise<ImageResponse> {
   ]);
 
   const fonts: CardFont[] = [];
-  if (display) fonts.push({ name: "Bespoke Serif", data: display, weight: 700, style: "normal" });
-  if (body) fonts.push({ name: "Satoshi", data: body, weight: 500, style: "normal" });
+  if (display) fonts.push({ name: "Ubuntu", data: display, weight: 700, style: "normal" });
+  if (body) fonts.push({ name: "Ubuntu", data: body, weight: 500, style: "normal" });
 
   return new ImageResponse(
     (
@@ -96,7 +94,7 @@ export async function renderShareCard(): Promise<ImageResponse> {
           display: "flex",
           position: "relative",
           backgroundColor: INK,
-          fontFamily: body ? "Satoshi" : undefined,
+          fontFamily: body || display ? "Ubuntu" : undefined,
         }}
       >
         {photo && (
@@ -160,7 +158,7 @@ export async function renderShareCard(): Promise<ImageResponse> {
               style={{
                 display: "flex",
                 marginTop: 18,
-                fontFamily: display ? "Bespoke Serif" : undefined,
+                fontFamily: display ? "Ubuntu" : undefined,
                 fontWeight: 700,
                 fontSize: 66,
                 lineHeight: 1.04,

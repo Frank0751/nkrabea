@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono } from "next/font/google";
+import { Ubuntu, Ubuntu_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster as SonnerToaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -18,15 +18,23 @@ import { SiteContentProvider } from "@/components/site/site-content-context";
 import { getSiteContent } from "@/lib/site-content";
 
 /**
- * Satoshi (body) and Bespoke Serif (display) are declared as @font-face rules
- * in globals.css against Fontshare's CDN, because their licence permits web
- * use but not redistribution and this repository is public. JetBrains Mono is
- * openly licensed, so next/font downloads it at build time and serves it from
- * our own domain: one less third party in the critical path.
+ * Ubuntu is the site's one typeface, for headings, body and interface, with
+ * Ubuntu Mono for small technical labels. Both are openly licensed, so
+ * next/font downloads them at build time and serves them from our own domain:
+ * no third party in the critical path.
  */
-const mono = JetBrains_Mono({
+const ubuntu = Ubuntu({
+  variable: "--font-ubuntu",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "700"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
+
+const mono = Ubuntu_Mono({
   variable: "--font-mono",
   subsets: ["latin"],
+  weight: ["400", "700"],
   display: "swap",
 });
 
@@ -89,13 +97,8 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${mono.variable} font-sans antialiased bg-background text-foreground`}
+        className={`${ubuntu.variable} ${mono.variable} font-sans antialiased bg-background text-foreground`}
       >
-        {/* globals.css fetches the two Fontshare faces. Warming the
-            connection saves a DNS lookup and a TLS handshake before the first
-            paint, which is worth more on a Ghanaian mobile connection than it
-            is on a desk. React hoists this into the document head. */}
-        <link rel="preconnect" href="https://cdn.fontshare.com" crossOrigin="anonymous" />
         {/* Every photograph comes from here, the hero one first of all. */}
         <link rel="preconnect" href="https://res.cloudinary.com" />
         <ThemeProvider

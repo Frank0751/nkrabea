@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/site/page-hero";
-import { SectionEyebrow } from "@/components/site/section-eyebrow";
 import { Reveal, RevealGroup } from "@/components/site/reveal";
 import { PartnershipForm } from "@/components/site/partnership-form";
 import { PhotoFigure } from "@/components/site/photo";
@@ -29,9 +28,8 @@ export default async function PartnerPage() {
       {/* The case */}
       <section data-rhythm-node className="py-20 lg:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <Reveal className="max-w-2xl">
-            <SectionEyebrow>{t.s("caseEyebrow")}</SectionEyebrow>
-            <h2 className="mt-5 font-display text-section text-foreground">
+          <Reveal className="mx-auto max-w-2xl text-center">
+            <h2 className="font-display text-section text-foreground">
               {t.s("caseTitle")}
             </h2>
           </Reveal>
@@ -60,9 +58,8 @@ export default async function PartnerPage() {
         className="bg-sand py-20 lg:py-28"
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <Reveal className="max-w-2xl">
-            <SectionEyebrow>{t.s("partnersEyebrow")}</SectionEyebrow>
-            <h2 className="mt-5 font-display text-section text-foreground">
+          <Reveal className="mx-auto max-w-2xl text-center">
+            <h2 className="font-display text-section text-foreground">
               {t.s("partnersTitle")}
             </h2>
           </Reveal>
@@ -97,6 +94,11 @@ export default async function PartnerPage() {
       {/* Programmes open to funding */}
       <section data-rhythm-node className="py-20 lg:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <Reveal className="mx-auto mb-12 max-w-2xl text-center lg:mb-16">
+            <h2 className="font-display text-section text-foreground">
+              {t.s("fundingTitle")}
+            </h2>
+          </Reveal>
           <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
             {/* The photograph runs the full height of the list and the form
                 together, so nothing hangs below anything. */}
@@ -112,11 +114,7 @@ export default async function PartnerPage() {
 
             <div className="order-1 lg:order-2 lg:col-span-8">
               <Reveal>
-                <SectionEyebrow>{t.s("fundingEyebrow")}</SectionEyebrow>
-                <h2 className="mt-5 font-display text-section text-foreground">
-                  {t.s("fundingTitle")}
-                </h2>
-                <ul className="mt-8 grid gap-5 sm:grid-cols-2">
+                <ul className="grid gap-5 sm:grid-cols-2">
                   {c.programmes.filter((p) => p.status === "fundraising").map(
                     (p) => (
                       <li key={p.id} className="border-l-2 border-accent pl-5">

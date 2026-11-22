@@ -79,11 +79,8 @@ export const PAGE_TEXT_DEFAULTS: Record<string, Record<string, TextValue>> = {
       { value: "2021", label: "Incorporated 14 May" },
       { value: "National", label: "Area of operation" },
     ],
-    missionEyebrow: "Our mission",
     missionTitle: "Culture is the tool. Development is the work.",
     missionPhoto: PHOTOS.loom,
-    storyEyebrow: "Latest from the field",
-    audiencesEyebrow: "Who we serve",
     audiencesTitle: "Four groups, four different questions",
     audiencesIntro: "What you need from this site depends on why you came to it.",
     audiences: AUDIENCES.map((a) => ({
@@ -93,10 +90,8 @@ export const PAGE_TEXT_DEFAULTS: Record<string, Record<string, TextValue>> = {
       linkLabel: a.action,
       link: a.href,
     })),
-    programmesEyebrow: "Our work",
     programmesTitle: "The programmes we are running and raising for",
     programmesLinkLabel: "All programmes",
-    figureEyebrow: "The scale of the need",
     figureTitle: "Five hundred people, four regions, one programme",
     figureLede:
       "Our accessible soap production programme is designed to train five hundred persons with disabilities in a trade they can run themselves.",
@@ -115,7 +110,6 @@ export const PAGE_TEXT_DEFAULTS: Record<string, Record<string, TextValue>> = {
   },
 
   aboutPage: {
-    whoEyebrow: "Who we are",
     whoTitle: "Reaching back to build forward",
     whoPhoto: PHOTOS.familyInKente,
     whoInsetPhoto: PHOTOS.motherAndBaby,
@@ -123,9 +117,7 @@ export const PAGE_TEXT_DEFAULTS: Record<string, Record<string, TextValue>> = {
     visionLabel: "Vision",
     missionVisionPhoto: PHOTOS.regalia,
     mottoLabel: "Our motto",
-    valuesEyebrow: "Core values",
     valuesTitle: "Seven values guide the work",
-    whatEyebrow: "What we do",
     whatTitle: "Our constitutional objectives",
     whatIntro: "All pursued through culture and the arts.",
     whatPhoto: PHOTOS.hallPerformer,
@@ -136,12 +128,9 @@ export const PAGE_TEXT_DEFAULTS: Record<string, Record<string, TextValue>> = {
   },
 
   leadershipPage: {
-    foundersEyebrow: "Founders",
     foundersTitle: "The people who began it",
-    boardEyebrow: "Executive Council",
     boardTitle: "Board of Directors",
     boardIntro: "The Executive Council is the highest decision-making body of the organisation.",
-    managementEyebrow: "Management team",
     managementTitle: "Eight roles run the work",
     managementIntro: "The management team drives day-to-day implementation across every programme.",
     managementPhoto: PHOTOS.teamWatching,
@@ -156,7 +145,6 @@ export const PAGE_TEXT_DEFAULTS: Record<string, Record<string, TextValue>> = {
     showChart: true,
     showSteps: true,
     showPhoto: true,
-    chartEyebrow: "What the funding buys",
     chartTitle: "One hundred students, split evenly between two trades",
     chartLede:
       "The Cape Coast programme is costed, dated and designed to leave its equipment behind. These are the numbers a funder would be committing to.",
@@ -175,7 +163,6 @@ export const PAGE_TEXT_DEFAULTS: Record<string, Record<string, TextValue>> = {
       },
       { value: "Retained", label: "Equipment stays at the school as an institutional asset" },
     ],
-    artEyebrow: "How we teach",
     artTitle: "The art forms we work through",
     artForms: ART_FORMS.map((f) => ({ title: f.name, body: f.note, photo: ART_FORM_PHOTOS[f.id] })),
     stepsTitle: "How a Deaf student learns a drum pattern",
@@ -192,12 +179,9 @@ export const PAGE_TEXT_DEFAULTS: Record<string, Record<string, TextValue>> = {
 
   impactPage: {
     showChart: true,
-    storyEyebrow: "Latest result",
-    figuresEyebrow: "By the numbers",
     figuresTitle: "Results, targets and facts, labelled as such",
     figuresNote:
       "Nkrabea publishes programme targets and achieved results separately. A target describes what a funded programme is designed to deliver, not what has already been delivered.",
-    chartEyebrow: "The soap production programme",
     chartTitle: "Five hundred trained, ninety enterprises seeded",
     chartLede:
       "Read these as a plan, because that is what they are. Nothing below has happened yet, and the captions say so rather than letting the length of a bar imply otherwise.",
@@ -210,11 +194,9 @@ export const PAGE_TEXT_DEFAULTS: Record<string, Record<string, TextValue>> = {
       "Four regions. Nkrabea has not published how the five hundred places divide between them, so no split is drawn here.",
     chartDetail:
       "Training runs as intensive three day workshops covering eight or more soap and hygiene products, with packaging designed around Adinkra symbols and local fragrances so the goods carry a Ghanaian story to market.",
-    milestonesEyebrow: "Milestones",
     milestonesTitle: "The record so far",
     milestonesNote:
       "Further milestones will be published as Nkrabea confirms dates and supporting evidence for each.",
-    galleryEyebrow: "In the frame",
     galleryTitle: "Our work in pictures",
     testimonialsEyebrow: "In their words",
     cta: partnerCta(
@@ -224,7 +206,6 @@ export const PAGE_TEXT_DEFAULTS: Record<string, Record<string, TextValue>> = {
   },
 
   partnerPage: {
-    caseEyebrow: "The case for support",
     caseTitle: "What your funding actually does",
     casePoints: [
       {
@@ -244,10 +225,8 @@ export const PAGE_TEXT_DEFAULTS: Record<string, Record<string, TextValue>> = {
         body: "A registered NGO with an Executive Council, a board secretary and an eight member management team. Accountability is one of our seven core values, not an afterthought.",
       },
     ],
-    partnersEyebrow: "Who we work with",
     partnersTitle: "Four kinds of partner",
     partnersPhoto: PHOTOS.chiefOutside,
-    fundingEyebrow: "Open for funding",
     fundingTitle: "Programmes ready to run",
     fundingPhoto: PHOTOS.chiefUnderUmbrella,
     formTitle: "Start a conversation",
@@ -256,7 +235,6 @@ export const PAGE_TEXT_DEFAULTS: Record<string, Record<string, TextValue>> = {
 
   getInvolvedPage: {
     showStrip: true,
-    giveEyebrow: "Give",
     giveTitle: "Make a donation",
     momoTitle: "Send by MoMo directly",
     momoBody: "Prefer to send from your phone? Use Nkrabea's own MTN MoMo line.",
@@ -269,7 +247,6 @@ export const PAGE_TEXT_DEFAULTS: Record<string, Record<string, TextValue>> = {
     stripPhotos: [PHOTOS.legsUnison, PHOTOS.sixKick, PHOTOS.armsForward],
     stripNote:
       "The Nkrabea Drumming and Dance Troupe at an outdoor community performance. Donations by mobile money, transfer or card go into programmes like the ones on the Our Work page.",
-    otherEyebrow: "Beyond money",
     otherTitle: "Other ways to help",
     otherWays: [
       {
@@ -287,7 +264,6 @@ export const PAGE_TEXT_DEFAULTS: Record<string, Record<string, TextValue>> = {
         link: "/partner",
       },
     ],
-    newsletterEyebrow: "Stay in touch",
     newsletterTitle: "Hear when a programme opens or completes",
   },
 
@@ -295,8 +271,6 @@ export const PAGE_TEXT_DEFAULTS: Record<string, Record<string, TextValue>> = {
     showStrip: true,
     storiesEyebrow: "Programme updates",
     learntLabel: "What they learnt",
-    pressPanelLabel: "In the news",
-    eventsEyebrow: "Upcoming",
     eventsTitle: "Where to see us next",
     pastEventsTitle: "Past events",
     noEventsTitle: "No dates announced yet",
@@ -314,14 +288,12 @@ export const PAGE_TEXT_DEFAULTS: Record<string, Record<string, TextValue>> = {
 
   contactPage: {
     showPhoto: true,
-    detailsEyebrow: "Details",
     detailsTitle: "Where to find us",
     followTitle: "Follow us",
     formTitle: "Send a message",
     formIntro: "We aim to respond within three working days.",
     breakPhoto: PHOTOS.drumRowWide,
     breakLabel: "Nkrabea Drumming and Dance Troupe",
-    faqEyebrow: "Questions",
     faqTitle: "Frequently asked",
   },
 };

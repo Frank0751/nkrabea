@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHero } from "@/components/site/page-hero";
-import { SectionEyebrow } from "@/components/site/section-eyebrow";
 import { Reveal, RevealGroup } from "@/components/site/reveal";
 import { CtaBand } from "@/components/site/cta-band";
 import { PhotoFigure, PhotoDuo } from "@/components/site/photo";
@@ -30,15 +29,14 @@ export default async function AboutPage() {
       {/* Who we are */}
       <section data-rhythm-node className="py-20 lg:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <Reveal className="mx-auto mb-12 max-w-2xl text-center lg:mb-16">
+            <h2 className="font-display text-section text-foreground">
+              {t.s("whoTitle")}
+            </h2>
+          </Reveal>
           <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
             <div className="lg:col-span-7">
-              <Reveal>
-                <SectionEyebrow>{t.s("whoEyebrow")}</SectionEyebrow>
-                <h2 className="mt-5 font-display text-section text-foreground">
-                  {t.s("whoTitle")}
-                </h2>
-              </Reveal>
-              <div className="mt-10 space-y-6">
+              <div className="space-y-6">
                 {c.identity.whoWeAre.map((paragraph, i) => (
                   <Reveal key={i} delay={i * 90}>
                     <p className="text-base leading-relaxed text-foreground/90 sm:text-lg">
@@ -102,9 +100,8 @@ export default async function AboutPage() {
       {/* Values */}
       <section data-rhythm-node className="py-20 lg:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <Reveal className="max-w-2xl">
-            <SectionEyebrow>{t.s("valuesEyebrow")}</SectionEyebrow>
-            <h2 className="mt-5 font-display text-section text-foreground">
+          <Reveal className="mx-auto max-w-2xl text-center">
+            <h2 className="font-display text-section text-foreground">
               {t.s("valuesTitle")}
             </h2>
           </Reveal>
@@ -133,20 +130,19 @@ export default async function AboutPage() {
         className="bg-sand py-20 lg:py-28"
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <Reveal className="mx-auto mb-12 max-w-2xl text-center lg:mb-16">
+            <h2 className="font-display text-section text-foreground">
+              {t.s("whatTitle")}
+            </h2>
+            <p className="mt-5 text-lede text-muted-foreground">
+              {t.s("whatIntro")}
+            </p>
+          </Reveal>
           <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
             <div className="flex flex-col lg:col-span-4">
-              <Reveal>
-                <SectionEyebrow>{t.s("whatEyebrow")}</SectionEyebrow>
-                <h2 className="mt-5 font-display text-section text-foreground">
-                  {t.s("whatTitle")}
-                </h2>
-                <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
-                  {t.s("whatIntro")}
-                </p>
-              </Reveal>
-              {/* Fills whatever height the nine objectives leave under the
-                  heading, so the column ends where the list ends. */}
-              <Reveal delay={90} className="mt-10 flex-1">
+              {/* Fills the height of the objectives list, so the column ends
+                  where the list ends. */}
+              <Reveal delay={90} className="flex-1">
                 <PhotoFigure
                   photo={t.photo("whatPhoto")}
                   fill
@@ -181,8 +177,8 @@ export default async function AboutPage() {
       <section data-rhythm-node className="py-20 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Reveal>
-            <SectionEyebrow>{t.s("registrationEyebrow")}</SectionEyebrow>
-            <dl className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <h2 className="text-center font-display text-section text-foreground">{t.s("registrationEyebrow")}</h2>
+            <dl className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               <Detail label="Legal name" value={c.org.legalName} />
               <Detail label="Status" value={c.org.type} />
               <Detail label="Registered under" value={c.org.registration} />

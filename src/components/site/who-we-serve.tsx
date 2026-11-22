@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { SectionEyebrow } from "./section-eyebrow";
 import { Reveal, RevealGroup } from "./reveal";
 import { PhotoFigure } from "./photo";
 import { getSiteContent } from "@/lib/site-content";
@@ -26,9 +25,8 @@ export async function WhoWeServe() {
   return (
     <section data-rhythm-node className="bg-sand py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <Reveal className="max-w-2xl">
-          <SectionEyebrow>{t.s("audiencesEyebrow")}</SectionEyebrow>
-          <h2 className="mt-5 font-display text-section text-foreground">
+        <Reveal className="mx-auto max-w-2xl text-center">
+          <h2 className="font-display text-section text-foreground">
             {t.s("audiencesTitle")}
           </h2>
           <p className="mt-5 text-base leading-relaxed text-muted-foreground">

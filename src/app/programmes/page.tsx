@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/site/page-hero";
-import { SectionEyebrow } from "@/components/site/section-eyebrow";
 import { Reveal, RevealGroup } from "@/components/site/reveal";
 import { CtaBand } from "@/components/site/cta-band";
 import { DataBand, SplitBar, StatTile, ProcessSteps } from "@/components/site/figures";
@@ -50,7 +49,7 @@ export default async function ProgrammesPage() {
       )}
 
       {t.on("showChart") && Number.isFinite(total) && total > 0 && (
-        <DataBand eyebrow={t.s("chartEyebrow")} title={t.s("chartTitle")} lede={t.s("chartLede")}>
+        <DataBand title={t.s("chartTitle")} lede={t.s("chartLede")}>
           <div className={`grid gap-14 ${stats.length > 0 ? "lg:grid-cols-2 lg:gap-16" : ""}`}>
             <SplitBar
               total={total}
@@ -75,9 +74,8 @@ export default async function ProgrammesPage() {
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             {artForms.length > 0 && (
               <>
-                <Reveal className="max-w-2xl">
-                  <SectionEyebrow>{t.s("artEyebrow")}</SectionEyebrow>
-                  <h2 className="mt-5 font-display text-section text-foreground">{t.s("artTitle")}</h2>
+                <Reveal className="mx-auto max-w-2xl text-center">
+                  <h2 className="font-display text-section text-foreground">{t.s("artTitle")}</h2>
                 </Reveal>
 
                 <RevealGroup className={`mt-12 grid gap-6 sm:grid-cols-2 ${artForms.length >= 3 ? "lg:grid-cols-3" : ""}`}>

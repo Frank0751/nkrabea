@@ -22,9 +22,8 @@ Next.js 16 App Router + TypeScript + Tailwind CSS 4 + shadcn/ui + GSAP 3.
 npm install           # install deps (bun is not used; there is no bun.lock)
 cp .env.example .env  # every variable is optional; see .env.example
 npm run dev           # dev server on :3000
-npm run check         # lint, typecheck, WCAG contrast and font URLs
+npm run check         # lint, typecheck and WCAG contrast
 npm run check:contrast # palette contrast only
-npm run check:fonts   # the Fontshare URLs still resolve
 npm run images:blur   # regenerate inline placeholders after adding photographs
 npm run images:warm   # pre-generate every Cloudinary size
 npm run cms:import    # copy content.ts into Sanity (never overwrites; needs SANITY_API_WRITE_TOKEN)
@@ -154,7 +153,14 @@ rewrites that one cloud's URLs.
 - **`<PhotoReel>`** is the homepage's movement: a crossfade through three
   stills with a slow push. It never advances to a frame whose image has not
   loaded, and it stops dead under reduced motion.
-- **Section labels**: `<SectionEyebrow>`, which uses the mono typeface.
+- **Section titles stand alone and are centred.** No small label above a
+  heading, anywhere: not in heroes, sections, data bands or stories (removed
+  at the client's request, November 2026). A section header is a centred
+  `<Reveal className="mx-auto max-w-2xl text-center">` with the `h2` and an
+  optional lede. In a two-column section the title sits centred above both
+  columns, never inside one. Story and programme names beside their photos
+  stay left-aligned with their text. The home hero carries no logo; the
+  header already has it.
 - **Scroll animation**: `<Reveal>` and `<RevealGroup>`.
 - **CTA bands**: `<CtaBand>` at the bottom of a page.
 - **Rhythm line nodes**: put `data-rhythm-node` on each top-level `<section>`
@@ -180,21 +186,18 @@ rewrites that one cloud's URLs.
 
 ## Typography
 
-- Display is **Bespoke Serif** (400, 500, 700), body and interface are
-  **Satoshi** (400, 500, 700, 900), labels are **JetBrains Mono**
-  (`.label-mono`). DM Serif Display, Manrope, Fraunces, Plus Jakarta Sans and
-  Inter are all gone.
-- The two Fontshare faces are declared as `@font-face` rules at the top of
-  `globals.css` against `cdn.fontshare.com`. **Never commit the font binaries.**
-  Their licence permits web use but not redistribution, and this repository is
-  public. That is also why they are not loaded with `next/font/local`.
-  `npm run check:fonts` fails the build if a URL stops resolving, so the site
-  cannot silently fall back to system faces. JetBrains Mono is openly
-  licensed, so it stays on `next/font/google`.
-- Fontshare's CSS API returns the wrong family when two are requested in one
-  call. One request per family, or write the rules out as we have.
+- **Ubuntu** for everything (300, 400, 500, 700): headings, body and
+  interface. **Ubuntu Mono** for the few small technical labels
+  (`.label-mono`: dates, captions, badges). Both are openly licensed and
+  load through `next/font/google` in `layout.tsx`, served from our domain.
+  Bespoke Serif, Satoshi and JetBrains Mono are gone, and so is the Fontshare
+  font check.
+- The share card (`og-card.tsx`) fetches Ubuntu WOFF from a pinned
+  Fontsource release on jsDelivr, because the renderer cannot read WOFF2.
 - `.font-display` sets weight 700 in `@layer base`, so a `font-medium` or
   `font-normal` utility still overrides it. Synthesis stays off.
+- Hero titles carry `.hero-title` (balanced wrap, soft shadow so they read
+  sharp on photographs).
 - Use the scale, do not invent sizes: `text-hero`, `text-section`, `text-sub`,
   `text-lede`. Line height and tracking travel with each one.
 
@@ -350,7 +353,7 @@ has no types, so `src/types/paystack-inline.d.ts` declares the parts used.
 
 ## Testing changes
 
-Run `npm run check`, then confirm each of the nine routes renders and that no
+Run `npm run check` (lint, typecheck, contrast), then confirm each of the nine routes renders and that no
 unverified claim appears in the output. Scroll-driven motion cannot be verified
 in a headless browser that does not dispatch scroll events; check the rhythm
 line, reveals and count-ups in a real browser.

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Info } from "lucide-react";
 import { PageHero } from "@/components/site/page-hero";
-import { SectionEyebrow } from "@/components/site/section-eyebrow";
 import { Reveal, RevealGroup } from "@/components/site/reveal";
 import { CountUp } from "@/components/site/count-up";
 import { Gallery } from "@/components/site/gallery";
@@ -34,7 +33,6 @@ export default async function ImpactPage() {
       {c.stories[0] && (
         <StoryFeature
           story={c.stories[0]}
-          eyebrow={t.s("storyEyebrow")}
           learntLabel={c.text.newsPage.s("learntLabel")}
         />
       )}
@@ -42,9 +40,8 @@ export default async function ImpactPage() {
       {/* Figures */}
       <section data-rhythm-node className="py-20 lg:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <Reveal className="max-w-2xl">
-            <SectionEyebrow>{t.s("figuresEyebrow")}</SectionEyebrow>
-            <h2 className="mt-5 font-display text-section text-foreground">
+          <Reveal className="mx-auto max-w-2xl text-center">
+            <h2 className="font-display text-section text-foreground">
               {t.s("figuresTitle")}
             </h2>
           </Reveal>
@@ -105,7 +102,6 @@ export default async function ImpactPage() {
 
       {t.on("showChart") && t.values("stages").length > 0 && (
       <DataBand
-        eyebrow={t.s("chartEyebrow")}
         title={t.s("chartTitle")}
         lede={t.s("chartLede")}
       >
@@ -138,9 +134,8 @@ export default async function ImpactPage() {
         className="bg-sand py-20 lg:py-28"
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <Reveal className="max-w-2xl">
-            <SectionEyebrow>{t.s("milestonesEyebrow")}</SectionEyebrow>
-            <h2 className="mt-5 font-display text-section text-foreground">
+          <Reveal className="mx-auto max-w-2xl text-center">
+            <h2 className="font-display text-section text-foreground">
               {t.s("milestonesTitle")}
             </h2>
           </Reveal>
@@ -177,9 +172,8 @@ export default async function ImpactPage() {
       {/* Gallery */}
       <section data-rhythm-node className="py-20 lg:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <Reveal className="max-w-2xl">
-            <SectionEyebrow>{t.s("galleryEyebrow")}</SectionEyebrow>
-            <h2 className="mt-5 font-display text-section text-foreground">
+          <Reveal className="mx-auto max-w-2xl text-center">
+            <h2 className="font-display text-section text-foreground">
               {t.s("galleryTitle")}
             </h2>
           </Reveal>
@@ -197,8 +191,8 @@ export default async function ImpactPage() {
           className="bg-sand py-20 lg:py-28"
         >
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <Reveal className="max-w-2xl">
-              <SectionEyebrow>{t.s("testimonialsEyebrow")}</SectionEyebrow>
+            <Reveal className="mx-auto max-w-2xl text-center">
+              <h2 className="font-display text-section text-foreground">{t.s("testimonialsEyebrow")}</h2>
             </Reveal>
             <RevealGroup className="mt-12 grid gap-6 lg:grid-cols-3">
               {c.testimonials.map((t) => (

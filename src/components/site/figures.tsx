@@ -26,12 +26,12 @@ import { Reveal } from "./reveal";
  */
 
 export function DataBand({
-  eyebrow,
   title,
   lede,
   children,
 }: {
-  eyebrow: string;
+  /** No longer shown; titles stand alone. */
+  eyebrow?: string;
   title: string;
   lede?: string;
   children: React.ReactNode;
@@ -48,10 +48,8 @@ export function DataBand({
       />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <Reveal className="max-w-2xl">
-          <p className="label-mono text-accent">{eyebrow}</p>
-          <div className="section-mark mt-4" aria-hidden="true" />
-          <h2 className="mt-5 font-display text-section">{title}</h2>
+        <Reveal className="mx-auto max-w-2xl text-center">
+          <h2 className="font-display text-section">{title}</h2>
           {lede && (
             <p className="mt-5 text-lede text-band-foreground/80">{lede}</p>
           )}

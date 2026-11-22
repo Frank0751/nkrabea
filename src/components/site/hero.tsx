@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowRight, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Magnetic } from "./magnetic";
@@ -8,7 +7,6 @@ import { PhotoReel } from "./photo-reel";
 import { HeroBackdrop } from "./hero-backdrop";
 import { HeroSocials } from "./hero-socials";
 import { withBlur } from "@/lib/blur";
-import { LOGO } from "@/lib/content";
 import { getSiteContent } from "@/lib/site-content";
 
 /**
@@ -39,32 +37,12 @@ export async function Hero() {
       </HeroBackdrop>
 
       <div className="relative mx-auto flex w-full max-w-3xl flex-col items-center px-4 pb-32 pt-32 text-center sm:px-6 lg:pb-36 lg:pt-40">
-        {/* Nkrabea's homepage spec asks the hero to carry the logo and the
-            tagline together. The mark is decorative here, since the header
-            already provides the linked, labelled logo. */}
-        <div className="hero-rise hero-rise-1 hero-mark">
-          <Image
-            src={LOGO.badge}
-            alt=""
-            width={112}
-            height={112}
-            priority
-            aria-hidden="true"
-            className="h-24 w-24 rounded-full sm:h-28 sm:w-28"
-          />
-        </div>
-
-        <p className="hero-rise hero-rise-1 label-mono mt-8 text-accent">
-          {org.motto}
-        </p>
-        <div className="hero-rise hero-rise-1 section-mark mt-6" aria-hidden="true" />
-
-        <h1 className="hero-rise hero-rise-2 mt-7 font-display text-hero">
+        <h1 className="hero-rise hero-rise-1 hero-title font-display text-hero">
           {homeHero.headline}{" "}
           <span className="text-accent">{homeHero.highlight}</span>
         </h1>
 
-        <p className="hero-rise hero-rise-3 mt-6 max-w-2xl text-lede text-band-foreground/85">
+        <p className="hero-rise hero-rise-2 mt-6 max-w-2xl text-lede text-band-foreground/90">
           {homeHero.lead}
         </p>
 

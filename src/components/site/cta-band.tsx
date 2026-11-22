@@ -22,16 +22,16 @@ export function CtaBand({
       <div className="woven-edge absolute inset-x-0 top-0" aria-hidden="true" />
       <div className="kente-field absolute inset-0 -z-10 opacity-70" aria-hidden="true" />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col items-start gap-6 rounded-2xl border border-band-foreground/10 bg-band-foreground/5 p-8 sm:flex-row sm:items-center sm:justify-between sm:p-10 lg:p-12">
-          <div className="max-w-xl">
+        <div className="flex flex-col items-center gap-8 rounded-2xl border border-band-foreground/10 bg-band-foreground/5 px-6 py-10 text-center sm:p-12 lg:p-16">
+          <div className="max-w-2xl">
             <h2 className="font-display text-section">
               {title}
             </h2>
-            <p className="mt-3 text-sm leading-relaxed text-band-foreground/70 sm:text-base">
+            <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-band-foreground/80 sm:text-lg">
               {description}
             </p>
           </div>
-          <div className="flex shrink-0 flex-col gap-3 sm:flex-row">
+          <div className="flex w-full flex-col justify-center gap-3 sm:w-auto sm:flex-row">
             <Button asChild size="lg" className="group bg-accent text-accent-foreground hover:bg-accent/90">
               <Link href={primaryHref}>
                 {primaryLabel}

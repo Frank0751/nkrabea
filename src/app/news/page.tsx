@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { CalendarDays } from "lucide-react";
 import { PageHero } from "@/components/site/page-hero";
-import { SectionEyebrow } from "@/components/site/section-eyebrow";
 import { Reveal } from "@/components/site/reveal";
 import { NewsletterForm } from "@/components/site/newsletter-form";
 import { PhotoStrip } from "@/components/site/photo";
@@ -49,15 +48,14 @@ export default async function NewsPage() {
           {/* Stories */}
           {c.stories.length > 0 && (
             <div className="mb-24 space-y-24">
-              <Reveal className="max-w-2xl">
-                <SectionEyebrow>{t.s("storiesEyebrow")}</SectionEyebrow>
+              <Reveal className="mx-auto max-w-2xl text-center">
+                <h2 className="font-display text-section text-foreground">{t.s("storiesEyebrow")}</h2>
               </Reveal>
               {c.stories.map((story) => (
                 <StoryArticle
                   key={story.id}
                   story={story}
                   learntLabel={t.s("learntLabel")}
-                  pressLabel={t.s("pressPanelLabel")}
                 />
               ))}
             </div>
@@ -67,9 +65,8 @@ export default async function NewsPage() {
           <div id="events" className="scroll-mt-24">
             {upcoming.length > 0 ? (
               <>
-                <Reveal className="max-w-2xl">
-                  <SectionEyebrow>{t.s("eventsEyebrow")}</SectionEyebrow>
-                  <h2 className="mt-5 font-display text-section text-foreground">{t.s("eventsTitle")}</h2>
+                <Reveal className="mx-auto max-w-2xl text-center">
+                  <h2 className="font-display text-section text-foreground">{t.s("eventsTitle")}</h2>
                 </Reveal>
                 <ul className="mt-12 space-y-5">
                   {upcoming.map((event) => (
@@ -102,7 +99,7 @@ export default async function NewsPage() {
 
             {past.length > 0 && (
               <Reveal className="mt-16">
-                <h2 className="font-display text-sub text-foreground">{t.s("pastEventsTitle")}</h2>
+                <h2 className="text-center font-display text-sub text-foreground">{t.s("pastEventsTitle")}</h2>
                 <ul className="mt-8 space-y-4">
                   {past.map((event) => (
                     <EventCard key={event.id} event={event} past />
@@ -122,8 +119,8 @@ export default async function NewsPage() {
           {/* Press */}
           {c.press.length > 0 ? (
             <Reveal delay={140} className="mt-20">
-              <SectionEyebrow>{t.s("pressEyebrow")}</SectionEyebrow>
-              <ul className="mt-6 divide-y divide-border overflow-hidden rounded-2xl border border-border bg-card">
+              <h2 className="text-center font-display text-section text-foreground">{t.s("pressEyebrow")}</h2>
+              <ul className="mt-10 divide-y divide-border overflow-hidden rounded-2xl border border-border bg-card">
                 {c.press.map((item, i) => (
                   <li
                     key={`${item.name}-${i}`}

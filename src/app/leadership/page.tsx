@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { PageHero } from "@/components/site/page-hero";
-import { SectionEyebrow } from "@/components/site/section-eyebrow";
 import { Reveal, RevealGroup } from "@/components/site/reveal";
 import { CtaBand } from "@/components/site/cta-band";
 import { PhotoFigure } from "@/components/site/photo";
@@ -31,9 +30,8 @@ export default async function LeadershipPage() {
       {/* Founders */}
       <section data-rhythm-node className="py-20 lg:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <Reveal className="max-w-2xl">
-            <SectionEyebrow>{t.s("foundersEyebrow")}</SectionEyebrow>
-            <h2 className="mt-5 font-display text-section text-foreground">
+          <Reveal className="mx-auto max-w-2xl text-center">
+            <h2 className="font-display text-section text-foreground">
               {t.s("foundersTitle")}
             </h2>
           </Reveal>
@@ -52,9 +50,8 @@ export default async function LeadershipPage() {
         className="bg-sand py-20 lg:py-28"
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <Reveal className="max-w-2xl">
-            <SectionEyebrow>{t.s("boardEyebrow")}</SectionEyebrow>
-            <h2 className="mt-5 font-display text-section text-foreground">
+          <Reveal className="mx-auto max-w-2xl text-center">
+            <h2 className="font-display text-section text-foreground">
               {t.s("boardTitle")}
             </h2>
             <p className="mt-5 text-base leading-relaxed text-muted-foreground">
@@ -73,21 +70,18 @@ export default async function LeadershipPage() {
       {/* Management */}
       <section data-rhythm-node className="py-20 lg:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-12 lg:grid-cols-12 lg:gap-12">
-            <div className="lg:col-span-4">
-              <Reveal>
-                <SectionEyebrow>{t.s("managementEyebrow")}</SectionEyebrow>
-                <h2 className="mt-5 font-display text-section text-foreground">
-                  {t.s("managementTitle")}
-                </h2>
-                <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
-                  {t.s("managementIntro")}
-                </p>
-              </Reveal>
-            </div>
+          <Reveal className="mx-auto mb-12 max-w-2xl text-center lg:mb-16">
+            <h2 className="font-display text-section text-foreground">
+              {t.s("managementTitle")}
+            </h2>
+            <p className="mt-5 text-lede text-muted-foreground">
+              {t.s("managementIntro")}
+            </p>
+          </Reveal>
+          <div className="mx-auto grid max-w-5xl gap-8 lg:grid-cols-2 lg:gap-10">
             {/* One column of roles sets the height; the photograph beside it
                 fills exactly that height. */}
-            <div className="lg:col-span-4">
+            <div>
               <RevealGroup as="ul" className="grid gap-3" stagger={0.05}>
                 {c.managementRoles.map((role) => (
                   <li
@@ -99,12 +93,12 @@ export default async function LeadershipPage() {
                 ))}
               </RevealGroup>
             </div>
-            <Reveal delay={90} className="lg:col-span-4">
+            <Reveal delay={90} className="min-h-72">
               <PhotoFigure
                 photo={t.photo("managementPhoto")}
                 fill
                 position="50% 30%"
-                sizes="(max-width: 1024px) 100vw, 33vw"
+                sizes="(max-width: 1024px) 100vw, 40vw"
                 caption={t.photo("managementPhoto").caption}
               />
             </Reveal>

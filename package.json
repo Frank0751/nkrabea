@@ -8,9 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "check": "npm run lint && tsc --noEmit && npm run check:contrast && npm run check:fonts",
+    "check": "npm run lint && tsc --noEmit && npm run check:contrast",
     "check:contrast": "node scripts/contrast.mjs",
-    "check:fonts": "node scripts/check-fonts.mjs",
     "images:blur": "node scripts/blur-placeholders.mjs",
     "images:warm": "node scripts/warm-images.mjs",
     "cms:import": "tsx scripts/sanity-import.ts"

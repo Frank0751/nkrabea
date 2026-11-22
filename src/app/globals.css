@@ -6,73 +6,11 @@
 /* ---------------------------------------------------------------------------
    Typefaces.
 
-   Satoshi (body and interface) and Bespoke Serif (display) are Fontshare
-   faces. Their licence allows web use but not redistribution, and this
-   repository is public, so no font binary lives here: these rules point at
-   Fontshare's own CDN. The URLs are content hashed and therefore immutable.
-   `npm run check:fonts` fails the build if any of them stops resolving,
-   so the site can never quietly fall back to a system face.
-
-   Fontshare's CSS API returns the wrong family when two are requested in one
-   call, which is a second reason the rules are written out here rather than
-   linked.
+   Ubuntu for everything: headings, body and interface, with Ubuntu Mono for
+   the few small technical labels. Both are openly licensed (Ubuntu Font
+   Licence), so next/font downloads them at build and serves them from this
+   domain; see src/app/layout.tsx. No third-party font request at all.
    --------------------------------------------------------------------------- */
-@font-face {
-  font-family: "Satoshi";
-  src: url("https://cdn.fontshare.com/wf/TTX2Z3BF3P6Y5BQT3IV2VNOK6FL22KUT/7QYRJOI3JIMYHGY6CH7SOIFRQLZOLNJ6/KFIAZD4RUMEZIYV6FQ3T3GP5PDBDB6JY.woff2")
-    format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Satoshi";
-  src: url("https://cdn.fontshare.com/wf/P2LQKHE6KA6ZP4AAGN72KDWMHH6ZH3TA/ZC32TK2P7FPS5GFTL46EU6KQJA24ZYDB/7AHDUZ4A7LFLVFUIFSARGIWCRQJHISQP.woff2")
-    format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Satoshi";
-  src: url("https://cdn.fontshare.com/wf/LAFFD4SDUCDVQEXFPDC7C53EQ4ZELWQI/PXCT3G6LO6ICM5I3NTYENYPWJAECAWDD/GHM6WVH6MILNYOOCXHXB5GTSGNTMGXZR.woff2")
-    format("woff2");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Satoshi";
-  src: url("https://cdn.fontshare.com/wf/NHPGVFYUXYXE33DZ75OIT4JFGHITX5PE/PSUTMASCDJTVPERDYJZPN23BVUFUCQIF/J64QX5IPOHK56I2KYUNBQ5M2XWZEYKYX.woff2")
-    format("woff2");
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Bespoke Serif";
-  src: url("https://cdn.fontshare.com/wf/DGL7AR63QELJFTOEASXHFYM5NAKYODNK/GYJUWP667LEHZ5W2WM5CQDIWDFJX2DFY/DLLWXFUYSJGEWBBZLWVRWRKWK2K5HHIO.woff2")
-    format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Bespoke Serif";
-  src: url("https://cdn.fontshare.com/wf/B6GES4QEPQGIH3SIMVROZEJB5KYRDOOZ/I2VUBXIRIDGSQRZKEUK2BCQFVFGY23IU/GYEHMKM4WLQ6PSICX7BGETP2NBT6NI6Z.woff2")
-    format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Bespoke Serif";
-  src: url("https://cdn.fontshare.com/wf/LJ2MIWBZLOP5ROTPIATJWJHTCINMBNEE/S7KFQDT7WDO3EXV2IMELFT6AAOX24DTM/A3D35MFKWQ3EIKAD2QI6LGKQ7ZD2BKN5.woff2")
-    format("woff2");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
 
 
 /* SIGNATURE: the rhythm line. A gold drum line down the left edge that fills
@@ -137,12 +75,14 @@
      sizes, no ad hoc clamps in the markup. Line height and tracking travel
      with each size so a heading cannot be set loosely by accident.
      --------------------------------------------------------------------- */
-  --text-hero: clamp(2.25rem, 3.6vw, 3.75rem);
+  /* Ubuntu is wider than the old serif, so the scale steps up a little and
+     tightens: big, short, bold lines read as confident rather than loud. */
+  --text-hero: clamp(2.5rem, 5.2vw, 4.75rem);
   --text-hero--line-height: 1.04;
-  --text-hero--letter-spacing: -0.024em;
-  --text-section: clamp(1.75rem, 2.6vw, 2.75rem);
-  --text-section--line-height: 1.1;
-  --text-section--letter-spacing: -0.02em;
+  --text-hero--letter-spacing: -0.03em;
+  --text-section: clamp(2rem, 3.4vw, 3.25rem);
+  --text-section--line-height: 1.08;
+  --text-section--letter-spacing: -0.025em;
   --text-sub: clamp(1.25rem, 2vw, 1.75rem);
   --text-sub--line-height: 1.25;
   --text-sub--letter-spacing: -0.014em;
@@ -187,11 +127,10 @@
 :root {
   --radius: 0.5rem;
 
-  /* Satoshi and Bespoke Serif are declared at the top of this file. The
-     fallbacks matter: they are what renders for the few hundred milliseconds
-     before the woff2 arrives, and on any browser too old for woff2. */
-  --font-body: "Satoshi", ui-sans-serif, system-ui, "Segoe UI", sans-serif;
-  --font-display: "Bespoke Serif", Georgia, "Times New Roman", serif;
+  /* Ubuntu is loaded by next/font in layout.tsx as --font-ubuntu. The
+     fallbacks are what renders for the moment before it arrives. */
+  --font-body: var(--font-ubuntu), ui-sans-serif, system-ui, "Segoe UI", sans-serif;
+  --font-display: var(--font-ubuntu), ui-sans-serif, system-ui, "Segoe UI", sans-serif;
 
   /* ---------------------------------------------------------------------
      koombei-studio-skill Part 2 five-slot system.
@@ -349,10 +288,10 @@
   body {
     @apply bg-background text-foreground;
   }
-  /* Bespoke Serif ships 400, 500 and 700, so a heading can finally carry
-     weight. Synthesis stays off: a weight we do not have is matched to the
-     nearest real one rather than faked and smeared. This sits in @layer base
-     so a font-medium or font-normal utility still overrides it. */
+  /* Ubuntu ships 300, 400, 500 and 700. Headings take 700 for a crisp,
+     confident line. Synthesis stays off: a weight we do not have is matched
+     to the nearest real one rather than faked. This sits in @layer base so a
+     font-medium or font-normal utility still overrides it. */
   .font-display {
     font-weight: 700;
     font-synthesis-weight: none;
@@ -373,7 +312,19 @@
   }
 }
 
-/* Section eyebrows and technical labels */
+/* Hero titles sit on photographs. The backdrop already keeps them at AA;
+   a soft shadow lifts the letterforms off busy detail so they read sharp. */
+.hero-title {
+  text-wrap: balance;
+  text-shadow: 0 2px 28px rgb(0 0 0 / 0.35);
+}
+
+/* Section titles never strand a single word on the last line. */
+h2.font-display {
+  text-wrap: balance;
+}
+
+/* Small technical labels (dates, captions, badges) */
 .label-mono {
   font-family: var(--font-mono);
   font-size: 0.6875rem;

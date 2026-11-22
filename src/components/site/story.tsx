@@ -36,10 +36,10 @@ function DatePlace({ story, onBand }: { story: Story; onBand?: boolean }) {
 
 export function StoryFeature({
   story,
-  eyebrow = "Latest from the field",
   learntLabel = "What they learnt",
 }: {
   story: Story;
+  /** No longer shown; the story title stands alone. */
   eyebrow?: string;
   learntLabel?: string;
 }) {
@@ -72,9 +72,7 @@ export function StoryFeature({
             delay={100}
             className={`flex flex-col justify-center ${lead ? "lg:col-span-6" : "lg:col-span-8"}`}
           >
-            <p className="label-mono text-accent">{eyebrow}</p>
-            <div className="section-mark mt-4" aria-hidden="true" />
-            <h2 className="mt-5 font-display text-section">{story.title}</h2>
+            <h2 className="font-display text-section">{story.title}</h2>
             <DatePlace story={story} onBand />
             <p className="mt-5 text-lede text-band-foreground/85">
               {story.excerpt}
@@ -134,7 +132,6 @@ export function StoryFeature({
 export function StoryArticle({
   story,
   learntLabel = "What they learnt",
-  pressLabel = "In the news",
 }: {
   story: Story;
   learntLabel?: string;
@@ -157,10 +154,7 @@ export function StoryArticle({
         )}
 
         <Reveal delay={100} className={lead ? "lg:col-span-5" : "lg:col-span-8"}>
-          <span className="label-mono inline-block rounded-full bg-primary/10 px-2.5 py-1 text-primary">
-            {story.category}
-          </span>
-          <h2 className="mt-5 font-display text-section text-foreground">
+          <h2 className="font-display text-section text-foreground">
             {story.title}
           </h2>
           <DatePlace story={story} />
@@ -232,11 +226,9 @@ export function StoryArticle({
         >
           <div className="grid gap-8 lg:grid-cols-12 lg:gap-10">
             <div className="lg:col-span-4">
-              <p className="label-mono text-accent">{pressLabel}</p>
-              <div className="section-mark mt-4" aria-hidden="true" />
               <h3
                 id={`${story.id}-press-title`}
-                className="mt-5 font-display text-sub"
+                className="font-display text-sub"
               >
                 {story.press.headline}
               </h3>

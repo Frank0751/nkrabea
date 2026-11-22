@@ -18,13 +18,13 @@ import type { Photo } from "@/lib/content";
  * alone: an honest empty state, not a stand-in picture.
  */
 export function PageHero({
-  eyebrow,
   title,
   description,
   photo,
   crumbs,
 }: {
-  eyebrow: string;
+  /** Kept in Sanity for older content; no longer shown above the title. */
+  eyebrow?: string;
   title: string;
   description?: string;
   photo?: Photo;
@@ -74,17 +74,10 @@ export function PageHero({
           ))}
         </nav>
 
-        <span className="label-mono mt-7 inline-flex items-center gap-2 rounded-full border border-band-foreground/30 bg-band/40 px-3.5 py-1.5 text-band-foreground/90 backdrop-blur-sm">
-          <span className="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true" />
-          {eyebrow}
-        </span>
-
-        <div className="section-mark mt-7" aria-hidden="true" />
-
-        <h1 className="mt-7 font-display text-hero">{title}</h1>
+        <h1 className="hero-title mt-7 font-display text-hero">{title}</h1>
 
         {description && (
-          <p className="mt-6 max-w-2xl text-lede text-band-foreground/85">
+          <p className="mt-6 max-w-2xl text-lede text-band-foreground/90">
             {description}
           </p>
         )}

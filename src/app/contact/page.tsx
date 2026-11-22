@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Mail, Phone, MapPin, Inbox } from "lucide-react";
 import { PageHero } from "@/components/site/page-hero";
-import { SectionEyebrow } from "@/components/site/section-eyebrow";
 import { Reveal } from "@/components/site/reveal";
 import { ContactForm } from "@/components/site/contact-form";
 import { PhotoBreak } from "@/components/site/photo";
@@ -40,8 +39,7 @@ export default async function ContactPage() {
             {/* Details */}
             <div className="lg:col-span-5">
               <Reveal>
-                <SectionEyebrow>{t.s("detailsEyebrow")}</SectionEyebrow>
-                <h2 className="mt-5 font-display text-section text-foreground">
+                <h2 className="font-display text-section text-foreground">
                   {t.s("detailsTitle")}
                 </h2>
 
@@ -160,8 +158,7 @@ export default async function ContactPage() {
       >
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <Reveal>
-            <SectionEyebrow>{t.s("faqEyebrow")}</SectionEyebrow>
-            <h2 className="mt-5 font-display text-section text-foreground">
+            <h2 className="text-center font-display text-section text-foreground">
               {t.s("faqTitle")}
             </h2>
 
