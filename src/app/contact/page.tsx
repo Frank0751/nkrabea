@@ -39,7 +39,7 @@ export default async function ContactPage() {
             {/* Details */}
             <div className="lg:col-span-5">
               <Reveal>
-                <h2 className="font-display text-section text-foreground">
+                <h2 className="text-center font-display text-section text-foreground">
                   {t.s("detailsTitle")}
                 </h2>
 
@@ -132,10 +132,10 @@ export default async function ContactPage() {
             {/* Form */}
             <div className="lg:col-span-7">
               <Reveal delay={120}>
-                <h2 className="font-display text-2xl leading-tight tracking-tight text-foreground">
+                <h2 className="text-center font-display text-section text-foreground">
                   {t.s("formTitle")}
                 </h2>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                <p className="mt-3 text-center text-sm leading-relaxed text-muted-foreground">
                   {t.s("formIntro")}
                 </p>
                 <div className="mt-6">

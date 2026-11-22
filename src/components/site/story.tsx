@@ -23,7 +23,7 @@ import type { Story } from "@/lib/content";
 function DatePlace({ story, onBand }: { story: Story; onBand?: boolean }) {
   return (
     <p
-      className={`label-mono mt-4 leading-relaxed ${
+      className={`label-mono mt-4 text-center leading-relaxed ${
         onBand ? "text-band-foreground/75" : "text-muted-foreground"
       }`}
     >
@@ -72,7 +72,7 @@ export function StoryFeature({
             delay={100}
             className={`flex flex-col justify-center ${lead ? "lg:col-span-6" : "lg:col-span-8"}`}
           >
-            <h2 className="font-display text-section">{story.title}</h2>
+            <h2 className="text-center font-display text-section">{story.title}</h2>
             <DatePlace story={story} onBand />
             <p className="mt-5 text-lede text-band-foreground/85">
               {story.excerpt}
@@ -154,7 +154,7 @@ export function StoryArticle({
         )}
 
         <Reveal delay={100} className={lead ? "lg:col-span-5" : "lg:col-span-8"}>
-          <h2 className="font-display text-section text-foreground">
+          <h2 className="text-center font-display text-section text-foreground">
             {story.title}
           </h2>
           <DatePlace story={story} />

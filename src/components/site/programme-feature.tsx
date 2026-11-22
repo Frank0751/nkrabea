@@ -54,7 +54,11 @@ export function ProgrammeFeature({
         )}
 
         <Reveal delay={90} className={lead ? "lg:col-span-6" : "lg:col-span-9"}>
-          <div className="flex flex-wrap items-center gap-3">
+          {/* The title leads; number and status sit under it, never above. */}
+          <h2 className="text-center font-display text-2xl leading-snug tracking-tight text-foreground sm:text-3xl">
+            {programme.name}
+          </h2>
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
             <span className="label-mono text-muted-foreground">
               {String(index + 1).padStart(2, "0")}
             </span>
@@ -62,11 +66,8 @@ export function ProgrammeFeature({
               {status.label}
             </span>
           </div>
-          <h2 className="mt-5 font-display text-2xl leading-snug tracking-tight text-foreground sm:text-3xl">
-            {programme.name}
-          </h2>
           {programme.value && (
-            <p className="mt-3 text-sm text-muted-foreground">
+            <p className="mt-3 text-center text-sm text-muted-foreground">
               Programme value{" "}
               <span className="font-semibold text-emphasis">{programme.value}</span>
             </p>
