@@ -10,9 +10,6 @@
  *                the scroll cue sit, and lightest at the top, where the
  *                picture is allowed to breathe
  *   .hero-well   a soft radial pool of ink behind the centred column
- *   .kente-field the loom grid at half strength, so the pattern runs through
- *                the picture and the band alike: this is what makes the
- *                photograph read as part of the design rather than placed on it
  *   grain
  *
  * Measured against a pure white photograph, the worst case, the stack leaves
@@ -29,10 +26,6 @@ export function HeroBackdrop({ children }: { children?: React.ReactNode }) {
       <div className="hero-wash absolute inset-0 -z-10" aria-hidden="true" />
       <div className="hero-veil absolute inset-0 -z-10" aria-hidden="true" />
       <div className="hero-well absolute inset-0 -z-10" aria-hidden="true" />
-      <div
-        className={`kente-field absolute inset-0 -z-10 ${children ? "opacity-50" : "opacity-80"}`}
-        aria-hidden="true"
-      />
       <div
         className="grain-overlay absolute inset-0 -z-10 opacity-50"
         aria-hidden="true"

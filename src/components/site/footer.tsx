@@ -32,6 +32,18 @@ const COLUMNS = [
   },
 ];
 
+const HEADING = "text-sm font-medium text-band-foreground";
+const LINK =
+  "inline-block py-1 text-sm text-band-foreground/75 underline-offset-4 transition-colors hover:text-band-foreground hover:underline";
+
+/**
+ * Two balanced rows rather than one heavy column.
+ *
+ * Row one: who we are (logo, name, sentence, social accounts) beside the
+ * newsletter. Row two: four even columns, the three groups of links and the
+ * contact details, so every column carries about the same weight and nothing
+ * piles up on one side.
+ */
 export async function Footer() {
   const { org, socials, footerText } = await getSiteContent();
   const year = new Date().getFullYear();
@@ -39,112 +51,38 @@ export async function Footer() {
   return (
     <footer className="relative isolate bg-band text-band-foreground">
       <div className="woven-edge" aria-hidden="true" />
-      <div className="kente-field absolute inset-0 -z-10 opacity-70" aria-hidden="true" />
 
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
-        <div className="grid gap-12 lg:grid-cols-12 lg:gap-8">
-          {/* Identity */}
-          <div className="lg:col-span-4">
+        {/* Row one: identity and newsletter */}
+        <div className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
+          <div>
             <div className="flex items-center gap-4">
               {/* Decorative: the name sits right beside it. */}
               <Image
                 src={LOGO.badge}
                 alt=""
-                width={72}
-                height={72}
-                className="h-[4.5rem] w-[4.5rem] shrink-0 rounded-full ring-1 ring-band-foreground/20"
+                width={64}
+                height={64}
+                className="h-16 w-16 shrink-0 rounded-full ring-1 ring-band-foreground/20"
               />
               <div>
-                <p className="font-display text-xl tracking-tight">
-                  {org.shortName}
-                </p>
-                <p className="label-mono mt-1.5 text-accent">{org.motto}</p>
+                <p className="font-display text-2xl tracking-tight">{org.shortName}</p>
+                <p className="mt-0.5 text-sm text-accent">{org.motto}</p>
               </div>
             </div>
-            <p className="mt-5 max-w-sm text-sm leading-relaxed text-band-foreground/70">
+            <p className="mt-6 max-w-md text-base leading-relaxed text-band-foreground/75">
               {footerText}
             </p>
-
             {socials.length > 0 && (
-              <nav aria-label="Nkrabea on social media" className="mt-7">
+              <nav aria-label="Nkrabea on social media" className="mt-6">
                 <SocialLinks socials={socials} size="sm" />
               </nav>
             )}
-
-            <dl className="mt-8 space-y-4 text-sm">
-              <div className="flex gap-3">
-                <MapPin
-                  className="mt-0.5 h-4 w-4 shrink-0 text-accent"
-                  aria-hidden="true"
-                />
-                <dd className="leading-relaxed text-band-foreground/70">
-                  {org.headOffice}
-                </dd>
-              </div>
-              <div className="flex gap-3">
-                <Mail
-                  className="mt-0.5 h-4 w-4 shrink-0 text-accent"
-                  aria-hidden="true"
-                />
-                <dd>
-                  <a
-                    href={`mailto:${org.email}`}
-                    className="inline-block py-1 text-band-foreground/70 underline-offset-4 hover:text-band-foreground hover:underline"
-                  >
-                    {org.email}
-                  </a>
-                </dd>
-              </div>
-              <div className="flex gap-3">
-                <Phone
-                  className="mt-0.5 h-4 w-4 shrink-0 text-accent"
-                  aria-hidden="true"
-                />
-                <dd className="space-y-1">
-                  {org.phones.slice(0, 2).map((phone) => (
-                    <div key={phone}>
-                      <a
-                        href={`tel:${phone.replace(/[^\d+]/g, "")}`}
-                        className="inline-block py-1 text-band-foreground/70 underline-offset-4 hover:text-band-foreground hover:underline"
-                      >
-                        {phone}
-                      </a>
-                    </div>
-                  ))}
-                </dd>
-              </div>
-            </dl>
           </div>
 
-          {/* Navigation */}
-          <div className="grid gap-8 sm:grid-cols-3 lg:col-span-5">
-            {COLUMNS.map((column) => (
-              <nav key={column.heading} aria-label={column.heading}>
-                <h2 className="label-mono text-band-foreground/50">
-                  {column.heading}
-                </h2>
-                <ul className="mt-3 space-y-1">
-                  {column.links.map((link) => (
-                    <li key={link.href}>
-                      <Link
-                        href={link.href}
-                        className="inline-block py-1 text-sm text-band-foreground/75 underline-offset-4 transition-colors hover:text-band-foreground hover:underline"
-                      >
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            ))}
-          </div>
-
-          {/* Newsletter */}
-          <div className="lg:col-span-3">
-            <h2 className="label-mono text-band-foreground/50">
-              Stay in touch
-            </h2>
-            <p className="mt-4 text-sm leading-relaxed text-band-foreground/70">
+          <div className="rounded-2xl border border-band-foreground/10 bg-band-foreground/5 p-6 sm:p-8">
+            <h2 className="font-display text-xl tracking-tight">Stay in touch</h2>
+            <p className="mt-2 text-sm leading-relaxed text-band-foreground/75">
               Occasional updates when a programme opens or completes.
             </p>
             <div className="mt-5">
@@ -153,26 +91,68 @@ export async function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-4 border-t border-band-foreground/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-xs leading-relaxed text-band-foreground/50">
-            &copy; {year} {org.legalName}. Registered under the{" "}
-            {org.registration}. Incorporated {org.incorporated}.
-          </p>
-          <div className="flex flex-col gap-1.5 text-xs text-band-foreground/50 sm:items-end sm:text-right">
-            <p>{org.postalAddress}</p>
-            <p>
-              Website by{" "}
-              <a
-                href="https://koombei.com"
-                target="_blank"
-                rel="noopener"
-                className="font-medium text-band-foreground/80 underline-offset-4 transition-colors hover:text-accent hover:underline"
-              >
-                KoomBei
-                <span className="sr-only"> (koombei.com, opens in a new tab)</span>
-              </a>
-            </p>
+        {/* Row two: four even columns */}
+        <div className="mt-14 grid grid-cols-2 gap-x-8 gap-y-10 border-t border-band-foreground/10 pt-12 lg:grid-cols-4">
+          {COLUMNS.map((column) => (
+            <nav key={column.heading} aria-label={column.heading}>
+              <h2 className={HEADING}>{column.heading}</h2>
+              <ul className="mt-4 space-y-1.5">
+                {column.links.map((link) => (
+                  <li key={link.href}>
+                    <Link href={link.href} className={LINK}>
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          ))}
+
+          <div className="col-span-2 lg:col-span-1">
+            <h2 className={HEADING}>Contact</h2>
+            <ul className="mt-4 space-y-3 text-sm">
+              <li className="flex gap-3">
+                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
+                <span className="leading-relaxed text-band-foreground/75">{org.headOffice}</span>
+              </li>
+              <li className="flex gap-3">
+                <Mail className="mt-1.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
+                <a href={`mailto:${org.email}`} className={`${LINK} break-all`}>
+                  {org.email}
+                </a>
+              </li>
+              <li className="flex gap-3">
+                <Phone className="mt-1.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
+                <span className="flex flex-col">
+                  {org.phones.slice(0, 2).map((phone) => (
+                    <a key={phone} href={`tel:${phone.replace(/[^\d+]/g, "")}`} className={LINK}>
+                      {phone}
+                    </a>
+                  ))}
+                </span>
+              </li>
+            </ul>
           </div>
+        </div>
+
+        {/* Bottom bar */}
+        <div className="mt-12 flex flex-col gap-3 border-t border-band-foreground/10 pt-8 text-xs leading-relaxed text-band-foreground/55 md:flex-row md:items-center md:justify-between">
+          <p>
+            &copy; {year} {org.legalName}. Registered under the {org.registration}. Incorporated{" "}
+            {org.incorporated}. {org.postalAddress}
+          </p>
+          <p className="shrink-0">
+            Website by{" "}
+            <a
+              href="https://koombei.com"
+              target="_blank"
+              rel="noopener"
+              className="font-medium text-band-foreground/85 underline-offset-4 transition-colors hover:text-accent hover:underline"
+            >
+              KoomBei
+              <span className="sr-only"> (koombei.com, opens in a new tab)</span>
+            </a>
+          </p>
         </div>
       </div>
     </footer>

@@ -14,7 +14,7 @@ import type { Photo } from "@/lib/content";
  * mobile browser chrome cannot crop it. The photograph, where a page has one,
  * is the whole background, and the words are centred on it. <HeroBackdrop>
  * carries the layers that keep cream text at AA on any picture. A page with
- * no photograph gets the same composition on the band and the loom pattern
+ * no photograph gets the same composition on the band
  * alone: an honest empty state, not a stand-in picture.
  */
 export function PageHero({

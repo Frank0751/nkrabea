@@ -20,7 +20,6 @@ export function CtaBand({
   return (
     <section className="relative isolate overflow-hidden bg-band py-16 text-band-foreground lg:py-20">
       <div className="woven-edge absolute inset-x-0 top-0" aria-hidden="true" />
-      <div className="kente-field absolute inset-0 -z-10 opacity-70" aria-hidden="true" />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center gap-8 rounded-2xl border border-band-foreground/10 bg-band-foreground/5 px-6 py-10 text-center sm:p-12 lg:p-16">
           <div className="max-w-2xl">

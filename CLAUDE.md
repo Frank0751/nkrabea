@@ -146,8 +146,7 @@ rewrites that one cloud's URLs.
   provider.
 - **Heroes are full-background and centred.** The photograph fills the
   section and the words sit centred on it. `<HeroBackdrop>` supplies the
-  layers (multiply wash, foot-heavy veil, a radial pool behind the column,
-  the loom grid) that keep cream text at AA on any picture: 6.7:1 in the
+  layers (multiply wash, foot-heavy veil, a radial pool behind the column) that keep cream text at AA on any picture: 6.7:1 in the
   centre against pure white, the worst case. `<PageHero>` takes an optional
   `photo`; without one it renders the same composition on the band alone.
 - **`<PhotoReel>`** is the homepage's movement: a crossfade through three
@@ -237,7 +236,8 @@ rewrites that one cloud's URLs.
 Two motifs, both taken from cloth in Nkrabea's own photographs rather than
 invented, and all four are decorative so they carry `aria-hidden`:
 
-- `.kente-field` a loom grid at low contrast, behind every ink band.
+- The loom-grid texture (`.kente-field`) was removed at the client's request in
+  November 2026. Ink bands are plain; do not add grid lines back.
 - `.woven-edge` the triangle weave from the cloth on the high table, used
   where a band meets a light surface instead of a hairline. `--flip` inverts it.
 - `.weave-band` a thicker colour-block rule for major transitions.

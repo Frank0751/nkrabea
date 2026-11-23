@@ -50,10 +50,6 @@ export function StoryFeature({
       className="relative isolate overflow-hidden bg-band py-20 text-band-foreground lg:py-24"
     >
       <div className="woven-edge absolute inset-x-0 top-0" aria-hidden="true" />
-      <div
-        className="kente-field absolute inset-0 -z-10 opacity-70"
-        aria-hidden="true"
-      />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-14">
