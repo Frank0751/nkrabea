@@ -32,9 +32,9 @@ const COLUMNS = [
   },
 ];
 
-const HEADING = "text-sm font-medium text-band-foreground";
+const HEADING = "text-base font-bold tracking-tight text-band-foreground";
 const LINK =
-  "inline-block py-1 text-sm text-band-foreground/75 underline-offset-4 transition-colors hover:text-band-foreground hover:underline";
+  "inline-block py-1 text-[0.9375rem] text-band-foreground/90 underline-offset-4 transition-colors hover:text-accent hover:underline";
 
 /**
  * Two balanced rows rather than one heavy column.
@@ -67,10 +67,10 @@ export async function Footer() {
               />
               <div>
                 <p className="font-display text-2xl tracking-tight">{org.shortName}</p>
-                <p className="mt-0.5 text-sm text-accent">{org.motto}</p>
+                <p className="mt-1 text-sm font-medium text-accent">{org.motto}</p>
               </div>
             </div>
-            <p className="mt-6 max-w-md text-base leading-relaxed text-band-foreground/75">
+            <p className="mt-6 max-w-md text-base leading-relaxed text-band-foreground/90">
               {footerText}
             </p>
             {socials.length > 0 && (
@@ -81,8 +81,8 @@ export async function Footer() {
           </div>
 
           <div className="rounded-2xl border border-band-foreground/10 bg-band-foreground/5 p-6 sm:p-8">
-            <h2 className="font-display text-xl tracking-tight">Stay in touch</h2>
-            <p className="mt-2 text-sm leading-relaxed text-band-foreground/75">
+            <h2 className="font-display text-2xl tracking-tight">Stay in touch</h2>
+            <p className="mt-2 text-base leading-relaxed text-band-foreground/90">
               Occasional updates when a programme opens or completes.
             </p>
             <div className="mt-5">
@@ -110,10 +110,10 @@ export async function Footer() {
 
           <div className="col-span-2 lg:col-span-1">
             <h2 className={HEADING}>Contact</h2>
-            <ul className="mt-4 space-y-3 text-sm">
+            <ul className="mt-4 space-y-3 text-[0.9375rem]">
               <li className="flex gap-3">
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
-                <span className="leading-relaxed text-band-foreground/75">{org.headOffice}</span>
+                <span className="leading-relaxed text-band-foreground/90">{org.headOffice}</span>
               </li>
               <li className="flex gap-3">
                 <Mail className="mt-1.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
@@ -136,7 +136,7 @@ export async function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-12 flex flex-col gap-3 border-t border-band-foreground/10 pt-8 text-xs leading-relaxed text-band-foreground/55 md:flex-row md:items-center md:justify-between">
+        <div className="mt-12 flex flex-col gap-3 border-t border-band-foreground/10 pt-8 text-sm leading-relaxed text-band-foreground/75 md:flex-row md:items-center md:justify-between">
           <p>
             &copy; {year} {org.legalName}. Registered under the {org.registration}. Incorporated{" "}
             {org.incorporated}. {org.postalAddress}
@@ -147,7 +147,7 @@ export async function Footer() {
               href="https://koombei.com"
               target="_blank"
               rel="noopener"
-              className="font-medium text-band-foreground/85 underline-offset-4 transition-colors hover:text-accent hover:underline"
+              className="font-bold text-band-foreground underline-offset-4 transition-colors hover:text-accent hover:underline"
             >
               KoomBei
               <span className="sr-only"> (koombei.com, opens in a new tab)</span>
